@@ -1,29 +1,29 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-09-02 20:08:01
+LastEditTime: 2021-09-08 11:57:15
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/conftest.py
 '''
-import threading
+# import threading
 import time
-from Common.basepage import BasePage
-from Common.pop_thread import PopThread
+# from Common.basepage import BasePage
+# from Common.pop_thread import PopThread
 from Common.splicing import caps
 import os
 import yaml
 import pytest
 from appium import webdriver
 from Common.log import get_logger
-from selenium.common.exceptions import NoSuchElementException
+# from selenium.common.exceptions import NoSuchElementException
 
-from Pages.pageLocators import home_locators
-from Pages.pageLocators.pop_locators import PopUp
+# from Pages.pageLocators import home_locators
+# from Pages.pageLocators.pop_locators import PopUp
 from Pages.pageObjects.login_page import LoginPage
-from Pages.pageObjects.home_page import HomePage
-from Pages.pageLocators.home_locators import HomePageLocator
-from appium.webdriver.common.mobileby import MobileBy as Mb
+# from Pages.pageObjects.home_page import HomePage
+# from Pages.pageLocators.home_locators import HomePageLocator
+# from appium.webdriver.common.mobileby import MobileBy as Mb
 from Pages.pageObjects.Common_Buss import CommonBus
 from TsetDatas.login import login_success
 
