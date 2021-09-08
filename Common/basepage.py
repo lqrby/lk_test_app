@@ -143,8 +143,6 @@ class BasePage:
             # self.wait_eleVisible(loc, model="等待" + str(model))
             # 找到元素
             ele = self.get_element(loc, model)
-            # 点击操作
-            log.info("{0}: 点击元素:{1} 点击事件".format(model, loc))
             try:
                 ele.click()
             except:
@@ -225,7 +223,7 @@ class BasePage:
         # 写的实时时间戳
         now = time.strftime("%Y-%m-%d-%H-%M-%S")
         # 图片的名称和时间戳
-        filePath = "{}_{}.png".format(model, now)
+        filePath = "{}_{}.png".format(now,model)
         # 截图保存的路径：截图文件存放在 screenshot目录下
         img_path = os.path.join(splicing.screenshot_dir, filePath)
         try:
@@ -406,8 +404,7 @@ class BasePage:
         log.info("{0}: 获取toast信息，表达式为：{1}".format(model, xpath_loc))
         try:
             # 等待元素存在
-            WebDriverWait(self.driver, 10, 0.01).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
-            # return self.driver.find_element_by_xpath(xpath_loc).text
+            WebDriverWait(self.driver, 5, 0.01).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc)).text
         except:
             # 抛异常
@@ -420,10 +417,19 @@ class BasePage:
         el = self.wait_element_presence(('xpath', '//android.widget.Toast'))
         return el
 
+    def get_toast_exist(self,message):
+        xpath_loc = '//*[contains(@text,"{}")]'.format(message)
+        try:
+            WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
+            return self.get_element((MobileBy.XPATH, xpath_loc)).text
+        except:
+            return False
+
     # 列表滑动操作-翻页找其他页面的内容
     def scrollListView(self, text):
         try:
             self.driver.find_element(MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("{}")'.format(text))
+            
         except:
             self.swipeUp()
             time.sleep(0.5)
@@ -484,7 +490,7 @@ class BasePage:
             return True
 
     # 元素存在就点击否则pass
-    def exist_be_click(self, element):
+    def exist_be_click(self, element, model=None):
         try:
             WebDriverWait(self.driver, 2, 0.2).until(EC.presence_of_element_located(element))
         except NoSuchElementException:

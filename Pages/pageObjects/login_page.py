@@ -58,36 +58,7 @@ class LoginPage(CommonBus):
         return HomePage(self.driver)
 
 
-    '''失败登录操作行为'''
-
-    # def login_error(self, user, passwd):
-    #     # self.logout(self.driver)
-    #     # self.click_element(loc.about_log, model="选择登录方式")
-
-    #     self.wait_eleVisible(loc.phone, model="点击手机号登录")
-    #     self.click_element(loc.phone, model="点击手机号登录")
-
-    #     self.wait_eleVisible(loc.select_countries, model="选择国家")
-    #     self.click_element(loc.select_countries, model="选择国家")
-
-    #     self.wait_eleVisible(loc.input_countries, model="输入国家")
-    #     self.input_text(loc.input_countries, "中国内地", model="输入中国内地")
-
-    #     self.wait_element_clickable(loc.clice_China, model="等待元素可被点击")
-    #     self.click_element(loc.clice_China, model="点击中国内地")
-
-    #     self.wait_eleVisible(loc.phone_loc, model="输入手机号")
-    #     self.input_text(loc.phone_loc, user, model="输入手机号")
-
-    #     self.click_element(loc.clice_next, model="点击下一步")
-
-    #     self.wait_element_clickable(loc.passaw_loc, model="等待元素可被点击")
-    #     self.input_text(loc.passaw_loc, passwd, model="输入密码")
-
-    #     self.click_element(loc.clice_next_1, model="点击确定")
-
-    #     return self
-
+    
     '''手机号输入错误 / 获取错误的toast'''
 
     def error_toast(self):

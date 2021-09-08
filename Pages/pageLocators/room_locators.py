@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-03 15:58:20
+LastEditTime: 2021-09-07 19:22:04
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -51,6 +51,8 @@ class RoomPageLocator:
     party_tap = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='派对']") 
     # 扩列tap
     Expansion_tap = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='扩列']") 
+    # 开黑
+    open_black_tap = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='开黑']") 
     # 萌新接待tap
     reception_tap = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='萌新接待']")
     # 速配tap
@@ -58,8 +60,9 @@ class RoomPageLocator:
     
 
     '''list列表面类型元素'''
-    # 女神类型房间标签
-    goddess_types = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
+    # 房间list
+    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
+    room_list_kaiHei = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_room_cover']") 
     def get_goddess_type(number):
         goddessType = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label' and @index='{}']".format(number)) 
         return goddessType
@@ -91,6 +94,24 @@ class RoomPageLocator:
     rv = (Mb.ID,'com.ourydc.yuebaobao:id/rv') #点击房间内部用户头像查看用户列表7
     
     #=======页面底部按钮========
+    # 开黑tay-聊天室-创建团队
+    tv_create = (Mb.ID,'com.ourydc.yuebaobao:id/tv_create') #创建按钮
+    spinner_mode = (Mb.ID,'com.ourydc.yuebaobao:id/spinner_mode') #模式选择下拉菜单按钮
+    spinner_dw = (Mb.ID,'com.ourydc.yuebaobao:id/spinner_dw') #段位选择下拉菜单按钮
+    et_desc = (Mb.ID,'com.ourydc.yuebaobao:id/et_desc') #要求输入框
+    rv_reward = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv_reward']/child::android.view.ViewGroup") # 悬赏list
+    btn_create = (Mb.ID,'com.ourydc.yuebaobao:id/btn_create') #创建队伍确定按钮
+    create_assert = (Mb.ID,'com.ourydc.yuebaobao:id/layout_gangup_squad') #创建队伍断言
+    mantle = (Mb.ID,'com.ourydc.yuebaobao:id/rv_chat_room_msg') #蒙层元素
+    
+    # 开黑tay-聊天室-发车
+    tv_departure = (Mb.ID,'com.ourydc.yuebaobao:id/tv_departure') #发车
+    tv_disband = (Mb.ID,'com.ourydc.yuebaobao:id/tv_disband') # 解散
+
+    # 开黑tay-聊天室-队列
+    tv_queue = (Mb.ID,'com.ourydc.yuebaobao:id/tv_queue') #队列按钮
+    iv_join = (Mb.ID,'com.ourydc.yuebaobao:id/iv_join') #连麦按钮
+
     findBtn = (Mb.ID,'com.ourydc.yuebaobao:id/iv_sel') #发现按钮
     
     layout_input_msg = (Mb.ID,'com.ourydc.yuebaobao:id/layout_input_msg') #表情
@@ -100,6 +121,8 @@ class RoomPageLocator:
     iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/iv_game') #游戏
     lucky_bag_iv = (Mb.ID,'com.ourydc.yuebaobao:id/lucky_bag_iv') #福袋
     iv_first_recharge = (Mb.ID,'com.ourydc.yuebaobao:id/iv_first_recharge') #礼物入口底部
+    open_black_recharge = (Mb.ID,'com.ourydc.yuebaobao:id/layout_gift') #开黑tap房间礼物入口-底部
+    
     #=======================开播房间内元素结束===================
 
     #个人资料元素定位
@@ -143,8 +166,6 @@ class RoomPageLocator:
         suit_button,special_button,goldCoins_button,knapsack_button
     ]
     
-    
-    
 
     homeowner_data = (Mb.ID,'com.ourydc.yuebaobao:id/iv_user_profile') #查看房主资料
     
@@ -159,12 +180,6 @@ class RoomPageLocator:
     # 《房间热度值-2》
     heat_value = (Mb.XPATH,"//*[@class='android.widget.TextView' and @index='0']") #在线列表按钮
     vip_seat = (Mb.XPATH,"//*[@class='android.widget.TextView' and @index='0']") #贵宾席位按钮
-
-
-    
-
-
-
 
 
 

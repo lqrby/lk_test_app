@@ -1,7 +1,7 @@
 import time
 from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
-from selenium.common.exceptions import NoSuchElementException
+from selenium.common.exceptions import NoSuchElementException 
 from Common.log import get_logger
 from Pages.pageLocators.streaming_locators import StreamingPageLocators
 from Pages.pageLocators.pop_locators import PopUp
@@ -21,7 +21,6 @@ class CommonBus(BasePage):
     '''输入文本内容，跳转至某个页面'''
 
     def switch_navigate(self, name):
-
         loc = (MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("{}")'.format(name))
         self.wait_eleVisible(loc)
         self.click_element(loc)
@@ -31,100 +30,16 @@ class CommonBus(BasePage):
         self.wait_eleVisible(loc)
         self.click_element(loc)
 
-    # 开播后退出直播间
-    def Get_out_of_the_studio(self):
-        self.wait_eleVisible(StreamingPageLocators.quit_1, model="退出直播间")
-        self.click_element(StreamingPageLocators.quit_1, model="退出直播间")
+   
+    
 
-        self.wait_eleVisible(StreamingPageLocators.certain, model="确定退出")
-        self.click_element(StreamingPageLocators.certain, model="确定退出")
+    
+    
+    
+    
+    
 
-        self.wait_eleVisible(StreamingPageLocators.certain, model="直播页关闭返回首页")
-        self.click_element(StreamingPageLocators.certain, model="直播页关闭返回首页")
-
-    # 运行完后退出App
-    def quit_login(self):
-        self.wait_eleVisible(HomePageLocator.click_me, model="点击我的")
-        self.click_element(HomePageLocator.click_me, model="点击我的")
-
-        self.wait_eleVisible(HomePageLocator.click_set, model="点击设置")
-        self.click_element(HomePageLocator.click_set, model="点击设置")
-        time.sleep(3)
-        self.swipeUp()
-
-        self.wait_eleVisible(HomePageLocator.click_quit, model="点击退出登录")
-        self.click_element(HomePageLocator.click_quit, model="点击退出登录")
-
-        self.wait_eleVisible(HomePageLocator.click_confirm, model="确定退出")
-        self.click_element(HomePageLocator.click_confirm, model="确定退出")
-        return self
-
-    '''关闭游戏弹窗'''
-
-    def gameinvit(self):
-        if self.is_desplayed(HomePageLocator.closeGameInvit):
-            self.click_element(HomePageLocator.closeGameInvit, model="关闭游戏弹窗")
-        else:
-            pass
-
-    '''判断是否有隐私政策弹窗'''
-
-    def privacy(self):
-        if self.is_element_exist("感谢您使用Up直播"):
-            self.click_element(HomePageLocator.dialog)
-            self.click_element(HomePageLocator.txtOk)
-            time.sleep(1)
-        else:
-            pass
-
-    '''判断是否为游客'''
-
-    def is_visitor(self):
-        if self.is_desplayed(HomePageLocator.loginPop):
-            self.click_element(HomePageLocator.loginPop)
-        else:
-            pass
-
-    '''# 判断是否为可登录另一个账号页面'''
-
-    def is_loginAnotherPage(self):
-        if self.is_desplayed(HomePageLocator.loginAnother):
-            self.click_element(HomePageLocator.loginAnother)
-        else:
-            pass
-
-    '''登录状态下退出登录'''
-
-    def is_login(self):
-        if self.is_desplayed(HomePageLocator.click_me):
-            try:
-                # self.wait_eleVisible(HomePageLocator.click_me)
-                self.click_element(HomePageLocator.click_me)
-                self.wait_eleVisible(HomePageLocator.click_set)
-                self.swipeUp()
-                
-                if self.get_text(HomePageLocator.click_set) == "设置":
-                    self.click_element(HomePageLocator.click_set)
-                    # self.click_element(HomePageLocator.logout)
-                    self.wait_eleVisible(HomePageLocator.allowlogout)
-                    self.click_element(HomePageLocator.allowlogout)
-                    self.is_loginAnotherPage()
-                elif self.get_text(HomePageLocator.logout) == "切换账号":
-                    self.click_element(HomePageLocator.logout)
-                else:
-                    pass
-            except Exception as e:
-                log.info(e)
-        elif self.is_element_exist("com.asiainno.uplive:id/txtLoginAnother"):
-            self.is_loginAnotherPage()
-
-    '''注册成功后，查看首页是否有临时广告'''
-
-    def advertising(self):
-        if self.is_desplayed(HomePageLocator.close_AD):
-            self.click_element(HomePageLocator.close_AD, model="临时点击跳过广告")
-        else:
-            pass
+    
 
     # 系统弹窗
     def systempop(self):
@@ -204,8 +119,14 @@ class CommonBus(BasePage):
             log.info("===========退出登录========")
         else:
             pass
-
-
+    
+    # 断言是否为真
+    def assert_true(self, assert_element):
+        try:
+            assert self.is_element_exist(assert_element) == True
+        except Exception as e:
+            log.info("创建团队断言错误")
+            self.save_webImgs(model="创建团队断言错误")
 
     #检查并关闭异常弹窗            
     def check_error_popup(self):
@@ -218,7 +139,7 @@ class CommonBus(BasePage):
         self.exist_be_click(RM.btn_know)
 
     #检查关闭女神开播引导弹窗       
-    def check_MinorSettings(self):
+    def check_goddess_Popup(self):
         self.exist_be_click(RM.close_back)
         
         
