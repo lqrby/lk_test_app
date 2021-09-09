@@ -1,0 +1,137 @@
+2021-09-09 14:59:50,771 [INFO]Common_Buss.py[line:85] ===========检查用户在线状态========:
+2021-09-09 14:59:52,915 [INFO]basepage.py[line:84] None：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_cancel'):
+2021-09-09 14:59:53,743 [INFO]conftest.py[line:75] ===========当前已是登录状态，无需登录========:
+2021-09-09 14:59:54,749 [INFO]test_room.py[line:20] **************房间模块-推荐tap-进退聊天室****************:
+2021-09-09 14:59:54,749 [INFO]test_room.py[line:20] **************房间模块-推荐tap-进退聊天室****************:
+2021-09-09 14:59:54,749 [INFO]test_room.py[line:20] **************房间模块-推荐tap-进退聊天室****************:
+2021-09-09 14:59:54,753 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 14:59:57,586 [INFO]basepage.py[line:84] 点击房间模块：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 14:59:57,654 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='推荐']"):
+2021-09-09 15:00:00,678 [INFO]basepage.py[line:84] 点击tap：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='推荐']"):
+2021-09-09 15:00:15,395 [ERROR]test_room.py[line:31] 进入推荐聊天室断言失败:
+2021-09-09 15:00:15,395 [ERROR]test_room.py[line:31] 进入推荐聊天室断言失败:
+2021-09-09 15:00:15,395 [ERROR]test_room.py[line:31] 进入推荐聊天室断言失败:
+2021-09-09 15:00:16,555 [INFO]basepage.py[line:239] 截屏成功。图片路径为D:\myObject\lk_test_app\Outputs/screenshots\2021-09-09-15-00-15_进入推荐聊天室-断言截图.png:
+2021-09-09 15:00:31,280 [INFO]Common_Buss.py[line:85] ===========检查用户在线状态========:
+2021-09-09 15:00:33,509 [INFO]conftest.py[line:75] ===========当前已是登录状态，无需登录========:
+2021-09-09 15:00:34,512 [INFO]test_room.py[line:41] **************房间模块-派对tap-进退房间****************:
+2021-09-09 15:00:34,512 [INFO]test_room.py[line:41] **************房间模块-派对tap-进退房间****************:
+2021-09-09 15:00:34,512 [INFO]test_room.py[line:41] **************房间模块-派对tap-进退房间****************:
+2021-09-09 15:00:34,514 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:00:35,710 [INFO]basepage.py[line:84] 点击房间模块：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:00:35,774 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='派对']"):
+2021-09-09 15:00:38,976 [INFO]basepage.py[line:84] 点击tap：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='派对']"):
+2021-09-09 15:00:45,098 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/lucky_bag_iv'):
+2021-09-09 15:00:52,332 [INFO]basepage.py[line:84] 点击福袋：获取元素 ('id', 'com.ourydc.yuebaobao:id/lucky_bag_iv'):
+2021-09-09 15:00:52,417 [INFO]basepage.py[line:34] 等待显示‘不发送消息给好友’: 等待元素可见 ('xpath', "//*[@class='android.view.View' and @text='不发送消息给好友']"):
+2021-09-09 15:00:56,661 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/rv_top'):
+2021-09-09 15:00:58,105 [INFO]basepage.py[line:84] 点击排行榜：获取元素 ('id', 'com.ourydc.yuebaobao:id/rv_top'):
+2021-09-09 15:00:59,743 [INFO]basepage.py[line:34] 等待周榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:01:00,869 [INFO]basepage.py[line:84] 点击周榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:01:01,881 [INFO]basepage.py[line:34] 等待月榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:01:03,040 [INFO]basepage.py[line:84] 点击月榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:01:03,490 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='人气榜']"):
+2021-09-09 15:01:05,110 [INFO]basepage.py[line:84] 点击人气榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='人气榜']"):
+2021-09-09 15:01:05,607 [INFO]basepage.py[line:34] 等待周榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:01:07,177 [INFO]basepage.py[line:84] 点击周榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:01:08,203 [INFO]basepage.py[line:34] 等待月榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:01:09,364 [INFO]basepage.py[line:84] 点击月榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:01:09,825 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='守护榜']"):
+2021-09-09 15:01:11,461 [INFO]basepage.py[line:84] 点击守护榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='守护榜']"):
+2021-09-09 15:01:14,380 [INFO]basepage.py[line:84] 点击返回按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_back_new'):
+2021-09-09 15:01:14,411 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/masterAvatarView'):
+2021-09-09 15:01:16,283 [INFO]basepage.py[line:84] None：获取元素 ('id', 'com.ourydc.yuebaobao:id/masterAvatarView'):
+2021-09-09 15:01:16,710 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_user_profile'):
+2021-09-09 15:01:19,579 [INFO]basepage.py[line:84] 点击房主资料：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_user_profile'):
+2021-09-09 15:01:19,668 [INFO]basepage.py[line:72] 元素是否存在:('id', 'com.ourydc.yuebaobao:id/personIdView99999999999999'):
+2021-09-09 15:01:29,505 [INFO]basepage.py[line:239] 截屏成功。图片路径为D:\myObject\lk_test_app\Outputs/screenshots\2021-09-09-15-01-28_None.png:
+2021-09-09 15:01:29,507 [ERROR]basepage.py[line:80] 元素不存在:('id', 'com.ourydc.yuebaobao:id/personIdView99999999999999'):
+2021-09-09 15:01:53,733 [INFO]Common_Buss.py[line:85] ===========检查用户在线状态========:
+2021-09-09 15:01:56,446 [INFO]basepage.py[line:84] None：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_cancel'):
+2021-09-09 15:01:57,319 [INFO]conftest.py[line:75] ===========当前已是登录状态，无需登录========:
+2021-09-09 15:01:58,323 [INFO]test_room.py[line:62] **************房间模块-开黑tap-进退房间****************:
+2021-09-09 15:01:58,323 [INFO]test_room.py[line:62] **************房间模块-开黑tap-进退房间****************:
+2021-09-09 15:01:58,323 [INFO]test_room.py[line:62] **************房间模块-开黑tap-进退房间****************:
+2021-09-09 15:01:58,324 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:02:00,839 [INFO]basepage.py[line:84] 点击房间模块：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:02:00,904 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='开黑']"):
+2021-09-09 15:02:03,851 [INFO]basepage.py[line:84] 点击tap：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='开黑']"):
+2021-09-09 15:02:09,927 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/lucky_bag_iv'):
+2021-09-09 15:02:14,179 [INFO]basepage.py[line:84] 点击福袋：获取元素 ('id', 'com.ourydc.yuebaobao:id/lucky_bag_iv'):
+2021-09-09 15:02:14,293 [INFO]basepage.py[line:34] 等待显示‘不发送消息给好友’: 等待元素可见 ('xpath', "//*[@class='android.view.View' and @text='不发送消息给好友']"):
+2021-09-09 15:02:17,190 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/rv_top'):
+2021-09-09 15:02:18,494 [INFO]basepage.py[line:84] 点击排行榜：获取元素 ('id', 'com.ourydc.yuebaobao:id/rv_top'):
+2021-09-09 15:02:18,700 [INFO]basepage.py[line:34] 等待周榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:02:20,681 [INFO]basepage.py[line:84] 点击周榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:02:21,588 [INFO]basepage.py[line:34] 等待月榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:02:22,672 [INFO]basepage.py[line:84] 点击月榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:02:23,534 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='人气榜']"):
+2021-09-09 15:02:24,629 [INFO]basepage.py[line:84] 点击人气榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='人气榜']"):
+2021-09-09 15:02:24,899 [INFO]basepage.py[line:34] 等待周榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:02:26,652 [INFO]basepage.py[line:84] 点击周榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='周榜']"):
+2021-09-09 15:02:27,561 [INFO]basepage.py[line:34] 等待月榜显示: 等待元素可见 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:02:28,660 [INFO]basepage.py[line:84] 点击月榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='月榜']"):
+2021-09-09 15:02:28,828 [INFO]basepage.py[line:59] 等待元素可点击:('xpath', "//*[@class='android.widget.TextView' and @text='守护榜']"):
+2021-09-09 15:02:30,622 [INFO]basepage.py[line:84] 点击守护榜：获取元素 ('xpath', "//*[@class='android.widget.TextView' and @text='守护榜']"):
+2021-09-09 15:02:33,515 [INFO]basepage.py[line:84] 点击返回按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_back_new'):
+2021-09-09 15:02:33,553 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/masterAvatarView'):
+2021-09-09 15:02:35,345 [INFO]basepage.py[line:84] None：获取元素 ('id', 'com.ourydc.yuebaobao:id/masterAvatarView'):
+2021-09-09 15:02:35,395 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_user_profile'):
+2021-09-09 15:02:38,331 [INFO]basepage.py[line:84] 点击房主资料：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_user_profile'):
+2021-09-09 15:02:38,414 [INFO]basepage.py[line:72] 元素是否存在:('id', 'com.ourydc.yuebaobao:id/personIdView99999999999999'):
+2021-09-09 15:02:49,458 [INFO]basepage.py[line:239] 截屏成功。图片路径为D:\myObject\lk_test_app\Outputs/screenshots\2021-09-09-15-02-46_None.png:
+2021-09-09 15:02:49,459 [ERROR]basepage.py[line:80] 元素不存在:('id', 'com.ourydc.yuebaobao:id/personIdView99999999999999'):
+2021-09-09 15:03:12,981 [INFO]Common_Buss.py[line:85] ===========检查用户在线状态========:
+2021-09-09 15:03:15,800 [INFO]basepage.py[line:84] None：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_cancel'):
+2021-09-09 15:03:16,562 [INFO]conftest.py[line:75] ===========当前已是登录状态，无需登录========:
+2021-09-09 15:03:17,565 [INFO]test_room.py[line:83] **************创建小窝类型的聊天室****************:
+2021-09-09 15:03:17,565 [INFO]test_room.py[line:83] **************创建小窝类型的聊天室****************:
+2021-09-09 15:03:17,565 [INFO]test_room.py[line:83] **************创建小窝类型的聊天室****************:
+2021-09-09 15:03:17,569 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:03:18,924 [INFO]basepage.py[line:84] 点击房间模块：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:03:20,295 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/menuIv'):
+2021-09-09 15:03:23,233 [INFO]basepage.py[line:84] 点击创建聊天室入口按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/menuIv'):
+2021-09-09 15:03:23,274 [INFO]basepage.py[line:72] 元素是否存在:('xpath', "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup"):
+2021-09-09 15:03:24,341 [INFO]basepage.py[line:72] 元素是否存在:('xpath', "//*[@resource-id='com.ourydc.yuebaobao:id/rv_label']/child::android.view.ViewGroup"):
+2021-09-09 15:03:25,027 [INFO]basepage.py[line:72] 元素是否存在:('id', 'com.ourydc.yuebaobao:id/et_tag'):
+2021-09-09 15:03:25,064 [INFO]basepage.py[line:84] 清除输入框默认文本：获取元素 ('id', 'com.ourydc.yuebaobao:id/et_tag'):
+2021-09-09 15:03:25,649 [INFO]basepage.py[line:129] 清除输入框默认文本: 元素：('id', 'com.ourydc.yuebaobao:id/et_tag') 清除文本内容。:
+2021-09-09 15:03:25,671 [INFO]basepage.py[line:84] basepage：获取元素 ('id', 'com.ourydc.yuebaobao:id/et_tag'):
+2021-09-09 15:03:26,194 [INFO]basepage.py[line:115] 输入房间话题: 在元素 ('id', 'com.ourydc.yuebaobao:id/et_tag') 中输入文本：创建房间-1631171005:
+2021-09-09 15:03:26,219 [INFO]basepage.py[line:72] 元素是否存在:('xpath', "//*[@resource-id='com.ourydc.yuebaobao:id/rcv_seat_num']/child::android.view.ViewGroup"):
+2021-09-09 15:03:26,824 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/btn_enter'):
+2021-09-09 15:03:28,431 [INFO]basepage.py[line:84] 点击确认创建房间按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/btn_enter'):
+2021-09-09 15:03:34,155 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/menu'):
+2021-09-09 15:03:35,326 [INFO]basepage.py[line:84] 点击房间菜单按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/menu'):
+2021-09-09 15:03:36,428 [INFO]basepage.py[line:72] 元素是否存在:('xpath', "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::android.widget.RelativeLayout"):
+2021-09-09 15:03:38,261 [INFO]basepage.py[line:84] None：获取元素 ('id', 'com.ourydc.yuebaobao:id/tv_sure'):
+2021-09-09 15:03:38,297 [INFO]test_room.py[line:88] 创建小窝类型的聊天室断言成功:
+2021-09-09 15:03:38,297 [INFO]test_room.py[line:88] 创建小窝类型的聊天室断言成功:
+2021-09-09 15:03:38,297 [INFO]test_room.py[line:88] 创建小窝类型的聊天室断言成功:
+2021-09-09 15:03:52,801 [INFO]Common_Buss.py[line:85] ===========检查用户在线状态========:
+2021-09-09 15:03:55,359 [INFO]conftest.py[line:75] ===========当前已是登录状态，无需登录========:
+2021-09-09 15:03:56,363 [INFO]test_room.py[line:100] **************创建萌新接待类型的聊天室****************:
+2021-09-09 15:03:56,363 [INFO]test_room.py[line:100] **************创建萌新接待类型的聊天室****************:
+2021-09-09 15:03:56,363 [INFO]test_room.py[line:100] **************创建萌新接待类型的聊天室****************:
+2021-09-09 15:03:56,367 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:03:57,672 [INFO]basepage.py[line:84] 点击房间模块：获取元素 ('id', 'com.ourydc.yuebaobao:id/iv_tab_live'):
+2021-09-09 15:03:57,767 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/menuIv'):
+2021-09-09 15:04:01,093 [INFO]basepage.py[line:84] 点击创建聊天室入口按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/menuIv'):
+2021-09-09 15:04:01,131 [INFO]basepage.py[line:72] 元素是否存在:('xpath', "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup"):
+2021-09-09 15:04:02,281 [INFO]basepage.py[line:72] 元素是否存在:('xpath', "//*[@resource-id='com.ourydc.yuebaobao:id/rv_label']/child::android.view.ViewGroup"):
+2021-09-09 15:04:03,084 [INFO]basepage.py[line:72] 元素是否存在:('id', 'com.ourydc.yuebaobao:id/et_tag'):
+2021-09-09 15:04:03,113 [INFO]basepage.py[line:84] 清除输入框默认文本：获取元素 ('id', 'com.ourydc.yuebaobao:id/et_tag'):
+2021-09-09 15:04:03,713 [INFO]basepage.py[line:129] 清除输入框默认文本: 元素：('id', 'com.ourydc.yuebaobao:id/et_tag') 清除文本内容。:
+2021-09-09 15:04:03,738 [INFO]basepage.py[line:84] basepage：获取元素 ('id', 'com.ourydc.yuebaobao:id/et_tag'):
+2021-09-09 15:04:04,255 [INFO]basepage.py[line:115] 输入房间话题: 在元素 ('id', 'com.ourydc.yuebaobao:id/et_tag') 中输入文本：创建房间-1631171043:
+2021-09-09 15:04:04,293 [INFO]basepage.py[line:59] 等待元素可点击:('id', 'com.ourydc.yuebaobao:id/btn_enter'):
+2021-09-09 15:04:05,879 [INFO]basepage.py[line:84] 点击确认创建房间按钮：获取元素 ('id', 'com.ourydc.yuebaobao:id/btn_enter'):
+2021-09-09 15:04:06,994 [INFO]basepage.py[line:84] basepage：获取元素 ('xpath', '//*[contains(@text,"需官方授权可开启")]'):
+2021-09-09 15:04:07,071 [INFO]basepage.py[line:84] basepage：获取元素 ('xpath', '//*[contains(@text,"需官方授权可开启")]'):
+2021-09-09 15:04:07,125 [INFO]room_page.py[line:97] toast=======需官方授权可开启哦～:
+2021-09-09 15:04:07,125 [INFO]room_page.py[line:97] toast=======需官方授权可开启哦～:
+2021-09-09 15:04:07,125 [INFO]room_page.py[line:97] toast=======需官方授权可开启哦～:
+2021-09-09 15:04:07,127 [ERROR]test_room.py[line:107] 创建萌新接待类型的聊天室断言失败:
+2021-09-09 15:04:07,127 [ERROR]test_room.py[line:107] 创建萌新接待类型的聊天室断言失败:
+2021-09-09 15:04:07,127 [ERROR]test_room.py[line:107] 创建萌新接待类型的聊天室断言失败:
+2021-09-09 15:04:07,706 [INFO]basepage.py[line:239] 截屏成功。图片路径为D:\myObject\lk_test_app\Outputs/screenshots\2021-09-09-15-04-07_创建萌新接待类型聊天室-断言截图.png:

@@ -1,3 +1,11 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:47
+LastEditTime: 2021-09-09 15:31:57
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: \lk_test_app\Common\splicing.py
+'''
 import os
 
 # 框架项目顶层目录
@@ -7,11 +15,11 @@ testdatas_dir = os.path.join(base_dir, "TestDatas")
 # TestCases测试脚本
 testcases_dir = os.path.join(base_dir, "TestCases")
 # Outputs/reports
-htmlreport_dir = os.path.join(base_dir, "Outputs/reports")
+htmlreport_dir = os.path.join(base_dir, "allure_result/allure_report")
 # Outputs/logs
-logs_dir = os.path.join(base_dir, "Outputs/logs")
+logs_dir = os.path.join(base_dir, "allure_result/logs")
 # Outputs/screenshots 存放错误截图
-screenshot_dir = os.path.join(base_dir, "Outputs/screenshots")
+screenshot_dir = os.path.join(base_dir, "allure_result/screenshots")
 # Desired_Caps
 caps = os.path.join(base_dir, "Desired_Caps")
 # lika.log存放日志的路径

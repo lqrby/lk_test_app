@@ -394,7 +394,7 @@ class RoomPage(CommonBus):
     def look_homeowner_data(self):
         self.wait_element_clickable(roomloc.homeowner_data)
         self.click_element(roomloc.homeowner_data,model="点击房主资料") #点击房主资料
-        self.wait_element_presence(roomloc.personIdView)
+        self.wait_element_presence(roomloc.personIdView, model="查看房间资料")
         assert self.is_element_exist(roomloc.personIdView) == True #房间id
         # assert self.is_element_exist(roomloc.nick) == True #昵称
         self.follow_ta() #关注
