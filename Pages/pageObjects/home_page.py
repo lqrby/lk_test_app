@@ -147,7 +147,6 @@ class HomePage(CommonBus):
         self.wait_element_clickable(HL.homeowner_data)
         self.click_element(HL.homeowner_data) #点击房主资料
         data = self.driver.page_source
-        print("点击房主资料=================",data)
         self.wait_element_presence(HL.personIdView)
         self.wait_element_presence(HL.nick) #昵称
         self.follow_ta() #关注
