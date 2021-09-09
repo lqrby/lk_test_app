@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-07 19:22:04
+LastEditTime: 2021-09-09 14:39:03
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -18,6 +18,8 @@ class RoomPageLocator:
     btn_know = (Mb.ID, "com.ourydc.yuebaobao:id/btn_iknow")
     # 关闭女神开播引导弹窗按钮
     close_back = (Mb.ID, "com.ourydc.yuebaobao:id/back") 
+    #聊天室已关闭
+    close_broadcast = (Mb.ID, "com.ourydc.yuebaobao:id/iv_finish_close") 
     
     # 房间模块
     room_module = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_live") 
@@ -61,7 +63,7 @@ class RoomPageLocator:
 
     '''list列表面类型元素'''
     # 房间list
-    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
+    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label66666666']") 
     room_list_kaiHei = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_room_cover']") 
     def get_goddess_type(number):
         goddessType = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label' and @index='{}']".format(number)) 
@@ -77,21 +79,55 @@ class RoomPageLocator:
     #《排行榜-3》
     contribution_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='贡献榜']") # 贡献榜
     popularity_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='人气榜']") # 人气榜
-    guardian_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='守护榜']") # 守护榜	
+    guardian_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='守护榜']") # 守护榜
+    phb_group = [ranking_list,popularity_list,guardian_list]	
     tv_title_ri = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='日榜']") # 日榜	
     tv_title_week = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='周榜']") # 周榜	
     tv_title_yue = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='月榜']") # 月榜	
-
+    guard_assert = (Mb.XPATH,"//*[@class='android.widget.LinearLayout']") #守护榜断言-有守护
+    day_week_month_assert = (Mb.XPATH,"//*[@class='android.view.ViewGroup']") #守护榜断言-有守护
+    	
+    #菜单4
+    room_menu = (Mb.ID,'com.ourydc.yuebaobao:id/menu') 
+    #房间菜单元素list元素(最小化、关闭房间、更多分享、分享微信、qq、微博)
+    room_menu_btn = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::android.widget.RelativeLayout")	
     
-    room_menu = (Mb.ID,'com.ourydc.yuebaobao:id/menu') #菜单4
+    
+    
+    #确定关闭按钮
+    close_ok = (Mb.ID,'com.ourydc.yuebaobao:id/tv_sure') 
     
     tv_introduce = (Mb.ID,'com.ourydc.yuebaobao:id/tv_introduce') #玩法介绍5
     closeIv = (Mb.ID,'com.ourydc.yuebaobao:id/closeIv') #关闭玩法介绍
-    
+    #麦下
     layout_people = (Mb.ID,'com.ourydc.yuebaobao:id/layout_people') #麦下6
-    iv_head_view = (Mb.ID,'com.ourydc.yuebaobao:id/iv_head_view') #麦下收缩列表
+    iv_head_view = (Mb.ID,'com.ourydc.yuebaobao:id/iv_head_view') #麦下收缩列表ist
     
     rv = (Mb.ID,'com.ourydc.yuebaobao:id/rv') #点击房间内部用户头像查看用户列表7
+
+
+    #领取-为ta点赞
+    
+    receive = (Mb.ID,'com.ourydc.yuebaobao:id/iv_receive') #点击房间内领取入口-领取
+    count_down_receive = (Mb.ID,'com.ourydc.yuebaobao:id/tv_task_countdown') #点击房间内领取入口-倒计时
+    for_her = (Mb.ID,'com.ourydc.yuebaobao:id/iv_light_up') #为ta点亮tap
+    sign_in = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_desc' and @text='签到' or @text='领取']") # 签到/领取
+    # sign_in = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_desc']") # 签到/领取
+    # receiveList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/rv_task']/child::android.view.ViewGroup") # 签到、领取气泡
+    receiveBtn = (Mb.XPATH,"//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_reward' and @index='2']") # 领取按钮
+    play_instructions = (Mb.ID,'com.ourydc.yuebaobao:id/iv_description') #玩法说明
+
+    #领取-抽奖
+    luck_draw = (Mb.ID,'com.ourydc.yuebaobao:id/iv_lottery') # 抽奖tap
+    
+    lucky_text = (Mb.XPATH,"//*[@class='android.view.View' and @text='幸运之神眷顾着您！']") # 幸运之神眷顾着您！
+    okBtn = (Mb.XPATH,"//*[@class='android.view.View' and @text='确定']") # 确定
+    smoke_again = (Mb.XPATH,"//*[@class='android.view.View' and @text='再抽一次']") # 再抽一次
+     
+
+    #福袋
+    blessing_bag = (Mb.ID,'com.ourydc.yuebaobao:id/vp_chat_room_party') #点击房间内幸运福袋入口
+    
     
     #=======页面底部按钮========
     # 开黑tay-聊天室-创建团队
@@ -120,13 +156,15 @@ class RoomPageLocator:
     iv_msg = (Mb.ID,'com.ourydc.yuebaobao:id/iv_msg') #消息
     iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/iv_game') #游戏
     lucky_bag_iv = (Mb.ID,'com.ourydc.yuebaobao:id/lucky_bag_iv') #福袋
+    no_hair_message = (Mb.XPATH,"//*[@class='android.view.View' and @text='不发送消息给好友']") # 福袋断言
+    
     iv_first_recharge = (Mb.ID,'com.ourydc.yuebaobao:id/iv_first_recharge') #礼物入口底部
     open_black_recharge = (Mb.ID,'com.ourydc.yuebaobao:id/layout_gift') #开黑tap房间礼物入口-底部
     
     #=======================开播房间内元素结束===================
 
     #个人资料元素定位
-    personIdView = (Mb.ID,'com.ourydc.yuebaobao:id/personIdView') #个人id
+    personIdView = (Mb.ID,'com.ourydc.yuebaobao:id/personIdView99999999999999') #个人id
     nick = (Mb.ID,'com.ourydc.yuebaobao:id/nick') #昵称
     sexAndAge = (Mb.ID,'com.ourydc.yuebaobao:id/sexAndAge') #性别
     locationTv = (Mb.ID,'com.ourydc.yuebaobao:id/locationTv') #位置
@@ -198,10 +236,7 @@ class RoomPageLocator:
     qq_sharing = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='分享至QQ']") # 分享至QQ
     micro_blog_sharing = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='分享至微博']") # 分享至微博
 
-    #小窝房间菜单
-    room_menu_btn = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::android.widget.RelativeLayout")	
-    #确定关闭按钮
-    close_ok = (Mb.ID,'com.ourydc.yuebaobao:id/tv_sure') 
+    
     
 
 

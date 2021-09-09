@@ -43,9 +43,9 @@ class BasePage:
         else:
             pass
     
-    #元素是否存在
+    #元素是否显示
     def is_desplayed(self, loc, model=None):
-        log.info("{0}：查找元素 {1}".format(model, loc))
+        # log.info("{0}:list元素 {1}".format(model, loc))
         try:
             return self.driver.find_elements(*loc)
         except:
@@ -55,20 +55,21 @@ class BasePage:
             raise
 
     # 等待某个元素可以被点击，不可点击则截图
-    def wait_element_clickable(self, loc, timeout=8, poll_frequency=0.5, model="basepage"):
+    def wait_element_clickable(self, loc, timeout=8, poll_frequency=0.5, model="等待可点击截图"):
+        log.info("等待元素可点击:{}".format(loc))
         try:
-            el = WebDriverWait(self.driver, timeout, poll_frequency).until(
-                EC.element_to_be_clickable(loc)
-            )
+            el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.element_to_be_clickable(loc))
             return el
         except:
+            log.error("未找到或元素不可点击{}".format(loc))
             self.save_webImgs(model)
-            log.error("元素找不到{}".format(loc))
+            
 
     
 
     # 某个元素存在
     def wait_element_presence(self, loc, timeout=8, poll_frequency=0.5, model=None):
+        log.info("元素是否存在:{}".format(loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(
                 EC.presence_of_element_located(loc)
@@ -76,15 +77,15 @@ class BasePage:
             return el
         except:
             self.save_webImgs(model)
-            log.error("元素找不到{}".format(loc))
+            log.error("元素不存在:{}".format(loc))
 
     # 查找一个元素
     def get_element(self, loc, model="basepage"):
-        log.info("{0}：查找元素 {1}".format(model, loc))
+        log.info("{0}：获取元素 {1}".format(model, loc))
         try:
             return self.driver.find_element(*loc)
         except:
-            log.exception("查找元素失败。")
+            log.exception("获取元素失败:{}".format(loc))
             # 截图
             self.save_webImgs(model)
             raise
@@ -140,7 +141,6 @@ class BasePage:
     def click_element(self, loc, model=None, times=2):
         time.sleep(1)
         if self.is_desplayed(loc) and EC.element_to_be_clickable(loc):
-            # self.wait_eleVisible(loc, model="等待" + str(model))
             # 找到元素
             ele = self.get_element(loc, model)
             try:
@@ -156,7 +156,11 @@ class BasePage:
             if times > 0:
                 # PopThread(self.driver, PopUp.popList)
                 times -= 1
-                self.pop(PopUp.popList)
+                item = self.pop(PopUp.popList)
+                if item == PopUp.close_broadcast:
+                    log.info("=========聊天室已关闭==========")
+                    self.driver.close_app()
+                    self.driver.quit()
                 self.click_element(loc, model=model, times=times)
             else:
                 pass
@@ -228,8 +232,7 @@ class BasePage:
         img_path = os.path.join(splicing.screenshot_dir, filePath)
         try:
             self.driver.save_screenshot(img_path)
-            allure.attach(self.driver.get_screenshot_as_png(), model,
-                          allure.attachment_type.PNG)
+            allure.attach(self.driver.get_screenshot_as_png(), model, allure.attachment_type.PNG)
         except:
             log.exception("截图失败")
         else:
@@ -313,7 +316,7 @@ class BasePage:
         for i in range(n):
             self.driver.swipe(x1, y1, x1, y2, t)
 
-    def swipLeft(self, t=500, n=1):
+    def swipeLeft(self, t=500, n=1):
         '''向左滑动屏幕'''
         time.sleep(0.5)
         l = self.driver.get_window_size()
@@ -323,7 +326,7 @@ class BasePage:
         for i in range(n):
             self.driver.swipe(x1, y1, x2, y1, t)
 
-    def swipRight(self, t=500, n=1):
+    def swipeRight(self, t=500, n=1):
         '''向右滑动屏幕'''
         time.sleep(0.5)
         l = self.driver.get_window_size()
@@ -423,7 +426,7 @@ class BasePage:
             WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc)).text
         except:
-            return False
+            return "断言错误"
 
     # 列表滑动操作-翻页找其他页面的内容
     def scrollListView(self, text):
@@ -562,14 +565,11 @@ class BasePage:
     def pop(self, pop_list):
         time.sleep(2)
         source = self.driver.page_source
+        mark = ""
         for i in pop_list:
             log.info("循环检测页面是否有弹窗元素:{}".format(i))
             if i[1] in source:
                 self.click_element(i)
+                mark = i
                 break
-                # try:
-                #     self.driver.find_element(i)
-                # except NoSuchElementException:
-                #     pass
-                # else:
-                #     self.click_element(i)
+        return mark

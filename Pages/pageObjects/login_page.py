@@ -1,16 +1,15 @@
 import time
 from PIL import Image
 from PIL import ImageGrab
-from selenium.webdriver.support import wait
-from Common.basepage import BasePage
+# from Common.basepage import BasePage
 from Pages.pageLocators.login_locators import LoginPageLocator as loc
-from Pages.pageLocators.home_locators import HomePageLocator as home_loc
+# from Pages.pageLocators.home_locators import HomePageLocator as home_loc
 from Pages.pageObjects.Common_Buss import CommonBus
 from Pages.pageObjects.home_page import HomePage
-from testScript.db_util import MysqlDb
+# from testScript.db_util import MysqlDb
 from appium.webdriver.common.touch_action import TouchAction 
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.touch_actions import TouchActions
+# from selenium.webdriver.common.action_chains import ActionChains
+# from selenium.webdriver.common.touch_actions import TouchActions
 
 
 '''登录-页面操作行为'''

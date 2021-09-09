@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-03 11:25:19
+LastEditTime: 2021-09-08 19:06:04
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: \lk_test_app\Pages\pageLocators\pop_locators.py
@@ -30,8 +30,10 @@ class PopUp:
     #进入房间弹出马上点单弹窗元素
     order_now = (Mb.ID, "com.ourydc.yuebaobao:id/btn_pay")
    
+    #聊天室已关闭
+    close_broadcast = (Mb.ID, "com.ourydc.yuebaobao:id/iv_finish_close") 
 
-    popList = [closeInvitInRoom, iv_cancel, setting_minors, order_now]
+    popList = [closeInvitInRoom, iv_cancel, setting_minors, order_now,close_broadcast]
 
     # popList = [closeInvitInRoom[1], closeGameInvit[1], skipAD[1], allowpop1[1], allowpop2[1], onlyappallow[1],
     #            "允许定位", dialog[1], close_AD[1], check_shut[1], got_in[1], txtSkip[1], Adolescent[1]]

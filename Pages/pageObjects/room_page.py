@@ -1,3 +1,4 @@
+from re import M
 from typing_extensions import ParamSpecArgs
 from attr import s
 from Common.basepage import BasePage
@@ -92,9 +93,9 @@ class RoomPage(CommonBus):
         self.click_element(roomloc.entry_room, model="点击确认创建房间按钮")
         message = "需官方授权可开启"
         message_toast = self.get_toast_exist(message)
-        if message_toast:
+        if message in message_toast:
             log.info("toast======={}".format(self.get_toast_exist(message)))
-            self.save_webImgs(model="开启萌新接待权限不足截图")
+            # self.save_webImgs(model="创建聊天室失败截图")
             return False
         else:
             return True
@@ -105,12 +106,13 @@ class RoomPage(CommonBus):
         self.click_element(roomloc.room_menu, model="点击房间菜单按钮")
         
     #退出聊天室
-    def close_room(self):
+    def close_room(self,num=1):
         self.wait_element_presence(roomloc.room_menu_btn)
         menuBtnArr = self.get_elements(roomloc.room_menu_btn)
-        menuBtnArr[1].click()
-        self.wait_element_clickable(roomloc.close_ok)
-        self.click_element(roomloc.close_ok)
+        menuBtnArr[num].click()
+        # self.wait_element_clickable(roomloc.close_ok)
+        # self.click_element(roomloc.close_ok)
+        self.exist_be_click(roomloc.close_ok)
 
 
     #=============进入房间============
@@ -132,18 +134,47 @@ class RoomPage(CommonBus):
             self.gift_entrance_bottom() # 点击底部礼物入口
             self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
             time.sleep(1)
+            self.click_menu() #点击聊天室菜单
+            self.close_room() #关闭房间
             return True
         else:
             return False
-
     
+
     '''
     功能:进入开黑聊天室
     '''
     def open_black_room(self):
         self.swipeDown()
         self.driver.implicitly_wait(8)
-        room_list = ""
+        #获取开黑房间list
+        room_list = self.get_elements(roomloc.room_list_kaiHei)
+        if len(room_list) > 0:
+            number = random.randint(0, (len(room_list)-1))
+            # self.click_element(roomloc.get_goddess_type(number))
+            room_list[number].click()
+            self.click_blessing_bag() # 点击福袋
+            self.click_rankingList() # 点击排行榜
+            self.gift_entrance_top() #点击顶部礼物入口
+            self.look_homeowner_data() #查看房主资料
+            self.open_black_bottom() # #开黑tap-礼物底部入口
+            self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
+            time.sleep(1)
+            self.click_create_ranks() # 创建队伍 
+            time.sleep(1)
+            self.click_dissolution() # 解散队伍
+            self.click_menu() #点击聊天室菜单
+            self.close_room() #退出聊天室
+            return True
+        else:
+            return False
+
+    '''
+    功能:进入派对聊天室
+    '''
+    def open_party_room(self):
+        self.swipeDown()
+        self.driver.implicitly_wait(8)
         room_list = self.get_elements(roomloc.room_list_kaiHei)
         if len(room_list) > 0:
             number = random.randint(0, (len(room_list)-1))
@@ -155,13 +186,22 @@ class RoomPage(CommonBus):
             self.look_homeowner_data() #查看房主资料
             self.open_black_bottom() # 点击底部礼物入口
             self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
+            self.click_receive() #领取按钮
             time.sleep(1)
-            self.click_create_ranks() # 创建队伍 
-            time.sleep(1)
-            self.click_dissolution() # 解散队伍
+            self.click_menu() #点击聊天室菜单
+            self.close_room(num=2) # 退出聊天室
             return True
         else:
             return False
+
+    def click_menu(self):
+        self.wait_element_clickable(roomloc.room_menu, model="等待聊天室菜单可点击")
+        self.click_element(roomloc.room_menu, model="点击聊天室菜单")#点击房间菜单
+    
+    #点击榜单
+    def click_bangDan(self):
+        self.wait_element_clickable(roomloc.room_module)
+        self.click_element(roomloc.room_module, model="点击房间模块")#点击房间模块
 
     #点击房间模块
     def find_room(self):
@@ -173,7 +213,7 @@ class RoomPage(CommonBus):
         self.wait_element_clickable(tap_element, model="检查tap")
         self.click_element(tap_element, model="点击tap") #点击tap
 
-    
+
     #进入直播间
     def enter_liveRoom2(self, number = 1):
         while number > 0:
@@ -213,7 +253,7 @@ class RoomPage(CommonBus):
                 log.info("向上滑动列表")
                 self.swipeUp()
         return len(tv_plays)
-    
+
 
 
     # #点击未开播的用户
@@ -248,16 +288,58 @@ class RoomPage(CommonBus):
                 log.info("向上滑动列表")
                 self.swipeUp()
         return len(tv_desArr)
-    
+
 
     #点击福袋
     def click_blessing_bag(self):
         self.wait_element_clickable(roomloc.lucky_bag_iv)
         self.click_element(roomloc.lucky_bag_iv, model="点击福袋")#点击福袋
-        time.sleep(2)
+        self.wait_eleVisible(roomloc.no_hair_message, model="等待显示‘不发送消息给好友’")
+        self.assert_true(roomloc.no_hair_message) #福袋断言
         self.driver.keyevent(4)
 
-    
+    # 领取入口
+    def click_receive(self):
+        if self.is_element_exist(roomloc.receive):
+            self.wait_eleVisible(roomloc.receive, model="等待领取按钮显示")
+            self.click_element(roomloc.receive, model="点击领取按钮")
+            self.wait_eleVisible(roomloc.for_her, model="等待显示为ta点亮tap")
+            self.assert_true(roomloc.for_her,model="为ta点亮tap") #断言
+            self.wait_element_clickable(roomloc.sign_in, model="等待气泡的签到或领取可点击")
+            self.click_element(roomloc.sign_in, model="点击气泡的签到或领取")
+            self.wait_element_clickable(roomloc.receiveBtn, model="等待领取按钮可点击")
+            self.click_element(roomloc.receiveBtn,model="点击领取")
+            result = self.get_toast_exist(message='领取成功')
+            print("断言=====",result)
+            assert "领取成功" in result
+            self.wait_element_presence(roomloc.play_instructions)
+            self.click_element(roomloc.play_instructions, model="玩法说明按钮-可领取")
+            time.sleep(2)
+            # resultData = self.driver.page_source
+            # assert "用户通过完成" in resultData
+            self.driver.press_keycode(4)
+            time.sleep(2)
+            self.driver.press_keycode(4)
+        elif self.is_element_exist(roomloc.count_down_receive):
+            self.click_element(roomloc.count_down_receive, model="点击领取倒计时按钮")
+            self.wait_element_presence(roomloc.play_instructions)
+            self.click_element(roomloc.play_instructions, model="点击玩法说明按钮-倒计时")
+            time.sleep(2)
+            self.driver.press_keycode(4)
+            time.sleep(1)
+            self.driver.press_keycode(4)
+            '''
+            后续这里要写H5断言
+            '''
+            
+        
+    #抽奖tap
+    def click_luck_draw(self):
+        self.wait_element_clickable(roomloc.luck_draw)
+        self.click_element(roomloc.luck_draw, model="点击抽奖tap")
+        '''
+        后续写H5脚本
+        '''
     #礼物顶部入口
     def gift_entrance_top(self):
         self.wait_element_clickable(roomloc.masterAvatarView)
@@ -267,7 +349,7 @@ class RoomPage(CommonBus):
     def gift_entrance_bottom(self):
         self.wait_element_clickable(roomloc.iv_first_recharge)
         self.click_element(roomloc.iv_first_recharge)#点击礼物入口
-
+  
 
     #开黑tap-礼物底部入口
     def open_black_bottom(self):
@@ -277,34 +359,35 @@ class RoomPage(CommonBus):
     #切换礼物tap
     def get_gift_tap(self):
         for i,tapBtn in enumerate(roomloc.gift_list):
-            self.click_gift_tap(tapBtn) # 点击某个tap
+            print("tapBtn=============",tapBtn)
+            self.click_gift_tap(tapBtn) # 点击礼物tap
+            self.driver.implicitly_wait(5)
             self.select_gift() # 选中某个礼物
-            
             self.give_gifts() # 赠送礼物
             if i >= 2:
                 break
         self.driver.press_keycode(4)
-        time.sleep(2)
+        time.sleep(1)
 
-    
-    #点击某个礼物tap
+    #点击礼物tap
     def click_gift_tap(self,tapBtn):
-        self.wait_element_clickable(tapBtn)
-        self.click_element(tapBtn,model="点击某个礼物tap") #点击某个礼物tap
+        self.wait_element_clickable(tapBtn, model="等待元素显示")
+        self.click_element(tapBtn,model="点击礼物tap") #点击礼物tap
+        self.driver.implicitly_wait(5)
+
 
     #选中某个礼物
     def select_gift(self):
-        time.sleep(2)
         giftPages = self.get_elements(roomloc.gift_pages) #某tap下当前页的所有礼物元素
         if giftPages.__len__() > 0:
             number = random.randint(0, (len(giftPages)-1))
             # self.click_element(roomloc.get_gift(number))
             giftPages[number].click()
-            time.sleep(2)
+            time.sleep(1)
             
     #赠送礼物
     def give_gifts(self):
-        self.wait_element_clickable(roomloc.btn_send_gift, "查找赠送按钮")
+        self.wait_element_clickable(roomloc.btn_send_gift, model="查找赠送按钮")
         self.click_element(roomloc.btn_send_gift,model="点击赠送") #点击赠送
 
     #查看房主资料
@@ -334,12 +417,14 @@ class RoomPage(CommonBus):
         else:
             pass
 
+
     #资料内点击打赏
     def reward(self):
         self.wait_element_clickable(roomloc.sendBtn)
         self.click_element(roomloc.sendBtn,model="点击打赏") # 点击打赏
         self.wait_element_clickable(roomloc.homeowner_data)
         self.click_element(roomloc.homeowner_data,model="点击房主资料") #点击房主资料
+
 
     #资料内点击聊天
     def chat(self):
@@ -367,23 +452,31 @@ class RoomPage(CommonBus):
         if self.is_element_exist(roomloc.ranking_list):
             self.wait_element_clickable(roomloc.ranking_list)
             self.click_element(roomloc.ranking_list,model="点击排行榜") #点击排行榜
-            time.sleep(1)
-            self.click_element(roomloc.tv_title_week)
-            time.sleep(1)
-            self.click_element(roomloc.tv_title_yue)
-            time.sleep(1)
-            self.wait_element_clickable(roomloc.popularity_list)
+            self.assert_true(roomloc.day_week_month_assert) # 断言
+            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
+            self.click_element(roomloc.tv_title_week, model="点击周榜")
+            self.assert_true(roomloc.day_week_month_assert) # 断言
+            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
+            self.click_element(roomloc.tv_title_yue, model="点击月榜")
+            self.assert_true(roomloc.day_week_month_assert) # 断言
+            self.wait_element_clickable(roomloc.popularity_list, model="等待人气榜可点击")
             self.click_element(roomloc.popularity_list,model="点击人气榜") #点击人气榜
-            time.sleep(1)
-            self.click_element(roomloc.tv_title_week)
-            time.sleep(1)
-            self.click_element(roomloc.tv_title_yue)
-            time.sleep(1)
-            self.wait_element_clickable(roomloc.guardian_list)
+            self.assert_true(roomloc.day_week_month_assert) # 断言
+            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
+            self.click_element(roomloc.tv_title_week, model="点击周榜")
+            self.assert_true(roomloc.day_week_month_assert) # 断言
+            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
+            self.click_element(roomloc.tv_title_yue, model="点击月榜")
+            self.assert_true(roomloc.day_week_month_assert) # 断言
+            self.wait_element_clickable(roomloc.guardian_list, model="等待守护榜可点击")
             self.click_element(roomloc.guardian_list,model="点击守护榜") #点击守护榜
+            if self.is_element_exist(roomloc.guard_assert):
+                sh_list = self.get_elements(roomloc.guard_assert)
+                assert len(sh_list) > 0
+            else:
+                log.info("==========暂无守护========")
             time.sleep(1)
             self.click_element(roomloc.msg_backBtn, model="点击返回按钮") #返回
-            
         
 
     #点击玩法介绍
@@ -395,6 +488,7 @@ class RoomPage(CommonBus):
         assert "一" in result
         self.click_element(roomloc.closeIv,model="关闭玩法介绍")#关闭玩法介绍
     
+
     #点击麦下
     def click_wheat_lower(self):
         time.sleep(1)
@@ -403,6 +497,7 @@ class RoomPage(CommonBus):
         time.sleep(1)
         self.click_wheatList()
     
+
     # 点击麦下用户列表
     def click_wheatList(self):
         if self.is_element_exist(roomloc.iv_head_view):
@@ -412,10 +507,12 @@ class RoomPage(CommonBus):
         else:
             pass
 
+
     # 点击游戏
     def click_game(self):
         self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
         time.sleep(2)
+
 
     # 开黑tay-聊天室-创建队伍
     def click_create_ranks(self):
@@ -432,6 +529,7 @@ class RoomPage(CommonBus):
         self.exist_be_click(roomloc.mantle)
         
 
+    # 解散队伍
     def click_dissolution(self):
         self.wait_element_clickable(roomloc.tv_disband, model="检查解散按钮是否存在")
         self.click_element(roomloc.tv_disband, model="点击解散按钮")

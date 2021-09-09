@@ -121,12 +121,12 @@ class CommonBus(BasePage):
             pass
     
     # 断言是否为真
-    def assert_true(self, assert_element):
+    def assert_true(self, assert_element, model=None):
         try:
             assert self.is_element_exist(assert_element) == True
         except Exception as e:
-            log.info("创建团队断言错误")
-            self.save_webImgs(model="创建团队断言错误")
+            log.info("{}断言错误".format(model))
+            self.save_webImgs(model="{}断言错误".format(model))
 
     #检查并关闭异常弹窗            
     def check_error_popup(self):
