@@ -359,7 +359,6 @@ class RoomPage(CommonBus):
     #切换礼物tap
     def get_gift_tap(self):
         for i,tapBtn in enumerate(roomloc.gift_list):
-            print("tapBtn=============",tapBtn)
             self.click_gift_tap(tapBtn) # 点击礼物tap
             self.driver.implicitly_wait(5)
             self.select_gift() # 选中某个礼物

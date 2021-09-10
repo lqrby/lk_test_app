@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-09 14:39:03
+LastEditTime: 2021-09-10 10:18:44
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -63,7 +63,7 @@ class RoomPageLocator:
 
     '''list列表面类型元素'''
     # 房间list
-    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label66666666']") 
+    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
     room_list_kaiHei = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_room_cover']") 
     def get_goddess_type(number):
         goddessType = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label' and @index='{}']".format(number)) 
@@ -164,7 +164,7 @@ class RoomPageLocator:
     #=======================开播房间内元素结束===================
 
     #个人资料元素定位
-    personIdView = (Mb.ID,'com.ourydc.yuebaobao:id/personIdView99999999999999') #个人id
+    personIdView = (Mb.ID,'com.ourydc.yuebaobao:id/personIdView') #个人id
     nick = (Mb.ID,'com.ourydc.yuebaobao:id/nick') #昵称
     sexAndAge = (Mb.ID,'com.ourydc.yuebaobao:id/sexAndAge') #性别
     locationTv = (Mb.ID,'com.ourydc.yuebaobao:id/locationTv') #位置
