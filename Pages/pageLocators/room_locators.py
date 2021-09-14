@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-10 10:18:44
+LastEditTime: 2021-09-14 16:47:59
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -12,8 +12,15 @@ from appium.webdriver.common.mobileby import MobileBy as Mb
 
 
 class RoomPageLocator:
+    ##################################公共元素######################################
+    #确定关闭按钮
+    close_ok = (Mb.ID,'com.ourydc.yuebaobao:id/tv_sure') 
+    # 取消按钮
+    cancel_btn = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel") 
 
-    
+
+
+
     # 设置未成年人保护弹窗
     btn_know = (Mb.ID, "com.ourydc.yuebaobao:id/btn_iknow")
     # 关闭女神开播引导弹窗按钮
@@ -26,7 +33,7 @@ class RoomPageLocator:
     #创建聊天室按钮
     menuIv = (Mb.ID, "com.ourydc.yuebaobao:id/menuIv") 
     #房间类型
-    room_type = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") 
+    chilroom_type = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") 
     #==================小窝类型，萌新接待=====================
     #房间标签
     room_label = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv_label']/child::android.view.ViewGroup") 
@@ -39,7 +46,12 @@ class RoomPageLocator:
     #进入房间按钮
     entry_room = (Mb.ID, "com.ourydc.yuebaobao:id/btn_enter") 
 
-    
+    ###########################哩咔首页交友模块元素定位结束##########################
+    tv_play = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_play']") # 发现》点击开播用户
+    tv_close = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/des']") # 发现》点击未播用户
+    no_more = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='没有更多']") # 主播列表底部的没有更多按钮元素
+    roomIdTv = (Mb.ID, "com.ourydc.yuebaobao:id/roomIdTv") # 获取开播房间的id
+    # tv_nick = (Mb.ID, "com.ourydc.yuebaobao:id/tv_nick") # 获取用户昵称
 
     
     '''
@@ -91,11 +103,6 @@ class RoomPageLocator:
     room_menu = (Mb.ID,'com.ourydc.yuebaobao:id/menu') 
     #房间菜单元素list元素(最小化、关闭房间、更多分享、分享微信、qq、微博)
     room_menu_btn = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::android.widget.RelativeLayout")	
-    
-    
-    
-    #确定关闭按钮
-    close_ok = (Mb.ID,'com.ourydc.yuebaobao:id/tv_sure') 
     
     tv_introduce = (Mb.ID,'com.ourydc.yuebaobao:id/tv_introduce') #玩法介绍5
     closeIv = (Mb.ID,'com.ourydc.yuebaobao:id/closeIv') #关闭玩法介绍
@@ -176,8 +183,47 @@ class RoomPageLocator:
     msg_backBtn = (Mb.ID,'com.ourydc.yuebaobao:id/iv_back_new') # 聊天返回
     sendBtn = (Mb.ID,'com.ourydc.yuebaobao:id/sendBtn') # 打赏
     
+    ############################未进入开播用户资料相关元素###########################
+    tv_nick = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick') #昵称
+    follow = (Mb.ID, "com.ourydc.yuebaobao:id/btn_attention") # 关注用户元素
+    say_hello = (Mb.ID, "com.ourydc.yuebaobao:id/btn_chat") # 打招呼元素
+    more_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/view_share']") #更多列表
+    cancel_follow = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='取消关注']") #取消关注
+    Confirm_cancellation = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel") # 取消关注用户按钮	
+    #---动态---
+    user_dynamic = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='动态']") #用户资料中的动态
+    dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/child::android.view.ViewGroup") #动态列表
+    
+    #---守护---
+    user_guard = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='守护']") #用户资料中的守护
+    guard_list = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_username' and not(@text='虚位以待')]") #用户守护
+    #----展墙---
+    War_wall = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='展墙']") #用户资料中的展墙
+    War_wall_list = (Mb.XPATH,"//*[@class='android.widget.FrameLayout' and @resource-id='com.ourydc.yuebaobao:id/layout_contribute_diamond']") #展墙断言
+    
+    contribution = (Mb.ID,'com.ourydc.yuebaobao:id/click_contribute') #贡献榜
+    contributionlist = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/child::com.ourydc.yuebaobao:id/layout_contribute_diamond") #贡献榜列表
+    masonry_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/android.widget.RelativeLayout") #默认钻石榜列表
+    no_data = (Mb.ID,'com.ourydc.yuebaobao:id/tv_empty_text') #暂无数据
+    
+    # masonry_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/android.widget.RelativeLayout") #魅力榜列表
+    # masonry_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/android.widget.RelativeLayout") #守护榜列表
+
+    #---礼物展墙---
+    gift_wall = (Mb.ID,'com.ourydc.yuebaobao:id/click_gift') #礼物展墙
+    giftWallList = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout']") #礼物列表
+    giftWallNameList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_name']") #礼物名字列表
+    giftWallNumberList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_num']") #礼物列表
+    Diamond_number_text = (Mb.ID,'com.ourydc.yuebaobao:id/tv_content') #确定弹窗中text
+    
+    
 
 
+
+
+    #---装扮展墙---
+    decorate_wall = (Mb.ID,'com.ourydc.yuebaobao:id/click_mount') #装扮展墙
+    Decorate_wall_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv_item']/child::android.widget.RelativeLayout") # 装扮展墙礼物列表
     
     #================================================================
     #===================开播房间内二级元素定位开始=====================

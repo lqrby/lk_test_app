@@ -38,55 +38,55 @@ class Test_Login:
 
 
     '''正常登陆的测试用例--手机号密码登陆'''
-    @pytest.mark.success
-    @pytest.mark.parametrize("case", login_success)
-    @allure.story('手机号和密码登录')
-    @allure.title('手机号&密码登录')
-    def test_success_mobilelogin(self, case, start_app):
-        log.info("*********登陆用例：正常场景*********")
-        '''操作步骤：
-            1.启动app点击同意用户协议按钮
-            2.点击手机号登录
-            3.点击账号密码登录
-            4.输入正确的手机号密码点击“登录”按钮
-        '''
-        # Cb(start_app).check_loggedIn_signOut()
-        login_page = LoginPage(start_app)
-        loginStatus = login_page.login_mobile_passWord(case["username"], case["password"])
-        '''异常处理，预期结果与实际结果做对比，如果断言正确pass、如果断言失败或查找元素失败，自动截图保存路径到Outputs / screenshots'''
-        with allure.step("手机号密码登录测试用例"):
-            try:
-                assert loginStatus == case["check"]
-                log.info("手机号密码登录成功")
-            except AssertionError as a:
-                log.exception("登录成功用例断言失败")
-                login_page.save_webImgs("登录success_断言失败截图")
-                raise a
-
-
-    # '''正常手机号验证码登陆的测试用例'''
     # @pytest.mark.success
     # @pytest.mark.parametrize("case", login_success)
-    # @allure.story('手机号验证码登陆')
-    # @allure.title('手机号验证码登陆')
-    # def test_success_phoneCode(self, case, start_app):
-    #     log.info("*********验证码登陆用例：正常场景*********")
+    # @allure.story('手机号和密码登录')
+    # @allure.title('手机号&密码登录')
+    # def test_success_mobilelogin(self, case, start_app):
+    #     log.info("*********登陆用例：正常场景*********")
     #     '''操作步骤：
     #         1.启动app点击同意用户协议按钮
     #         2.点击手机号登录
-    #         3.输入正确的手机号点击“获取验证码”按钮
+    #         3.点击账号密码登录
+    #         4.输入正确的手机号密码点击“登录”按钮
     #     '''
+    #     # Cb(start_app).check_loggedIn_signOut()
     #     login_page = LoginPage(start_app)
-    #     loginStatus = login_page.login_phone_code(case["username"])
+    #     loginStatus = login_page.login_mobile_passWord(case["username"], case["password"])
     #     '''异常处理，预期结果与实际结果做对比，如果断言正确pass、如果断言失败或查找元素失败，自动截图保存路径到Outputs / screenshots'''
     #     with allure.step("手机号密码登录测试用例"):
     #         try:
     #             assert loginStatus == case["check"]
     #             log.info("手机号密码登录成功")
     #         except AssertionError as a:
-    #             log.exception("断言失败")
+    #             log.exception("登录成功用例断言失败")
     #             login_page.save_webImgs("登录success_断言失败截图")
     #             raise a
+
+
+    '''正常手机号验证码登陆的测试用例'''
+    @pytest.mark.success
+    @pytest.mark.parametrize("case", login_success)
+    @allure.story('手机号验证码登陆')
+    @allure.title('手机号验证码登陆')
+    def test_success_phoneCode(self, case, start_app):
+        log.info("*********验证码登陆用例：正常场景*********")
+        '''操作步骤：
+            1.启动app点击同意用户协议按钮
+            2.点击手机号登录
+            3.输入正确的手机号点击“获取验证码”按钮
+        '''
+        login_page = LoginPage(start_app)
+        loginStatus = login_page.login_phone_code(case["username"])
+        '''异常处理，预期结果与实际结果做对比，如果断言正确pass、如果断言失败或查找元素失败，自动截图保存路径到Outputs / screenshots'''
+        with allure.step("手机号密码登录测试用例"):
+            try:
+                assert loginStatus == case["check"]
+                log.info("手机号密码登录成功")
+            except AssertionError as a:
+                log.exception("断言失败")
+                login_page.save_webImgs("登录success_断言失败截图")
+                raise a
 
     # # 微信登录
     # @pytest.mark.parametrize("case", login_success)

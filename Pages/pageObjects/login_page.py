@@ -2,14 +2,17 @@ import time
 from PIL import Image
 from PIL import ImageGrab
 # from Common.basepage import BasePage
+from Common.log import get_logger
 from Pages.pageLocators.login_locators import LoginPageLocator as loc
 # from Pages.pageLocators.home_locators import HomePageLocator as home_loc
 from Pages.pageObjects.Common_Buss import CommonBus
-from Pages.pageObjects.home_page import HomePage
-# from testScript.db_util import MysqlDb
+# from Pages.pageObjects.home_page import HomePage
+from testScript.db_util import MysqlDb
 from appium.webdriver.common.touch_action import TouchAction 
 # from selenium.webdriver.common.action_chains import ActionChains
 # from selenium.webdriver.common.touch_actions import TouchActions
+
+log = get_logger(logger_name="登录操作日志")
 
 
 '''登录-页面操作行为'''
@@ -33,28 +36,28 @@ class LoginPage(CommonBus):
     #     self.loginbymobile(user, passwd)
     #     return HomePage(self.driver)
 
-    '''微信登录成功操作'''
+    # '''微信登录成功操作'''
 
-    def login_bywechat_success(self):
-        self.loginbywechat()
-        return HomePage(self.driver)
+    # def login_bywechat_success(self):
+    #     self.loginbywechat()
+    #     return HomePage(self.driver)
 
-    '''微博登录成功操作'''
+    # '''微博登录成功操作'''
 
-    def login_byweibo_success(self):
-        self.loginbyweibo()
-        return HomePage(self.driver)
+    # def login_byweibo_success(self):
+    #     self.loginbyweibo()
+    #     return HomePage(self.driver)
 
-    '''QQ登录成功操作'''
+    # '''QQ登录成功操作'''
 
-    def login_byQQ_success(self):
-        self.loginbyQQ()
-        return HomePage(self.driver)
+    # def login_byQQ_success(self):
+    #     self.loginbyQQ()
+    #     return HomePage(self.driver)
 
-    '''手机号验证码录成功操作'''
-    def login_phoneCode_success(self, phone):
-        self.loginbyemail(phone)
-        return HomePage(self.driver)
+    # '''手机号验证码录成功操作'''
+    # def login_phoneCode_success(self, phone):
+    #     self.loginbyemail(phone)
+    #     return HomePage(self.driver)
 
 
     
@@ -79,75 +82,53 @@ class LoginPage(CommonBus):
         userStatus = self.get_userStatus()
         return userStatus
 
-    # 验证码登录
+
+    '''
+    手机号验证码登录注册
+    '''
     def login_phone_code(self, phone):
         self.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
         self.click_element(loc.phoneBtn, model="点击手机号登录")
+        # self.exist_be_click(loc.otherPhoneBtn) #存在则点击其它手机号登录
         self.wait_eleVisible(loc.et_phone, model="等待手机号可输入")
         self.input_text(loc.et_phone, phone, model="输入手机号")
+        print("手机号是====={}".format(phone))
+        sql = "select cnt from ourydc_app_sms where phone = {} order by insdt limit 1".format(phone)
+        print("sql===={}".format(sql))
+        phoneNum = MysqlDb().query(sql)
+        usedPhone = phoneNum[0]['cnt']
+        print("旧验证码是======{}".format(usedPhone))
         self.click_element(loc.codeBtn, model="点击获取验证码")
-        time.sleep(2)
         self.check_agreement_two()
+        time.sleep(3)
+        
+        self.driver.swipe(235, 1086, 480, 1086, 100)
+        time.sleep(3)
+        TouchAction(self.driver).tap(x=235, y=1086, count=1).perform()
         time.sleep(2)
-        # self.wait_eleVisible(loc.maxPicture, model="等待元素显示")
-        # # result = self.driver.page_source
-        # self.get_element(loc.maxPicture)
-        # bbox = maxPictureObj.get_attribute("bounds")
-        # im = ImageGrab.grab(bbox)
-        # a=im.transpose(Image.ROTATE_90)
-        # self.drag_right() # 滑动验证码
-        TouchAction(self.driver).press(x=258,y=1212).wait(1000).move_to(x=700,y=1212).wait(1000).wait(500).release().perform()
-        # for i in range(100):
-            # TouchAction(self.driver).press(x=250+i,y=1212).move_to(x=500+i,y=1212).release().perform()
-        # ta = TouchActions(self.driver)
-        # ta.tap_and_hold(xcoord=258,ycoord=1212)
-        # ta.perform()
-        # ta.move(xcoord=700,ycoord=1212)
-        # ta.perform()
-        # ta.release(xcoord=700,ycoord=1212)
-        # ta.perform()
-        # time.sleep(10)
-            
-            # time.sleep(2)
-            # time.sleep(5)
-            # ActionChains(self.driver).move_by_offset(xoffset=258,yoffset=1212).perform() #获取当前鼠标的位置
-            # ActionChains(self.driver).click_and_hold().perform() #鼠标左键单击不松开
-            # ActionChains(self.driver).drag_and_drop_by_offset(xoffset=600,yoffset=1212).perform() #鼠标左键单击不松开
-        # ActionChains(self.driver).click_and_hold().perform()
-        # ActionChains(self.driver).drag_and_drop_by_offset(x=700,y=1212).perform()
-        # self.wait_element_presence(loc.verification_code)
-        # sql = "select cnt from ourydc_app_sms where phone = '18810798467' order by insdt limit 1"
-        # data = MysqlDb().query(sql) 
-        # if data:
-        #     code = data[0]["cnt"]
-        #     for i,number in enumerate(code):
-        #         self.input_text(loc.codeList[i],number) # 输入文本
-        #         time.sleep(0.5)
-        # else:
-        #     self.save_webImgs("数据库查询验证码失败截图")
-        # userStatus = self.get_userStatus()
-        return False
+        # TouchAction(self.driver).tap(x=435, y=1086, count=1).perform()
+        # time.sleep(5)
+        TouchAction(self.driver).press(x=235,y=1086).wait(1000).move_to(x=480,y=1086).wait(1000).release().perform()
+        self.wait_eleVisible(loc.input_one, model="等待显示验证码输入框")
+        time.sleep(3)
+        phoneStr = ""
+        for i in range(10):
+            log.info("第{}次获取验证码".format(i+1))
+            phoneNumber = MysqlDb().query(sql)
+            if phoneNumber[0]['cnt'] != usedPhone:
+                phoneStr = str(phoneNumber[0]['cnt'])
+                log.info("新验证码是===={}".format(phoneStr))
+            else:
+                time.sleep(4)
+        eleArr = []
+        for ele in loc.codeList:
+            eleArr.append(self.get_element(ele))
+        for obj,i in zip(eleArr,phoneStr):
+            obj.click()
+            self.driver.press_keycode(int(i)+7)
+        self.driver.implicitly_wait(5)
+        return self.get_userStatus()
 
 
-    # 微信登录
-    def loginbywechat(self):
-        self.click_element(loc.chooseScience, model="点击选择环境")
-        self.click_element(loc.Science, model="点击选择stage")
-        self.click_element(loc.wechat, model="点击微信登录")
-        return self
-
-    # QQ登录
-    def loginbyQQ(self):
-        self.click_element(loc.chooseScience, model="点击选择环境")
-        self.click_element(loc.Science, model="点击选择stage")
-        self.click_element(loc.QQ, model="点击QQ登录")
-        self.click_element(loc.QQfds, model="点击QQ授权")
-        return self
-
-    # 微博登录
-    def loginbyweibo(self):
-        self.click_element(loc.chooseScience, model="点击选择环境")
-        self.click_element(loc.Science, model="点击选择stage")
-        self.click_element(loc.weibo, model="点击微博登录")
-        return self
+    

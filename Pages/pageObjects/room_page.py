@@ -1,7 +1,6 @@
-from re import M
 from typing_extensions import ParamSpecArgs
+from appium.webdriver.extensions.search_context import mobile
 from attr import s
-from Common.basepage import BasePage
 from Pages.pageObjects.Common_Buss import CommonBus
 from selenium.common.exceptions import NoSuchElementException
 from Common.log import get_logger
@@ -116,6 +115,241 @@ class RoomPage(CommonBus):
 
 
     #=============进入房间============
+
+
+    '''
+    功能:发现列表-用户进入的聊天室
+    '''
+    def enter_liveRoom(self, number = 1):
+        while number > 0:
+            tv_plays = self.get_elements(roomloc.tv_play)
+            log.info("列表数据有{}条1".format(len(tv_plays)))
+            if len(tv_plays) > 0:
+                for no_play in tv_plays:
+                    time.sleep(3)
+                    no_play.click()
+                    self.gift_entrance_top() #顶部礼物入口
+                    self.look_homeowner_data() #查看房主资料
+                    self.wait_eleVisible(roomloc.roomIdTv) # 断言用户资料
+                    self.gift_entrance_bottom() # 底部礼物入口
+                    self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
+                    self.click_heat_value() # 房间用户及贵宾席
+                    self.exist_be_click(roomloc.follow)#点击关注
+                    self.click_introduce() #点击玩法介绍，关闭玩法介绍
+                    self.click_wheat_lower() # 点击麦下  麦下取消功能
+                    self.click_game() #点击游戏
+                    self.driver.keyevent(4)
+                    number = number - 1
+                    if number == 0:
+                        break
+                if number > 0:
+                    if self.is_element_exist(roomloc.no_more):
+                        log.info("显示了没有更多")
+                        number = 0
+                        break
+                    else:
+                        log.info("向上滑动列表")
+                        self.swipeUp()
+            elif self.is_element_exist(roomloc.no_more):
+                log.info("没有更多")
+                number = 0
+                break
+            else:
+                log.info("向上滑动列表")
+                self.swipeUp()
+        return len(tv_plays)
+
+
+    
+    '''
+    点击未开播的用户
+    功能:发现列表-查看用户资料
+    '''
+    def enter_notLiveRoom(self, number = 1):
+        while number > 0:
+            tv_desArr = self.get_elements(roomloc.tv_close)
+            log.info("用户列表数据有{}条".format(len(tv_desArr)))
+            if len(tv_desArr) > 0:
+                for no_play in tv_desArr:
+                    time.sleep(3)
+                    no_play.click()
+                    self.driver.implicitly_wait(8)
+                    self.assert_true(roomloc.tv_nick, model="资料tap-断言昵称") #资料tap-断言昵称
+                    time.sleep(2)
+                    self.swipeUp() #向上滑动
+                    time.sleep(1)
+                    self.swipeLeft() #向左滑动
+                    self.click_dynamic() #动态tap
+                    self.swipeLeft() #向左滑动
+                    self.click_exclusive_guard() #守护
+                    self.swipeLeft() #向左滑动
+                    self.click_exhibition_wall() #展墙
+                    self.follow() #关注/取消关注
+                    self.click_more() #点击更多
+                    moreList = self.find_elements(roomloc.more_list) #更多list
+                    self.assert_len(moreList, dyj=7, model="更多列表断言")
+                    self.driver.keyevent(4)
+                    time.sleep(1)
+                    self.go_back() #返回
+                    self.login_Out() #退出登录
+                    number = number - 1
+                    if number == 0:
+                        break
+                if number > 0:
+                    if self.is_element_exist(roomloc.no_more):
+                        log.info("显示了没有更多")
+                        number = 0
+                        break
+                    else:
+                        log.info("向上滑动列表")
+                        self.swipeUp()
+            elif self.is_element_exist(roomloc.no_more):
+                log.info("没有更多")
+                number = 0
+                break
+            else:
+                log.info("向上滑动列表")
+                self.swipeUp()
+        return len(tv_desArr)
+    
+
+    
+
+    '''
+    动态tap
+    '''
+    def click_dynamic(self):
+        self.driver.implicitly_wait(4)
+        dynamic_list = self.get_elements(roomloc.dynamic_list)
+        self.assert_len(dynamic_list)
+        
+    '''
+    守护
+    '''
+    def click_exclusive_guard(self):
+        self.driver.implicitly_wait(4)
+        self.assert_len(self.get_elements(roomloc.guard_list))
+        
+    
+    '''
+    展墙tap
+    '''
+    def click_exhibition_wall(self):
+        self.driver.implicitly_wait(4)
+        self.assert_len(self.get_elements(roomloc.War_wall_list)) #展墙断言
+        # self.assert_len(roomloc.contributionlist)
+        self.contribution() #贡献榜
+        
+
+
+    '''
+    展墙-贡献榜
+    '''
+    def contribution(self):
+        self.wait_element_presence(roomloc.contribution, model="贡献榜")
+        self.click_element(roomloc.contribution, model="点击贡献榜")
+        self.diamond_list() #钻石榜
+        time.sleep(1)
+        self.swipeLeft() # 向左滑动
+        time.sleep(1)
+        self.Charm_list() #魅力榜
+        self.swipeLeft() # 向左滑动
+        time.sleep(1)
+        self.guard_list() #守护榜
+        time.sleep(1)
+        self.go_back() #返回
+        self.gift_wall() #礼物展墙
+        self.Dress_wall() #装扮展墙
+        
+
+    def go_back(self):
+        self.wait_element_presence(roomloc.msg_backBtn, model="返回")
+        self.click_element(roomloc.msg_backBtn, model="返回")
+
+    '''
+    展墙-钻石榜
+    '''
+    def diamond_list(self):
+        # self.wait_element_presence(roomloc.masonry_list, model="钻石榜")
+        # self.click_element(roomloc.masonry_list, model="钻石榜")
+        if self.is_element_exist(roomloc.no_data):
+            log.info("暂无数据")
+            self.save_webImgs(model="钻石榜暂无数据")
+        else:
+            zs_list = self.get_elements(roomloc.masonry_list)
+            self.assert_len(zs_list, dyj=1, model="钻石榜列表断言")
+    
+    
+    '''
+    展墙-魅力榜
+    '''
+    def Charm_list(self):
+        # self.wait_element_presence(roomloc.contributionList, model="魅力榜")
+        # self.click_element(roomloc.masonry_list, model="魅力榜")
+        if self.is_element_exist(roomloc.no_data):
+            log.info("暂无数据")
+            self.save_webImgs(model="魅力榜暂无数据")
+        else:
+            ml_list = self.get_elements(roomloc.masonry_list)
+            assert self.assert_len(ml_list, dyj=1, model="魅力榜列表断言")
+
+    '''
+    展墙-守护榜
+    '''
+    def guard_list(self):
+        # self.wait_element_presence(roomloc.contributionList, model="守护榜")
+        # self.click_element(roomloc.masonry_list, model="守护榜")
+        if self.is_element_exist(roomloc.no_data):
+            log.info("暂无数据")
+            self.save_webImgs(model="守护榜暂无数据")
+        else:
+            sh_list = self.get_elements(roomloc.masonry_list)
+            assert self.assert_len(sh_list, dyj=1, model="守护榜列表断言")
+
+    
+    #====================礼物展墙================
+    def gift_wall(self):
+        self.wait_element_presence(roomloc.gift_wall, model="礼物展墙")  
+        self.click_element(roomloc.gift_wall, model="礼物展墙")
+        giftWallList = self.get_elements(roomloc.giftWallList)
+        self.assert_len(giftWallList, dyj=1, model="礼物墙展墙列表断言")
+        self.light_up() #点亮墙展礼物
+        self.go_back()
+
+
+    #====================装扮展墙================
+    def Dress_wall(self):
+        self.wait_element_presence(roomloc.decorate_wall, model="装扮展墙")  
+        self.click_element(roomloc.decorate_wall, model="装扮展墙")
+        Decorate_wall_list = self.get_elements(roomloc.Decorate_wall_list)
+        self.assert_len(Decorate_wall_list, dyj=1, model="装扮墙展墙列表断言")
+        self.go_back()
+
+    '''
+    点亮墙展礼物
+    '''
+    def light_up(self, gift_number=2):
+        j = 0
+        while gift_number > 0:
+            num = random.randint(0,4)
+            if num > 0:
+                self.swipeUp(t=1000,n=num)
+            giftWallList = self.get_elements(roomloc.giftWallList)
+            i = random.randint(0,len(giftWallList)-1)
+            giftWallList[i].click()
+            time.sleep(1)
+            textStr = self.get_element(roomloc.Diamond_number_text).text
+            number = "".join(list(filter(str.isdigit, textStr)))
+            if int(number) > 50000:
+                self.click_element(roomloc.cancel_btn,model="取消按钮")
+                self.swipeDown(t=1000,n=num)
+            else:
+                self.click_element(roomloc.close_ok, model="点亮按钮")
+                time.sleep(2)
+                j = j + 1
+                log.info("=======点亮第{}次======".format(j))
+                gift_number = gift_number - 1
+            
     '''
     功能:进入推荐聊天室
     '''
@@ -194,16 +428,50 @@ class RoomPage(CommonBus):
         else:
             return False
 
+    '''
+    关注/取消关注
+    '''
+    def follow(self):
+        if self.is_element_exist(roomloc.follow):
+            self.click_element(roomloc.follow,model="点击关注")
+            gz_toast = "关注成功"
+            followSuccess = self.get_toast_msg(gz_toast, model="关注成功的toast")
+            self.assert_in(gz_toast, followSuccess, model="关注用户") #断言关注
+        else:
+            self.click_more() #更多
+            self.wait_element_clickable(roomloc.cancel_follow, model="取消关注")  
+            self.click_element(roomloc.cancel_follow, model="点击取消关注")
+            self.wait_element_presence(roomloc.Confirm_cancellation, model="等待确认按钮显示")
+            self.click_element(roomloc.Confirm_cancellation, model="确认取消关注")
+            cancelToast = "取消关注成功"
+            toastMsg = self.get_toast_msg(cancelToast, model="取消关注成功的toast")  
+            assert cancelToast in toastMsg
+            self.assert_in(cancelToast, toastMsg, model="取消关注") #取消关注断言
+
+    '''
+    更多"..."
+    '''
+    def click_more(self):
+        self.wait_element_clickable(roomloc.iv_more, model="更多") #更多
+        self.click_element(roomloc.iv_more,model="点击更多")
+        time.sleep(2)
+
+
+    '''
+    聊天室内菜单"..."
+    '''
     def click_menu(self):
         self.wait_element_clickable(roomloc.room_menu, model="等待聊天室菜单可点击")
         self.click_element(roomloc.room_menu, model="点击聊天室菜单")#点击房间菜单
-    
+
+
     #点击榜单
     def click_bangDan(self):
         self.wait_element_clickable(roomloc.room_module)
         self.click_element(roomloc.room_module, model="点击房间模块")#点击房间模块
 
-    #点击房间模块
+
+    #点击房间[模块]
     def find_room(self):
         self.wait_element_clickable(roomloc.room_module)
         self.click_element(roomloc.room_module, model="点击房间模块")#点击房间模块
@@ -254,40 +522,6 @@ class RoomPage(CommonBus):
                 self.swipeUp()
         return len(tv_plays)
 
-
-
-    # #点击未开播的用户
-    def enter_notLiveRoom(self, number = 3):
-        while number > 0:
-            tv_desArr = self.get_elements(roomloc.tv_close)
-            log.info("列表数据有{}条".format(len(tv_desArr)))
-            if len(tv_desArr) > 0:
-                for no_play in tv_desArr:
-                    time.sleep(3)
-                    no_play.click()
-                    self.wait_eleVisible(roomloc.tv_nick)
-                    time.sleep(random.randint(5,7))
-                    self.driver.keyevent(4)
-                    time.sleep(1)
-                    number = number - 1
-                    if number == 0:
-                        break
-                if number > 0:
-                    if self.is_element_exist(roomloc.no_more):
-                        log.info("显示了没有更多")
-                        number = 0
-                        break
-                    else:
-                        log.info("向上滑动列表")
-                        self.swipeUp()
-            elif self.is_element_exist(roomloc.no_more):
-                log.info("没有更多")
-                number = 0
-                break
-            else:
-                log.info("向上滑动列表")
-                self.swipeUp()
-        return len(tv_desArr)
 
 
     #点击福袋
@@ -424,13 +658,13 @@ class RoomPage(CommonBus):
         self.wait_element_clickable(roomloc.homeowner_data)
         self.click_element(roomloc.homeowner_data,model="点击房主资料") #点击房主资料
 
+    
 
-    #资料内点击聊天
+    #资料内点击返回
     def chat(self):
         self.wait_element_clickable(roomloc.msgBtn)
         self.click_element(roomloc.msgBtn,model="点击聊天") # 点击聊天
-        self.wait_element_clickable(roomloc.msg_backBtn)
-        self.click_element(roomloc.msg_backBtn,model="点击返回") # 点击返回
+        self.go_back() #返回
 
 
     # 点击房间热度值
@@ -475,7 +709,7 @@ class RoomPage(CommonBus):
             else:
                 log.info("==========暂无守护========")
             time.sleep(1)
-            self.click_element(roomloc.msg_backBtn, model="点击返回按钮") #返回
+            self.go_back() #返回
         
 
     #点击玩法介绍

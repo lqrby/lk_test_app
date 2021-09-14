@@ -272,38 +272,39 @@ class BasePage:
             self.save_webImgs(model)
             raise
 
-    # # 滑屏操作 - 向上滑屏
-    # def swipeUp(self, t=500, n=1):
-    #     print(99999999999999999999999999999)
-    #     time.sleep(0.5)
-    #     '''向上滑动屏幕'''
-    #     l = self.driver.get_window_size()
-    #     print("huadong ======",l)
-    #     x1 = l['width'] * 0.5
-    #     y1 = l['height'] * 0.85
-    #     y2 = l['height'] * 0.25
-    #     for i in range(n):
-    #         self.driver.swipe(x1, y1, x1, y2, t)
-    #         time.sleep(0.5)
+    # 滑屏操作 - 向上滑屏
+    def swipeUp(self, t=500, n=1):
+        time.sleep(0.5)
+        '''向上滑动屏幕'''
+        l = self.driver.get_window_size()
+        x1 = l['width'] * 0.5
+        y1 = l['height'] * 0.85
+        y2 = l['height'] * 0.25
+        for i in range(n):
+            self.driver.swipe(x1, y1, x1, y2, t)
+            time.sleep(0.5)
+
+
+
     def get_size(self):
         x = self.driver.get_window_size()["width"]
         y = self.driver.get_window_size()["height"]
         return x, y
 
-    # 滑屏操作 - 向上滑屏
-    def swipeUp(self,):
-        time.sleep(0.5)
-        '''向上滑动屏幕'''
-        l = self.get_size()
-        x1 = int(l[0] * 0.5)
-        y1 = int(l[1] * 0.9)
-        y2 = int(l[1] * 0.35)
-        self.driver.swipe(x1, y1, x1, y2)
-        # for i in range(n):
-        #     print("????????????????????????????????????????????????????????????????????????????????")
-        #     self.driver.swipe(x1, y1, x1, y2)
-        #     print("******************************************************************************")
-        #     time.sleep(0.5)
+    # # 滑屏操作 - 向上滑屏
+    # def swipeUp(self,):
+    #     time.sleep(0.5)
+    #     '''向上滑动屏幕'''
+    #     l = self.get_size()
+    #     x1 = int(l[0] * 0.5)
+    #     y1 = int(l[1] * 0.9)
+    #     y2 = int(l[1] * 0.35)
+    #     self.driver.swipe(x1, y1, x1, y2)
+    #     for i in range(n):
+    #         print("????????????????????????????????????????????????????????????????????????????????")
+    #         self.driver.swipe(x1, y1, x1, y2)
+    #         print("******************************************************************************")
+    #         time.sleep(0.5)
         
 
     def swipeDown(self, t=500, n=1):
@@ -407,7 +408,7 @@ class BasePage:
         log.info("{0}: 获取toast信息，表达式为：{1}".format(model, xpath_loc))
         try:
             # 等待元素存在
-            WebDriverWait(self.driver, 5, 0.01).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
+            WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc)).text
         except:
             # 抛异常
@@ -426,7 +427,7 @@ class BasePage:
             WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc)).text
         except:
-            return "断言错误"
+            return "获取toast失败"
 
     # 列表滑动操作-翻页找其他页面的内容
     def scrollListView(self, text):

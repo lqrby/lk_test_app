@@ -30,15 +30,6 @@ class CommonBus(BasePage):
         self.wait_eleVisible(loc)
         self.click_element(loc)
 
-   
-    
-
-    
-    
-    
-    
-    
-
     
 
     # 系统弹窗
@@ -92,11 +83,16 @@ class CommonBus(BasePage):
 
     # 退出登录
     def login_Out(self):
-        self.click_element(my.meBtn, model="点击我的")
+        self.click_element(my.meBtn, model="点击我的") 
+        time.sleep(1)
+        if self.is_element_exist(my.setUpBtn) == False:
+           self.swipeUp() 
         self.wait_element_clickable(my.setUpBtn, model="点击设置")
-        self.click_element(my.setUpBtn)
+        self.click_element(my.setUpBtn, model="点击设置") 
+
         self.wait_element_clickable(my.logoutBtn, model="点击退出登录按钮")
         self.click_element(my.logoutBtn, model="点击退出登录按钮")
+
         self.wait_element_clickable(my.logoutOkBtn, model="点击确认退出按钮")
         self.click_element(my.logoutOkBtn, model="点击确认退出按钮")
         log.info("===========退出登录========")
@@ -109,21 +105,35 @@ class CommonBus(BasePage):
             pass
         elif self.get_userStatus():
             log.info("===========用户是登录状态，开始退出========")
-            self.click_element(my.meBtn, model="点击我的")
-            self.wait_element_clickable(my.setUpBtn, model="点击设置")
-            self.click_element(my.setUpBtn)
-            self.wait_element_clickable(my.logoutBtn, model="点击退出登录按钮")
-            self.click_element(my.logoutBtn, model="点击退出登录按钮")
-            self.wait_element_clickable(my.logoutOkBtn, model="点击确认退出按钮")
-            self.click_element(my.logoutOkBtn, model="点击确认退出按钮")
-            log.info("===========退出登录========")
+            self.login_Out()
         else:
             pass
     
     # 断言是否为真
     def assert_true(self, assert_element, model=None):
         try:
-            assert self.is_element_exist(assert_element) == True
+            result = self.is_element_exist(assert_element)
+            assert result == True
+            log.info("{}===断言通过,{} == {}".format(model,result,True))
+        except Exception as e:
+            log.info("{}断言错误".format(model))
+            self.save_webImgs(model="{}断言错误".format(model))
+
+
+    # 断言是否包含
+    def assert_in(self, text, contain_text, model=None):
+        try:
+            assert text in contain_text
+            log.info("{}===断言通过,{} 包含 {}".format(model,contain_text,text))
+        except Exception as e:
+            log.info("{}断言错误".format(model))
+            self.save_webImgs(model="{}断言错误".format(model))
+
+    # 断言长度
+    def assert_len(self, elements, dyj=0, model=None):
+        try:
+            assert len(elements) > dyj
+            log.info("{}===断言通过,{} > {}".format(model,len(elements),dyj))
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model="{}断言错误".format(model))

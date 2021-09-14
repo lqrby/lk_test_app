@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-27 16:38:44
-LastEditTime: 2021-09-01 13:46:27
+LastEditTime: 2021-09-13 13:25:31
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/login_locators.py
@@ -25,12 +25,14 @@ class LoginPageLocator:
     #手机号验证码登录
     et_phone = (Mb.ID,'com.ourydc.yuebaobao:id/et_phone')	#手机号输入框元素
     codeBtn = (Mb.ID,'com.ourydc.yuebaobao:id/btn_get_verification_code') #获取验证码按钮元素
+    codeInput = (Mb.ID,'com.ourydc.yuebaobao:id/container_et') #获取验证码输入框元素
     input_one = (Mb.XPATH, "//*[@class='android.widget.TextView' and @index='0']") # 验证码输入框1
     input_two = (Mb.XPATH, "//*[@class='android.widget.TextView' and @index='1']") # 验证码输入框2
     input_three = (Mb.XPATH, "//*[@class='android.widget.TextView' and @index='2']") # 验证码输入框3
     input_four = (Mb.XPATH, "//*[@class='android.widget.TextView' and @index='3']") # 验证码输入框4
     codeList = [input_one,input_two,input_three,input_four]
     verification_code = (Mb.ID,'com.ourydc.yuebaobao:id/btn_get_verification_code') #重新获取验证码
+    seekBar = (Mb.ID,'com.ourydc.yuebaobao:id/seekBar') #滑块验证码拖动按钮
     #滑块儿验证码
 
 
