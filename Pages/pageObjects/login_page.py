@@ -103,9 +103,9 @@ class LoginPage(CommonBus):
         self.check_agreement_two()
         time.sleep(3)
         
-        self.driver.swipe(235, 1086, 480, 1086, 100)
-        time.sleep(3)
-        TouchAction(self.driver).tap(x=235, y=1086, count=1).perform()
+        # self.driver.swipe(235, 1086, 480, 1086, 100)
+        # time.sleep(3)
+        # TouchAction(self.driver).tap(x=235, y=1086, count=1).perform()
         time.sleep(2)
         # TouchAction(self.driver).tap(x=435, y=1086, count=1).perform()
         # time.sleep(5)

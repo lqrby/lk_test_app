@@ -138,7 +138,7 @@ class BasePage:
             raise
 
     # 点击操作
-    def click_element(self, loc, model=None, times=2):
+    def click_element(self, loc, model=None, times=3):
         time.sleep(1)
         if self.is_desplayed(loc) and EC.element_to_be_clickable(loc):
             # 找到元素
@@ -278,7 +278,7 @@ class BasePage:
         '''向上滑动屏幕'''
         l = self.driver.get_window_size()
         x1 = l['width'] * 0.5
-        y1 = l['height'] * 0.85
+        y1 = l['height'] * 0.75
         y2 = l['height'] * 0.25
         for i in range(n):
             self.driver.swipe(x1, y1, x1, y2, t)
@@ -321,9 +321,9 @@ class BasePage:
         '''向左滑动屏幕'''
         time.sleep(0.5)
         l = self.driver.get_window_size()
-        x1 = l['width'] * 0.75
+        x1 = l['width'] * 0.8
         y1 = l['height'] * 0.5
-        x2 = l['width'] * 0.25
+        x2 = l['width'] * 0.2
         for i in range(n):
             self.driver.swipe(x1, y1, x2, y1, t)
 
@@ -331,9 +331,9 @@ class BasePage:
         '''向右滑动屏幕'''
         time.sleep(0.5)
         l = self.driver.get_window_size()
-        x1 = l['width'] * 0.25
+        x1 = l['width'] * 0.20
         y1 = l['height'] * 0.5
-        x2 = l['width'] * 0.75
+        x2 = l['width'] * 0.8
         for i in range(n):
             self.driver.swipe(x1, y1, x2, y1, t)
 
