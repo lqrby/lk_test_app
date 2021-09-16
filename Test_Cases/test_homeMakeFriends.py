@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:49
-LastEditTime: 2021-09-15 19:45:17
+LastEditTime: 2021-09-16 14:56:10
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \lk_test_app\Test_Cases\test_homeMakeFriends.py
@@ -40,9 +40,9 @@ class TestHomeMakeFriends:
                 raise a
 
 
-    # '''
-    # 发现-用户资料页
-    # '''
+    '''
+    发现-用户资料页
+    '''
     def test_NoInToRoom(self, startApp_keepUserData):
         log.info("***************首页---发现---用户资料页*****************")
         room_page = RoomPage(startApp_keepUserData)
@@ -58,7 +58,7 @@ class TestHomeMakeFriends:
                 raise a
 
 
-    # '''附近的人'''            
+    '''附近的人-用户资料页'''            
     def test_peopleNearby(self, startApp_keepUserData):
         log.info("************首页---附近的人--- 用户主页资料*************")
         room_page = RoomPage(startApp_keepUserData)
@@ -73,8 +73,39 @@ class TestHomeMakeFriends:
                 common_func.save_webImgs("进出附近的人主页资料-断言截图")
                 raise a
 
-    
 
+    '''附近的人-用户进入的聊天室'''            
+    def test_peopleNearby_room(self, startApp_keepUserData):
+        log.info("************首页---附近的人--- 用户进入的聊天室*************")
+        room_page = RoomPage(startApp_keepUserData)
+        common_func = Cb(startApp_keepUserData)
+        nearby_people_chatRoom = room_page.nearby_people_chatRoom()
+        with allure.step("进退附近的人进入的聊天室"):
+            try:
+                assert int(nearby_people_chatRoom) > 0
+                log.info("进退附近的人进入的聊天室断言成功")
+            except AssertionError as a:
+                log.error("进退附近的人进入的聊天室断言失败")
+                common_func.save_webImgs("进退附近的人进入的聊天室-断言截图")
+                raise a
+
+    
+    '''附近动态'''            
+    def test_nearbyDynamics(self, startApp_keepUserData):
+        log.info("************首页---附近动态---*************")
+        room_page = RoomPage(startApp_keepUserData)
+        common_func = Cb(startApp_keepUserData)
+        nearby_dynamics = room_page.nearby_dynamics()
+        with allure.step("查看附近动态"):
+            try:
+                assert int(nearby_dynamics) > 0
+                log.info("查看附近动态断言成功")
+            except AssertionError as a:
+                log.error("查看附近动态断言失败")
+                common_func.save_webImgs("查看附近动态-断言截图")
+                raise a
+
+    
 
 if __name__ == '__main__':
     pytest.main(['-s', './test_hot.py', '--alluredir', 'temp'])

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-27 16:38:44
-LastEditTime: 2021-09-13 13:25:31
+LastEditTime: 2021-09-16 19:07:49
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/login_locators.py
@@ -18,7 +18,6 @@ class LoginPageLocator:
     phoneBtn = (Mb.ID,'com.ourydc.yuebaobao:id/btn_login_phone') #手机号登录按钮
     nameAndPassBtn = (Mb.ID,'com.ourydc.yuebaobao:id/tv_account_login') #点击账号密码登录按钮
     username_type = (Mb.ID,'com.ourydc.yuebaobao:id/et_account') #账号（手机号）输入框
-    # username_type=(Mb.XPATH,'/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.EditText[1]') #账号（手机号）输入框
     password_type = (Mb.ID,'com.ourydc.yuebaobao:id/et_pwd') #密码输入框
     loginBtn = (Mb.ID,'com.ourydc.yuebaobao:id/btn_login') #获取登录按钮
     
@@ -32,7 +31,7 @@ class LoginPageLocator:
     input_four = (Mb.XPATH, "//*[@class='android.widget.TextView' and @index='3']") # 验证码输入框4
     codeList = [input_one,input_two,input_three,input_four]
     verification_code = (Mb.ID,'com.ourydc.yuebaobao:id/btn_get_verification_code') #重新获取验证码
-    seekBar = (Mb.ID,'com.ourydc.yuebaobao:id/seekBar') #滑块验证码拖动按钮
+    seekBar = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/seekBar']/following-sibling::android.widget.ImageView") #滑块验证码拖动按钮
     #滑块儿验证码
 
 

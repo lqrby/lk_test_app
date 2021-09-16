@@ -1,4 +1,4 @@
-import time
+import time, random
 from PIL import Image
 from PIL import ImageGrab
 # from Common.basepage import BasePage
@@ -8,7 +8,7 @@ from Pages.pageLocators.login_locators import LoginPageLocator as loc
 from Pages.pageObjects.Common_Buss import CommonBus
 # from Pages.pageObjects.home_page import HomePage
 from testScript.db_util import MysqlDb
-from appium.webdriver.common.touch_action import TouchAction 
+
 # from selenium.webdriver.common.action_chains import ActionChains
 # from selenium.webdriver.common.touch_actions import TouchActions
 
@@ -94,22 +94,15 @@ class LoginPage(CommonBus):
         self.wait_eleVisible(loc.et_phone, model="等待手机号可输入")
         self.input_text(loc.et_phone, phone, model="输入手机号")
         print("手机号是====={}".format(phone))
-        sql = "select cnt from ourydc_app_sms where phone = {} order by insdt limit 1".format(phone)
-        print("sql===={}".format(sql))
+        sql = "select cnt from ourydc_app_sms where phone = {} order by insdt desc limit 1".format(phone)
+        # print("sql===={}".format(sql))
         phoneNum = MysqlDb().query(sql)
         usedPhone = phoneNum[0]['cnt']
         print("旧验证码是======{}".format(usedPhone))
         self.click_element(loc.codeBtn, model="点击获取验证码")
         self.check_agreement_two()
-        time.sleep(3)
-        
-        # self.driver.swipe(235, 1086, 480, 1086, 100)
-        # time.sleep(3)
-        # TouchAction(self.driver).tap(x=235, y=1086, count=1).perform()
-        time.sleep(2)
-        # TouchAction(self.driver).tap(x=435, y=1086, count=1).perform()
-        # time.sleep(5)
-        TouchAction(self.driver).press(x=235,y=1086).wait(1000).move_to(x=480,y=1086).wait(1000).release().perform()
+        self.driver.implicitly_wait(8)
+        self.drag_slider(loc.seekBar) #拖动滑块儿
         self.wait_eleVisible(loc.input_one, model="等待显示验证码输入框")
         time.sleep(3)
         phoneStr = ""
@@ -119,6 +112,7 @@ class LoginPage(CommonBus):
             if phoneNumber[0]['cnt'] != usedPhone:
                 phoneStr = str(phoneNumber[0]['cnt'])
                 log.info("新验证码是===={}".format(phoneStr))
+                break
             else:
                 time.sleep(4)
         eleArr = []
@@ -129,6 +123,5 @@ class LoginPage(CommonBus):
             self.driver.press_keycode(int(i)+7)
         self.driver.implicitly_wait(5)
         return self.get_userStatus()
-
 
     

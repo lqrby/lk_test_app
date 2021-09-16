@@ -49,7 +49,7 @@ class BasePage:
         try:
             return self.driver.find_elements(*loc)
         except:
-            log.exception("查找元素失败。")
+            log.exception("元素不存在===={}".format(loc))
             # 截图
             self.save_webImgs(model)
             raise
@@ -166,11 +166,9 @@ class BasePage:
                 pass
 
     
-    
-
     # 判断元素是否可点击
     def is_clickable(self, loc):
-        if self.is_desplayed(loc) and EC.element_to_be_clickable(loc):
+        if self.is_element_exist(loc) and EC.element_to_be_clickable(loc):
             return True
         else:
             return False
@@ -567,6 +565,7 @@ class BasePage:
 
 
     def pop(self, pop_list):
+        print(666668888888888)
         time.sleep(2)
         source = self.driver.page_source
         mark = ""

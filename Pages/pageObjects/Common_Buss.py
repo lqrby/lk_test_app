@@ -1,4 +1,4 @@
-import time
+import time, random
 from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException 
@@ -8,8 +8,9 @@ from Pages.pageLocators.pop_locators import PopUp
 from Pages.pageLocators.login_locators import LoginPageLocator
 from Pages.pageLocators.home_locators import HomePageLocator as loc
 from Pages.pageLocators.my_locators import MyLocators as my
-from Pages.pageLocators.room_locators import RoomPageLocator as RM
+from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
 from selenium.webdriver.support.ui import WebDriverWait
+from appium.webdriver.common.touch_action import TouchAction 
 
 log = get_logger(logger_name="注册操作日志")
 
@@ -32,22 +33,7 @@ class CommonBus(BasePage):
 
     
 
-    # 系统弹窗
-    def systempop(self):
-        if self.is_element_exist(PopUp.allowpop1[1]):
-            self.click_element(PopUp.allowpop1, model="点击允许电话权限弹窗")
-            time.sleep(1)
-        else:
-            pass
-
-    # 允许定位弹窗
-    def locatpop(self):
-        if self.is_element_exist("允许定位"):
-            self.click_element(PopUp.allowlocat)
-            time.sleep(3)
-            self.click_element(PopUp.onlyappallow)
-        else:
-            pass
+    
 
     
     #检查是否有用户协议
@@ -84,7 +70,8 @@ class CommonBus(BasePage):
     # 退出登录
     def login_Out(self):
         self.click_element(my.meBtn, model="点击我的") 
-        time.sleep(1)
+        time.sleep(2)
+        self.check_goddess_Popup() #关闭女神引导弹窗
         if self.is_element_exist(my.setUpBtn) == False:
            self.swipeUp() 
         self.wait_element_clickable(my.setUpBtn, model="点击设置")
@@ -138,6 +125,33 @@ class CommonBus(BasePage):
             log.info("{}断言错误".format(model))
             self.save_webImgs(model="{}断言错误".format(model))
 
+
+    #返回元素坐标
+    def get_coordinate(self,bounds):
+        b= bounds.replace("][",",")
+        c = b.replace("]","")
+        d = c.replace("[","")
+        e = d.split(",")
+        numList = []
+        for i in e:
+            numList.append(int(i))
+        return numList
+    
+
+    #滑动滑块儿
+    def drag_slider(self,slider_element):
+        time.sleep(1)
+        self.wait_element_presence(slider_element,model="滑块按钮")
+        seekBar = self.get_element(slider_element).get_attribute("bounds")
+        # print("seekBar===",seekBar,type(seekBar))
+        e = self.get_coordinate(seekBar)
+        start_X = e[0]+20
+        TouchAction(self.driver).press(x=start_X, y=random.randint(e[1]+2,e[3]-2))\
+            .wait(500).move_to(x=start_X + 100, y=random.randint(e[1]+2,e[3]-2))\
+            .wait(500).move_to(x=start_X + 260, y=random.randint(e[1]+2,e[3]-2)).wait(500)\
+            .move_to(x=start_X + 300, y=random.randint(e[1]+2,e[3]-2)).wait(500).release().perform()
+        self.driver.implicitly_wait(8)
+
     #检查并关闭异常弹窗            
     def check_error_popup(self):
         self.exist_be_click(loc.iv_cancel)
@@ -146,11 +160,11 @@ class CommonBus(BasePage):
     #检查并关闭未成年设置弹窗            
     def check_MinorSettings(self):
         time.sleep(2)
-        self.exist_be_click(RM.btn_know)
+        self.exist_be_click(roomloc.btn_know)
 
     #检查关闭女神开播引导弹窗       
     def check_goddess_Popup(self):
-        self.exist_be_click(RM.close_back)
+        self.exist_be_click(roomloc.close_back)
         
         
 

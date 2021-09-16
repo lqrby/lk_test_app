@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-09-14 17:38:49
+LastEditTime: 2021-09-16 15:03:25
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/conftest.py
@@ -67,6 +67,7 @@ def startApp_keepUserData():
     if check_notLogin_SignIn:
         pass
     else:
+        log.info("登录失败")
         driver.close_app()
         driver.quit()
     yield driver
@@ -91,6 +92,8 @@ def check_notLogin_SignIn(driver,user, password):
             return True
         else:
             log.info("===========登录失败========")
+            driver.close_app()
+            driver.quit()
             return False
 
 

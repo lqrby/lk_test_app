@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-15 17:17:38
+LastEditTime: 2021-09-16 14:42:31
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -49,11 +49,14 @@ class RoomPageLocator:
     ###########################哩咔首页交友模块元素定位结束##########################
     tv_play = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_play']") # 发现进入聊天室的用户列表元素
     tv_close = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/des']") # 发现用户未进聊天室列表元素
-    cc_layout = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/cc_layout']") # 附近的人列表元素
+    tv_to_profile = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_to_profile']") # 立即提升魅力元素
+    iv_close = (Mb.ID, "com.ourydc.yuebaobao:id/iv_close") # 关闭立即提升魅力元素
+    
     no_more = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='没有更多']") # 主播列表底部的没有更多按钮元素
     roomIdTv = (Mb.ID, "com.ourydc.yuebaobao:id/roomIdTv") # 获取开播房间的id
     # tv_nick = (Mb.ID, "com.ourydc.yuebaobao:id/tv_nick") # 获取用户昵称
 
+    
     
     '''
     房间tap页元素
@@ -182,10 +185,13 @@ class RoomPageLocator:
     reference = (Mb.ID,'com.ourydc.yuebaobao:id/reference') # @她
     attentionBtn = (Mb.ID,'com.ourydc.yuebaobao:id/attentionBtn') # 关注
     msgBtn = (Mb.ID,'com.ourydc.yuebaobao:id/msgBtn') # 聊天
+    backBtn = (Mb.ID,'com.ourydc.yuebaobao:id/iv_back') # 详情页返回
     msg_backBtn = (Mb.ID,'com.ourydc.yuebaobao:id/iv_back_new') # 聊天返回
     sendBtn = (Mb.ID,'com.ourydc.yuebaobao:id/sendBtn') # 打赏
     
     ############################未进入开播用户资料相关元素###########################
+    nearby_people = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='附近的人']") # 附近的人按钮
+    cc_layout = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/cc_layout']") # 附近的人列表元素
     tv_nick = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick') #昵称
     follow = (Mb.ID, "com.ourydc.yuebaobao:id/btn_attention") # 关注用户元素
     say_hello = (Mb.ID, "com.ourydc.yuebaobao:id/btn_chat") # 打招呼元素
@@ -278,7 +284,7 @@ class RoomPageLocator:
 
     
     #=============================房间菜单===================================
-    #交友房间菜单
+    #交友房间更多菜单
     minimize = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='最小化']") # 最小化
     exit_room = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='退出房间']") # 退出房间
     report = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='举报']") # 举报
@@ -286,10 +292,14 @@ class RoomPageLocator:
     wechat_sharing = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='分享至微信']") # 分享至微信
     qq_sharing = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='分享至QQ']") # 分享至QQ
     micro_blog_sharing = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='分享至微博']") # 分享至微博
-
     
+    ####################################附近动态元素####################################### 
+    tv_content = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='附近动态']") # 附近动态按钮
+    reportBtn = (Mb.ID,"com.ourydc.yuebaobao:id/tv") #举报
+    commitBtn = (Mb.ID,"com.ourydc.yuebaobao:id/btn_commit") #提交按钮
     
-
+    nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_content']") # 附近动态列表元素
+    iv_prise = (Mb.ID, "com.ourydc.yuebaobao:id/iv_prise") #点赞
 
     
     

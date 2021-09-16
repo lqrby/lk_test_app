@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-25 17:04:39
-LastEditTime: 2021-09-01 14:36:33
+LastEditTime: 2021-09-16 16:01:38
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: \lk_testProject\testScript\db_util.py
@@ -56,7 +56,7 @@ class MysqlDb:
 
 if __name__ == "__main__":
     # r = MysqlDb().query("select * from `case`"
-    sql = "select cnt from ourydc_app_sms where phone = '15035253147' order by insdt limit 1"
+    sql = "select cnt from ourydc_app_sms where phone = '18810798467' order by insdt desc limit 1"
     code = MysqlDb().query(sql) 
     print(code[0]["cnt"])
     
