@@ -5,7 +5,6 @@ from Pages.pageObjects.Common_Buss import CommonBus
 from selenium.common.exceptions import NoSuchElementException
 from Common.log import get_logger
 import time, random
-
 from Pages.pageLocators.pop_locators import PopUp
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
 from appium.webdriver.common.mobileby import MobileBy as Mb
@@ -205,7 +204,9 @@ class RoomPage(CommonBus):
                 log.info("没有更多")
                 number = 0
                 break
+            
             else:
+                self.pop(PopUp.popList)
                 log.info("向上滑动列表")
                 self.swipeUp()
         return len(tv_desArr)
@@ -427,7 +428,7 @@ class RoomPage(CommonBus):
             giftWallList = self.get_elements(roomloc.giftWallList)
             i = random.randint(0,len(giftWallList)-1)
             giftWallList[i].click()
-            time.sleep(1)
+            time.sleep(2)
             textStr = self.get_element(roomloc.Diamond_number_text).text
             number = "".join(list(filter(str.isdigit, textStr)))
             if int(number) > 50000:

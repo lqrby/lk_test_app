@@ -1,0 +1,18 @@
+{
+    "sourceFile": "testScript/db_util.py",
+    "activeCommit": 0,
+    "commits": [
+        {
+            "activePatchIndex": 0,
+            "patches": [
+                {
+                    "date": 1631500067380,
+                    "content": "Index: \n===================================================================\n--- \n+++ \n"
+                }
+            ],
+            "date": 1631500067380,
+            "name": "Commit-0",
+            "content": "'''\r\nAuthor: your name\r\nDate: 2021-08-25 17:04:39\r\nLastEditTime: 2021-09-13 10:27:47\r\nLastEditors: Please set LastEditors\r\nDescription: In User Settings Edit\r\nFilePath: \\lk_testProject\\testScript\\db_util.py\r\n'''\r\nimport sys, pymysql, datetime,json\r\nfrom warnings import filterwarnings\r\n\r\nfilterwarnings(\"ignore\",category=pymysql.Warning)\r\n\r\nclass MysqlDb:\r\n    def __init__(self):\r\n        #建立数据库连接\r\n        self.conn = pymysql.connect(host='123.57.42.55',port=3306,user='ourydcdbtestuser',password='2y3218ASfRdCK2Q1',db='ourydcdbtest',charset='utf8')\r\n        self.cur = self.conn.cursor(cursor=pymysql.cursors.DictCursor)\r\n\r\n\r\n    def __del__(self):\r\n        #关闭游标\r\n        self.cur.close()\r\n        #关闭连接\r\n        self.conn.close()\r\n\r\n    def query(self, sql, state=\"all\"):\r\n        \"\"\"\r\n        查询\r\n        \"\"\"\r\n        self.cur.execute(sql)\r\n        # data = {}\r\n        if state == \"all\":\r\n            data = self.cur.fetchall()\r\n        else:\r\n            data = self.cur.fetchone()\r\n        return data\r\n\r\n\r\n    def execute(self, sql):\r\n        \"\"\"\r\n        更新、修改、删除\r\n        \"\"\"\r\n        try:\r\n            print(\"sql=======\",sql)\r\n            #使用execute操作sql\r\n            rows = self.cur.execute(sql)\r\n            #提交事务\r\n            self.conn.commit()\r\n            return True\r\n        except Exception as e:\r\n            print(\"数据库操作异常:{}\".format(e))\r\n            #事务回滚修改\r\n            self.conn.rollback() \r\n        \r\n\r\nif __name__ == \"__main__\":\r\n    # r = MysqlDb().query(\"select * from `case`\"\r\n    sql = \"select cnt from ourydc_app_sms where phone = '18810798467' order by insdt limit 1\"\r\n    code = MysqlDb().query(sql) \r\n    print(code[0][\"cnt\"])\r\n    \r\n \r\n        \r\n\r\n"
+        }
+    ]
+}

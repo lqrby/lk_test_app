@@ -165,6 +165,9 @@ class BasePage:
             else:
                 pass
 
+    
+    
+
     # 判断元素是否可点击
     def is_clickable(self, loc):
         if self.is_desplayed(loc) and EC.element_to_be_clickable(loc):
