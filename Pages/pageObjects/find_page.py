@@ -5,7 +5,7 @@ from selenium.common.exceptions import NoSuchElementException
 from Common.log import get_logger
 import time
 
-from Pages.pageLocators.pop_locators import PopUp
+from Pages.pageLocators.pop_locators import PopUpLocator
 from Pages.pageObjects.Common_Buss import CommonBus
 from Pages.pageLocators.home_locators import HomePageLocator as HL
 
@@ -145,8 +145,8 @@ log = get_logger(logger_name="首页操作日志")
     '''关闭邀请入房通知'''
 
     def close_ivClose(self):
-        if self.is_element_exist(PopUp.closeInvitInRoom[1]):
-            self.click_element(PopUp.closeInvitInRoom, model="关闭邀请入房通知")
+        if self.is_element_exist(PopUpLocator.closeInvitInRoom[1]):
+            self.click_element(PopUpLocator.closeInvitInRoom, model="关闭邀请入房通知")
         else:
             pass
 

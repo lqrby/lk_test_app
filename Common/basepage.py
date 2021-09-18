@@ -5,9 +5,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.mobileby import MobileBy
 from Common.log import get_logger
-from Pages.pageLocators.pop_locators import PopUp
-from Pages.pageLocators.home_locators import HomePageLocator as HL
-from Pages.pageObjects.sign_pop_page import SignPopPage
+from Pages.pageLocators.pop_locators import PopUpLocator
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 
 log = get_logger(logger_name="基础类")
@@ -156,8 +154,8 @@ class BasePage:
             if times > 0:
                 # PopThread(self.driver, PopUp.popList)
                 times -= 1
-                item = self.pop(PopUp.popList)
-                if item == PopUp.close_broadcast:
+                item = self.pop(PopUpLocator.popList)
+                if item == PopUpLocator.close_broadcast:
                     log.info("=========聊天室已关闭==========")
                     self.driver.close_app()
                     self.driver.quit()
@@ -292,21 +290,6 @@ class BasePage:
         y = self.driver.get_window_size()["height"]
         return x, y
 
-    # # 滑屏操作 - 向上滑屏
-    # def swipeUp(self,):
-    #     time.sleep(0.5)
-    #     '''向上滑动屏幕'''
-    #     l = self.get_size()
-    #     x1 = int(l[0] * 0.5)
-    #     y1 = int(l[1] * 0.9)
-    #     y2 = int(l[1] * 0.35)
-    #     self.driver.swipe(x1, y1, x1, y2)
-    #     for i in range(n):
-    #         print("????????????????????????????????????????????????????????????????????????????????")
-    #         self.driver.swipe(x1, y1, x1, y2)
-    #         print("******************************************************************************")
-    #         time.sleep(0.5)
-        
 
     def swipeDown(self, t=500, n=1):
         '''向下滑动屏幕'''
@@ -417,15 +400,12 @@ class BasePage:
             self.save_webImgs(model)
             raise
 
-    def get_toast(self):
-        """获取toast弹框"""
-        el = self.wait_element_presence(('xpath', '//android.widget.Toast'))
-        return el
+    
 
     def get_toast_exist(self,message):
         xpath_loc = '//*[contains(@text,"{}")]'.format(message)
         try:
-            WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
+            WebDriverWait(self.driver, 8, 0.02).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc)).text
         except:
             return "获取toast失败"
@@ -565,7 +545,6 @@ class BasePage:
 
 
     def pop(self, pop_list):
-        print(666668888888888)
         time.sleep(2)
         source = self.driver.page_source
         mark = ""

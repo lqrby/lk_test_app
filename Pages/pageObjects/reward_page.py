@@ -1,5 +1,13 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:48
+LastEditTime: 2021-09-18 17:00:29
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Pages/pageObjects/reward_page.py
+'''
 from Common.basepage import BasePage
-from Pages.pageLocators.pop_locators import PopUp
+from Pages.pageLocators.pop_locators import PopUpLocator
 from Pages.pageLocators.reward_locators import RewardPageLocator as loc
 from Pages.pageLocators.home_locators import HomePageLocator
 from Common.log import get_logger
@@ -35,8 +43,8 @@ class RewardPage(BasePage):
     '''打赏-进入直播间选择礼物进行打赏'''
 
     def give(self):
-        if self.is_element_exist(PopUp.allowpop[1]):
-            self.click_element(PopUp.allowpop)
+        if self.is_element_exist(PopUpLocator.allowpop[1]):
+            self.click_element(PopUpLocator.allowpop)
         time.sleep(2)
         if self.is_element_exist(loc.popup_bubble[1]):
             self.click_element(loc.popup_bubble)

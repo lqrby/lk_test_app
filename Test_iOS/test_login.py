@@ -1,6 +1,14 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:49
+LastEditTime: 2021-09-18 13:28:24
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Test_iOS/test_login.py
+'''
 import pytest
 from Common.log import get_logger
-from TsetDatas.login import login_phone, login_error
+from TestDatas.login import login_phone, login_error
 from Pages.iOS_pageObjects.login_page import LoginPage
 from Pages.iOS_pageObjects.env_page import EnvPage
 from Pages.iOS_pageObjects.common_buss import CommonBus

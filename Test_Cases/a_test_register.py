@@ -1,6 +1,14 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:49
+LastEditTime: 2021-09-18 13:26:53
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Test_Cases/a_test_register.py
+'''
 import pytest
 from Common.log import get_logger
-from TsetDatas.register import register_success
+from TestDatas.register import register_success
 from Pages.pageObjects.Common_Buss import CommonBus as  Cb
 from Pages.pageObjects.register_page import RegisterPage
 

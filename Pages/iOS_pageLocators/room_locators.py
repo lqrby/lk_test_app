@@ -1,6 +1,14 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:48
+LastEditTime: 2021-09-18 13:26:06
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Pages/iOS_pageLocators/room_locators.py
+'''
 from appium.webdriver.common.mobileby import MobileBy as Mb
 from Pages.iOS_pageLocators.hot_pageLocators import HotPageLocators
-from TsetDatas.iOS_Datas import roomData
+from TestDatas.iOS_Datas import roomData
 
 
 class RoomLocators(HotPageLocators):

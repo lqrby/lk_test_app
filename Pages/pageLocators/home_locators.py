@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-13 14:03:32
+LastEditTime: 2021-09-18 16:54:19
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/home_locators.py
@@ -18,8 +18,7 @@ class HomePageLocator:
     
     message_moduke = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_message") # 消息模块
     my_module = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_mine") # 我的模块
-    iv_cancel = (Mb.ID, "com.ourydc.yuebaobao:id/iv_cancel") # 异常退厅弹框no按钮
-    iv_confirm = (Mb.ID, "com.ourydc.yuebaobao:id/iv_confirm") # 异常退厅弹框yes按钮
+    
     
     
     

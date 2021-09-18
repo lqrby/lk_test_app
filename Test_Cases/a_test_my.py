@@ -1,17 +1,9 @@
-'''
-@File    :  test_my.py    
-@Contact :  fangfang.song@asiainnovations.com
 
-@Modify Time    2021/4/1 10:25 下午    
-@Author  :  songfang  
-@Version :  1.0
-@Desciption : 
-'''
 import allure
 import pytest
 from Common.log import get_logger
 from Pages.pageObjects.my_page import MyPage
-from TsetDatas.my import myassert
+from TestDatas.my import myassert
 
 log = get_logger(logger_name="我的操作日志")
 

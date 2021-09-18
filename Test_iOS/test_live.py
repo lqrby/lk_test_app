@@ -1,9 +1,17 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:49
+LastEditTime: 2021-09-18 13:27:37
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Test_iOS/test_live.py
+'''
 import time
 import pytest
 from Common.log import get_logger
 from Pages.iOS_pageObjects.streaming_page import StreamingPage
 from Pages.iOS_pageObjects.room_page import RoomPage
-from TsetDatas.iOS_Datas.roomData import *
+from TestDatas.iOS_Datas.roomData import *
 from Pages.iOS_pageObjects.common_buss import CommonBus
 
 log = get_logger(logger_name="主播开播操作日志")

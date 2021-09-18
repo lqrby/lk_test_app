@@ -1,16 +1,9 @@
 import time, random
-from PIL import Image
-from PIL import ImageGrab
-# from Common.basepage import BasePage
 from Common.log import get_logger
 from Pages.pageLocators.login_locators import LoginPageLocator as loc
-# from Pages.pageLocators.home_locators import HomePageLocator as home_loc
 from Pages.pageObjects.Common_Buss import CommonBus
-# from Pages.pageObjects.home_page import HomePage
 from testScript.db_util import MysqlDb
 
-# from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.common.touch_actions import TouchActions
 
 log = get_logger(logger_name="登录操作日志")
 
@@ -21,53 +14,86 @@ log = get_logger(logger_name="登录操作日志")
 class LoginPage(CommonBus):
 
     def __init__(self, driver):
-        # # 判断游戏弹窗
-        # CommonBus(driver).gameinvit()
-        # # # 判断是否为游客
-        # CommonBus(driver).is_visitor()
-        # 判断是否为可点击登录另一个账号页面
-        # CommonBus(driver).is_loginAnotherPage()
-        # # 是否为登录状态
         super().__init__(driver)
-        # CommonBus(driver).is_login()
-
-    # '''手机号成功登录操作行为'''
-    # def login_bymobile_success(self, user, passwd):
-    #     self.loginbymobile(user, passwd)
-    #     return HomePage(self.driver)
-
-    # '''微信登录成功操作'''
-
-    # def login_bywechat_success(self):
-    #     self.loginbywechat()
-    #     return HomePage(self.driver)
-
-    # '''微博登录成功操作'''
-
-    # def login_byweibo_success(self):
-    #     self.loginbyweibo()
-    #     return HomePage(self.driver)
-
-    # '''QQ登录成功操作'''
-
-    # def login_byQQ_success(self):
-    #     self.loginbyQQ()
-    #     return HomePage(self.driver)
-
-    # '''手机号验证码录成功操作'''
-    # def login_phoneCode_success(self, phone):
-    #     self.loginbyemail(phone)
-    #     return HomePage(self.driver)
-
 
     
-    '''手机号输入错误 / 获取错误的toast'''
 
-    def error_toast(self):
-        el = self.get_toast()
-        return el.text
+    '''微信登录成功操作'''
+    def login_byWechat_success(self,wxName,wxPassword):
+        self.check_agreement_one() #同意用户协议
+        self.wait_element_clickable(loc.wdChatBtn, model="等待微信按钮元素可被点击")
+        self.click_element(loc.wdChatBtn, model="点击微信按钮")
+        # if self.is_element_exist(loc.microblog_authorizeBtn):
+        #     self.exist_be_click(loc.microblog_authorizeBtn) #点击微信授权按钮（假如微博已登录）
+        if self.is_element_exist(loc.wx_name):
+            self.wait_element_presence(loc.wx_name, model="微信账号输入框")
+            self.clear_input_text(loc.wx_name, model="清除微信账号输入框")
+            self.input_text(loc.wx_name,wxName,model="输入微信账号")
 
-    # 手机号密码登录
+            self.wait_element_presence(loc.wx_password, model="微信密码输入框")
+            self.clear_input_text(loc.wx_password, model="清除微信密码输入框")
+            self.input_text(loc.wx_password,wxPassword,model="输入微信密码")
+
+            self.wait_element_clickable(loc.wxLoginBtn,"微信登录按钮")
+            self.click_element(loc.wxLoginBtn,model="点击微信登录按钮")
+            self.wait_element_clickable(loc.clickBtn,model="检查验证按钮")
+            self.click_element(loc.clickBtn,model="点击验证按钮")
+        return self.get_userStatus()
+
+
+    '''微博登录成功操作'''
+    def login_byWeiBo_success(self,wbName,wbPassword):
+        self.check_agreement_one() #同意用户协议
+        self.wait_element_clickable(loc.microblogBtn, model="等待微博按钮元素可被点击")
+        self.click_element(loc.microblogBtn, model="点击微博按钮")
+        self.driver.implicitly_wait(8)
+        if self.is_element_exist(loc.microblog_authorizeBtn):
+            self.exist_be_click(loc.microblog_authorizeBtn) #点击微博授权按钮（假如微博已登录）
+        elif self.is_element_exist(loc.wb_name):
+            self.wait_element_presence(loc.wb_name, model="wb账号输入框")
+            self.clear_input_text(loc.wb_name, model="清除wb账号输入框")
+            self.input_text(loc.wb_name,wbName,model="输入wb账号")
+
+            self.wait_element_presence(loc.wb_password, model="wb密码输入框")
+            self.clear_input_text(loc.wb_password, model="清除wb密码输入框")
+            self.input_text(loc.wb_password,wbPassword,model="输入wb密码")
+
+            self.wait_element_clickable(loc.wb_loginBtn,"wb登录按钮")
+            self.click_element(loc.wb_loginBtn,model="点击wb登录按钮")
+            self.wait_element_clickable(loc.clickBtn,model="检查验证按钮")
+            self.click_element(loc.clickBtn,model="点击验证按钮")
+        return self.get_userStatus()
+
+
+    '''
+    QQ登录成功操作
+    1.未登录，先登录再授权
+    2.已登录，直接授权
+    '''
+    def login_byQQ_success(self,qqName,qqPassword):
+        self.check_agreement_one() #同意用户协议
+        self.wait_element_clickable(loc.qqBtn, model="等待qq元素可被点击")
+        self.click_element(loc.qqBtn, model="点击qq按钮")
+        self.driver.implicitly_wait(8)
+        if self.is_element_exist(loc.fdsBtn):
+            self.exist_be_click(loc.fdsBtn) #点击qq授权按钮（假如qq已登录）
+            # self.exist_be_click(loc.otherqqLoginBtn) #点击其它qq登录
+        elif self.is_element_exist(loc.scan_authorization):
+            self.wait_element_presence(loc.qqInputNane, model="qq账号输入框")
+            self.clear_input_text(loc.qqInputNane, model="清除qq账号输入框")
+            self.input_text(loc.qqInputNane,qqName,model="输入qq账号")
+            self.wait_element_presence(loc.qqInputPass, model="qq密码输入框")
+            self.clear_input_text(loc.qqInputPass, model="清除qq密码输入框")
+            self.input_text(loc.qqInputPass,qqPassword,model="输入qq密码")
+            self.wait_element_clickable(loc.qqLoginBtn,"qq登录按钮")
+            self.click_element(loc.qqLoginBtn,model="点击qq登录按钮")
+            self.driver.implicitly_wait(8)
+            self.exist_be_click(loc.fdsBtn) #点击qq授权按钮（假如qq已登录）
+        return self.get_userStatus()
+
+    
+
+    '''手机号密码登录'''
     def login_mobile_passWord(self, user, passwd):
         self.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
@@ -93,12 +119,10 @@ class LoginPage(CommonBus):
         # self.exist_be_click(loc.otherPhoneBtn) #存在则点击其它手机号登录
         self.wait_eleVisible(loc.et_phone, model="等待手机号可输入")
         self.input_text(loc.et_phone, phone, model="输入手机号")
-        print("手机号是====={}".format(phone))
         sql = "select cnt from ourydc_app_sms where phone = {} order by insdt desc limit 1".format(phone)
-        # print("sql===={}".format(sql))
         phoneNum = MysqlDb().query(sql)
         usedPhone = phoneNum[0]['cnt']
-        print("旧验证码是======{}".format(usedPhone))
+        log.info("旧验证码是======{}".format(usedPhone))
         self.click_element(loc.codeBtn, model="点击获取验证码")
         self.check_agreement_two()
         self.driver.implicitly_wait(8)
@@ -121,7 +145,6 @@ class LoginPage(CommonBus):
         for obj,i in zip(eleArr,phoneStr):
             obj.click()
             self.driver.press_keycode(int(i)+7)
-        self.driver.implicitly_wait(5)
         return self.get_userStatus()
 
     

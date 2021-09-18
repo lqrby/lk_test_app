@@ -4,7 +4,7 @@
 # from Common.log import get_logger
 # import time, random
 
-# from Pages.pageLocators.pop_locators import PopUp
+# from Pages.pageLocators.pop_locators import PopUpL
 # from Pages.pageLocators.room_locators import RoomPageLocator as RPL
 # from appium.webdriver.common.mobileby import MobileBy as Mb
 # from Pages.pageObjects.room_page import RoomPage

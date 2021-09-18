@@ -1,10 +1,9 @@
 import pytest
 from Common.log import get_logger
 from Pages.iOS_pageObjects.hot_page import HotPage
-from TsetDatas.login import login_phone
+from TestDatas.login import login_phone
 from Pages.iOS_pageObjects.login_page import LoginPage
 from Pages.iOS_pageObjects.env_page import EnvPage
-from TsetDatas.iOS_Datas.hotData import *
 from Pages.iOS_pageObjects.common_buss import CommonBus
 
 log = get_logger(logger_name="热门操作日志")

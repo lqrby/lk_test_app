@@ -1,7 +1,15 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:49
+LastEditTime: 2021-09-18 13:26:20
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Test_Cases/a_test_IM.py
+'''
 import allure
 import pytest
 from Common.log import get_logger
-from TsetDatas.IM import sendsinglemessage, sendgroupmessage
+from TestDatas.IM import sendsinglemessage, sendgroupmessage
 from Pages.pageObjects.IM_page import IMPage
 
 log = get_logger(logger_name="IM操作日志")

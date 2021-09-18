@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-27 16:38:44
-LastEditTime: 2021-09-16 19:07:49
+LastEditTime: 2021-09-17 13:25:32
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/login_locators.py
@@ -46,10 +46,18 @@ class LoginPageLocator:
 
     ##################################哩咔登录相关元素定位结束###################################
 
-    #微信登录元素
+    #微信登录入口元素
     wdChatBtn=(Mb.XPATH,"//*[@class='android.widget.ImageView' and @index='0']")
     wdChatNameInput=(Mb.XPATH,"//*[@text='请填写微信号/QQ号/邮箱']")
     bindingPhoneBtn=(Mb.ID,"com.ourydc.yuebaobao:id/bindPhoneBtn") #绑定手机号按钮(微信微博公用)
+    #微信账号输入框
+    wx_name = (Mb.XPATH,"//*[@resource-id='com.tencent.mm:id/d5j']/child::com.tencent.mm:id/bhn")
+    #微信密码输入框
+    wx_password = (Mb.XPATH,"//*[@resource-id='com.tencent.mm:id/d62']/child::com.tencent.mm:id/bhn")
+    #微信登录按钮
+    wxLoginBtn=(Mb.ID,"com.tencent.mm:id/d5n")
+    	
+
     #=======================已有登录记录，只需输入密码===========================
     
     ffpBtn=(Mb.ID,"com.tencent.mm:id/ffp") #微信掉线通知确定按钮/微信登录失败确定按钮
@@ -63,7 +71,7 @@ class LoginPageLocator:
     ffhText=(Mb.ID,"com.tencent.mm:id/ffh") #微信登录失败提示
     
 
-    #qq登录元素
+    #qq登录入口元素
     qqBtn=(Mb.XPATH,"//*[@class='android.widget.ImageView' and @index='1']")
     qqLoginBtn=(Mb.ID,"com.tencent.mobileqq:id/login") # qq登录按钮
     fdsBtn=(Mb.ID,"com.tencent.mobileqq:id/fds") #qq授权按钮
@@ -72,14 +80,14 @@ class LoginPageLocator:
     qqInputNane=(Mb.XPATH,'//android.widget.EditText[@content-desc="请输入QQ号码或手机或邮箱"]') #QQ账号输入框
     qqInputPass=(Mb.ID,'com.tencent.mobileqq:id/password') # QQ密码输入框
     qqNamePassErrorBtn=(Mb.ID,'com.tencent.mobileqq:id/dialogText') # QQ用户名或密码提示按钮
+    scan_authorization=(Mb.ID,'com.tencent.mobileqq:id/o81') # QQ扫码授权登录
     #=======================================================
     #微博登录元素
     # microblogBtn=(Mb.XPATH,"//*[@class='android.widget.ImageView' and @index='2']") #微博图标,此方法获取元素点击无效
-    #登录页点击微博的按钮元素
-    microblogBtn=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout[1]/android.widget.ImageView[3]") #使用微博账号登录元素
-    #微博登录页登录按钮元素
-    microblog_loginInput=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]") #微博登录页用户名输入框元素
-    # microblog_loginBtn=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.widget.LinearLayout/android.widget.RelativeLayout/android.widget.TextView[1]") #微博登录页用户名输入框元素
+    #哩咔登录页点击微博的按钮元素
+    microblogBtn=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.view.ViewGroup/android.widget.LinearLayout[1]/android.widget.ImageView[3]") 
+    #微博登录页用户名输入框元素
+    microblog_loginInput=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]") 
     microblog_authorizeBtn=(Mb.ID,"com.sina.weibo:id/tvChangeAccount") #微博授权按钮元素
     confirmBtn=(Mb.ID,"com.ourydc.yuebaobao:id/tv_cancel") #微博返回确认按钮元素
     getCodeBtn=(Mb.XPATH,"//android.view.View[@text='获取短信验证码']") #获取短信验证码按钮元素
@@ -87,10 +95,20 @@ class LoginPageLocator:
 
     codeInput=(Mb.XPATH,"//*[@class='android.widget.EditText' and @index='0']") #验证码输入元素
     okBtn=(Mb.XPATH,"//*[@class='android.widget.EditText' and @index='3']") #登录按钮
-     #用户名密码登录
-    etLoginUsername=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View[1]/android.view.View/android.widget.EditText") #微博用户名输入框元素
-    etPwd=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View[2]/android.view.View/android.widget.EditText") #微博密码输入框元素
-    microblog_loginBtn=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]") #微博密码输入框元素
+    
+    	
+    #用户名密码登录
+    #微博用户名输入框元素
+    wb_name=(Mb.ID,"com.sina.weibo:id/etLoginUsername") #微博账号输入框元素
+    wb_password=(Mb.ID,"com.sina.weibo:id/etPwd") #微博密码输入框元素
+    wb_loginBtn=(Mb.ID,"com.sina.weibo:id/new_bnLogin") #微博登录按钮
+    clickBtn=(Mb.XPATH,"//*[@class='android.view.View' and @text='点击按钮进行验证']") #
+    #微博用户名输入框
+    # etLoginUsername=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View[1]/android.view.View/android.widget.EditText") 
+    #微博密码输入框元素
+    # etPwd=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[1]/android.view.View[2]/android.view.View/android.widget.EditText") 
+    #微博登录按钮
+    # microblog_loginBtn=(Mb.XPATH,"/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.webkit.WebView/android.webkit.WebView/android.view.View/android.view.View/android.view.View[2]/android.view.View[2]") 
     
     #手机号验证码
     et_phone=(Mb.ID,"com.ourydc.yuebaobao:id/et_phone") #微博手机号输入框元素

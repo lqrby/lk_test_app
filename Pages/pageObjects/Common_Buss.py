@@ -3,13 +3,11 @@ from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException 
 from Common.log import get_logger
-from Pages.pageLocators.streaming_locators import StreamingPageLocators
-from Pages.pageLocators.pop_locators import PopUp
+from Pages.pageLocators.pop_locators import PopUpLocator as poploc
 from Pages.pageLocators.login_locators import LoginPageLocator
 from Pages.pageLocators.home_locators import HomePageLocator as loc
 from Pages.pageLocators.my_locators import MyLocators as my
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
-from selenium.webdriver.support.ui import WebDriverWait
 from appium.webdriver.common.touch_action import TouchAction 
 
 log = get_logger(logger_name="注册操作日志")
@@ -59,9 +57,12 @@ class CommonBus(BasePage):
 
     def get_userStatus(self):
         try:
-            log.info("===========检查用户在线状态========")
-            self.check_error_popup()
-            self.find_element(loc.dating_module)
+            
+            log.info("===========检查用户登录状态========")
+            self.wait_element_presence(loc.dating_module)
+            self.check_error_popup() #检查异常退出弹窗
+            self.check_goddess_Popup() #检查房间引导弹窗
+            # self.find_element(loc.dating_module)
             return True
         except NoSuchElementException:
             log.info("用户未登录")
@@ -111,7 +112,7 @@ class CommonBus(BasePage):
     def assert_in(self, text, contain_text, model=None):
         try:
             assert text in contain_text
-            log.info("{}===断言通过,{} 包含 {}".format(model,contain_text,text))
+            log.info("{}===断言通过,{} 包含 {}".format(model,"contain_text",text))
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model="{}断言错误".format(model))
@@ -150,21 +151,21 @@ class CommonBus(BasePage):
             .wait(500).move_to(x=start_X + 100, y=random.randint(e[1]+2,e[3]-2))\
             .wait(500).move_to(x=start_X + 260, y=random.randint(e[1]+2,e[3]-2)).wait(500)\
             .move_to(x=start_X + 300, y=random.randint(e[1]+2,e[3]-2)).wait(500).release().perform()
-        self.driver.implicitly_wait(8)
+        self.wait_element_presence(LoginPageLocator.codeInput)
 
     #检查并关闭异常弹窗            
     def check_error_popup(self):
-        self.exist_be_click(loc.iv_cancel)
+        self.exist_be_click(poploc.iv_cancel)
 
 
     #检查并关闭未成年设置弹窗            
     def check_MinorSettings(self):
         time.sleep(2)
-        self.exist_be_click(roomloc.btn_know)
+        self.exist_be_click(poploc.setting_minors)
 
     #检查关闭女神开播引导弹窗       
     def check_goddess_Popup(self):
-        self.exist_be_click(roomloc.close_back)
+        self.exist_be_click(poploc.close_back)
         
         
 

@@ -1,5 +1,13 @@
+'''
+Author: your name
+Date: 2021-09-06 15:59:48
+LastEditTime: 2021-09-18 13:25:38
+LastEditors: your name
+Description: In User Settings Edit
+FilePath: /lk_test_app/Pages/iOS_pageLocators/hot_pageLocators.py
+'''
 from appium.webdriver.common.mobileby import MobileBy as Mb
-from TsetDatas.iOS_Datas import hotData
+from TestDatas.iOS_Datas import hotData
 
 class HotPageLocators:
     user_name = hotData.user_name
