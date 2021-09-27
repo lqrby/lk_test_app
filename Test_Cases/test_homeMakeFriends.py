@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:49
-LastEditTime: 2021-09-27 17:06:58
+LastEditTime: 2021-09-27 17:27:29
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Test_Cases/test_homeMakeFriends.py
@@ -9,7 +9,6 @@ FilePath: /lk_test_app/Test_Cases/test_homeMakeFriends.py
 import allure
 import pytest
 from Common.log import get_logger
-# from Pages.pageObjects.home_page import HomePage
 from Pages.pageObjects.room_page import RoomPage
 from Pages.pageObjects.Common_Buss import CommonBus as  Cb
 

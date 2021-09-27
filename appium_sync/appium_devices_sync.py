@@ -1,13 +1,13 @@
 '''
 Author: your name
 Date: 2021-09-22 15:48:50
-LastEditTime: 2021-09-26 10:43:33
-LastEditors: your name
+LastEditTime: 2021-09-27 17:15:56
+LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/appium_sync/appium_devices_sync.py
 '''
 import sys, yaml, pytest
-sys.path.append("D:/myObject/lk_test_app")
+# sys.path.append("D:/myObject/lk_test_app")
 from appium_sync.multi_appium import appium_start
 from appium_sync.multi_devices import appium_desired
 from TestDatas.login import login_success
