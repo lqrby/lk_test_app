@@ -386,7 +386,7 @@ class RoomPage(CommonBus):
         self.wait_element_presence(roomloc.giftWallList,model="展墙列表元素")
         giftWallList = self.get_elements(roomloc.giftWallList)
         self.assert_len(giftWallList, dyj=1, model="礼物墙展墙列表断言")
-        self.light_up() #点亮墙展礼物
+        # self.light_up() #点亮墙展礼物
         self.go_back()
 
 
@@ -409,9 +409,9 @@ class RoomPage(CommonBus):
                 self.swipeUp(t=1000,n=num)
             giftWallList = self.get_elements(roomloc.giftWallList)
             i = random.randint(0,len(giftWallList)-1)
-            giftWallList[i].click()
+            giftWallList[i].click() #点击打赏
             time.sleep(2)
-            textStr = self.get_element(roomloc.Diamond_number_text).text
+            textStr = self.get_element(roomloc.Diamond_number_text).text  #确定弹窗中text
             number = "".join(list(filter(str.isdigit, textStr)))
             if int(number) > 50000:
                 self.click_element(roomloc.cancel_btn,model="取消按钮")
@@ -685,7 +685,7 @@ class RoomPage(CommonBus):
         for i,tapBtn in enumerate(roomloc.gift_list):
             self.click_gift_tap(tapBtn) # 点击礼物tap
             self.select_gift() # 选中某个礼物
-            self.give_gifts() # 赠送礼物
+            # self.give_gifts() # 赠送礼物
             if i >= 2:
                 break
         self.driver.press_keycode(4)

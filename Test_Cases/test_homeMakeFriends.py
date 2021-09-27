@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:49
-LastEditTime: 2021-09-27 17:27:29
+LastEditTime: 2021-09-27 18:05:58
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Test_Cases/test_homeMakeFriends.py
