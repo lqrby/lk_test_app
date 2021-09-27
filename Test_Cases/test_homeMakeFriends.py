@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:49
-LastEditTime: 2021-09-27 18:05:58
+LastEditTime: 2021-09-27 18:22:03
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Test_Cases/test_homeMakeFriends.py
@@ -31,7 +31,7 @@ class TestHomeMakeFriends:
         liveRoomMum = room_page.enter_liveRoom()
         with allure.step("进出开播房间"):
             try:
-                assert liveRoomMum > 0
+                assert liveRoomMum == True
                 log.info("进出开播房间断言成功")
             except AssertionError as a:
                 log.error("进出开播房间断言失败")
@@ -90,7 +90,7 @@ class TestHomeMakeFriends:
         nearby_people_chatRoom = room_page.nearby_people_chatRoom()
         with allure.step("进退附近的人进入的聊天室"):
             try:
-                assert int(nearby_people_chatRoom) > 0
+                assert nearby_people_chatRoom == True
                 log.info("进退附近的人进入的聊天室断言成功")
             except AssertionError as a:
                 log.error("进退附近的人进入的聊天室断言失败")

@@ -1,11 +1,12 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:47
-LastEditTime: 2021-09-09 15:31:57
+LastEditTime: 2021-09-27 18:18:59
 LastEditors: your name
 Description: In User Settings Edit
-FilePath: \lk_test_app\Common\splicing.py
+FilePath: /lk_test_app/Common/splicing.py
 '''
+
 import os
 
 # 框架项目顶层目录

@@ -1,11 +1,12 @@
 '''
 Author: your name
-Date: 2021-08-25 17:04:39
-LastEditTime: 2021-09-16 16:01:38
-LastEditors: Please set LastEditors
+Date: 2021-09-14 19:10:53
+LastEditTime: 2021-09-27 18:18:29
+LastEditors: your name
 Description: In User Settings Edit
-FilePath: \lk_testProject\testScript\db_util.py
+FilePath: /lk_test_app/testScript/db_util.py
 '''
+
 import sys, pymysql, datetime,json
 from warnings import filterwarnings
 
