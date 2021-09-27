@@ -21,7 +21,7 @@ class BasePage:
         
 
     # 等待元素可见
-    def wait_eleVisible(self, loc, timeout=8, poll_frequency=0.5, model="basepage"):
+    def wait_eleVisible(self, loc, timeout=8, poll_frequency=0.5, model="basepage", times=2):
         """
         :param loc: 元素定位表达。元组类型，表达方式(元素定位类型，元素定位方法)
         :param timeout: 等待上限。
@@ -33,10 +33,20 @@ class BasePage:
         try:
             WebDriverWait(self.driver, timeout, poll_frequency).until(EC.visibility_of_element_located(loc))
         except Exception as e:
-            print(e)
-            log.exception("等待元素可见失败。")
-            # 截图
-            self.save_webImgs(model)
+            if times > 0:
+                times -= 1
+                if self.pop(PopUpLocator.popList):
+                    self.wait_eleVisible(loc, model=model, times=times)
+                else:
+                    self.save_webImgs(model)
+                    log.exception("等待元素可见失败。")
+                    log.info(e)
+             
+            else:
+                self.save_webImgs(model)
+                log.exception("等待元素可见失败。")
+                log.info(e)
+            
 
         else:
             pass
@@ -53,20 +63,28 @@ class BasePage:
             raise
 
     # 等待某个元素可以被点击，不可点击则截图
-    def wait_element_clickable(self, loc, timeout=8, poll_frequency=0.5, model="等待可点击截图"):
+    def wait_element_clickable(self, loc, timeout=8, poll_frequency=0.5, model="等待可点击截图", times=1):
         log.info("等待元素可点击:{}".format(loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.element_to_be_clickable(loc))
             return el
         except:
-            log.error("未找到或元素不可点击{}".format(loc))
-            self.save_webImgs(model)
+            if times > 0:
+                times -= 1
+                if self.pop(PopUpLocator.popList):
+                    self.wait_element_presence(loc, model=model, times=times)
+                else:
+                    log.error("未找到或元素不可点击{}".format(loc))
+                    self.save_webImgs(model)
+            else:
+                log.error("未找到或元素不可点击{}".format(loc))
+                self.save_webImgs(model)
             
 
     
 
     # 某个元素存在
-    def wait_element_presence(self, loc, timeout=8, poll_frequency=0.5, model=None):
+    def wait_element_presence(self, loc, timeout=8, poll_frequency=0.5, model=None, times=1):
         log.info("元素是否存在:{}".format(loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(
@@ -74,8 +92,13 @@ class BasePage:
             )
             return el
         except:
-            self.save_webImgs(model)
-            log.error("元素不存在:{}".format(loc))
+            if times > 0:
+                times -= 1
+                if self.pop(PopUpLocator.popList):
+                    self.wait_element_presence(loc, model=model, times=times)
+            else:
+                self.save_webImgs(model)
+                log.error("元素不存在:{}".format(loc))
 
     # 查找一个元素
     def get_element(self, loc, model="basepage"):
@@ -159,7 +182,13 @@ class BasePage:
                     log.info("=========聊天室已关闭==========")
                     self.driver.close_app()
                     self.driver.quit()
-                self.click_element(loc, model=model, times=times)
+                if item:
+                    self.click_element(loc, model=model, times=times)
+                else:
+                    # 捕获异常到日志中；
+                    log.exception("点击元素:{0} 点击事件失败:".format(loc))
+                    # 截图 - 保存到的指定的目录。名字要想好怎么取？
+                    self.save_webImgs(model)
             else:
                 pass
 
@@ -452,18 +481,6 @@ class BasePage:
                 time.sleep(1)
             return False
 
-    # # 判断元素是否存在
-    # def is_element_exist(self, element, timeout=1):
-    #     count = 0
-    #     while count < timeout:
-    #         souce = self.driver.page_source
-    #         # log.info(souce)
-    #         if element in souce:
-    #             return True
-    #         else:
-    #             count += 1
-    #             time.sleep(0.05)
-    #     return False
 
     # 判断元素是否存在
     def is_element_exist(self, element):
@@ -483,7 +500,7 @@ class BasePage:
         except TimeoutException:
             pass
         else:
-            self.click_element(element)
+            self.click_element(element,model=model)
 
     # 元素是否存在-iOS
     def element_exist(self, elementName):
@@ -516,19 +533,7 @@ class BasePage:
                 except:
                     os.popen("adb shell input keyevent 4")
 
-    def always_allow(self, number=1):
-        source = self.driver.page_source
-        # 新下载的App用来开启定位等一系列权限时使用
-
-        for i in range(number):
-            loc = ("xpath", "//*[@text='允许']")
-            try:
-                e = WebDriverWait(self.driver, 1, 0.5).until(EC.presence_of_element_located(loc))
-                e.click()
-
-            except:
-                pass
-
+    
     # def pop(self, pop_list):
     #     try:
     #         time.sleep(2)

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-18 17:58:05
+LastEditTime: 2021-09-27 15:43:18
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/Pages/pageLocators/pop_locators.py
@@ -43,12 +43,23 @@ class PopUpLocator:
     skip = (Mb.ID, "com.ourydc.yuebaobao:id/skip") 	
 
     #放弃奖励弹窗
-    give_up_reward = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancle") 		
+    give_up_reward = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancle") 
 
+    #允许哩咔语音拨打电话权限弹窗
+    call_permission = (Mb.ID, "com.android.packageinstaller:id/permission_allow_button") 	
+    #不再询问选择框	
+    not_ask = (Mb.ID, "com.android.packageinstaller:id/do_not_ask_checkbox") 		
 
-    
+    # 立即提升魅力元素
+    tv_to_profile = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_to_profile']") 
+    # 关闭立即提升魅力元素
+    iv_close = (Mb.ID, "com.ourydc.yuebaobao:id/iv_close")
 
-    popList = [close_back, iv_cancel, setting_minors, order_now,close_broadcast,skip,give_up_reward,say_hello]
+    # 充值弹窗-充值按钮元素
+    recharge = (Mb.ID, "com.ourydc.yuebaobao:id/tv_sure")
+    cancel_close = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel")
+
+    popList = [close_back, iv_cancel, setting_minors, order_now,close_broadcast,skip,give_up_reward,say_hello,call_permission,iv_close]
 
     # popList = [closeInvitInRoom[1], closeGameInvit[1], skipAD[1], allowpop1[1], allowpop2[1], onlyappallow[1],
     #            "允许定位", dialog[1], close_AD[1], check_shut[1], got_in[1], txtSkip[1], Adolescent[1]]

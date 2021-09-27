@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-18 16:54:19
+LastEditTime: 2021-09-26 10:08:07
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/home_locators.py

@@ -3,6 +3,7 @@ from Common.log import get_logger
 from Pages.pageLocators.login_locators import LoginPageLocator as loc
 from Pages.pageObjects.Common_Buss import CommonBus
 from testScript.db_util import MysqlDb
+from Pages.pageObjects.sign_pop_page import SignPopPage
 
 
 log = get_logger(logger_name="登录操作日志")
@@ -15,12 +16,12 @@ class LoginPage(CommonBus):
 
     def __init__(self, driver):
         super().__init__(driver)
-
+        self.popPage = SignPopPage(driver)
     
 
     '''微信登录成功操作'''
     def login_byWechat_success(self,wxName,wxPassword):
-        self.check_agreement_one() #同意用户协议
+        self.popPage.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.wdChatBtn, model="等待微信按钮元素可被点击")
         self.click_element(loc.wdChatBtn, model="点击微信按钮")
         # if self.is_element_exist(loc.microblog_authorizeBtn):
@@ -43,7 +44,7 @@ class LoginPage(CommonBus):
 
     '''微博登录成功操作'''
     def login_byWeiBo_success(self,wbName,wbPassword):
-        self.check_agreement_one() #同意用户协议
+        self.popPage.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.microblogBtn, model="等待微博按钮元素可被点击")
         self.click_element(loc.microblogBtn, model="点击微博按钮")
         self.driver.implicitly_wait(8)
@@ -71,10 +72,10 @@ class LoginPage(CommonBus):
     2.已登录，直接授权
     '''
     def login_byQQ_success(self,qqName,qqPassword):
-        self.check_agreement_one() #同意用户协议
+        self.popPage.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.qqBtn, model="等待qq元素可被点击")
         self.click_element(loc.qqBtn, model="点击qq按钮")
-        self.driver.implicitly_wait(8)
+        self.driver.implicitly_wait(5)
         if self.is_element_exist(loc.fdsBtn):
             self.exist_be_click(loc.fdsBtn) #点击qq授权按钮（假如qq已登录）
             # self.exist_be_click(loc.otherqqLoginBtn) #点击其它qq登录
@@ -95,7 +96,7 @@ class LoginPage(CommonBus):
 
     '''手机号密码登录'''
     def login_mobile_passWord(self, user, passwd):
-        self.check_agreement_one() #同意用户协议
+        self.popPage.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
         self.click_element(loc.phoneBtn, model="点击手机号登录")
         self.wait_element_clickable(loc.nameAndPassBtn, model="等待元素可被点击")
@@ -104,7 +105,7 @@ class LoginPage(CommonBus):
         self.input_text(loc.username_type, user, model="输入手机号")
         self.input_text(loc.password_type, passwd, model="输入密码")
         self.click_element(loc.loginBtn, model="点击确定")
-        self.check_agreement_two()
+        self.popPage.check_agreement_two()
         userStatus = self.get_userStatus()
         return userStatus
 
@@ -113,7 +114,7 @@ class LoginPage(CommonBus):
     手机号验证码登录注册
     '''
     def login_phone_code(self, phone):
-        self.check_agreement_one() #同意用户协议
+        self.popPage.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
         self.click_element(loc.phoneBtn, model="点击手机号登录")
         # self.exist_be_click(loc.otherPhoneBtn) #存在则点击其它手机号登录
@@ -124,7 +125,7 @@ class LoginPage(CommonBus):
         usedPhone = phoneNum[0]['cnt']
         log.info("旧验证码是======{}".format(usedPhone))
         self.click_element(loc.codeBtn, model="点击获取验证码")
-        self.check_agreement_two()
+        self.popPage.check_agreement_two()
         self.driver.implicitly_wait(8)
         self.drag_slider(loc.seekBar) #拖动滑块儿
         self.wait_eleVisible(loc.input_one, model="等待显示验证码输入框")

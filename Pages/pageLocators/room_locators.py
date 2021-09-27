@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-18 17:46:14
+LastEditTime: 2021-09-27 15:24:55
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -33,8 +33,8 @@ class RoomPageLocator:
     ###########################哩咔首页交友模块元素定位结束##########################
     tv_play = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_play']") # 发现-进入聊天室的用户列表元素
     tv_close = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/des']") # 发现-用户未进聊天室列表元素
-    tv_to_profile = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_to_profile']") # 立即提升魅力元素
-    iv_close = (Mb.ID, "com.ourydc.yuebaobao:id/iv_close") # 关闭立即提升魅力元素
+    
+    
     
     no_more = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='没有更多']") # 主播列表底部的没有更多按钮元素
     roomIdTv = (Mb.ID, "com.ourydc.yuebaobao:id/roomIdTv") # 获取开播房间的id
@@ -44,7 +44,7 @@ class RoomPageLocator:
 
     ###########################房间模块下的元素############################
     # 房间模块
-    room_module = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_live") 
+    room_module = (Mb.ID, 'com.ourydc.yuebaobao:id/iv_tab_live') 
     #房间列表元素（聊天室通用元素）
     chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round']")
 
@@ -339,6 +339,7 @@ class RoomPageLocator:
     
     nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_content']") # 附近动态列表元素
     iv_prise = (Mb.ID, "com.ourydc.yuebaobao:id/iv_prise") #点赞
+    all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/mvp") #全部模式（聊天室的一个蒙层）
 
     
     

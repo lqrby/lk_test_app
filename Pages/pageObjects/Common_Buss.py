@@ -3,12 +3,15 @@ from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException 
 from Common.log import get_logger
-from Pages.pageLocators.pop_locators import PopUpLocator as poploc
 from Pages.pageLocators.login_locators import LoginPageLocator
 from Pages.pageLocators.home_locators import HomePageLocator as loc
 from Pages.pageLocators.my_locators import MyLocators as my
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
 from appium.webdriver.common.touch_action import TouchAction 
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from Pages.pageObjects.sign_pop_page import SignPopPage
+from Pages.pageLocators.pop_locators import PopUpLocator
 
 log = get_logger(logger_name="注册操作日志")
 
@@ -18,6 +21,9 @@ log = get_logger(logger_name="注册操作日志")
 
 class CommonBus(BasePage):
     '''输入文本内容，跳转至某个页面'''
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.popPage = SignPopPage(driver)
 
     def switch_navigate(self, name):
         loc = (MobileBy.ANDROID_UIAUTOMATOR, 'new UiSelector().text("{}")'.format(name))
@@ -34,45 +40,27 @@ class CommonBus(BasePage):
     
 
     
-    #检查是否有用户协议
-    def check_agreement_one(self):
-        log.info("检查用户协议弹窗按钮")
-        time.sleep(2)
-        try:
-            agreementBtn = self.find_element(LoginPageLocator.agree)
-        except NoSuchElementException:
-            log.info("无用户协议弹窗按钮")
-        else:
-            agreementBtn.click()
-
-    #检查是否有用户协议2
-    def check_agreement_two(self):
-        log.info("检查用户协议确认按钮")
-        try:
-            determineBtn = self.find_element(LoginPageLocator.determine)
-        except NoSuchElementException:
-            log.info("无用户协议确认按钮")
-        else:
-            determineBtn.click()
+    
 
     def get_userStatus(self):
         try:
-            
             log.info("===========检查用户登录状态========")
-            self.wait_element_presence(loc.dating_module)
-            self.check_error_popup() #检查异常退出弹窗
-            self.check_goddess_Popup() #检查房间引导弹窗
-            # self.find_element(loc.dating_module)
-            return True
+            self.driver.implicitly_wait(5)
+            self.popPage.check_error_popup()
+            self.find_element(loc.dating_module)
         except NoSuchElementException:
             log.info("用户未登录")
             return False
+        else:
+            self.popPage.check_error_popup() #检查异常退出弹窗
+            self.popPage.check_goddess_Popup() #检查房间引导弹窗
+            return True
 
     # 退出登录
     def login_Out(self):
         self.click_element(my.meBtn, model="点击我的") 
         time.sleep(2)
-        self.check_goddess_Popup() #关闭女神引导弹窗
+        self.popPage.check_goddess_Popup() #关闭女神引导弹窗
         if self.is_element_exist(my.setUpBtn) == False:
            self.swipeUp() 
         self.wait_element_clickable(my.setUpBtn, model="点击设置")
@@ -98,14 +86,20 @@ class CommonBus(BasePage):
             pass
     
     # 断言是否为真
-    def assert_true(self, assert_element, model=None):
+    def assert_true(self, assert_element, model=None, times = 1):
         try:
             result = self.is_element_exist(assert_element)
+            print("result=======",result)
             assert result == True
             log.info("{}===断言通过,{} == {}".format(model,result,True))
         except Exception as e:
-            log.info("{}断言错误".format(model))
-            self.save_webImgs(model="{}断言错误".format(model))
+            if times > 0:
+                times -= 1
+                self.pop(PopUpLocator.popList)
+                self.assert_true(assert_element, model=model, times=times)
+            else:
+                log.info("{}断言错误".format(model))
+                self.save_webImgs(model="{}断言错误".format(model))
 
 
     # 断言是否包含
@@ -153,19 +147,7 @@ class CommonBus(BasePage):
             .move_to(x=start_X + 300, y=random.randint(e[1]+2,e[3]-2)).wait(500).release().perform()
         self.wait_element_presence(LoginPageLocator.codeInput)
 
-    #检查并关闭异常弹窗            
-    def check_error_popup(self):
-        self.exist_be_click(poploc.iv_cancel)
-
-
-    #检查并关闭未成年设置弹窗            
-    def check_MinorSettings(self):
-        time.sleep(2)
-        self.exist_be_click(poploc.setting_minors)
-
-    #检查关闭女神开播引导弹窗       
-    def check_goddess_Popup(self):
-        self.exist_be_click(poploc.close_back)
+    
         
         
 

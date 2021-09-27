@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-09-18 13:25:07
+LastEditTime: 2021-09-27 14:47:45
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/conftest.py
@@ -16,6 +16,7 @@ from Common.log import get_logger
 from Pages.pageObjects.login_page import LoginPage
 from Pages.pageObjects.Common_Buss import CommonBus
 from TestDatas.login import login_success
+from Pages.pageObjects.sign_pop_page import SignPopPage
 
 
 log = get_logger(logger_name="前置-日志")
@@ -50,11 +51,9 @@ def start_app_toast():
 @pytest.fixture(scope="function")
 def startApp_keepUserData():
     driver = base_driver()
-    
     # driver.implicitly_wait(8)
     time.sleep(2)
-    check_notLogin_SignIn(driver, login_success[0]["username"], login_success[0]["password"])
-    if check_notLogin_SignIn:
+    if check_notLogin_SignIn(driver, login_success[0]["username"], login_success[0]["password"]):
         pass
     else:
         log.info("登录失败")
@@ -71,14 +70,13 @@ def check_notLogin_SignIn(driver,user, password):
         log.info("===========当前已是登录状态，无需登录========")
         time.sleep(1)
         return True
-        # CommonBus(driver).check_error_popup()  #关闭异常弹窗
     else:
         log.info("===========开始登录========")
         loginStatus = LoginPage(driver).login_mobile_passWord(user, password)
         if loginStatus:
             log.info("===========登录成功========")
             time.sleep(1)
-            CommonBus(driver).check_error_popup()
+            SignPopPage(driver).check_error_popup()
             return True
         else:
             log.info("===========登录失败========")
@@ -97,11 +95,11 @@ def basedriver(noReset=None, automationName=None, server_port=4723):
     return driver
 
 
-def base_driver(noReset=None, automationName=None, server_port=4723):
+def base_driver(noReset=None, automationName=None, port=4723):
     # 读取全局的一个caps选项。
     with open(os.path.join(caps, "desired_caps.yaml"), encoding="utf-8") as file:
         desired_caps = yaml.load(file, Loader=yaml.FullLoader)
-    driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], desired_caps["port"]), desired_caps)
+    driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], port), desired_caps)
     # 根据参数来定制化启动选项
     # if noReset is not None and noReset in [True, False]:
     #     desired_caps["noReset"] = noReset

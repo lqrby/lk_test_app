@@ -3,6 +3,7 @@ import pytest
 from Common.log import get_logger
 from TestDatas.login import login_success, login_error, qq_login, wb_login, wx_login
 from Pages.pageObjects.login_page import LoginPage
+from appium_sync.appium_devices_sync import devices_star_sync
 
 log = get_logger(logger_name="登录操作日志")
 
@@ -77,10 +78,10 @@ class Test_Login:
         login_page = LoginPage(start_app)
         loginStatus = login_page.login_phone_code(case["username"])
         '''异常处理，预期结果与实际结果做对比，如果断言正确pass、如果断言失败或查找元素失败，自动截图保存路径到Outputs / screenshots'''
-        with allure.step("手机号密码登录测试用例"):
+        with allure.step("手机号验证码登录测试用例"):
             try:
                 assert loginStatus == case["check"]
-                log.info("手机号密码登录成功")
+                log.info("手机号验证码登录成功")
             except AssertionError as a:
                 log.exception("断言失败")
                 login_page.save_webImgs("登录success_断言失败截图")
@@ -88,24 +89,27 @@ class Test_Login:
 
 
 
-    # 微信登录
-    @pytest.mark.parametrize("wx_case", wx_login)
-    @allure.story('微信登录测试用例')
-    @allure.title('微信登录测试用例')
-    def test_success_weChatlogin(self, wx_case, start_app):
-        log.info("*********微信登陆用例：正常场景*********")
-        login_page = LoginPage(start_app)
-        actual = login_page.login_byWechat_success(wx_case["wxName"],wx_case["wxPassword"])
-        with allure.step("微信登录测试用例"):
-            try:
-                assert actual == wx_case["check"]
-                log.info("微信登录成功")
-            except AssertionError as a:
-                log.exception("微信断言失败")
-                login_page.save_webImgs("微信登录success_断言")
-                raise a
+    # # 微信登录
+    # # @pytest.mark.parametrize("wx_case", wx_login)
+    # # @allure.story('微信登录测试用例')
+    # # @allure.title('微信登录测试用例')
+    # # def test_success_weChatlogin(self, wx_case, start_app):
+    # #     log.info("*********微信登陆用例：正常场景*********")
+    # #     login_page = LoginPage(start_app)
+    # #     actual = login_page.login_byWechat_success(wx_case["wxName"],wx_case["wxPassword"])
+    # #     with allure.step("微信登录测试用例"):
+    # #         try:
+    # #             assert actual == wx_case["check"]
+    # #             log.info("微信登录成功")
+    # #         except AssertionError as a:
+    # #             log.exception("微信断言失败")
+    # #             login_page.save_webImgs("微信登录success_断言")
+    # #             raise a
 
-    # 微博登录
+
+
+    '''微博登录'''
+    @pytest.mark.success
     @pytest.mark.parametrize("wb_case", wb_login)
     @allure.story('微博登录测试用例')
     @allure.title('微博登录测试用例')
@@ -123,6 +127,7 @@ class Test_Login:
                 raise a
 
     # QQ登录
+    @pytest.mark.success
     @pytest.mark.parametrize("qq_case", qq_login)
     @allure.story('QQ登录测试用例')
     @allure.title('QQ登录测试用例')
