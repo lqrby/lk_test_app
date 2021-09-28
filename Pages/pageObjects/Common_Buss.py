@@ -36,24 +36,21 @@ class CommonBus(BasePage):
         self.click_element(loc)
 
     
-
-    
-
-    
-    
-
     def get_userStatus(self):
         try:
             log.info("===========检查用户登录状态========")
             self.driver.implicitly_wait(5)
-            self.popPage.check_error_popup()
+            # self.popPage.check_error_popup()
+            # self.popPage.check_close_Popup(PopUpLocator.cancel_close) # 检测更新弹窗
+            self.close_page_popUp()
             self.find_element(loc.dating_module)
         except NoSuchElementException:
             log.info("用户未登录")
             return False
         else:
-            self.popPage.check_error_popup() #检查异常退出弹窗
-            self.popPage.check_goddess_Popup() #检查房间引导弹窗
+            # self.popPage.check_error_popup() #检查异常退出弹窗
+            # self.popPage.check_goddess_Popup() #检查房间引导弹窗
+            self.close_page_popUp()
             return True
 
     # 退出登录
@@ -86,20 +83,15 @@ class CommonBus(BasePage):
             pass
     
     # 断言是否为真
-    def assert_true(self, assert_element, model=None, times = 1):
+    def assert_true(self, assert_element, model=None):
         try:
             result = self.is_element_exist(assert_element)
             print("result=======",result)
             assert result == True
             log.info("{}===断言通过,{} == {}".format(model,result,True))
         except Exception as e:
-            if times > 0:
-                times -= 1
-                self.pop(PopUpLocator.popList)
-                self.assert_true(assert_element, model=model, times=times)
-            else:
-                log.info("{}断言错误".format(model))
-                self.save_webImgs(model="{}断言错误".format(model))
+            log.info("{}断言错误".format(model))
+            self.save_webImgs(model="{}断言错误".format(model))
 
 
     # 断言是否包含
@@ -111,7 +103,7 @@ class CommonBus(BasePage):
             log.info("{}断言错误".format(model))
             self.save_webImgs(model="{}断言错误".format(model))
 
-    # 断言长度
+    # 断言元素长度
     def assert_len(self, elements, dyj=0, model=None):
         try:
             assert len(elements) > dyj
@@ -119,6 +111,18 @@ class CommonBus(BasePage):
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model="{}断言错误".format(model))
+
+
+    # 断言文本长度
+    def assert_text_len(self, text, dyj=0, model=None):
+        try:
+            assert len(text) > dyj
+            log.info("断言通过,文本长度是:{}".format(len(text)))
+        except Exception as e:
+            log.info("断言错误,文本长度是:{}".format(len(text)))
+            self.save_webImgs(model="{}断言错误".format(model))
+
+    
 
 
     #返回元素坐标

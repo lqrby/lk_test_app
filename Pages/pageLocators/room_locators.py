@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-27 15:24:55
+LastEditTime: 2021-09-28 16:00:20
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -163,7 +163,7 @@ class RoomPageLocator:
      
 
     #福袋
-    blessing_bag = (Mb.ID,'com.ourydc.yuebaobao:id/vp_chat_room_party') #点击房间内幸运福袋入口
+    # blessing_bag = (Mb.ID,'com.ourydc.yuebaobao:id/vp_chat_room_party') #点击房间内幸运福袋入口
     
     
     #=======页面底部按钮========
@@ -201,7 +201,7 @@ class RoomPageLocator:
     lucky_bag_iv = (Mb.ID,'com.ourydc.yuebaobao:id/lucky_bag_iv') #福袋
     no_hair_message = (Mb.XPATH,"//*[@class='android.view.View' and @text='不发送消息给好友']") # 福袋断言
     
-    Lucky_bag = (Mb.ID,'com.ourydc.yuebaobao:id/layout_chat_room_party') #幸运福袋
+    Lucky_bag = (Mb.ID,'com.ourydc.yuebaobao:id/layout_chat_room_party') #
     cash_back_assert = (Mb.ID,'com.ourydc.yuebaobao:id/layout_web_view') #钻石返现页面断言
     
     
@@ -266,7 +266,8 @@ class RoomPageLocator:
     giftWallNumberList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_num']") #礼物列表
     Diamond_number_text = (Mb.ID,'com.ourydc.yuebaobao:id/tv_content') #确定弹窗中text
     #---装扮展墙---
-    decorate_wall = (Mb.ID,'com.ourydc.yuebaobao:id/click_mount') #装扮展墙
+    # decorate_wall = (Mb.ID,'com.ourydc.yuebaobao:id/click_mount') #装扮展墙
+    decorate_wall = (Mb.ID,'com.ourydc.yuebaobao:id/iv_mount_next') #装扮展墙
     Decorate_wall_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv_item']/child::android.widget.RelativeLayout") # 装扮展墙礼物列表
 
 

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:49
-LastEditTime: 2021-09-27 18:22:03
+LastEditTime: 2021-09-28 17:50:01
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Test_Cases/test_homeMakeFriends.py
@@ -52,7 +52,7 @@ class TestHomeMakeFriends:
         enter_notLiveRoom = room_page.enter_notLiveRoom()
         with allure.step("查看用户主页"):
             try:
-                assert int(enter_notLiveRoom) > 0
+                assert len(enter_notLiveRoom) > 0
                 log.info("查看用户主页断言成功")
             except AssertionError as a:
                 log.error("查看用户主页断言失败")
@@ -71,7 +71,7 @@ class TestHomeMakeFriends:
         nearby_people_dataPage = room_page.nearby_people_dataPage()
         with allure.step("查看附近的人主页资料"):
             try:
-                assert int(nearby_people_dataPage) > 0
+                assert len(nearby_people_dataPage) > 0
                 log.info("查看附近的人主页资料断言成功")
             except AssertionError as a:
                 log.error("查看附近的人主页资料断言失败")

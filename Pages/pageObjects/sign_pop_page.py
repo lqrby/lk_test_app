@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:48
-LastEditTime: 2021-09-27 15:45:23
+LastEditTime: 2021-09-28 13:28:10
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageObjects/sign_pop_page.py
@@ -76,3 +76,13 @@ class SignPopPage(BasePage):
             pass
 
     
+    
+
+    
+
+    # def close_pop(self):
+    #     if self.check_page_popUp():
+    #         self.check_page_popUp()
+    #     else:
+    #         pass
+        

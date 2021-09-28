@@ -21,7 +21,7 @@ class BasePage:
         
 
     # 等待元素可见
-    def wait_eleVisible(self, loc, timeout=8, poll_frequency=0.5, model="basepage", times=2):
+    def wait_eleVisible(self, loc, timeout=8, poll_frequency=0.5, model="basepage"):
         """
         :param loc: 元素定位表达。元组类型，表达方式(元素定位类型，元素定位方法)
         :param timeout: 等待上限。
@@ -33,23 +33,14 @@ class BasePage:
         try:
             WebDriverWait(self.driver, timeout, poll_frequency).until(EC.visibility_of_element_located(loc))
         except Exception as e:
-            if times > 0:
-                times -= 1
-                if self.pop(PopUpLocator.popList):
-                    self.wait_eleVisible(loc, model=model, times=times)
-                else:
-                    self.save_webImgs(model)
-                    log.exception("等待元素可见失败。")
-                    log.info(e)
-             
+                
+            if self.check_page_popUp():
+                self.wait_eleVisible(loc, model=model)
             else:
                 self.save_webImgs(model)
                 log.exception("等待元素可见失败。")
                 log.info(e)
-            
-
-        else:
-            pass
+        
     
     #元素是否显示
     def is_desplayed(self, loc, model=None):
@@ -63,28 +54,24 @@ class BasePage:
             raise
 
     # 等待某个元素可以被点击，不可点击则截图
-    def wait_element_clickable(self, loc, timeout=8, poll_frequency=0.5, model="等待可点击截图", times=1):
+    def wait_element_clickable(self, loc, timeout=8, poll_frequency=0.5, model="等待可点击截图"):
         log.info("等待元素可点击:{}".format(loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.element_to_be_clickable(loc))
             return el
         except:
-            if times > 0:
-                times -= 1
-                if self.pop(PopUpLocator.popList):
-                    self.wait_element_presence(loc, model=model, times=times)
-                else:
-                    log.error("未找到或元素不可点击{}".format(loc))
-                    self.save_webImgs(model)
+            if self.check_page_popUp():
+                self.wait_element_presence(loc, model=model)
             else:
                 log.error("未找到或元素不可点击{}".format(loc))
                 self.save_webImgs(model)
+            
             
 
     
 
     # 某个元素存在
-    def wait_element_presence(self, loc, timeout=8, poll_frequency=0.5, model=None, times=1):
+    def wait_element_presence(self, loc, timeout=8, poll_frequency=0.5, model=None):
         log.info("元素是否存在:{}".format(loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(
@@ -92,10 +79,8 @@ class BasePage:
             )
             return el
         except:
-            if times > 0:
-                times -= 1
-                if self.pop(PopUpLocator.popList):
-                    self.wait_element_presence(loc, model=model, times=times)
+            if self.check_page_popUp():
+                self.wait_element_presence(loc, model=model)
             else:
                 self.save_webImgs(model)
                 log.error("元素不存在:{}".format(loc))
@@ -159,7 +144,7 @@ class BasePage:
             raise
 
     # 点击操作
-    def click_element(self, loc, model=None, times=3):
+    def click_element(self, loc, model=None):
         time.sleep(1)
         if self.is_desplayed(loc) and EC.element_to_be_clickable(loc):
             # 找到元素
@@ -174,23 +159,19 @@ class BasePage:
                 # 抛出异常
                 raise
         else:
-            if times > 0:
-                # PopThread(self.driver, PopUp.popList)
-                times -= 1
-                item = self.pop(PopUpLocator.popList)
-                if item == PopUpLocator.close_broadcast:
-                    log.info("=========聊天室已关闭==========")
-                    self.driver.close_app()
-                    self.driver.quit()
-                if item:
-                    self.click_element(loc, model=model, times=times)
-                else:
-                    # 捕获异常到日志中；
-                    log.exception("点击元素:{0} 点击事件失败:".format(loc))
-                    # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                    self.save_webImgs(model)
+            item = self.check_page_popUp()
+            if item == PopUpLocator.close_broadcast:
+                log.info("=========聊天室已关闭==========")
+                self.driver.close_app()
+                self.driver.quit()
+            elif item:
+                self.click_element(loc, model=model)
             else:
-                pass
+                # 捕获异常到日志中；
+                log.exception("点击元素:{0} 点击事件失败:".format(loc))
+                # 截图 - 保存到的指定的目录。名字要想好怎么取？
+                self.save_webImgs(model)
+            
 
     
     # 判断元素是否可点击
@@ -468,19 +449,6 @@ class BasePage:
         except:
             pass
 
-    # 消除气泡后点击
-    def unbubble(self, loc):
-        waittime = 0
-        while waittime < 5:
-            flag = self.is_desplayed(loc)
-            if flag:
-                pass
-            else:
-                self.tap_by_coordinate((0.5, 0.4))
-                waittime += 1
-                time.sleep(1)
-            return False
-
 
     # 判断元素是否存在
     def is_element_exist(self, element):
@@ -534,29 +502,20 @@ class BasePage:
                     os.popen("adb shell input keyevent 4")
 
     
-    # def pop(self, pop_list):
-    #     try:
-    #         time.sleep(2)
-    #         # source = self.driver.page_source
-    #         # # print(source)
-    #         for i in pop_list:
-    #             log.info("循环查找pop")
-    #             if i in source:
-    #                 pop = SignPopPage(self.driver, i)
-    #                 pop.close_ivClose().closeGameInvit().skipAD().systempop().locatpop().privacy().test_ad(). \
-    #                     check_bounced().is_Begintolive().close_language().Adolescent_model()
-    #     except Exception as e:
-    #         print(e)
-
-
-    def pop(self, pop_list):
+    def check_page_popUp(self):
         time.sleep(2)
         source = self.driver.page_source
-        mark = ""
-        for i in pop_list:
-            log.info("循环检测页面是否有弹窗元素:{}".format(i))
+        element = ""
+        for i in PopUpLocator.popList:
+            log.info("检测页面弹窗:{}".format(i))
             if i[1] in source:
                 self.click_element(i)
-                mark = i
+                element = i
                 break
-        return mark
+        return element
+    
+    def close_page_popUp(self):
+        if self.check_page_popUp():
+           self.check_page_popUp() 
+        else:
+            pass
