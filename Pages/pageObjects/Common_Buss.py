@@ -86,7 +86,7 @@ class CommonBus(BasePage):
     def assert_true(self, assert_element, model=None):
         try:
             result = self.is_element_exist(assert_element)
-            log.info("result=======".format(result))
+            # log.info("result======={}".format(result))
             assert result == True
             log.info("{}===断言通过,{} == {}".format(model,result,True))
         except Exception as e:
