@@ -121,9 +121,9 @@ class RoomPage(CommonBus):
         room_list_elements = self.get_elements(room_list_elements)
         if len(room_list_elements) > 0:
             log.info("聊天室列表数据有{}条".format(len(room_list_elements)))
-        elif self.is_element_exist(roomloc.no_more) == False:
-            self.swipeUp()
-            self.live_room_list(room_list_elements)
+        # elif self.is_element_exist(roomloc.no_more) == False:
+            # self.swipeUp()
+            # self.live_room_list(room_list_elements)
         else:
             log.info("暂无聊天室")
             self.save_webImgs(model="聊天室列表")
@@ -159,6 +159,10 @@ class RoomPage(CommonBus):
     '''
     def enter_liveRoom(self):
         # 在聊天室的用户
+        time.sleep(2)
+        self.close_page_popUp()
+        self.swipeDown()
+        time.sleep(3)
         playList = self.live_room_list(roomloc.tv_play)  
         self.enter_live_room(playList) #随机进入聊天室
         self.liveRoom()
