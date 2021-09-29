@@ -136,8 +136,14 @@ class RoomPage(CommonBus):
         if len(liveRoomList) > 0:
             room_number = random.randint(0,len(liveRoomList)-1)
             liveRoomList[room_number].click()
-            time.sleep(2)
+            time.sleep(3)
+            if self.is_element_exist(roomloc.room_text):
+                self.click_element(roomloc.closeRoomText,model="关闭聊天室输入密码框")
+                log.info("该聊天室有密码")
+                self.driver.close_app()
+                self.driver.quit()
             self.wait_element_presence(roomloc.roomIdTv, model="聊天室id")
+            log.info("聊天室id存在")
             self.assert_true(roomloc.roomIdTv,model="聊天室id") #断言聊天室id
         else:
             self.save_webImgs(model="暂无聊天室")
@@ -149,7 +155,9 @@ class RoomPage(CommonBus):
     功能:推荐聊天室
     '''
     def recommend_liveRoom(self):
+        self.swipeUp(n=4)
         liveRoomList = self.live_room_list(roomloc.chat_room_list) #聊天室列表
+        print("长度是================",len(liveRoomList))
         self.enter_live_room(liveRoomList) #随机进入聊天室
         self.liveRoom()
         return True
@@ -779,7 +787,9 @@ class RoomPage(CommonBus):
 
     #点击排行榜
     def click_rankingList(self,ranking_list):
-        if self.is_element_exist(ranking_list):
+        result = self.is_element_exist(ranking_list)
+        if result:
+            log.info("点击排行榜======{}".format(result))
             self.click_element(roomloc.ranking_list,model="点击排行榜") #点击排行榜
             self.assert_true(roomloc.day_week_month_assert) # 断言
             self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
@@ -805,6 +815,9 @@ class RoomPage(CommonBus):
             else:
                 log.info("==========暂无守护========")
             self.go_back() #返回
+        else:
+            log.info("暂无排行榜")
+            self.save_webImgs("暂无排行榜")
         
 
     #点击玩法介绍
