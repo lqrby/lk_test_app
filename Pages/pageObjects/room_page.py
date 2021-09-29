@@ -902,6 +902,7 @@ class RoomPage(CommonBus):
     def nearby_dynamics(self):
         self.nearby_dynamics_tap() #点击附近动态tap进入列表页
         self.swipeDown() #刷新
+        time.sleep(3)
         nearby_dynamics_list = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
         self.spot_fabulous() #点赞
         self.click_follow() #关注
@@ -923,7 +924,6 @@ class RoomPage(CommonBus):
 
     #附近动态列表-进入动态详情
     def nearby_dynamics_list(self):
-        # self.wait_element_presence(roomloc.nearby_dynamics_list,model="动态列表显示等待")
         time.sleep(5)
         nearby_dynamics_list = self.get_elements(roomloc.nearby_dynamics_list)   
         dt_num = random.randint(0,len(nearby_dynamics_list)-1) 
