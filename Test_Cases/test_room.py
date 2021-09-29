@@ -23,7 +23,6 @@ class TestRoomMakeFriends:
         room_page.find_room() #点击房间模块
         room_page.room_tap(RoomPageLocator.recommend_tap) #点击推荐tap
         pop_page_object.check_MinorSettings() #检测未成年弹框
-        time.sleep(2)
         liveRoomMum = room_page.recommend_liveRoom() #进入推荐聊天室
         with allure.step("进入推荐聊天室"):
             try:

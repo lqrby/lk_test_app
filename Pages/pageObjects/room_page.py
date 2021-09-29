@@ -118,6 +118,7 @@ class RoomPage(CommonBus):
 
     #聊天室列表
     def live_room_list(self,room_list_elements):
+        self.wait_element_presence(room_list_elements,model="聊天室列表元素")
         room_list_elements = self.get_elements(room_list_elements)
         if len(room_list_elements) > 0:
             log.info("聊天室列表数据有{}条".format(len(room_list_elements)))
@@ -155,7 +156,7 @@ class RoomPage(CommonBus):
     功能:推荐聊天室
     '''
     def recommend_liveRoom(self):
-        self.swipeUp(n=4)
+        # self.swipeUp(n=4)
         liveRoomList = self.live_room_list(roomloc.chat_room_list) #聊天室列表
         print("长度是================",len(liveRoomList))
         self.enter_live_room(liveRoomList) #随机进入聊天室
