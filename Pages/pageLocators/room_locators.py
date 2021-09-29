@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-28 16:00:20
+LastEditTime: 2021-09-29 15:36:28
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -47,7 +47,17 @@ class RoomPageLocator:
     room_module = (Mb.ID, 'com.ourydc.yuebaobao:id/iv_tab_live') 
     #房间列表元素（聊天室通用元素）
     chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round']")
+    # chat_room_list = (Mb.XPATH, "//*[not(@resource-id='com.ourydc.yuebaobao:id/iv_lock')]/parent::com.ourydc.yuebaobao:id/layout_chat_room_enter_round")
+    # chat_room_list = (Mb.XPATH, "//*[@class='android.widget.RelativeLayout' and @resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round']")
+    # chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/iv_lock']/parent::com.ourydc.yuebaobao:id/layout_chat_room_enter_round")
+    # chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round']/child::com.ourydc.yuebaobao:id/iv_lock]")
+    # chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round'//not(@resource-id='com.ourydc.yuebaobao:id/iv_lock')]")
+    
+    # 密码房间输入框
+    room_text = (Mb.ID, 'com.ourydc.yuebaobao:id/container_et') 
 
+    closeRoomText = (Mb.ID, 'com.ourydc.yuebaobao:id/iv_close') 
+    
 
 
 
