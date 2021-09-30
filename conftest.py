@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-09-27 14:47:45
+LastEditTime: 2021-09-29 20:08:10
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/conftest.py
@@ -90,7 +90,9 @@ def check_notLogin_SignIn(driver,user, password):
      与appium server进行连接，并发送要操作的设备对象信息。'''
 def basedriver(noReset=None, automationName=None, server_port=4723):
     with open(os.path.join(caps, "desired_caps.yaml"), encoding="utf-8") as file:
-        desired_caps = yaml.load(file, Loader=yaml.FullLoader)
+        desired_capsArr = yaml.load(file, Loader=yaml.FullLoader)
+        desired_caps = desired_capsArr[0]
+        log.info("设备信息:{}".format(desired_caps))
     driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], desired_caps["port"]), desired_caps)
     return driver
 
@@ -98,7 +100,8 @@ def basedriver(noReset=None, automationName=None, server_port=4723):
 def base_driver(noReset=None, automationName=None, port=4723):
     # 读取全局的一个caps选项。
     with open(os.path.join(caps, "desired_caps.yaml"), encoding="utf-8") as file:
-        desired_caps = yaml.load(file, Loader=yaml.FullLoader)
+        desired_capsArr = yaml.load(file, Loader=yaml.FullLoader)
+        desired_caps = desired_capsArr[0]
     driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], port), desired_caps)
     # 根据参数来定制化启动选项
     # if noReset is not None and noReset in [True, False]:

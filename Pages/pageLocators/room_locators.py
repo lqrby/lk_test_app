@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-29 15:36:28
+LastEditTime: 2021-09-30 14:27:35
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -348,7 +348,9 @@ class RoomPageLocator:
     reportBtn = (Mb.ID,"com.ourydc.yuebaobao:id/tv") #举报
     commitBtn = (Mb.ID,"com.ourydc.yuebaobao:id/btn_commit") #提交按钮
     
-    nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_content']") # 附近动态列表元素
+    nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_nickname']") # 附近动态列表元素
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']") # 附近动态列表元素
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/layout_dynamic']/child::com.ourydc.yuebaobao:id/tv_content") # 装扮展墙礼物列表
     iv_prise = (Mb.ID, "com.ourydc.yuebaobao:id/iv_prise") #点赞
     all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/mvp") #全部模式（聊天室的一个蒙层）
 

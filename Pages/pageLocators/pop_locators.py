@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-28 14:44:37
+LastEditTime: 2021-09-29 19:16:33
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/Pages/pageLocators/pop_locators.py
@@ -68,6 +68,9 @@ class PopUpLocator:
     #连麦聊天按钮
     connect_microphone = (Mb.ID, "com.ourydc.yuebaobao:id/btn")
     
+    #普通拍一拍按钮
+    connect_microphone = (Mb.ID, "com.ourydc.yuebaobao:id/btn")
+    
 
 
 
@@ -77,7 +80,7 @@ class PopUpLocator:
 
     popList = [
         close_back, iv_cancel, setting_minors, order_now,close_broadcast,skip,
-        give_up_reward,say_hello,call_permission,iv_close,cancel_close,
+        give_up_reward,say_hello,call_permission,iv_close,cancel_close,agree,
         close_microphone
         ]
 

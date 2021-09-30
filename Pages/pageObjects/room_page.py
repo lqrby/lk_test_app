@@ -9,6 +9,7 @@ from Pages.pageLocators.pop_locators import PopUpLocator
 from Pages.pageObjects.sign_pop_page import SignPopPage
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
 from appium.webdriver.common.mobileby import MobileBy as Mb
+from appium.webdriver.common.touch_action import TouchAction
 
 
 log = get_logger(logger_name="首页操作日志")
@@ -141,6 +142,7 @@ class RoomPage(CommonBus):
             if self.is_element_exist(roomloc.room_text):
                 self.click_element(roomloc.closeRoomText,model="关闭聊天室输入密码框")
                 log.info("该聊天室有密码")
+                self.save_webImgs("聊天室有密码")
                 self.driver.close_app()
                 self.driver.quit()
             self.wait_element_presence(roomloc.roomIdTv, model="聊天室id")
@@ -915,9 +917,10 @@ class RoomPage(CommonBus):
     '''
     def nearby_dynamics(self):
         self.nearby_dynamics_tap() #点击附近动态tap进入列表页
+        time.sleep(2)
         self.swipeDown() #刷新
-        time.sleep(3)
-        nearby_dynamics_list = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
+        time.sleep(2)
+        nearby_dynamicsList = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
         self.spot_fabulous() #点赞
         self.click_follow() #关注
         self.click_more() #点击更多
@@ -925,7 +928,7 @@ class RoomPage(CommonBus):
         self.assert_true(roomloc.commitBtn,model="举报断言") #举报断言
         self.go_back() #返回详情页
         self.go_back_list() #返回列表页
-        return nearby_dynamics_list
+        return nearby_dynamicsList
         
 
 
@@ -938,13 +941,15 @@ class RoomPage(CommonBus):
 
     #附近动态列表-进入动态详情
     def nearby_dynamics_list(self):
-        time.sleep(5)
-        nearby_dynamics_list = self.get_elements(roomloc.nearby_dynamics_list)   
-        dt_num = random.randint(0,len(nearby_dynamics_list)-1) 
-        nearby_dynamics_list[dt_num].click()
-        self.wait_element_presence(roomloc.tv_nick,model="动态详情页的昵称")
-        self.assert_true(roomloc.tv_nick,model="动态详情断言")
-        return nearby_dynamics_list
+        self.wait_element_presence(roomloc.nearby_dynamics_list,model="动态列表元素")
+        nearby_dynamicsList = self.get_elements(roomloc.nearby_dynamics_list) 
+        log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
+        dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
+        log.info("点击第{}个动态查看详情".format(dt_num))
+        nearby_dynamicsList[dt_num].click()
+        self.wait_element_presence(roomloc.iv_prise,model="动态详情页的点赞")
+        self.assert_true(roomloc.iv_prise,model="动态详情")
+        return nearby_dynamicsList
 
 
 

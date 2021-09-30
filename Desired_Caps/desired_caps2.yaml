@@ -1,0 +1,117 @@
+#'''模拟器连接'''
+#platformName: Android #平台名称
+#deviceName: emulator-5554  #设备名称
+#noReset: True  #不重置应用
+#appPackage: com.asiainno.uplive #包名
+#appActivity: com.asiainno.uplive.init.splash.SplashActivity  #入口页面
+#automationName: UiAutomator2  #自动化引擎
+#platformVersion: "5.1" #平台版本
+
+#'''模拟器连接'''
+#platformName: Android #平台名称
+#deviceName: emulator-5554  #设备名称
+#noReset: True  #不重置应用
+#appPackage: com.asiainno.uplive #包名
+#appActivity: com.asiainno.uplive.init.splash.SplashActivity  #入口页面
+#automationName: UiAutomator2  #自动化引擎
+#platformVersion: "6.0.1" #平台版本
+
+
+
+#'''OPPO R11连接'''
+#platformName: Android #平台名称
+#deviceName: a447dc0f  #设备名称
+#noReset: True  #不重置应用
+#appPackage: com.asiainno.uplive #包名
+#appActivity: com.asiainno.uplive.init.splash.SplashActivity  #入口页面
+#automationName: UiAutomator2  #自动化引擎
+#platformVersion: "7.1.1" #平台版本
+
+
+#'''vivo x50pro连接'''
+# platformName: Android #平台名称
+# deviceName: 9f7ba71d  #设备名称
+# noReset: True  #不重置应用
+# appPackage: com.asiainno.uplive #包名
+# appActivity: com.asiainno.uplive.init.splash.SplashActivity  #入口页面
+# automationName: UiAutomator2  #自动化引擎
+# platformVersion: "11" #平台版本
+
+#'''华为'''
+#platformName: Android
+#platformVersion: 10.0.0
+#deviceName: UYT0217C04000096
+#appPackage: com.asiainno.uplive
+#appActivity: com.asiainno.uplive.init.splash.SplashActivity
+#noReset: True
+
+
+
+#platformName: Android #平台名称
+#deviceName: a447dc0f  #设备名称
+#noReset: True  #不重置应用
+#appPackage: com.asiainno.uplive #包名
+#appActivity: com.asiainno.uplive.init.splash.SplashActivity  #入口页面
+#automationName: UiAutomator2  #自动化引擎
+#platformVersion: "7.1.1" #平台版本
+
+
+- configure: MuMu模拟器 中配2核 分辨率1720*968 帧数60FPS 储存:14GB 型号:华为Mata10 MAX:无
+  platformName: Android
+  platformVersion: 6.0.1
+  deviceName: ALP-AL00
+  # app: C:/Users/Shuqing/Desktop/kaoyan3.1.0.apk
+  appPackage: com.ourydc.yuebaobao
+  appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+  noReset: True #不重置应用False
+  unicodeKeyboard: True
+  resetKeyboard: True
+  automationName: UiAutomator2  #自动化引擎
+  ip: 127.0.0.1
+  port: 4723
+
+- configure: 逍遥模拟器 高配4核 分辨率1080*1920 帧数60FPS 储存:14GB 型号:华为Mata30 5G MAX:38-F4-97-1E-6B-19
+  platformName: Android
+  platformVersion: 7.1.2
+  deviceName: TAS-AN00
+  # app: C:/Users/Shuqing/Desktop/kaoyan3.1.0.apk
+  appPackage: com.ourydc.yuebaobao
+  appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+  noReset: True #不重置应用False
+  unicodeKeyboard: True
+  resetKeyboard: True
+  automationName: UiAutomator2  #自动化引擎
+  ip: 127.0.0.1
+  port: 4723
+
+
+# platformName: Android
+# platformVersion: 7.1.2
+# deviceName: VOG-AL00
+# # udid: 6HJ4C19723006958
+# # app: C:/Users/Shuqing/Desktop/kaoyan3.1.0.apk
+# appPackage: com.ourydc.yuebaobao
+# appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+# noReset: True #不重置应用False
+# unicodeKeyboard: True
+# resetKeyboard: True
+# automationName: UiAutomator2  #自动化引擎
+# ip: 127.0.0.1
+# port: 4723
+
+
+# platformName: Android
+# platformVersion: 7.1.2
+# deviceName: VOG-AL00
+# # app: C:\Users\Shuqing\Desktop\kaoyan3.1.0.apk
+# appPackage: com.ourydc.yuebaobao
+# appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+# noReset: False #不重置应用
+# unicodeKeyboard: True
+# resetKeyboard: True
+# automationName: UiAutomator2  #自动化引擎
+# ip: 127.0.0.1
+# port: 4723
+
+
+

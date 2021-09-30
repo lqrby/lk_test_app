@@ -72,7 +72,7 @@ class BasePage:
 
     # 某个元素存在
     def wait_element_presence(self, loc, timeout=8, poll_frequency=0.5, model=None):
-        log.info("元素是否存在:{}".format(loc))
+        log.info("{}元素是否存在:{}".format(model,loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(
                 EC.presence_of_element_located(loc)
