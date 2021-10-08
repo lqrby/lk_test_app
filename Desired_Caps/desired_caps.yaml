@@ -1,3 +1,15 @@
+# - appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+#   appPackage: com.ourydc.yuebaobao
+#   automationName: UiAutomator2
+#   configure: MuMu模拟器 中配2核 分辨率1720*968 帧数60FPS 储存:14GB 型号:华为Mata10 MAX:无
+#   deviceName: ALP-AL00
+#   ip: 127.0.0.1
+#   noReset: true
+#   platformName: Android
+#   platformVersion: 6.0.1
+#   port: 4723
+#   resetKeyboard: true
+#   unicodeKeyboard: true
 - appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
   appPackage: com.ourydc.yuebaobao
   automationName: UiAutomator2
@@ -13,12 +25,12 @@
 - appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
   appPackage: com.ourydc.yuebaobao
   automationName: UiAutomator2
-  configure: MuMu模拟器 中配2核 分辨率1720*968 帧数60FPS 储存:14GB 型号:华为Mata10 MAX:无
-  deviceName: ALP-AL00
+  configure: 雷电模拟器 高配4核 分辨率1080*1920 帧数90FPS 储存:16GB 型号:vivo V1824A MAX:未知
+  deviceName: V1824A
   ip: 127.0.0.1
   noReset: true
   platformName: Android
-  platformVersion: 6.0.1
-  port: 4723
+  platformVersion: 5.1.1
+  port: 5555
   resetKeyboard: true
   unicodeKeyboard: true

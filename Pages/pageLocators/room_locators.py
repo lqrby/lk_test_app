@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-30 14:27:35
+LastEditTime: 2021-09-30 18:13:02
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -324,7 +324,10 @@ class RoomPageLocator:
 
     # 《房间热度值-2》
     heat_value = (Mb.XPATH,"//*[@class='android.widget.TextView' and @index='0']") #在线列表按钮
-    vip_seat = (Mb.XPATH,"//*[@class='android.widget.TextView' and @index='0']") #贵宾席位按钮
+    #列表list元素
+    user_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.widget.RelativeLayout") 
+    vip_seat = (Mb.XPATH,"//*[@class='android.widget.TextView' and @index='1']") #贵宾席位按钮
+    iv_empty = (Mb.ID,'com.ourydc.yuebaobao:id/iv_empty') #贵宾席位列表断言是否为空
 
 
 

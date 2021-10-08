@@ -32,7 +32,7 @@ class RoomPage(CommonBus):
         self.room_name() #输入房间话题
         self.room_seat() #选择房间座位
         if self.entry_room(): #点击确认创建房间按钮
-            self.assert_true(roomloc.room_id,model="创建聊天室断言")
+            self.assert_true(roomloc.room_id,model="创建小窝聊天室")
         self.room_menu() #房间内的菜单
         self.close_room() #关闭房间
         return True
@@ -47,7 +47,7 @@ class RoomPage(CommonBus):
         self.room_type() #房间类型
         self.room_label() #房间标签
         self.room_name() #输入房间话题
-        if self.entry_room(): #点击进入房间按钮
+        if self.entry_room(): #点击确认创建房间按钮
             self.room_menu() #房间内的菜单
             self.close_room() #关闭房间
             return True
@@ -782,11 +782,18 @@ class RoomPage(CommonBus):
         time.sleep(2)
         self.wait_element_clickable(roomloc.heat_value)
         self.click_element(roomloc.heat_value,model="点击在线列表") #在线列表
+        self.assert_user_list(model="用户在线列表")
         time.sleep(2)
         self.wait_element_clickable(roomloc.vip_seat)
         self.click_element(roomloc.vip_seat,model="点击贵宾席位") #贵宾席位列表
+        self.assert_user_list(model="贵宾席位列表")
         self.driver.press_keycode(4)
         time.sleep(2)
+    
+    def assert_user_list(self,model=None):
+        self.wait_element_presence(roomloc.user_list,model=model)
+        userList = self.get_elements(roomloc.user_list)
+        self.assert_len(userList,model=model)
 
     #点击排行榜
     def click_rankingList(self,ranking_list):
@@ -884,15 +891,19 @@ class RoomPage(CommonBus):
     def click_create_ranks(self):
         if self.is_element_exist(roomloc.tv_disband):
             self.click_dissolution()
-        self.click_element(roomloc.tv_create,model="点击创建队伍") #点击创建队伍
-        self.wait_element_clickable(roomloc.spinner_mode, model="检查模式下拉选择框")
-        # self.click_element(roomloc.spinner_mode,model="点击下拉选择框") #点击模式下拉选择框
-        self.input_text(roomloc.et_desc, "能歌善舞。", model="输入要求")
-        xsList = self.get_elements(roomloc.rv_reward) # 获取悬赏list元素
-        xsList[0].click() # 点击某悬赏
-        self.click_element(roomloc.btn_create, model="点击创建团队确定按钮")  #点击创建团队确定按钮
-        self.assert_true(roomloc.create_assert) #断言创建团队是否成功
-        self.exist_be_click(roomloc.mantle, model="蒙层元素，有则点击，无则pass")
+        if self.is_element_exist(roomloc.tv_create):
+            self.click_element(roomloc.tv_create,model="点击创建队伍") #点击创建队伍
+            self.wait_element_clickable(roomloc.spinner_mode, model="检查模式下拉选择框")
+            # self.click_element(roomloc.spinner_mode,model="点击下拉选择框") #点击模式下拉选择框
+            self.input_text(roomloc.et_desc, "能歌善舞。", model="输入要求")
+            xsList = self.get_elements(roomloc.rv_reward) # 获取悬赏list元素
+            xsList[0].click() # 点击某悬赏
+            self.click_element(roomloc.btn_create, model="点击创建团队确定按钮")  #点击创建团队确定按钮
+            self.assert_true(roomloc.create_assert) #断言创建团队是否成功
+            self.exist_be_click(roomloc.mantle, model="蒙层元素，有则点击，无则pass")
+        else:
+            log.info("该房间没有创建队伍的按钮")
+            self.save_webImgs(model = "无法创建队伍")
         
 
     # 解散队伍
