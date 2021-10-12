@@ -105,12 +105,12 @@ class BasePage:
         return self.driver.find_elements(*loc)
         
 
-    def get_elements(self, loc):
+    def get_elements(self, loc, model=None):
         try:
             return self.driver.find_elements(*loc)
         except:
             log.exception("定位元素失败")
-            self.save_webImgs()
+            self.save_webImgs(model)
             raise
 
     # 输入操作
