@@ -84,9 +84,10 @@ class BasePage:
             else:
                 self.save_webImgs(model)
                 log.error("元素不存在:{}".format(loc))
+                return False
 
     # 查找一个元素
-    def get_element(self, loc, model="basepage"):
+    def get_element(self, loc, model="None"):
         log.info("{0}：获取元素 {1}".format(model, loc))
         try:
             return self.driver.find_element(*loc)
@@ -130,7 +131,7 @@ class BasePage:
     # 清除操作
     def clear_input_text(self, loc, model=None):
         # 找元素再清除
-        ele = self.get_element(loc, model)
+        ele = self.get_element(loc, model=model)
         # 点击操作
         log.info("{0}: 元素：{1} 清除文本内容。".format(model, loc))
         try:
@@ -148,7 +149,7 @@ class BasePage:
         time.sleep(1)
         if self.is_desplayed(loc) and EC.element_to_be_clickable(loc):
             # 找到元素
-            ele = self.get_element(loc, model)
+            ele = self.get_element(loc, model=model)
             try:
                 ele.click()
             except:
@@ -198,7 +199,7 @@ class BasePage:
     # 获取文本内容
     def get_text(self, loc, model=None):
         # 找到元素
-        ele = self.get_element(loc, model)
+        ele = self.get_element(loc, model=model)
         # 获取元素的文本内容
         log.info("{0}：获取元素：{1} 的文本内容".format(model, loc))
         try:
@@ -216,7 +217,7 @@ class BasePage:
     # 获取元素的属性
     def get_element_attribute(self, loc, attr_name, model=None):
         # 找到元素
-        ele = self.get_element(loc, model)
+        ele = self.get_element(loc, model=model)
         # 获取元素的属性
         log.info("{0}: 获取元素：{1} 的属性：{2}".format(model, loc, attr_name))
         try:

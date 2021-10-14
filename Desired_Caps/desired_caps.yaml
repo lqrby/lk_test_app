@@ -1,15 +1,14 @@
-- appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
-  appPackage: com.ourydc.yuebaobao
-  automationName: UiAutomator2
-  configure: 逍遥模拟器 高配4核 分辨率1080*1920 帧数60FPS 储存:14GB 型号:华为Mata30 5G MAX:38-F4-97-1E-6B-19
-  deviceName: TAS-AN00
-  ip: 127.0.0.1
-  noReset: true
-  platformName: Android
-  platformVersion: 7.1.2
-  port: 4723
-  resetKeyboard: true
-  unicodeKeyboard: true
+# - appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+#   appPackage: com.ourydc.yuebaobao
+#   automationName: UiAutomator2
+#   configure: 逍遥模拟器 高配4核 分辨率1080*1920 帧数60FPS 储存:14GB 型号:华为Mata30 5G MAX:38-F4-97-1E-6B-19
+#   deviceName: TAS-AN00
+#   ip: 127.0.0.1
+#   noReset: true
+#   platformName: Android
+#   platformVersion: 7.1.2
+#   resetKeyboard: true
+#   unicodeKeyboard: true
 # - appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
 #   appPackage: com.ourydc.yuebaobao
 #   automationName: UiAutomator2
@@ -19,6 +18,18 @@
 #   noReset: true
 #   platformName: Android
 #   platformVersion: 5.1.1
-#   port: 5555
 #   resetKeyboard: true
 #   unicodeKeyboard: true
+
+- configure: MuMu模拟器 中配2核 分辨率1720*968 帧数60FPS 储存:14GB 型号:华为Mata10 MAX:00:81:a2:0f:f7:44
+  platformName: Android
+  platformVersion: 6.0.1
+  deviceName: ALP-AL00
+  # app: C:/Users/Shuqing/Desktop/kaoyan3.1.0.apk
+  appPackage: com.ourydc.yuebaobao
+  appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+  noReset: True #不重置应用False
+  unicodeKeyboard: True
+  resetKeyboard: True
+  automationName: UiAutomator2  #自动化引擎
+  ip: 127.0.0.1

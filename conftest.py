@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-09-29 20:08:10
+LastEditTime: 2021-10-13 17:42:49
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/conftest.py
@@ -93,7 +93,7 @@ def basedriver(noReset=None, automationName=None, server_port=4723):
         desired_capsArr = yaml.load(file, Loader=yaml.FullLoader)
         desired_caps = desired_capsArr[0]
         log.info("设备信息:{}".format(desired_caps))
-    driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], desired_caps["port"]), desired_caps)
+    driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], server_port), desired_caps)
     return driver
 
 

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-30 18:13:02
+LastEditTime: 2021-10-11 11:01:53
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -38,6 +38,7 @@ class RoomPageLocator:
     
     no_more = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='没有更多']") # 主播列表底部的没有更多按钮元素
     roomIdTv = (Mb.ID, "com.ourydc.yuebaobao:id/roomIdTv") # 获取开播房间的id
+    no_one_nearby = (Mb.ID, "com.ourydc.yuebaobao:id/tv_empty_text") # 获取附近的人列表是否为空
    
 
 
@@ -158,7 +159,7 @@ class RoomPageLocator:
     receive = (Mb.ID,'com.ourydc.yuebaobao:id/iv_receive') #点击房间内领取入口-领取
     count_down_receive = (Mb.ID,'com.ourydc.yuebaobao:id/tv_task_countdown') #点击房间内领取入口-倒计时
     for_her = (Mb.ID,'com.ourydc.yuebaobao:id/iv_light_up') #为ta点亮tap
-    sign_in = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_desc' and @text='签到' or @text='领取']") # 签到/领取
+    sign_in = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_desc' and (@text='签到' or @text='领取')]") # 签到/领取
     # sign_in = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_desc']") # 签到/领取
     # receiveList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/rv_task']/child::android.view.ViewGroup") # 签到、领取气泡
     receiveBtn = (Mb.XPATH,"//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_reward' and @index='2']") # 领取按钮

@@ -89,9 +89,11 @@ class CommonBus(BasePage):
             # log.info("result======={}".format(result))
             assert result == True
             log.info("{}===断言通过,{} == {}".format(model,result,True))
+            return False
         except Exception as e:
             log.info("{}断言错误".format(model))
-            self.save_webImgs(model="{}断言错误".format(model))
+            self.save_webImgs(model=model)
+            return True
 
 
     # 断言是否包含
@@ -101,7 +103,7 @@ class CommonBus(BasePage):
             log.info("{}===断言通过,{} 包含 {}".format(model,"contain_text",text))
         except Exception as e:
             log.info("{}断言错误".format(model))
-            self.save_webImgs(model="{}断言错误".format(model))
+            self.save_webImgs(model=model)
 
     # 断言元素长度
     def assert_len(self, elements, dyj=0, model=None):
@@ -110,7 +112,7 @@ class CommonBus(BasePage):
             log.info("{}===断言通过,{} > {}".format(model,len(elements),dyj))
         except Exception as e:
             log.info("{}断言错误".format(model))
-            self.save_webImgs(model="{}断言错误".format(model))
+            self.save_webImgs(model=model)
 
 
     # 断言文本长度
@@ -120,7 +122,7 @@ class CommonBus(BasePage):
             log.info("断言通过,文本长度是:{}".format(len(text)))
         except Exception as e:
             log.info("断言错误,文本长度是:{}".format(len(text)))
-            self.save_webImgs(model="{}断言错误".format(model))
+            self.save_webImgs(model=model)
 
     
 
