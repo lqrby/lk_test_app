@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:48
-LastEditTime: 2021-09-28 13:28:10
+LastEditTime: 2021-10-14 17:49:47
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageObjects/sign_pop_page.py
@@ -72,6 +72,13 @@ class SignPopPage(BasePage):
     def check_close_EnhanceCharm(self):
         if self.is_element_exist(poploc.tv_to_profile):
             self.click_element(poploc.iv_close, model="关闭提升魅力弹窗")
+        else:
+            pass
+
+    #检查收起聊天室加入队伍的弹出       
+    def check_put_away(self):
+        if self.is_element_exist(poploc.close_all_mode):
+            self.driver.keyevent(4)
         else:
             pass
 

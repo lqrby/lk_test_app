@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-09-30 16:46:43
+LastEditTime: 2021-10-14 17:47:18
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/Pages/pageLocators/pop_locators.py
@@ -72,6 +72,9 @@ class PopUpLocator:
     take_pat = (Mb.ID, "com.ourydc.yuebaobao:id/layout_replay")
     #关注并回拍
     back_shot = (Mb.ID, "com.ourydc.yuebaobao:id/layout_attention")
+
+    #全部模式(聊天室弹出加入队伍弹窗)
+    close_all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/scroll_view")
 
 
 

@@ -1,3 +1,4 @@
+from os import truncate
 import time, random
 from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
@@ -101,18 +102,22 @@ class CommonBus(BasePage):
         try:
             assert text in contain_text
             log.info("{}===断言通过,{} 包含 {}".format(model,"contain_text",text))
+            return True
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model=model)
+            return False
 
     # 断言元素长度
     def assert_len(self, elements, dyj=0, model=None):
         try:
             assert len(elements) > dyj
             log.info("{}===断言通过,{} > {}".format(model,len(elements),dyj))
+            return True
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model=model)
+            return False
 
 
     # 断言文本长度
@@ -120,9 +125,11 @@ class CommonBus(BasePage):
         try:
             assert len(text) > dyj
             log.info("断言通过,文本长度是:{}".format(len(text)))
+            return True
         except Exception as e:
             log.info("断言错误,文本长度是:{}".format(len(text)))
             self.save_webImgs(model=model)
+            return False
 
     
 

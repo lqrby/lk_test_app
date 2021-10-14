@@ -8,6 +8,7 @@ from TestDatas.IM import chatMessage
 from Pages.pageLocators.pop_locators import PopUpLocator
 from Pages.pageObjects.sign_pop_page import SignPopPage
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
+from Pages.pageLocators.game_locators import GameLocators as game
 from appium.webdriver.common.mobileby import MobileBy as Mb
 from appium.webdriver.common.touch_action import TouchAction
 
@@ -144,7 +145,9 @@ class RoomPage(CommonBus):
                 self.driver.quit()
             self.wait_element_presence(roomloc.roomIdTv, model="聊天室id")
             log.info("聊天室id存在")
-            self.assert_true(roomloc.roomIdTv,model="聊天室id") #断言聊天室id
+            # self.assert_true(roomloc.roomIdTv,model="聊天室id") #断言聊天室id
+            self.popPage.check_put_away() #收起聊天室邀请加入队伍的页面
+
         else:
             self.save_webImgs(model="暂无聊天室")
             log.info("暂无聊天室")
@@ -522,15 +525,15 @@ class RoomPage(CommonBus):
         time.sleep(2)
         if self.is_element_exist(roomloc.all_mode):
             self.driver.press_keycode(4)
-        self.gift_entrance_top() #顶部礼物入口
-        self.look_homeowner_data() #查看房主资料
-        self.exist_be_click(roomloc.follow)#点击关注
-        self.gift_entrance_bottom() # 底部礼物入口
-        self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
-        self.click_heat_value() # 房间用户及贵宾席
-        self.click_blessing_bag() # 点击福袋
+        # self.gift_entrance_top() #顶部礼物入口
+        # self.look_homeowner_data() #查看房主资料
+        # self.exist_be_click(roomloc.follow)#点击关注
+        # self.gift_entrance_bottom() # 底部礼物入口
+        # self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
+        # self.click_heat_value() # 房间用户及贵宾席
+        # self.click_blessing_bag() # 点击福袋
         self.click_game() #点击游戏并断言
-        self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
+        # self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
 
 
 
@@ -884,8 +887,17 @@ class RoomPage(CommonBus):
         time.sleep(2)
         self.wait_element_presence(roomloc.game_assert,model="游戏列表")
         game_assert = self.get_elements(roomloc.game_assert)
-        self.assert_len(game_assert,dyj=4, model="游戏列表断言")
+        if self.assert_len(game_assert,dyj=4, model="游戏列表断言"):
+            self.open_game(game.Trap,"观战设置",model="套圈圈")
         self.driver.keyevent(4)
+
+    # 打开游戏
+    def open_game(self,element,text,model=None):
+        self.wait_element_presence(game.Trap,model="{}元素".format(model))
+        self.click_element(game.Trap,model="点击{}".format(model))
+        tqq = self.driver.page_source
+        print("tqq=====",tqq)
+        self.assert_in(text, tqq, model="{}断言".format(model))
 
     # 开黑tay-聊天室-创建队伍
     def click_create_ranks(self):

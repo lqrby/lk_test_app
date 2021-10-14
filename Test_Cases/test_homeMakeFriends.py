@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:49
-LastEditTime: 2021-10-14 15:53:35
+LastEditTime: 2021-10-14 18:41:32
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Test_Cases/test_homeMakeFriends.py
@@ -23,8 +23,8 @@ class TestHomeMakeFriends:
     发现-用户进入的聊天室
     '''
     @pytest.mark.success
-    @allure.story('首页(交友)')
-    @allure.title('首页(交友)')
+    @allure.story('首页(交友)-发现-聊天室')
+    @allure.title('首页(交友)-发现-聊天室')
     def test_inToRoom(self, startApp_keepUserData):
         room_page = RoomPage(startApp_keepUserData)
         common_func = Cb(startApp_keepUserData)
@@ -44,8 +44,8 @@ class TestHomeMakeFriends:
     发现-用户资料页
     '''
     @pytest.mark.success
-    @allure.story('首页(交友)')
-    @allure.title('首页(交友)')
+    @allure.story('首页(交友)-发现-用户资料')
+    @allure.title('首页(交友)-发现-用户资料')
     def test_NoInToRoom(self, startApp_keepUserData):
         log.info("***************首页(交友)---发现tap---查看用户资料页*****************")
         room_page = RoomPage(startApp_keepUserData)
