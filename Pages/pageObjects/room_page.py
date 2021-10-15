@@ -8,7 +8,7 @@ from TestDatas.IM import chatMessage
 from Pages.pageLocators.pop_locators import PopUpLocator
 from Pages.pageObjects.sign_pop_page import SignPopPage
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
-from Pages.pageLocators.game_locators import GameLocators as game
+from Pages.pageLocators.game_locators import GameLocators as gameloc
 from appium.webdriver.common.mobileby import MobileBy as Mb
 from appium.webdriver.common.touch_action import TouchAction
 
@@ -887,14 +887,22 @@ class RoomPage(CommonBus):
         time.sleep(2)
         self.wait_element_presence(roomloc.game_assert,model="游戏列表")
         game_assert = self.get_elements(roomloc.game_assert)
-        if self.assert_len(game_assert,dyj=4, model="游戏列表断言"):
-            self.open_game(game.Trap,"观战设置",model="套圈圈")
-        self.driver.keyevent(4)
+        try:
+            if self.assert_len(game_assert,dyj=4, model="游戏列表断言"):
+                # self.open_game(gameloc.gold_coin_ferrule,"观战设置",model="金币套圈")
+                pass
+        except:
+            pass
+        finally:
+            print("返回上一页")
+            self.driver.keyevent(4)
+            
+        
 
     # 打开游戏
     def open_game(self,element,text,model=None):
-        self.wait_element_presence(game.Trap,model="{}元素".format(model))
-        self.click_element(game.Trap,model="点击{}".format(model))
+        self.wait_element_presence(element,model="{}元素".format(model))
+        self.click_element(element,model="点击{}".format(model))
         tqq = self.driver.page_source
         print("tqq=====",tqq)
         self.assert_in(text, tqq, model="{}断言".format(model))
