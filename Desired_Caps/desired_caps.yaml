@@ -33,3 +33,17 @@
 #   resetKeyboard: True
 #   automationName: UiAutomator2  #自动化引擎
 #   ip: 127.0.0.1
+
+# - configure: OPPO R15 中配4核 分辨率2340*1080 帧数60FPS 储存:128GB 型号:PACMOO
+#   platformName: Android
+#   platformVersion: "10"
+#   uuid: GAHIJJBMSSNNO7SG
+#   deviceName: PACMOO
+#   # app: C:/Users/Shuqing/Desktop/kaoyan3.1.0.apk
+#   appPackage: com.ourydc.yuebaobao
+#   appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
+#   noReset: True #不重置应用False
+#   unicodeKeyboard: True
+#   resetKeyboard: True
+#   automationName: UiAutomator2  #自动化引擎
+#   ip: 127.0.0.1
