@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-10-14 15:54:02
+LastEditTime: 2021-11-01 16:39:22
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/main.py
@@ -13,7 +13,10 @@ from Common.splicing import caps
 
 ts = datetime.datetime.now().strftime("%y-%m-%d-%H-%M-%S")
 if __name__ == '__main__':
-    pytest.main(['-s', './Test_Cases', '--alluredir', "./allure_result/allure_temp"])
+    pytest.main(['-s', './Test_Cases/test_room.py', '--alluredir', "./allure_result/allure_temp"])
+    os.system("allure generate ./allure_result/allure_temp -o ./allure_result/{} --clean".format(ts))
+    os.system("7z a ./allure_result/{}.zip ./allure_result/{}".format(ts))
+    
     # pytest.main(['-s', './Test_Cases/test_login.py', '--alluredir', "./allure_result/allure_temp"])
     # pytest.main(['-s', './Test_Cases/test_room.py', '--alluredir', "./allure_result/allure_temp"])
     # pytest.main(['-s', './Test_Cases/test_homeMakeFriends.py', '--alluredir', "./allure_result/allure_temp"])
@@ -33,7 +36,7 @@ if __name__ == '__main__':
     #         print("写入完毕")
     # os.system("allure generate ./allure_result/allure_temp -o ./allure_result/allure_report")
     # os.system("allure open ./allure_result/allure_report")
-    # os.system("allure generate ./allure_result/allure_temp -o ./allure_result/allure_report --clean")
+    # os.system("allure generate ./allure_result/allure_temp -o ./allure_result/allure_report/{} --clean".format(ts))
     # os.system("D:/myObject/lk_test_app/sendMail.py")
     # os.system("allure open ./allure_result/allure_report")
     
