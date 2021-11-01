@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-11-01 17:55:19
+LastEditTime: 2021-11-01 19:23:00
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/main.py
@@ -14,7 +14,7 @@ from Common.splicing import caps
 ts = datetime.datetime.now().strftime("%Y%m%d")
 
 if __name__ == '__main__':
-    pytest.main(['-s', './Test_Cases/test_room.py', '--alluredir', "./allure_result/allure_temp"])
+    pytest.main(['-s', './Test_Cases', '--alluredir', "./allure_result/allure_temp"])
     os.system("allure generate ./allure_result/allure_temp -o ./allure_result/{} --clean".format(ts))
     os.system("7z a ./allure_result/{}.zip ./allure_result/{}".format(ts,ts))
     
