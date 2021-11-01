@@ -94,8 +94,8 @@ class LoginPage(CommonBus):
 
     
 
-    '''手机号密码登录'''
-    def login_mobile_passWord(self, user, passwd):
+    '''错误的手机号密码登录'''
+    def error_mobile_passWord(self, user, passwd,expected):
         self.popPage.check_agreement_one() #同意用户协议
         self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
         self.click_element(loc.phoneBtn, model="点击手机号登录")
@@ -104,8 +104,40 @@ class LoginPage(CommonBus):
         self.wait_element_presence(loc.username_type, model="等待元素显示")
         self.input_text(loc.username_type, user, model="输入手机号")
         self.input_text(loc.password_type, passwd, model="输入密码")
+        checked = self.get_element(loc.cb_agreement).get_attribute("checked")
+        print("checked===",checked,type(checked))
+        if checked == "false":
+            self.click_element(loc.cb_agreement,model="用户协议勾选框")
         self.click_element(loc.loginBtn, model="点击确定")
-        self.popPage.check_agreement_two()
+        toast = self.get_toast_exist(expected)
+        if expected in toast:
+            log.info("XXXXX账号密码登录失败XXXXX")
+            self.save_webImgs(model="账号密码登录失败")
+            return True
+        else:
+            return False
+        
+
+    '''正确的手机号密码登录'''
+    def login_mobile_passWord(self, user, passwd,expected):
+        self.popPage.check_agreement_one() #同意用户协议
+        self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
+        self.click_element(loc.phoneBtn, model="点击手机号登录")
+        self.wait_element_clickable(loc.nameAndPassBtn, model="等待元素可被点击")
+        self.click_element(loc.nameAndPassBtn, model="点击账号密码登录")
+        self.wait_element_presence(loc.username_type, model="等待元素显示")
+        self.input_text(loc.username_type, user, model="输入手机号")
+        self.input_text(loc.password_type, passwd, model="输入密码")
+        checked = self.get_element(loc.cb_agreement).get_attribute("checked")
+        if checked == "false":
+            self.click_element(loc.cb_agreement,model="用户协议勾选框")
+        self.click_element(loc.loginBtn, model="点击确定")
+        toast = self.get_toast_exist(expected)
+        if expected in toast:
+            log.info("XXXXX账号密码登录失败XXXXX")
+            self.save_webImgs(model="账号密码登录失败")
+            return False
+        # self.popPage.check_agreement_two()
         userStatus = self.get_userStatus()
         return userStatus
 

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:04
-LastEditTime: 2021-10-13 17:42:49
+LastEditTime: 2021-11-01 10:19:28
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/conftest.py
@@ -53,7 +53,7 @@ def startApp_keepUserData():
     driver = base_driver()
     # driver.implicitly_wait(8)
     time.sleep(2)
-    if check_notLogin_SignIn(driver, login_success[0]["username"], login_success[0]["password"]):
+    if check_notLogin_SignIn(driver, login_success[0]["username"], login_success[0]["password"], login_success[0]["expected"]):
         pass
     else:
         log.info("登录失败")
@@ -65,14 +65,14 @@ def startApp_keepUserData():
     driver.quit()
 
 # 是否登录状态，未登录则登录
-def check_notLogin_SignIn(driver,user, password):
+def check_notLogin_SignIn(driver,user, password, expected):
     if CommonBus(driver).get_userStatus():
         log.info("===========当前已是登录状态，无需登录========")
         time.sleep(1)
         return True
     else:
         log.info("===========开始登录========")
-        loginStatus = LoginPage(driver).login_mobile_passWord(user, password)
+        loginStatus = LoginPage(driver).login_mobile_passWord(user, password, expected)
         if loginStatus:
             log.info("===========登录成功========")
             time.sleep(1)

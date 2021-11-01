@@ -41,16 +41,12 @@ class CommonBus(BasePage):
         try:
             log.info("===========检查用户登录状态========")
             self.driver.implicitly_wait(5)
-            # self.popPage.check_error_popup()
-            # self.popPage.check_close_Popup(PopUpLocator.cancel_close) # 检测更新弹窗
             self.close_page_popUp()
             self.find_element(loc.dating_module)
         except NoSuchElementException:
             log.info("用户未登录")
             return False
         else:
-            # self.popPage.check_error_popup() #检查异常退出弹窗
-            # self.popPage.check_goddess_Popup() #检查房间引导弹窗
             self.close_page_popUp()
             return True
 

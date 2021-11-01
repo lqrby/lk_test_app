@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-27 16:38:44
-LastEditTime: 2021-09-17 13:25:32
+LastEditTime: 2021-10-29 18:18:55
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/login_locators.py
@@ -13,7 +13,8 @@ class LoginPageLocator:
     ##################################哩咔登录相关元素定位###################################
     agree=(Mb.ID,'com.ourydc.yuebaobao:id/btn_ok') #启动app弹出用户协议同意按钮元素
     determine = (Mb.ID,'com.ourydc.yuebaobao:id/tv_sure') #登录时弹出的确认用户协议确定按钮元素
-
+    cb_agreement = (Mb.ID,'com.ourydc.yuebaobao:id/cb_agreement') #用户协议选择勾选框元素
+    
     #账号密码登录元素
     phoneBtn = (Mb.ID,'com.ourydc.yuebaobao:id/btn_login_phone') #手机号登录按钮
     nameAndPassBtn = (Mb.ID,'com.ourydc.yuebaobao:id/tv_account_login') #点击账号密码登录按钮

@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-10-14 17:47:18
+LastEditTime: 2021-10-28 16:33:49
 LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/Pages/pageLocators/pop_locators.py
@@ -53,8 +53,9 @@ class PopUpLocator:
     # 立即提升魅力元素
     tv_to_profile = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_to_profile']") 
     # 关闭立即提升魅力元素
-    iv_close = (Mb.ID, "com.ourydc.yuebaobao:id/iv_close")
-
+    # iv_close = (Mb.ID, "com.ourydc.yuebaobao:id/iv_close")
+    iv_close = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_close']")
+    
     # 充值弹窗-充值按钮元素
     recharge = (Mb.ID, "com.ourydc.yuebaobao:id/tv_sure")
     cancel_close = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel") #取消/稍后更新
@@ -75,6 +76,8 @@ class PopUpLocator:
 
     #全部模式(聊天室弹出加入队伍弹窗)
     close_all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/scroll_view")
+
+    
 
 
 

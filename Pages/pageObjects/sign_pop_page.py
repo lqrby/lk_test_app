@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-09-06 15:59:48
-LastEditTime: 2021-10-14 17:49:47
+LastEditTime: 2021-10-27 10:33:20
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageObjects/sign_pop_page.py
@@ -77,7 +77,7 @@ class SignPopPage(BasePage):
 
     #检查收起聊天室加入队伍的弹出       
     def check_put_away(self):
-        if self.is_element_exist(poploc.close_all_mode):
+        if self.is_element_exist(poploc.close_all_mode,poll_frequency=0.3,timeout=3,model="检查加入队伍的弹出"):
             self.driver.keyevent(4)
         else:
             pass
