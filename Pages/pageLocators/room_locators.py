@@ -1,7 +1,7 @@
 '''
 Author: your name
 Date: 2021-08-30 10:24:06
-LastEditTime: 2021-11-01 13:21:04
+LastEditTime: 2021-11-02 10:37:16
 LastEditors: Please set LastEditors
 Description: In User Settings Edit
 FilePath: /lk_test_app/Pages/pageLocators/room_locator.py
@@ -33,6 +33,7 @@ class RoomPageLocator:
     ###########################哩咔首页交友模块元素定位结束##########################
     tv_play = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_play']") # 发现-进入聊天室的用户列表元素
     tv_close = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/des']") # 发现-用户未进聊天室列表元素
+    layout_info = (Mb.XPATH, "//*[@class='android.widget.LinearLayout' and @resource-id='com.ourydc.yuebaobao:id/layout_info']") # 发现-用户未进聊天室列表元素-带语音
     
     
     
@@ -233,7 +234,7 @@ class RoomPageLocator:
     
     ############################未进入开播用户资料相关元素###########################
     nearby_people = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='附近的人']") # 附近的人按钮
-    # cc_layout = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/cc_layout']") # 附近的人列表元素
+    cc_layout = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/cc_layout']") # 附近的人列表元素
     tv_nick = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick') #昵称
     follow = (Mb.ID, "com.ourydc.yuebaobao:id/btn_attention") # 关注用户元素
     say_hello = (Mb.ID, "com.ourydc.yuebaobao:id/btn_chat") # 打招呼元素

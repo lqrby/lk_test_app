@@ -247,9 +247,25 @@ class RoomPage(CommonBus):
         
     
     #资料页操作
-    def user_homePage(self,element_list):
-        tv_desArr = self.get_list(element_list,model="用户列表")
-        # print("tv_desArr====",tv_desArr)
+    def user_homePage(self,element_list,element_arr=None):
+        tv_desArr = self.get_list(element_list,model="获取用户列表元素")
+        if tv_desArr and len(tv_desArr) > 0:
+            return self.view_user_profile(tv_desArr)
+        elif element_arr != None:
+            layout_info_arr = self.get_list(element_arr,model="获取用户列表元素2")
+            if layout_info_arr and len(layout_info_arr) > 0:
+                return self.view_user_profile(layout_info_arr)
+        elif self.is_element_exist(roomloc.no_more) == False or self.is_element_exist(roomloc.no_data) == False:
+            log.info("当前页暂无用户，上拉加载")
+            self.swipeUp()
+            return self.user_homePage(element_list)
+        else:
+            self.save_webImgs("列表暂无用户截图")
+            log.info("列表暂无用户")    
+            return False
+    
+    
+    def view_user_profile(self,tv_desArr): #查看用户资料
         if tv_desArr and len(tv_desArr) > 0:
             log.info("用户列表有{}条数据".format(len(tv_desArr)))
             no_play = random.choice(tv_desArr)
@@ -270,16 +286,6 @@ class RoomPage(CommonBus):
             self.click_exhibition_wall() #展墙tap
             self.login_Out() #退出登录
             return True
-        elif self.is_element_exist(roomloc.no_more) == False or self.is_element_exist(roomloc.no_data) == False:
-            log.info("当前页暂无用户，上拉加载")
-            self.swipeUp()
-            return self.user_homePage(element_list)
-        else:
-            self.save_webImgs("列表暂无用户截图")
-            log.info("列表暂无用户")    
-            return False
-    
-    
     
     
     '''
