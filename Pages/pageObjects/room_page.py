@@ -168,7 +168,7 @@ class RoomPage(CommonBus):
     '''
     def recommend_liveRoom(self):
         self.find_room() #点击房间模块
-        self.room_tap(roomloc.recommend_tap,mobile="推荐tap") #点击推荐tap
+        self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
         if self.is_element_exist(roomloc.no_data):
             log.info("推荐列表暂无数据")
             self.save_webImgs(model="推荐列表无数据")
@@ -583,7 +583,7 @@ class RoomPage(CommonBus):
     '''
     def open_black_room(self):
         self.find_room() #点击房间模块
-        blackTap = self.room_tap(roomloc.open_black_tap,mobile="开黑tap") #点击开黑tap
+        blackTap = self.room_tap(roomloc.open_black_tap,model="开黑tap") #点击开黑tap
         if blackTap == False:
             return {"result":False,"message":"暂无开黑tap"}
         self.popPage.check_MinorSettings() #检测未成年弹框
@@ -605,7 +605,7 @@ class RoomPage(CommonBus):
     '''
     def open_party_room(self):
         self.find_room() #点击房间模块
-        self.room_tap(roomloc.party_tap) #点击派对tap
+        self.room_tap(roomloc.party_tap,model="派对聊天室") #点击派对tap
         self.swipeDown()
         if self.is_element_exist(roomloc.no_data):
             log.info("派对列表暂无数据")
