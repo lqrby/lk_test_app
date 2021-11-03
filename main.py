@@ -6,7 +6,7 @@ LastEditors: Please set LastEditors
 Description: In User Settings Edit  
 FilePath: /lk_test_app/main.py
 '''
-import os, yaml
+import os
 import pytest
 import datetime
 from Common.splicing import caps
@@ -14,7 +14,7 @@ from Common.splicing import caps
 ts = datetime.datetime.now().strftime("%Y%m%d")
 
 if __name__ == '__main__':
-    pytest.main(['-s', './Test_Cases/test_homeMakeFriends.py', '--alluredir', "./allure_result/allure_temp"])
+    pytest.main(['-s', './Test_Cases', '--alluredir', "./allure_result/allure_temp"])
     os.system("allure generate ./allure_result/allure_temp -o ./allure_result/{} --clean".format(ts))
     os.system("7z a ./allure_result/{}.zip ./allure_result/{}".format(ts,ts))
     

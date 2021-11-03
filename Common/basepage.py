@@ -1,6 +1,7 @@
 import re
 import allure
 from appium.webdriver.common.touch_action import TouchAction
+from appium.webdriver.extensions.search_context import mobile
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.mobileby import MobileBy
@@ -71,7 +72,7 @@ class BasePage:
         except:
             self.get_getWebState()
             if self.check_page_popUp():
-                self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
+                return self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
                 self.save_webImgs(model)
                 log.error("元素不存在:{}".format(loc))
@@ -135,7 +136,7 @@ class BasePage:
     # 输入操作
     def input_text(self, loc, text, model=None):
         # 查找元素
-        ele = self.get_element(loc)
+        ele = self.get_element(loc,model=model)
         # 输入操作
         log.info("{0}: 在元素 {1} 中输入文本：{2}".format(model, loc, text))
         try:
@@ -148,7 +149,7 @@ class BasePage:
                 log.exception("输入操作失败")
                 # 截图
                 self.save_webImgs(model)
-                raise
+                self.exit_and_overRun()
 
     # 清除操作
     def clear_input_text(self, loc, model=None):
@@ -167,13 +168,12 @@ class BasePage:
                 log.exception("元素：{0} 清除文本内容失败。：".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
-                # 抛出异常
-                raise
+                self.exit_and_overRun()
 
     # 点击操作
     def click_element(self, loc, model=None):
         time.sleep(1)
-        if self.is_element_exist(loc) and EC.element_to_be_clickable(loc):
+        if EC.element_to_be_clickable(loc) and self.is_enabled(loc):
             # 找到元素
             ele = self.get_element(loc, model=model)
             try:
@@ -184,8 +184,7 @@ class BasePage:
                 log.exception("点击事件异常:{0}".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
-                # 抛出异常
-                raise
+                self.exit_and_overRun()
         else:
             self.get_getWebState()
             item = self.check_page_popUp()
@@ -201,11 +200,13 @@ class BasePage:
                 self.save_webImgs(model)
                 return False
             
-
+    def is_enabled(self,loc,model=None):
+        ele = self.get_element(loc,model=model)
+        return ele.is_enabled()
     
     # 判断元素是否可点击
     def is_clickable(self, loc):
-        if self.is_element_exist(loc) and EC.element_to_be_clickable(loc):
+        if EC.element_to_be_clickable(loc) and self.is_enabled(loc):
             return True
         else:
             return False
@@ -234,9 +235,8 @@ class BasePage:
         # 找到元素
         ele = self.get_element(loc, model=model)
         # 获取元素的文本内容
-        log.info("{0}：获取元素：{1} 的文本内容".format(model, loc))
         try:
-            text = ele.text
+            text = ele.get_attribute("text")
             log.info("{0}：元素：{1} 的文本内容为：{2}".format(model, loc, text))
             return text
         except:
@@ -248,8 +248,7 @@ class BasePage:
                 log.exception("获取元素：{0} 的文本内容失败。报错信息如下：".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
-                # 抛出异常
-                raise
+                self.exit_and_overRun()
 
     # 获取元素的属性
     def get_element_attribute(self, loc, attr_name, model=None):
@@ -270,8 +269,7 @@ class BasePage:
                 log.exception("获取元素：{0} 的属性：{1} 失败，异常信息如下：".format(loc, attr_name))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
-                # 抛出异常
-                raise
+                self.exit_and_overRun()
 
     # 截图
     def save_webImgs(self, model=None):
@@ -327,7 +325,7 @@ class BasePage:
                 log.exception("等待元素可见失败。")
                 # 截图
                 self.save_webImgs(model)
-                raise
+                self.exit_and_overRun()
 
     # 滑屏操作 - 向上滑屏
     def swipeUp(self, t=500, n=1):
@@ -426,7 +424,7 @@ class BasePage:
         try:
             self.driver.execute_script("mobile:swipe", {"direction": direction, 'element': element, "duration": 1})
         except:
-            raise
+            self.exit_and_overRun()
 
     # 使用js定位到的元素拖动到可见区域
     def scrollToElement(self, element):
@@ -451,20 +449,20 @@ class BasePage:
         try:
             # 等待元素存在
             WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
-            return self.get_element((MobileBy.XPATH, xpath_loc)).text
+            return self.get_element((MobileBy.XPATH, xpath_loc),model=model).text
         except:
             # 抛异常
             log.exception("获取toast失败")
             self.save_webImgs(model)
-            raise
+            return False
 
     
 
-    def get_toast_exist(self,message):
+    def get_toast_exist(self,message,model=None):
         xpath_loc = '//*[contains(@text,"{}")]'.format(message)
         try:
             WebDriverWait(self.driver, 8, 0.02).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
-            return self.get_element((MobileBy.XPATH, xpath_loc)).text
+            return self.get_element((MobileBy.XPATH, xpath_loc),model=model).text
         except:
             return "获取toast失败"
 
@@ -576,3 +574,13 @@ class BasePage:
     def exit_and_overRun(self):
         self.driver.close_app()
         self.driver.quit()
+
+
+    def wait_click_element(self,loc,model):
+        if self.wait_element_clickable(loc,model="等待{}".format(model)):
+            self.click_element(loc,model="点击{}".format(model))
+        
+    def wait_input_text(self,loc,text,model):
+        self.wait_element_presence(loc,model="等待{}输入框".format(model))
+        self.clear_input_text(loc,model="清除旧{}".format(model))
+        self.input_text(loc,text,model="输入新{}".format(model))

@@ -1,5 +1,7 @@
 from os import truncate
 import time, random
+
+from appium.webdriver.extensions.search_context import mobile
 from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException 
@@ -145,8 +147,8 @@ class CommonBus(BasePage):
     #滑动滑块儿
     def drag_slider(self,slider_element):
         time.sleep(1)
-        self.wait_element_presence(slider_element,model="滑块按钮")
-        seekBar = self.get_element(slider_element).get_attribute("bounds")
+        self.wait_element_presence(slider_element,model="等待滑块按钮")
+        seekBar = self.get_element(slider_element,model="获取滑块按钮").get_attribute("bounds")
         # print("seekBar===",seekBar,type(seekBar))
         e = self.get_coordinate(seekBar)
         start_X = e[0]+20

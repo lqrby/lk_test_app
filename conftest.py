@@ -102,6 +102,7 @@ def base_driver(noReset=None, automationName=None, port=4723):
     with open(os.path.join(caps, "desired_caps.yaml"), encoding="utf-8") as file:
         desired_capsArr = yaml.load(file, Loader=yaml.FullLoader)
         desired_caps = desired_capsArr[0]
+        log.info("设备信息:{}".format(desired_caps))
     driver=webdriver.Remote('http://{}:{}/wd/hub'.format(desired_caps["ip"], port), desired_caps)
     # 根据参数来定制化启动选项
     # if noReset is not None and noReset in [True, False]:

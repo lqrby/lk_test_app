@@ -1,18 +1,9 @@
-from logging import fatal
-import re
-from re import M
-from appium.webdriver.extensions.search_context import mobile
-from attr import s
 from Pages.pageObjects.Common_Buss import CommonBus
 from Common.log import get_logger
 import time, random
 from TestDatas.IM import chatMessage
-from Pages.pageLocators.pop_locators import PopUpLocator
 from Pages.pageObjects.sign_pop_page import SignPopPage
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
-# from Pages.pageLocators.game_locators import GameLocators as gameloc
-from appium.webdriver.common.mobileby import MobileBy as Mb
-from appium.webdriver.common.touch_action import TouchAction
 
 
 log = get_logger(logger_name="首页操作日志")
@@ -265,27 +256,41 @@ class RoomPage(CommonBus):
             return False
     
     
-    def view_user_profile(self,tv_desArr): #查看用户资料
-        if tv_desArr and len(tv_desArr) > 0:
-            log.info("用户列表有{}条数据".format(len(tv_desArr)))
-            no_play = random.choice(tv_desArr)
-            no_play.click()
-            self.wait_element_presence(roomloc.tv_nick,model="用户昵称")
-            self.assert_true(roomloc.tv_nick, model="断言用户昵称") #资料tap-断言昵称
-            self.follow() #关注
-            self.click_more() #点击更多
-            self.more_share() #断言分享更多
-            self.cancel_follow() #取消关注
-            self.guardian() #守护者
-            time.sleep(2)
-            self.swipeUp() #向上滑动
-            time.sleep(1)
-            self.click_material() #资料tap
-            self.click_dynamic() #动态tap
-            self.click_exclusive_guard() #守护tap
-            self.click_exhibition_wall() #展墙tap
-            self.login_Out() #退出登录
-            return True
+    def view_user_profile(self,resultList): #查看用户资料
+        log.info("用户列表有{}条数据".format(len(resultList)))
+        no_play = random.choice(resultList)
+        no_play.click()
+        self.wait_element_presence(roomloc.tv_nick,model="用户昵称")
+        self.assert_true(roomloc.tv_nick, model="断言用户昵称") #资料tap-断言昵称
+        self.follow() #关注
+        self.click_more() #点击更多
+        self.more_share() #断言分享更多
+        self.cancel_follow() #取消关注
+        self.guardian() #守护者
+        self.swipeUp() #向上滑动
+        time.sleep(1)
+        self.click_material() #资料tap
+        self.click_dynamic() #动态tap
+        self.click_exclusive_guard() #守护tap
+        self.click_exhibition_wall() #展墙tap
+        self.login_Out() #退出登录
+        return True
+    
+    # 我的资料（我的模块）
+    def my_information(self):
+        # self.wait_element_presence(roomloc.tv_nick,model="我的昵称")
+        # self.assert_true(roomloc.tv_nick, model="断言我的昵称") #资料tap-断言昵称
+        # self.follow() #关注
+        # self.click_more() #点击更多
+        # self.more_share() #断言分享更多
+        # self.cancel_follow() #取消关注
+        self.guardian() #守护者
+        self.swipeUp() #向上滑动
+        time.sleep(1)
+        self.click_material() #资料tap
+        self.click_dynamic() #动态tap
+        self.click_exclusive_guard() #守护tap
+        self.click_exhibition_wall() #展墙tap
     
     
     '''
@@ -346,11 +351,11 @@ class RoomPage(CommonBus):
     def click_exclusive_guard(self):
         self.wait_element_presence(roomloc.user_guard, model="检查守护tap")
         self.click_element(roomloc.user_guard, model="点击守护tap")
-        # self.wait_element_presence(roomloc.guard_tap_assert,model="守护tap页元素")
         if self.is_element_exist(roomloc.guard_list):
             self.assert_len(self.get_elements(roomloc.guard_list), model="守护tap")
         else:
-            log.error("守护tap页元素错误")
+            log.info("暂无守护tap")
+            self.save_webImgs("暂无守护tap")
         
     
     #展墙tap
