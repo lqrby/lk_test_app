@@ -104,7 +104,7 @@ class LoginPage(CommonBus):
         self.wait_element_presence(loc.username_type, model="等待元素显示")
         self.input_text(loc.username_type, user, model="输入手机号")
         self.input_text(loc.password_type, passwd, model="输入密码")
-        checked = self.get_element(loc.cb_agreement).get_attribute("checked")
+        checked = self.get_element(loc.cb_agreement,model="获取用户协议勾选状态").get_attribute("checked")
         print("checked===",checked,type(checked))
         if checked == "false":
             self.click_element(loc.cb_agreement,model="用户协议勾选框")
@@ -128,7 +128,7 @@ class LoginPage(CommonBus):
         self.wait_element_presence(loc.username_type, model="等待元素显示")
         self.input_text(loc.username_type, user, model="输入手机号")
         self.input_text(loc.password_type, passwd, model="输入密码")
-        checked = self.get_element(loc.cb_agreement).get_attribute("checked")
+        checked = self.get_element(loc.cb_agreement,model="获取用户协议勾选状态").get_attribute("checked")
         if checked == "false":
             self.click_element(loc.cb_agreement,model="用户协议勾选框")
         self.click_element(loc.loginBtn, model="点击确定")
@@ -174,7 +174,7 @@ class LoginPage(CommonBus):
                 time.sleep(4)
         eleArr = []
         for ele in loc.codeList:
-            eleArr.append(self.get_element(ele))
+            eleArr.append(self.get_element(ele,model="获取单个验证码对象"))
         for obj,i in zip(eleArr,phoneStr):
             obj.click()
             self.driver.press_keycode(int(i)+7)

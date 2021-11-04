@@ -11,7 +11,8 @@ import pytest
 import datetime
 from Common.splicing import caps
 
-ts = datetime.datetime.now().strftime("%Y%m%d")
+# ts = datetime.datetime.now().strftime("%Y%m%d %X")
+ts = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
 
 if __name__ == '__main__':
     pytest.main(['-s', './Test_Cases', '--alluredir', "./allure_result/allure_temp"])

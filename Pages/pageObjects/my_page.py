@@ -37,10 +37,10 @@ class MyPage(CommonBus):
 
     # 开播（开厅）入口（我的模块）
     def broadcasting_entrance(self):
-        self.wait_element_presence(myloc.iv_open_room,"等待开厅入口")
-        self.click_element(myloc.iv_open_room,"点击开厅入口")
+        self.wait_element_presence(myloc.iv_open_room,model="等待开厅入口")
+        self.click_element(myloc.iv_open_room,model="点击开厅入口")
         # self.assert_true(roomloc.entry_room,"开厅页面")
-        # self.RoomPage.go_back() #返回
+        self.RoomPage.go_back() #返回
 
     
 
@@ -50,9 +50,8 @@ class MyPage(CommonBus):
     def view_my_profile(self):
         self.set_up() #点击我的
         self.broadcasting_entrance() #开播入口及断言
-        # self.click_head_portrait() #点击我的头像
-        # self.RoomPage.my_information() #我的资料 
-        
+        self.click_head_portrait() #点击我的头像
+        self.RoomPage.my_information() #我的资料 
         return True
 
     def audit_status(self,loc,model):

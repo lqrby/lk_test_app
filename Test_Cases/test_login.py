@@ -32,7 +32,6 @@ class Test_Login:
                 log.info("手机号密码登录失败用例正常")
             except AssertionError as a:
                 log.exception("用户登录失败用例断言错误")
-                raise a
 
 
     # '''正常登陆的测试用例--手机号密码登陆'''
@@ -58,7 +57,6 @@ class Test_Login:
     #         except AssertionError as a:
     #             log.exception("登录成功用例断言失败")
     #             login_page.save_webImgs("登录success_断言失败截图")
-    #             raise a
 
 
     # '''正常手机号验证码登陆的测试用例'''
@@ -83,7 +81,6 @@ class Test_Login:
     #         except AssertionError as a:
     #             log.exception("断言失败")
     #             login_page.save_webImgs("登录success_断言失败截图")
-    #             raise a
 
 
 
@@ -102,7 +99,6 @@ class Test_Login:
     # #         except AssertionError as a:
     # #             log.exception("微信断言失败")
     # #             login_page.save_webImgs("微信登录success_断言")
-    # #             raise a
 
 
 
@@ -122,7 +118,6 @@ class Test_Login:
     #         except AssertionError as a:
     #             log.exception("微博断言失败")
     #             login_page.save_webImgs("微博登录success_断言")
-    #             raise a
 
     # # QQ登录
     # @pytest.mark.success
@@ -140,7 +135,6 @@ class Test_Login:
     #         except AssertionError as a:
     #             log.exception("qq登录断言失败")
     #             login_page.save_webImgs("qq登录success_断言")
-    #             raise a
 
     
 

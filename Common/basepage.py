@@ -34,7 +34,8 @@ class BasePage:
         try:
             WebDriverWait(self.driver, timeout, poll_frequency).until(EC.visibility_of_element_located(loc))
         except Exception as e:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+                self.wait_eleVisible(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             if self.check_page_popUp():
                 self.wait_eleVisible(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
@@ -51,9 +52,10 @@ class BasePage:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.element_to_be_clickable(loc))
             return el
         except:
-            self.get_getWebState()
-            if self.check_page_popUp():
+            if self.get_getWebState() == 6:
                 self.wait_element_clickable(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
+            if self.check_page_popUp():
+                return self.wait_element_clickable(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
                 log.error("未找到或元素不可点击{}".format(loc))
                 self.save_webImgs(model)
@@ -70,7 +72,8 @@ class BasePage:
             )
             return el
         except:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+                self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             if self.check_page_popUp():
                 return self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
@@ -86,13 +89,20 @@ class BasePage:
         if state == 0:
             log.info("无网络连接")
             self.save_webImgs(model="无网络连接")
-            self.exit_and_overRun() 
+            time.sleep(10)
+            state=self.driver.network_connection
+            if state != 6:
+                self.exit_and_overRun() 
+            else:
+                log.info("网络恢复正常了")
+                return state
         elif state == 1:
             log.info("飞行模式")
             self.save_webImgs(model="飞行模式")
             self.exit_and_overRun() 
         else:
             log.info("网络正常")
+            return True
 
         
 
@@ -102,7 +112,8 @@ class BasePage:
         try:
             return self.driver.find_element(*loc)
         except:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+                self.get_element(loc, model=model)
             if self.check_page_popUp():
                 self.get_element(loc, model=model)
             else:
@@ -125,9 +136,10 @@ class BasePage:
         try:
             return self.driver.find_elements(*loc)
         except:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+               self.get_elements(loc, model=model) 
             if self.check_page_popUp():
-                self.get_elements(loc, model=model)
+                return self.get_elements(loc, model=model)
             else:
                 log.exception("定位元素失败")
                 self.save_webImgs(model)
@@ -142,9 +154,10 @@ class BasePage:
         try:
             ele.send_keys(text)
         except:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+               self.input_text(loc,text, model=model) 
             if self.check_page_popUp():
-                self.input_text(loc,text, model=model)
+                return self.input_text(loc,text, model=model)
             else:
                 log.exception("输入操作失败")
                 # 截图
@@ -160,7 +173,8 @@ class BasePage:
         try:
             ele.clear()
         except:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+                self.clear_input_text(loc, model=model)
             if self.check_page_popUp():
                 self.clear_input_text(loc, model=model)
             else:
@@ -173,7 +187,7 @@ class BasePage:
     # 点击操作
     def click_element(self, loc, model=None):
         time.sleep(1)
-        if EC.element_to_be_clickable(loc) and self.is_enabled(loc):
+        if EC.element_to_be_clickable(loc) and self.is_enabled(loc,model="是否可点击"):
             # 找到元素
             ele = self.get_element(loc, model=model)
             try:
@@ -186,7 +200,8 @@ class BasePage:
                 self.save_webImgs(model)
                 self.exit_and_overRun()
         else:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+                return self.click_element(loc, model=model)
             item = self.check_page_popUp()
             if item == PopUpLocator.close_broadcast:
                 log.info("=========聊天室已关闭==========")
@@ -219,9 +234,10 @@ class BasePage:
             ele.click()
             return True
         except:
-            self.get_getWebState()
-            if self.check_page_popUp():
+            if self.get_getWebState() == 6:
                 self.click_element_byEle(ele, model=model)
+            if self.check_page_popUp():
+                return self.click_element_byEle(ele, model=model)
             else:
                 # 捕获异常到日志中；
                 log.exception("元素:{0} 点击事件失败:".format(ele))
@@ -240,9 +256,10 @@ class BasePage:
             log.info("{0}：元素：{1} 的文本内容为：{2}".format(model, loc, text))
             return text
         except:
-            self.get_getWebState()
-            if self.check_page_popUp():
+            if self.get_getWebState() == 6:
                 self.get_text(loc, model=model)
+            if self.check_page_popUp():
+                return self.get_text(loc, model=model)
             else:
                 # 捕获异常到日志中；
                 log.exception("获取元素：{0} 的文本内容失败。报错信息如下：".format(loc))
@@ -261,9 +278,10 @@ class BasePage:
             log.info("{0}: 元素：{1} 的属性：{2} 值为：{3}".format(model, loc, attr_name, value))
             return value
         except:
-            self.get_getWebState()
+            if self.get_getWebState() == 6:
+               self.get_element_attribute(loc, attr_name, model=model) 
             if self.check_page_popUp():
-                self.get_element_attribute(loc, attr_name, model=model)
+                return self.get_element_attribute(loc, attr_name, model=model)
             else:
                 # 捕获异常到日志中；
                 log.exception("获取元素：{0} 的属性：{1} 失败，异常信息如下：".format(loc, attr_name))
@@ -318,9 +336,10 @@ class BasePage:
             TouchAction(self.driver).tap(x=x, y=y, count=times).perform()
             return True
         except:
-            self.get_getWebState()
-            if self.check_page_popUp():
+            if self.get_getWebState() == 6:
                 self.tap_by_coordinate(size,times=times, model=model)
+            if self.check_page_popUp():
+                return self.tap_by_coordinate(size,times=times, model=model)
             else:
                 log.exception("等待元素可见失败。")
                 # 截图
@@ -502,9 +521,10 @@ class BasePage:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.presence_of_element_located(loc))
             return True
         except:
-            self.get_getWebState()
-            if self.check_page_popUp():
+            if self.get_getWebState() == 6:
                 self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
+            if self.check_page_popUp():
+                return self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
                 return False
         

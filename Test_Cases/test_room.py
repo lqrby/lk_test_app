@@ -25,7 +25,6 @@ class TestRoomMakeFriends:
                 log.info("进入推荐聊天室断言成功")
             except AssertionError as a:
                 log.error("进入推荐聊天室断言失败--{}".format(liveRoomMum["message"]))
-                raise a
 
     @pytest.mark.success
     @allure.story('进入派对聊天室')
@@ -39,8 +38,7 @@ class TestRoomMakeFriends:
                 assert liveRoomMum["result"] == True
                 log.info("进入派对聊天室流程断言成功")
             except AssertionError as a:
-                log.error("进入派对聊天室流程断言失败，失败原因:{}".format(liveRoomMum["messenger"]))
-                raise a
+                log.error("进入派对聊天室流程断言失败，失败原因:{}".format(liveRoomMum["message"]))
 
     @pytest.mark.success
     @allure.story('进入开黑聊天室')
@@ -54,8 +52,7 @@ class TestRoomMakeFriends:
                 assert liveRoomMum["result"] == True
                 log.info("进入开黑聊天室断言成功")
             except AssertionError as a:
-                log.error("进入开黑聊天室断言失败,失败原因:{}".format(liveRoomMum["messenger"]))
-                raise a
+                log.error("进入开黑聊天室断言失败,失败原因:{}".format(liveRoomMum["message"]))
 
     @pytest.mark.success
     @allure.story('创建小窝类型的聊天室')
@@ -70,7 +67,6 @@ class TestRoomMakeFriends:
                 log.info("创建小窝类型的聊天室断言成功")
             except AssertionError as a:
                 log.error("创建小窝类型的聊天室断言失败")
-                raise a
 
     @pytest.mark.success
     @allure.story('创建萌新接待类型的聊天室')
@@ -85,7 +81,6 @@ class TestRoomMakeFriends:
                 log.info("创建萌新接待类型的聊天室断言成功")
             except AssertionError as a:
                 log.error("创建萌新接待类型的聊天室断言失败")
-                raise a
 
 
        

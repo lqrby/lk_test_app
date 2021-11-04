@@ -42,7 +42,7 @@ class CommonBus(BasePage):
     def get_userStatus(self):
         try:
             log.info("===========检查用户登录状态========")
-            self.driver.implicitly_wait(5)
+            # self.driver.implicitly_wait(5)
             self.close_page_popUp()
             self.find_element(loc.dating_module)
         except NoSuchElementException:
