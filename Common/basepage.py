@@ -1,5 +1,5 @@
-import re
-import allure
+import re, allure, time, os
+from subprocess import run, PIPE
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.extensions.search_context import mobile
 from selenium.webdriver.support.wait import WebDriverWait
@@ -11,8 +11,7 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from appium.webdriver.connectiontype import ConnectionType
 log = get_logger(logger_name="基础类")
 from Common import splicing
-import time
-import os
+
 
 
 class BasePage:
@@ -83,28 +82,44 @@ class BasePage:
                 return False
 
 
-    #获取当前网络状态
-    def get_getWebState(self):
-        state=self.driver.network_connection
-        if state == 0:
-            log.info("无网络连接")
-            self.save_webImgs(model="无网络连接")
-            time.sleep(10)
-            state=self.driver.network_connection
-            if state != 6:
-                self.exit_and_overRun() 
-            else:
-                log.info("网络恢复正常了")
-                return state
-        elif state == 1:
-            log.info("飞行模式")
-            self.save_webImgs(model="飞行模式")
-            self.exit_and_overRun() 
-        else:
+    # #获取当前网络状态
+    # def get_getWebState(self):
+    #     state=self.driver.network_connection
+    #     if state == 0:
+    #         log.info("无网络连接")
+    #         self.save_webImgs(model="无网络连接")
+    #         time.sleep(30)
+    #         state=self.driver.network_connection
+    #         if state != 6:
+    #             self.exit_and_overRun() 
+    #         else:
+    #             log.info("网络恢复正常了")
+    #             return state
+    #     elif state == 1:
+    #         log.info("飞行模式")
+    #         self.save_webImgs(model="飞行模式")
+    #         self.exit_and_overRun() 
+    #     else:
+    #         log.info("网络正常")
+    #         return True
+    def get_getWebState(self,loop=1):
+        state = run('ping www.baidu.com',stdout=PIPE,stderr=PIPE,stdin=PIPE,shell=True)
+        # print("r=====",state.returncode)
+        if state.returncode == 0:
             log.info("网络正常")
             return True
-
-        
+        else:
+            log.info("无网络连接")
+            self.save_webImgs(model="无网络连接")
+            if loop > 0:
+                time.sleep(30)
+                if self.get_getWebState(loop-1):
+                    return 6
+            else:
+                self.exit_and_overRun()
+            
+            
+            
 
     # 查找一个元素
     def get_element(self, loc, model=None):
@@ -115,7 +130,7 @@ class BasePage:
             if self.get_getWebState() == 6:
                 self.get_element(loc, model=model)
             if self.check_page_popUp():
-                self.get_element(loc, model=model)
+                return self.get_element(loc, model=model)
             else:
                 log.exception("获取元素失败:{}".format(loc))
                 # 截图
@@ -131,7 +146,7 @@ class BasePage:
         return self.driver.find_elements(*loc)
         
 
-    def get_elements(self, loc, model=""):
+    def get_elements(self, loc, model=None):
         log.info("{}".format(model))
         try:
             return self.driver.find_elements(*loc)
@@ -217,7 +232,10 @@ class BasePage:
             
     def is_enabled(self,loc,model=None):
         ele = self.get_element(loc,model=model)
-        return ele.is_enabled()
+        if ele:
+            return ele.is_enabled()
+        else:
+            return False
     
     # 判断元素是否可点击
     def is_clickable(self, loc):

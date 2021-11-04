@@ -69,7 +69,7 @@ class RoomPage(CommonBus):
 
     #选择房间标签
     def room_label(self):
-        self.wait_element_presence(roomloc.room_label)
+        self.wait_element_presence(roomloc.room_label,model="房间标签")
         roomLabels = self.find_elements(roomloc.room_label)
         labelNum = random.randint(0,(len(roomLabels)-1))
         roomLabels[labelNum].click()
@@ -77,20 +77,20 @@ class RoomPage(CommonBus):
     #选择房间话题
     def room_name(self):
         roomName = "创建房间-{}".format(int(time.time()))
-        self.wait_element_presence(roomloc.room_name)
+        self.wait_element_presence(roomloc.room_name,model="房间话题")
         self.clear_input_text(roomloc.room_name, model="清除输入框默认文本")
         self.input_text(roomloc.room_name, roomName, model="输入房间话题")
 
     #选择房间座位数
     def room_seat(self):
-        self.wait_element_presence(roomloc.room_seat)
+        self.wait_element_presence(roomloc.room_seat,model="房间座位")
         roomSeats = self.find_elements(roomloc.room_seat)
         seatNum = random.randint(0,(len(roomSeats)-1))
         roomSeats[seatNum].click()
         
     #点击确认创建房间按钮
     def entry_room(self):
-        self.wait_element_clickable(roomloc.entry_room)
+        self.wait_element_clickable(roomloc.entry_room,model="创建房间按钮")
         self.click_element(roomloc.entry_room, model="点击确认创建房间按钮")
         message = "需官方授权可开启"
         message_toast = self.get_toast_exist(message)
@@ -328,7 +328,7 @@ class RoomPage(CommonBus):
         self.wait_element_presence(roomloc.user_material,model="检查资料tap")
         self.click_element(roomloc.user_material,model="点击资料tap")
         self.swipeUp()
-        self.wait_element_presence(roomloc.liKa_id,model="用户哩咔id元素")
+        self.wait_element_presence(roomloc.liKa_id,model="用户哩咔id")
         lk_id = self.get_element(roomloc.liKa_id,model="哩咔id").get_attribute("text")
         log.info("哩咔ID:{}".format(lk_id))
         self.assert_true(roomloc.liKa_id, model="资料tap断言-哩咔id")
@@ -336,7 +336,7 @@ class RoomPage(CommonBus):
 
     #动态tap
     def click_dynamic(self):
-        self.wait_element_presence(roomloc.user_dynamic,model="检查动态tap")
+        self.wait_element_presence(roomloc.user_dynamic,model="动态tap")
         self.click_element(roomloc.user_dynamic,model="点击动态tap")
         if self.is_element_exist(roomloc.dynamic_list,timeout=3):
             dynamic_list = self.get_elements(roomloc.dynamic_list, model="动态tap列表")
@@ -457,8 +457,6 @@ class RoomPage(CommonBus):
         self.wait_element_presence(roomloc.gift_wall, model="礼物展墙")  
         self.click_element(roomloc.gift_wall, model="点击礼物展墙")
         if self.is_element_exist(roomloc.giftWallList):
-        # self.wait_element_presence(roomloc.giftWallList,model="礼物展墙列表")
-            time.sleep(3)
             giftWallList = self.get_elements(roomloc.giftWallList,model="获取礼物展墙列表")
             self.assert_len(giftWallList, dyj=1, model="礼物墙展墙列表断言")
             # self.light_up() #点亮墙展礼物
@@ -472,7 +470,7 @@ class RoomPage(CommonBus):
     def Dress_wall(self):
         self.wait_element_presence(roomloc.decorate_wall, model="装扮展墙")  
         self.click_element(roomloc.decorate_wall, model="点击装扮展墙")
-        self.wait_element_presence(roomloc.Decorate_wall_list,model="装扮展墙列表元素")
+        self.wait_element_presence(roomloc.Decorate_wall_list,model="装扮展墙列表")
         Decorate_wall_list = self.get_elements(roomloc.Decorate_wall_list,model="获取装扮展墙列表")
         self.assert_len(Decorate_wall_list, dyj=1, model="装扮墙展墙列表")
         self.go_back()
@@ -532,7 +530,7 @@ class RoomPage(CommonBus):
         if self.is_element_exist(roomloc.cancel_follow):
             time.sleep(1)
             self.click_element(roomloc.cancel_follow, model="点击取消关注")
-            self.wait_element_presence(roomloc.Confirm_cancellation, model="等待确认按钮显示")
+            self.wait_element_presence(roomloc.Confirm_cancellation, model="确认按钮显示")
             self.click_element(roomloc.Confirm_cancellation, model="确认取消关注")
             cancelToast = "取消关注成功"
             toastMsg = self.get_toast_msg(cancelToast, model="取消关注成功的toast")  
@@ -574,9 +572,9 @@ class RoomPage(CommonBus):
 
     #房间模块--->聊天室内操作（聊天室通用）
     def live_room(self):
-        if self.is_element_exist(roomloc.all_mode):
+        if self.is_element_exist(roomloc.all_mode,timeout=3):
             self.driver.press_keycode(4)
-        self.exist_be_click(roomloc.follow)#点击关注
+        self.exist_be_click(roomloc.follow,model="关注")#点击关注
         self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天等
         # self.gift_entrance_bottom() # 底部礼物入口》切换礼物tap，选中礼物，赠送礼物,返回，房间用户及贵宾席
         self.click_blessing_bag() # 点击福袋
@@ -711,7 +709,7 @@ class RoomPage(CommonBus):
             self.click_element(roomloc.receiveBtn,model="点击领取")
             result = self.get_toast_exist(message='领取成功')
             self.assert_in("领取成功", result, model="领取奖励断言")
-            self.wait_element_presence(roomloc.play_instructions)
+            self.wait_element_presence(roomloc.play_instructions,model="玩法说明")
             self.click_element(roomloc.play_instructions, model="玩法说明按钮-可领取")
             time.sleep(2)
             self.driver.press_keycode(4)
@@ -719,7 +717,7 @@ class RoomPage(CommonBus):
             self.driver.press_keycode(4)
         elif self.is_element_exist(roomloc.count_down_receive):
             self.click_element(roomloc.count_down_receive, model="点击领取倒计时按钮")
-            self.wait_element_presence(roomloc.play_instructions)
+            self.wait_element_presence(roomloc.play_instructions,model="玩法说明")
             self.click_element(roomloc.play_instructions, model="点击玩法说明按钮-倒计时")
             time.sleep(2)
             self.driver.press_keycode(4)
@@ -739,7 +737,7 @@ class RoomPage(CommonBus):
         '''
     #礼物顶部入口
     def gift_entrance_top(self):
-        masterAvatarView = self.wait_element_presence(roomloc.masterAvatarView,model="顶部送礼物入口")
+        masterAvatarView = self.wait_element_presence(roomloc.masterAvatarView,timeout=5,model="顶部送礼物入口")
         if masterAvatarView:
             self.click_element(roomloc.masterAvatarView,model="点击顶部送礼物入口")#点击礼物入口
             self.gold_reward() #选中金币礼物，赠送金币礼物
@@ -777,7 +775,7 @@ class RoomPage(CommonBus):
         text = ele.text
         number = int(text[3:])
         if number >= 2:
-            self.wait_element_presence(roomloc.goldCoins_list,model="等待金币礼物列表加载")
+            self.wait_element_presence(roomloc.goldCoins_list,model="金币礼物列表加载")
             goldCoinsList = self.get_elements(roomloc.goldCoins_list,model="获取金币礼物列表元素")
             goldCoinsList[0].click()
             self.click_element(roomloc.btn_send_gift,model="点击赠送按钮")
@@ -803,7 +801,7 @@ class RoomPage(CommonBus):
     def click_gift_tap(self,tapBtn):
         self.wait_element_clickable(tapBtn, model="等待元素显示")
         self.click_element(tapBtn,model="点击礼物tap") #点击礼物tap
-        self.wait_element_presence(roomloc.gift_pages)
+        self.wait_element_presence(roomloc.gift_pages,model="等待礼物列表显示")
 
 
     #选中某个礼物

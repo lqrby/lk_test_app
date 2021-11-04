@@ -12,12 +12,7 @@ class MyPage(CommonBus):
         self.driver = driver
         self.RoomPage = RoomPage(self.driver)
 
-    '''点击我的'''
-    def set_up(self):
-        self.wait_eleVisible(myloc.meBtn, model="等待我的")
-        self.click_element(myloc.meBtn, model="点击我的")
-        return self
-
+    
     '''点击我的头像'''
     def click_head_portrait(self):
         self.wait_eleVisible(myloc.sdVipCover, model="等待我的头像")
@@ -48,7 +43,7 @@ class MyPage(CommonBus):
     查看我的资料流程
     """
     def view_my_profile(self):
-        self.set_up() #点击我的
+        self.wait_click_element(myloc.meBtn, model="点击我的")
         self.broadcasting_entrance() #开播入口及断言
         self.click_head_portrait() #点击我的头像
         self.RoomPage.my_information() #我的资料 
@@ -122,7 +117,7 @@ class MyPage(CommonBus):
     编辑我的资料流程
     """
     def edit_my_profile(self,myProfileData):
-        self.set_up() #点击我的
+        self.wait_click_element(myloc.meBtn, model="点击我的")
         self.wait_click_element(myloc.iv_edit,model="编辑资料入口")
         self.updeta_nickname(myProfileData["nickname"]) #修改昵称
         self.updeta_autograph(myProfileData["autograph"]) #修改签名
@@ -132,49 +127,46 @@ class MyPage(CommonBus):
 
 
 
-    # 关注列表、粉丝列表、好友列表
-    def public_list(self,model_loc,list_loc,model,dyj=1):
-        self.wait_click_element(model_loc,model)  
-        if self.is_element_exist(list_loc):
-            avatars = self.get_elements(list_loc,model="获取{}列表".format(model))  
-            self.assert_len(avatars,dyj=1,model="{}列表断言".format(model)) 
-        else:
-            log.info("{}列表暂无数据".format(model))    
-            self.save_webImgs("{}列表暂无数据".format(model))
+    
+    
         
 
     """
-    我的好友流程
+    我的好友流程+派对足迹
     """
     def myFriend_whoLookMe_partyFootprints(self):
-        self.set_up() #点击我的
-        self.wait_click_element(myloc.v_user_friends,"我的好友")            
-        self.public_list(myloc.tv_title_one,myloc.avatar,"关注")
-        self.public_list(myloc.tv_title_two,myloc.avatar,"粉丝")
-        self.public_list(myloc.tv_title_three,myloc.avatar,"好友")
+        self.wait_click_element(myloc.meBtn, model="点击我的")
+        self.wait_click_element(myloc.v_user_friends,"我的好友") 
+        self.wait_click_element(myloc.tv_title_one,"关注") 
+        self.public_list(myloc.avatar,"关注",dyj=1)
+        self.wait_click_element(myloc.tv_title_two,"粉丝") 
+        self.public_list(myloc.avatar,"粉丝",dyj=1)
+        self.wait_click_element(myloc.tv_title_three,"好友") 
+        self.public_list(myloc.avatar,"好友",dyj=1)
         self.RoomPage.go_back()
-        self.public_list(myloc.v_look_me,myloc.iv_head,"谁看过我",dyj=0)
+        self.public_list(myloc.v_look_me,myloc.iv_head,"谁看过我")
         self.RoomPage.go_back()
-        self.public_list(myloc.v_footprint,myloc.iv_room_head,"派对足迹",dyj=0)
+        self.public_list(myloc.v_footprint,myloc.iv_room_head,"派对足迹")
         return True   
 
 
 
-    """
-    谁看过我、派对足迹流程
-    """
-    def my_friend(self):
-        self.set_up() #点击我的
-        self.public_list(myloc.v_look_me,myloc.iv_head,"谁看过我",dyj=0)
-        self.RoomPage.go_back()
-        self.public_list(myloc.v_footprint,myloc.iv_room_head,"派对足迹",dyj=0)
-        return True   
+    
 
-    # '''进入钱包'''
-    # def intoMoneyBar(self):
-    #     self.click_element(myloc.txtWalletLabel, "点击钱包")
-    #     title = self.get_text(myloc.toolbar_title, "获取钱包页title")
-    #     return title
+    '''我的动态'''
+    def my_dynamic(self):
+        self.wait_click_element(myloc.meBtn, model="点击我的")
+        self.wait_click_element(myloc.my_dynamic,model="我的动态")
+        dynamicList = self.public_list(myloc.my_dynamic_list,model="我的动态列表")
+        if dynamicList:
+            dt_num = random.randint(0,len(dynamicList)-1) 
+            log.info("点击第{}个动态查看详情".format(dt_num + 1))
+            dynamicList[dt_num].click()
+            if self.is_element_exist(myloc.tv_read_count):
+                return True
+            else:
+                return False
+
 
     # '''进入任务中心'''
     # def intoTask(self):

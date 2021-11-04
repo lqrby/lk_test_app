@@ -53,6 +53,21 @@ class Test_my:
             log.error("我的好友、谁看过我和派对足迹测试用例-测试用例通过")
         except AssertionError as a:
             log.error("我的好友、谁看过我和派对足迹测试用例断言失败")
+
+
+            
+    @pytest.mark.success
+    @allure.story('我的')
+    @allure.title('我的动态用例')
+    def test_intoEdit(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>我的动态-测试用例***************")
+        actual_edit = my_page.my_dynamic()
+        try:
+            assert actual_edit == True
+            log.error("我的动态测试用例-测试用例通过")
+        except AssertionError as a:
+            log.error("我的动态测试用例断言失败")
             
 
     

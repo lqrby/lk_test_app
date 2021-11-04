@@ -156,9 +156,19 @@ class CommonBus(BasePage):
             .wait(500).move_to(x=start_X + 100, y=random.randint(e[1]+2,e[3]-2))\
             .wait(500).move_to(x=start_X + 260, y=random.randint(e[1]+2,e[3]-2)).wait(500)\
             .move_to(x=start_X + 300, y=random.randint(e[1]+2,e[3]-2)).wait(500).release().perform()
-        self.wait_element_presence(LoginPageLocator.codeInput)
+        self.wait_element_presence(LoginPageLocator.codeInput,model="验证码输入框")
 
     
-        
+    # 列表长度及断言
+    def public_list(self,list_loc,model,dyj=0):
+        if self.is_element_exist(list_loc):
+            avatars = self.get_elements(list_loc,model="获取{}".format(model))  
+            self.assert_len(avatars,dyj=dyj,model="{}断言".format(model)) 
+            return avatars
+        else:
+            log.info("{}暂无数据".format(model))    
+            self.save_webImgs("{}暂无数据".format(model))
+            return False
+    
         
 

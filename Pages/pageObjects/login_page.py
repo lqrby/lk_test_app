@@ -51,16 +51,16 @@ class LoginPage(CommonBus):
         if self.is_element_exist(loc.microblog_authorizeBtn):
             self.exist_be_click(loc.microblog_authorizeBtn) #点击微博授权按钮（假如微博已登录）
         elif self.is_element_exist(loc.wb_name):
-            self.wait_element_presence(loc.wb_name, model="wb账号输入框")
-            self.clear_input_text(loc.wb_name, model="清除wb账号输入框")
-            self.input_text(loc.wb_name,wbName,model="输入wb账号")
+            self.wait_element_presence(loc.wb_name, model="微博账号输入框")
+            self.clear_input_text(loc.wb_name, model="清除微博账号输入框")
+            self.input_text(loc.wb_name,wbName,model="输入微博账号")
 
-            self.wait_element_presence(loc.wb_password, model="wb密码输入框")
-            self.clear_input_text(loc.wb_password, model="清除wb密码输入框")
-            self.input_text(loc.wb_password,wbPassword,model="输入wb密码")
+            self.wait_element_presence(loc.wb_password, model="微博密码输入框")
+            self.clear_input_text(loc.wb_password, model="清除微博密码输入框")
+            self.input_text(loc.wb_password,wbPassword,model="输入微博密码")
 
-            self.wait_element_clickable(loc.wb_loginBtn,"wb登录按钮")
-            self.click_element(loc.wb_loginBtn,model="点击wb登录按钮")
+            self.wait_element_clickable(loc.wb_loginBtn,model="微博登录按钮")
+            self.click_element(loc.wb_loginBtn,model="点击微博登录按钮")
             self.wait_element_clickable(loc.clickBtn,model="检查验证按钮")
             self.click_element(loc.clickBtn,model="点击验证按钮")
         return self.get_userStatus()

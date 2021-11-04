@@ -104,3 +104,10 @@ class MyLocators:
     iv_room_head = (Mb.ID,'com.ourydc.yuebaobao:id/iv_room_head') 
 
 
+
+    # 我的动态
+    #我的动态列表
+    # my_dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/child::android.view.ViewGroup")
+    my_dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_msg']")
+    
+    tv_read_count = (Mb.ID,'com.ourydc.yuebaobao:id/tv_read_count') #阅读数量
