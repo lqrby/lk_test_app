@@ -35,7 +35,7 @@ class TestHomeMakeFriends:
                 log.info("进出开播房间断言成功")
             except AssertionError as a:
                 log.error("进出开播房间断言失败")
-
+                raise
 
     '''
     发现-用户资料页
@@ -53,6 +53,7 @@ class TestHomeMakeFriends:
                 log.info("查看用户主页断言成功")
             except AssertionError as a:
                 log.error("查看用户主页断言失败")
+                raise
 
 
     '''附近的人-用户资料页'''  
@@ -69,6 +70,7 @@ class TestHomeMakeFriends:
                 log.info("查看附近的人主页资料断言成功")
             except AssertionError as a:
                 log.error("查看附近的人主页资料断言失败")
+                raise
 
 
     '''附近的人-用户进入的聊天室'''   
@@ -85,6 +87,7 @@ class TestHomeMakeFriends:
                 log.info("进退附近的人进入的聊天室断言成功")
             except AssertionError as a:
                 log.error("进退附近的人进入的聊天室断言失败")
+                raise
 
     
     '''附近动态'''  
@@ -101,6 +104,7 @@ class TestHomeMakeFriends:
                 log.info("查看附近动态断言成功")
             except AssertionError as a:
                 log.error("查看附近动态断言失败")
+                raise
 
     
 

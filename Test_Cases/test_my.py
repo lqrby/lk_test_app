@@ -25,6 +25,8 @@ class Test_my:
             log.info("查看个人资料-测试用例通过")
         except AssertionError as a:
             log.error("查看个人资料-断言失败")
+            raise
+
             
     @pytest.mark.success
     @allure.story('我的')
@@ -39,6 +41,8 @@ class Test_my:
             log.error("资料编辑页测试用例-测试用例通过")
         except AssertionError as a:
             log.error("资料编辑页断言失败")
+            raise
+
 
 
     @pytest.mark.success
@@ -53,6 +57,8 @@ class Test_my:
             log.error("我的好友、谁看过我和派对足迹测试用例-测试用例通过")
         except AssertionError as a:
             log.error("我的好友、谁看过我和派对足迹测试用例断言失败")
+            raise
+
 
 
             
@@ -68,6 +74,7 @@ class Test_my:
             log.error("我的动态测试用例-测试用例通过")
         except AssertionError as a:
             log.error("我的动态测试用例断言失败")
+            raise
             
 
     

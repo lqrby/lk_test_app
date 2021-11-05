@@ -58,7 +58,7 @@ class MyPage(CommonBus):
         else:
             return True
 
-    # 修改昵称
+    '''修改昵称'''
     def updeta_nickname(self,nicknames):
         if self.audit_status(myloc.v_nick,"昵称审核中"):
             #修改昵称
@@ -85,6 +85,7 @@ class MyPage(CommonBus):
                 log.info("toast===={}".format(nickname_toast))
                 self.save_webImgs("保存昵称失败")
 
+    '''修改签名'''
     def updeta_autograph(self,autographs):
         if self.audit_status(myloc.v_describe,"签名审核中"):
             #修改签名
@@ -123,13 +124,7 @@ class MyPage(CommonBus):
         self.updeta_autograph(myProfileData["autograph"]) #修改签名
             # # self.RoomPage.go_back() #返回
         return True
-
-
-
-
-    
-    
-        
+ 
 
     """
     我的好友流程+派对足迹
@@ -151,8 +146,6 @@ class MyPage(CommonBus):
 
 
 
-    
-
     '''我的动态'''
     def my_dynamic(self):
         self.wait_click_element(myloc.meBtn, model="点击我的")
@@ -168,126 +161,4 @@ class MyPage(CommonBus):
                 return False
 
 
-    # '''进入任务中心'''
-    # def intoTask(self):
-    #     self.click_element(myloc.layoutTaskCenter, "点击任务中心")
-    #     title = self.get_text(myloc.toolbar_title, "获取任务中心页title")
-    #     return title
-
-    # '''进入我的消息'''
-    # def intoMessage(self):
-    #     self.swipeUp(t=3000)
-    #     self.click_element(myloc.layoutProfileIM, "点击消息")
-    #     title = self.get_text(myloc.messagetitle, "获取消息页title")
-    #     return title
-
-    # '''进入背包'''
-    # def intoBag(self):
-    #     self.click_element(myloc.layoutProfileBag, "点击背包")
-    #     title = self.get_text(myloc.toolbar_title, "获取背包title")
-    #     return title
-
-    # '''进入商城'''
-    # def intoFerrari(self):
-    #     self.click_element(myloc.layoutProfileFerrari, "点击商城")
-    #     title = self.get_text(myloc.toolbar_title, "获取背包title")
-    #     return title
-
-    # '''进入我的等级'''
-    # def intoGrade(self):
-    #     self.click_element(myloc.layoutProfileGrade, "点击我的等级")
-    #     title = self.get_text(myloc.toolbar_title, "获取我的等级页title")
-    #     return title
-
-    # '''进入庄园'''
-    # def intoManor(self):
-    #     self.click_element(myloc.rlManor, "点击庄园")
-    #     title = self.get_text(myloc.toolbar_title, "获取庄园页title")
-    #     return title
-
-    # '''进入尊享会员'''
-    # def intoMember(self):
-    #     self.click_element(myloc.layoutProfileMember, "点击尊享会员")
-    #     title = self.get_text(loc.toolbar_title, "获取尊享会员页title")
-    #     return title
-
-    # '''进入vip特权'''
-    # def intoVIPGrade(self):
-    #     self.click_element(loc.layoutProfileVIPGrade, "点击vip特权")
-    #     title = self.get_text(loc.toolbar_title, "获取vip特权页title")
-    #     return title
-
-    # '''进入我的家族'''
-    # def intoFamily(self):
-    #     self.click_element(loc.layoutProfileFamilyMine, "点击家族")
-    #     title = self.get_text(loc.toolbar_title, "获取家族页title")
-    #     return title
-
-    # '''进入真爱团'''
-    # def intoFans(self):
-    #     self.click_element(loc.layoutProfileFansGroup, "点击粉丝团")
-    #     title = self.get_text(loc.fanstitle, "获取粉丝团页title")
-    #     return title
-
-    # '''进入我的直播'''
-    # def intoFLive(self):
-    #     self.click_element(loc.layoutProfileLive, "点击我的直播")
-    #     time.sleep(3)
-    #     title = self.get_text(loc.toolbar_title, "获取我的直播页title")
-    #     return title
-
-    # '''进入贡献榜'''
-    # def intoContribution(self):
-    #     self.click_element(loc.layoutProfileContribution, "点击贡献榜")
-    #     title = self.get_text(loc.toolbar_title, "获取自动回复页title")
-    #     return title
-
-    # '''进入我的守护'''
-    # def intoGuardian(self):
-    #     self.click_element(loc.layoutProfileGuardian, "点击守护")
-    #     title = self.get_text(loc.toolbar_title, "获取守护页title")
-    #     return title
-
-    # '''进入自动回复'''
-    # def intoResponse(self):
-    #     self.click_element(loc.layoutProfileAutoResponse, "点击自动回复")
-    #     title = self.get_text(loc.toolbar_title, "获取自动回复页title")
-    #     return title
-
-    # '''进入谁看过我'''
-    # def intoFootPrint(self):
-    #     self.click_element(loc.layoutProfileFootPrint, "点击谁看过我")
-    #     title = self.get_text(loc.toolbar_title, "获取谁看过我页title")
-    #     return title
-
-    # '''进入荣耀挑战赛'''
-    # def intoPkHistory(self):
-    #     self.swipeUp(t=3000)
-    #     self.click_element(loc.layoutPkHistory, "点击荣耀挑战赛")
-    #     title = self.get_text(loc.pktitle, "获取荣耀挑战赛页title")
-    #     return title
-
-    # '''进入我看过的'''
-    # def intoWatchHistory(self):
-    #     self.swipeUp(t=3000)
-    #     self.click_element(loc.layoutWatchHistory, "点击我看过的")
-    #     title = self.get_text(loc.toolbar_title, "获取我看过的页title")
-    #     return title
-
-    # '''进入官方客服'''
-    # def intoackRL(self):
-    #     self.click_element(loc.feedbackRL, "点击官方客服")
-    #     title = self.get_text(loc.toolbar_title, "获官方客服页title")
-    #     return title
-
-    # '''进入帮助中心'''
-    # def intoHelpCenter(self):
-    #     self.click_element(loc.layoutHelpCenter, "点击帮助中心")
-    #     title = self.get_text(loc.toolbar_title, "获取帮助中心页title")
-    #     return title
-
-    # '''进入联系我们'''
-    # def intoContactUs(self):
-    #     self.click_element(loc.layoutContactUs, "点击联系我们")
-    #     title = self.get_text(loc.toolbar_title, "获取联系我们页title")
-    #     return title
+    
