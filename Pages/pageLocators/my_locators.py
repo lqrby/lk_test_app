@@ -53,7 +53,7 @@ class MyLocators:
     # 我的背包
     my_knapsack = (Mb.ID, "com.ourydc.yuebaobao:id/v_backpack") 
     # 奖励中心
-    reward_center = (Mb.XPATH, "com.ourydc.yuebaobao:id/v_rewards") 
+    reward_center = (Mb.ID, "com.ourydc.yuebaobao:id/v_rewards") 
     # 游戏大厅
     game_hall = (Mb.ID, "com.ourydc.yuebaobao:id/v_game_layout")
     # 活动中心
@@ -109,5 +109,63 @@ class MyLocators:
     #我的动态列表
     # my_dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/child::android.view.ViewGroup")
     my_dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_msg']")
-    
     tv_read_count = (Mb.ID,'com.ourydc.yuebaobao:id/tv_read_count') #阅读数量
+
+
+    #我的背包
+    all_gifts_list = (Mb.ID,'com.ourydc.yuebaobao:id/cl') #全部礼物列表
+    use_now = (Mb.ID,'com.ourydc.yuebaobao:id/tv_btn4') #立即使用
+    gifts_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='礼物']")
+    prop_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='道具']")
+    decorate_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='装饰']")
+    backpack_gift = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_panel_red_outer') #背包中的礼物列表
+
+    # 奖励中心
+    receive_an_award = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_action' and @text='领奖']") #领奖按钮
+    receive = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") #领取按钮
+
+    #活动中心
+    imageView7 = (Mb.ID,'com.ourydc.yuebaobao:id/imageView7') #活动中心游戏列表
+
+    #申请家族
+    my_dynamic_list = (Mb.XPATH, "//*[@class='android.widget.ListView']/child::android.view.View")
+    
+    # 设置
+    account_and_security = (Mb.ID,'com.ourydc.yuebaobao:id/layout_account_security') #账号与安全
+    '''二级元素'''
+    layout_bind_phone = (Mb.ID,'com.ourydc.yuebaobao:id/layout_bind_phone') #修改绑定手机
+    changePhoneBtn = (Mb.ID,'com.ourydc.yuebaobao:id/changePhoneBtn') #更换绑定手机号
+    get_verification_code = (Mb.ID,'com.ourydc.yuebaobao:id/tv_get_validate') #获取验证码
+
+
+    bound_wechat = (Mb.ID,'com.ourydc.yuebaobao:id/layout_reset_third_login') #已绑定微信
+    set_password = (Mb.ID,'com.ourydc.yuebaobao:id/layout_reset_password') #设置密码
+    identity_authentication = (Mb.ID,'com.ourydc.yuebaobao:id/layout_identity_attestation') #身份认证
+    bind_official_account = (Mb.ID,'com.ourydc.yuebaobao:id/layout_bind_wechat') #绑定公众号
+    rl_root = (Mb.ID,'com.ourydc.yuebaobao:id/rl_root') #绑定公众号title
+    # official_account_text = (Mb.XPATH,"//*[@class='android.view.View' and @text='第一步：关注公众号']") #绑定公众号断言
+
+    set_payment_password = (Mb.ID,'com.ourydc.yuebaobao:id/layout_pay_pwd') #设置支付密码
+
+    layout_black_list = (Mb.ID,'com.ourydc.yuebaobao:id/layout_black_list') #黑名单
+    blacklist_no_data = (Mb.ID,'com.ourydc.yuebaobao:id/tv_empty_text') #黑名单页面无数据
+    blacklist_data = (Mb.ID,'com.ourydc.yuebaobao:id/iv_head_view') #黑名单页面有数据
+
+    cancel_account = (Mb.ID,'com.ourydc.yuebaobao:id/layout_account_unregister') #注销账号
+
+
+
+
+    protection_of_minors = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式
+    turn_on_protection = (Mb.ID,'com.ourydc.yuebaobao:id/btn_open') #开启保护模式
+    password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_1') #密码输入框
+    confirm_button = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #确定按钮
+    # confirm_button = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='确定']") #确定按钮
+    turn_off_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='关闭未成年人保护模式']") #关闭保护模式
+
+    message_settings = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_setting') #消息设置
+    currency = (Mb.ID,'com.ourydc.yuebaobao:id/layout_common_use') #通用
+    cash_capacity_management = (Mb.ID,'com.ourydc.yuebaobao:id/layout_money_setting') #钞能力管理
+    speed_chat_room = (Mb.ID,'com.ourydc.yuebaobao:id/conciseLayout') #聊天室极速模式
+    about_lika = (Mb.ID,'com.ourydc.yuebaobao:id/layout_about_lika') #关于哩咔
+    

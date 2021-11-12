@@ -149,13 +149,12 @@ class RoomPage(CommonBus):
         if len(liveRoomList) > 0:
             room_number = random.randint(0,len(liveRoomList)-1)
             liveRoomList[room_number].click()
-            if self.is_element_exist(roomloc.room_text,timeout=1,poll_frequency=0.3):
+            if self.is_element_exist(roomloc.room_text,timeout=3,poll_frequency=0.3):
                 self.click_element(roomloc.closeRoomText,model="关闭聊天室输入密码框")
                 log.info("该聊天室有密码，无法进入")
                 self.save_webImgs("聊天室有密码")
                 return False
             self.popPage.check_put_away() #收起聊天室邀请加入队伍的页面
-            # self.wait_element_presence(roomloc.roomIdTv, model="聊天室房间信息")
             self.assert_true(roomloc.roomIdTv,model="聊天室id") #断言聊天室id
             return True
         else:
@@ -193,35 +192,46 @@ class RoomPage(CommonBus):
         return True
 
     def liveRoom(self):
-        if self.is_element_exist(roomloc.tv_queue): #队列
-            log.info("进入了开黑聊天室")
-            self.live_room()
+        self.live_room()
+        if self.is_element_exist(roomloc.ranking_list,timeout=1): #是否有排行榜
             self.click_rankingList(roomloc.ranking_list) #排行榜
-            self.createRanks_and_dissolution() #创建队伍并解散队伍
-            return self.exit_chat_room() #退出聊天室
-        elif self.is_element_exist(roomloc.ranking_kuoLie): #扩列排行榜入口
-            log.info("进入了扩列聊天室")
-            self.live_room()
-            self.click_rankingList(roomloc.ranking_list) #扩列排行榜
-            # self.diamond_cash_back() #钻石返现-断言-返回
-            return self.exit_chat_room() #退出聊天室
-        elif self.is_element_exist(roomloc.head_picture): #头像
-            log.info("进入了萌新接待聊天室")
-            self.live_room()
-            return self.exit_chat_room() #退出聊天室
-        elif self.is_element_exist(roomloc.receive_identifying): #领取
-            log.info("进入了派对聊天室")
-            self.live_room()
-            self.click_rankingList(roomloc.ranking_list) #排行榜
-            self.click_receive() #领取按钮
-            #幸运福袋
-            self.click_introduce() #点击玩法介绍，关闭玩法介绍（包括断言）
-            return self.exit_chat_room() #退出聊天室
-        else:
-            log.info("进入了其它类型聊天室")
-            # self.save_webImgs(model="其它类型聊天室")
-            self.live_room()
-            return self.exit_chat_room() #退出聊天室
+        self.createRanks_and_dissolution() #创建队伍并解散队伍
+        self.click_receive() #领取按钮
+        #幸运福袋
+        self.click_introduce() #点击玩法介绍，关闭玩法介绍（包括断言）
+        return self.exit_chat_room() #退出聊天室
+        
+
+    # def liveRoom(self):
+    #     if self.is_element_exist(roomloc.tv_queue,timeout=3): #队列
+    #         log.info("进入了开黑聊天室")
+    #         self.live_room()
+    #         self.click_rankingList(roomloc.ranking_list) #排行榜
+    #         self.createRanks_and_dissolution() #创建队伍并解散队伍
+    #         return self.exit_chat_room() #退出聊天室
+    #     elif self.is_element_exist(roomloc.ranking_kuoLie,timeout=1): #扩列排行榜入口
+    #         log.info("进入了扩列聊天室")
+    #         self.live_room()
+    #         self.click_rankingList(roomloc.ranking_list) #扩列排行榜
+    #         # self.diamond_cash_back() #钻石返现-断言-返回
+    #         return self.exit_chat_room() #退出聊天室
+    #     elif self.is_element_exist(roomloc.head_picture,timeout=1): #头像
+    #         log.info("进入了萌新接待聊天室")
+    #         self.live_room()
+    #         return self.exit_chat_room() #退出聊天室
+    #     elif self.is_element_exist(roomloc.receive_identifying,timeout=1): #领取
+    #         log.info("进入了派对聊天室")
+    #         self.live_room()
+    #         self.click_rankingList(roomloc.ranking_list) #排行榜
+    #         self.click_receive() #领取按钮
+    #         #幸运福袋
+    #         self.click_introduce() #点击玩法介绍，关闭玩法介绍（包括断言）
+    #         return self.exit_chat_room() #退出聊天室
+    #     else:
+    #         log.info("进入了其它类型聊天室")
+    #         # self.save_webImgs(model="其它类型聊天室")
+    #         self.live_room()
+    #         return self.exit_chat_room() #退出聊天室
         
 
     
@@ -577,7 +587,6 @@ class RoomPage(CommonBus):
         self.exist_be_click(roomloc.follow,model="关注")#点击关注
         self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天等
         # self.gift_entrance_bottom() # 底部礼物入口》切换礼物tap，选中礼物，赠送礼物,返回，房间用户及贵宾席
-        self.click_blessing_bag() # 点击福袋
         self.click_game() #点击游戏并断言
         self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
 
@@ -726,6 +735,9 @@ class RoomPage(CommonBus):
             '''
             后续这里要写H5断言
             '''
+        else:
+            log.info("该聊天室无领取按钮")
+            self.save_webImgs("该聊天室无领取按钮")
             
         
     #抽奖tap
@@ -755,22 +767,14 @@ class RoomPage(CommonBus):
         # self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
         # self.click_heat_value() # 房间用户及贵宾席
 
+
+
     #金币打赏
     def gold_reward(self):
-        if self.is_element_exist(roomloc.goldCoins_button) == False:
-            self.wait_element_presence(roomloc.gift_button,model="礼物tap")
-            gift_button = self.get_element(roomloc.gift_button,model="获取礼物tap对象").get_attribute("bounds")
-            e = self.get_coordinate(gift_button)
-            # size = [e[0]+300,e[1]+20]
-            l = self.driver.get_window_size()
-            x1 = l['width'] * 0.8
-            y1 = e[1]+20
-            x2 = l['width'] * 0.2
-            self.driver.swipe(x1, y1, x2, y1, 500)
-        self.wait_element_clickable(roomloc.goldCoins_button,model="金币tap")
-        self.click_element(roomloc.goldCoins_button,model="点击金币tap")#点击礼物入口
+        self.find_tap(roomloc.goldCoins_button,roomloc.gift_button,"金币tap","礼物tap")
+        # self.wait_click_element(roomloc.goldCoins_button,model="金币tap")
         #先判断金币是否大于等于2
-        self.wait_element_presence(roomloc.goldCoins_balance,model="等待金币余额")
+        self.wait_element_presence(roomloc.goldCoins_balance,timeout=4,model="等待金币余额")
         ele = self.get_element(roomloc.goldCoins_balance,model="获取金币余额元素")
         text = ele.text
         number = int(text[3:])
@@ -925,7 +929,6 @@ class RoomPage(CommonBus):
             self.save_webImgs(model)
     #点击玩法介绍
     def click_introduce(self):
-        time.sleep(2)
         if self.is_element_exist(roomloc.tv_introduce):
             self.click_element(roomloc.tv_introduce,model="点击玩法介绍")#点击玩法介绍  
             self.wait_element_presence(roomloc.tv_introduce_assert,model="玩法介绍内容")
@@ -933,7 +936,8 @@ class RoomPage(CommonBus):
             self.assert_text_len(tv_introduce_assert, model="玩法介绍断言")
             self.click_element(roomloc.closeIv,model="关闭玩法介绍")#关闭玩法介绍
         else:
-            pass
+            log.info("无玩法介绍")
+            self.save_webImgs("无玩法介绍")
     
 
     #玩法介绍断言
@@ -973,19 +977,16 @@ class RoomPage(CommonBus):
 
     # 点击游戏
     def click_game(self):
-        self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
-        time.sleep(2)
-        self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
-        game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")
-        try:
-            if self.assert_len(game_assert,dyj=4, model="游戏列表断言"):
-                # self.open_game(gameloc.gold_coin_ferrule,"观战设置",model="金币套圈")
-                pass
-        except:
-            pass
-        finally:
+        if self.is_element_exist(roomloc.iv_game,timeout=1):
+            self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
+            time.sleep(2)
+            self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
+            game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")
+            self.assert_len(game_assert,dyj=4, model="游戏列表断言")
             self.driver.keyevent(4)
-            
+        else:
+            log.info("无游戏入口")
+            self.save_webImgs("无游戏入口")
         
 
     # 打开游戏
@@ -998,9 +999,9 @@ class RoomPage(CommonBus):
 
     # 开黑tay-聊天室-创建队伍
     def click_create_ranks(self):
-        if self.is_element_exist(roomloc.tv_disband):
+        if self.is_element_exist(roomloc.tv_disband,timeout=1):
             self.click_dissolution()
-        if self.is_element_exist(roomloc.tv_create):
+        if self.is_element_exist(roomloc.tv_create,timeout=1):
             self.click_element(roomloc.tv_create,model="点击创建队伍") #点击创建队伍
             self.wait_element_clickable(roomloc.spinner_mode, model="检查模式下拉选择框")
             # self.click_element(roomloc.spinner_mode,model="点击下拉选择框") #点击模式下拉选择框
@@ -1013,7 +1014,7 @@ class RoomPage(CommonBus):
             return mark
         else:
             log.info("该房间无创建队伍按钮")
-            self.save_webImgs(model = "该房间无创建队伍按钮")
+            self.save_webImgs(model = "无创建队伍按钮")
             return False
         
 

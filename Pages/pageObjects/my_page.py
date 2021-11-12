@@ -149,7 +149,7 @@ class MyPage(CommonBus):
     '''我的动态'''
     def my_dynamic(self):
         self.wait_click_element(myloc.meBtn, model="点击我的")
-        self.wait_click_element(myloc.my_dynamic,model="我的动态")
+        self.wait_click_element(myloc.my_dynamic,model="点击我的动态")
         dynamicList = self.public_list(myloc.my_dynamic_list,model="我的动态列表")
         if dynamicList:
             dt_num = random.randint(0,len(dynamicList)-1) 
@@ -161,4 +161,153 @@ class MyPage(CommonBus):
                 return False
 
 
-    
+    '''我的背包'''
+    def my_knapsack(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        self.wait_click_element(myloc.my_knapsack,model="我的背包")
+        self.public_list(myloc.all_gifts_list,model="我的全部礼物列表")
+        self.wait_click_element(myloc.gifts_list, model="装饰")
+        self.public_list(myloc.all_gifts_list,model="装饰列表")
+        self.wait_click_element(myloc.gifts_list, model="道具")
+        self.public_list(myloc.all_gifts_list,model="道具列表")
+        self.wait_click_element(myloc.gifts_list, model="礼物")
+        giftsList = self.public_list(myloc.all_gifts_list,model="礼物列表")
+        if giftsList:
+            self.wait_click_element(myloc.use_now, model="立即使用")
+            self.wait_click_element(roomloc.masterAvatarView,model="顶部礼物入口")
+            self.find_tap(roomloc.knapsack_button, roomloc.gift_button,"背包tap","礼物tap")
+            backpack_gift = self.public_list(myloc.backpack_gift,model="背包礼物列表")
+            if backpack_gift:
+                backpack_gift[len(backpack_gift)-1].click()
+                self.wait_click_element(roomloc.btn_send_gift,model="赠送") #点击赠送
+            else:
+                log.info("背包列表暂无礼物")
+                self.save_webImgs("背包列表暂无礼物")
+            self.driver.press_keycode(4)
+            return self.RoomPage.exit_chat_room() #退出聊天室
+        else:
+            log.info("礼物列表暂无礼物")
+            self.save_webImgs("礼物列表暂无礼物")
+            return False
+
+
+    '''领奖、领取的方法'''
+    def receive_rewards(self,loc,message,model):
+        receive_an_awardList = self.get_elements(loc)
+        number = len(receive_an_awardList) - 1
+        self.click_element_byEle(receive_an_awardList[number],model="点击{}按钮".format(model))
+        receive_an_award = self.get_toast_exist(message,model="{}toast")
+        if receive_an_award and message in receive_an_award:
+            log.info("{}奖励成功".format(model))
+        else:
+            log.info("{}失败".format(model))
+            self.save_webImgs("{}失败".format(model))
+
+    '''奖励中心'''
+    def reward_center(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        self.wait_click_element(myloc.reward_center, model="点击奖励中心")
+        if self.is_element_exist(myloc.receive_an_award):
+            self.receive_rewards(myloc.receive_an_award,"领奖")
+        else:
+            log.info("暂无奖励")
+            self.save_webImgs("暂无奖励")
+
+        if self.is_element_exist(myloc.receive):
+            self.wait_click_element(myloc.receive)
+            self.wait_click_element(myloc.confirm_to_receive)
+            self.wait_click_element(myloc.confirm_to_receive)
+            return True
+        else:
+            self.swipeUp()
+            if self.is_element_exist(myloc.receive):
+                self.wait_click_element(myloc.receive)
+                self.wait_click_element(myloc.confirm_to_receive)
+                self.wait_click_element(myloc.confirm_to_receive)
+                return True
+            else:
+                log.info("暂无可领取")
+                self.save_webImgs("暂无可领取")
+                return False
+
+    '''活动中心'''    
+    def activity_center(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        self.wait_click_element(myloc.activity_center,"活动中心")
+        if self.public_list(myloc.imageView7,"游戏列表",dyj=4):
+            return True
+        else:
+            return False
+
+    '''申请家族'''
+    def application_family(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        self.wait_click_element(myloc.apply_family, model="申请家族")
+        if self.public_list(myloc.my_dynamic_list,"申请家族",dyj=2):
+            return True
+        else:
+            return False
+
+
+
+    '''设置》账号安全'''
+    def account_security(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        self.wait_click_element(myloc.setUpBtn, model="设置")
+        self.wait_click_element(myloc.account_and_security, model="账号与安全")
+        self.update_phone() # 修改手机号
+        self.bind_official_account() # 绑定公众号   
+        self.blacklist() # 黑名单
+        return True
+
+    # 修改手机号
+    def update_phone(self):
+        self.wait_click_element(myloc.layout_bind_phone, model="修改绑定手机")
+        self.wait_click_element(myloc.changePhoneBtn, model="更换绑定手机号")
+        self.assert_true(myloc.get_verification_code,model="更换绑定手机页面断言")
+        self.RoomPage.go_back() #返回
+
+    # 绑定公众号
+    def bind_official_account(self):
+        self.wait_click_element(myloc.bind_official_account, model="绑定公众号")
+        time.sleep(3)
+        # self.wait_element_presence(myloc.rl_root,"绑定公众号页面title")
+        page_source = self.driver.page_source
+        text = "关注公众号"
+        self.assert_in(text, page_source, model="{}".format("绑定公众号页面断言"))
+        self.RoomPage.go_back() #返回
+        
+
+    # 黑名单
+    def blacklist(self):
+        self.wait_click_element(myloc.layout_black_list, model="黑名单")
+        if self.is_element_exist(myloc.blacklist_no_data):
+            log.info("黑名单暂无数据")
+
+
+
+            self.save_webImgs("暂无黑名单人员")
+            self.RoomPage.go_back() #返回
+        elif self.is_element_exist(myloc.blacklist_data):
+            self.public_list(myloc.blacklist_data,"黑名单列表")
+            self.RoomPage.go_back() #返回
+        else:
+            log.error("黑名单页面异常")
+            self.save_webImgs("黑名单页面异常")
+            self.RoomPage.go_back() #返回
+
+
+    '''未成年保护模式'''
+    def protection_of_minors(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        self.wait_click_element(myloc.setUpBtn, model="设置")
+        self.wait_click_element(myloc.protection_of_minors, model="未成年保护")
+        self.wait_click_element(myloc.turn_on_protection, model="开启保护模式")
+        for i in range(1,5):
+            self.driver.press_keycode(int(i)+7)
+        self.wait_click_element(myloc.confirm_button, model="确定按钮")
+        self.wait_click_element(myloc.turn_off_protection, model="关闭未成年保护模式")
+        for i in range(1,5):
+            self.driver.press_keycode(int(i)+7)
+        self.wait_click_element(myloc.confirm_button, model="确定按钮")
+        return True

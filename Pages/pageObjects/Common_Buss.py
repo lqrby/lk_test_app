@@ -170,5 +170,20 @@ class CommonBus(BasePage):
             self.save_webImgs("{}暂无数据".format(model))
             return False
     
-        
+    '''切换tap'''
+    def find_tap(self,find_element,location_element,find_model,location_model,t=500,loop=1):
+        print(find_element,location_element)
+        if self.is_element_exist(find_element) == False:
+            self.wait_element_presence(location_element,model="{}".format(location_model))
+            gift_button = self.get_element(location_element,model="获取{}对象".format(location_model)).get_attribute("bounds")
+            e = self.get_coordinate(gift_button)
+            l = self.driver.get_window_size()
+            x1 = l['width'] * 0.8
+            y1 = e[1]+20
+            x2 = l['width'] * 0.2
+            self.driver.swipe(x1, y1, x2, y1, t)
+            if loop > 0:
+                self.find_tap(find_element,location_element,find_model,location_model,t=t,loop=loop-1)
+        else:
+            self.wait_click_element(find_element,find_model)    
 

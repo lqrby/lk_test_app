@@ -261,7 +261,6 @@ class BasePage:
                 log.exception("元素:{0} 点击事件失败:".format(ele))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
-                # 抛出异常
                 self.exit_and_overRun()
 
     # 获取文本内容
@@ -479,13 +478,13 @@ class BasePage:
             return False
 
     # toast获取
-    def get_toast_msg(self, part_text, model=None):
+    def get_toast_msg(self, part_text, model=None,t=5,s=0.03):
         # xpath表达式
         xpath_loc = '//*[contains(@text,"{}")]'.format(part_text)
         log.info("{0}: 获取toast信息，表达式为：{1}".format(model, xpath_loc))
         try:
             # 等待元素存在
-            WebDriverWait(self.driver, 5, 0.03).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
+            WebDriverWait(self.driver, t, s).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc),model=model).text
         except:
             # 抛异常
@@ -493,15 +492,14 @@ class BasePage:
             self.save_webImgs(model)
             return False
 
-    
 
-    def get_toast_exist(self,message,model=None):
+    def get_toast_exist(self,message,model=None,t=5,s=0.02):
         xpath_loc = '//*[contains(@text,"{}")]'.format(message)
         try:
-            WebDriverWait(self.driver, 8, 0.02).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
+            WebDriverWait(self.driver, t, s).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc),model=model).text
         except:
-            return "获取toast失败"
+            return False #"获取toast失败"
 
     # 列表滑动操作-翻页找其他页面的内容
     def scrollListView(self, text):
@@ -614,8 +612,8 @@ class BasePage:
         self.driver.quit()
 
 
-    def wait_click_element(self,loc,model):
-        if self.wait_element_clickable(loc,model="等待{}".format(model)):
+    def wait_click_element(self,loc,model,timeout=5):
+        if self.wait_element_clickable(loc,timeout=timeout,model="等待{}".format(model)):
             self.click_element(loc,model="点击{}".format(model))
         
     def wait_input_text(self,loc,text,model):

@@ -133,7 +133,7 @@ class LoginPage(CommonBus):
             self.click_element(loc.cb_agreement,model="用户协议勾选框")
         self.click_element(loc.loginBtn, model="点击确定")
         toast = self.get_toast_exist(expected)
-        if expected in toast:
+        if toast and expected in toast:
             log.info("XXXXX账号密码登录失败XXXXX")
             self.save_webImgs(model="账号密码登录失败")
             return False

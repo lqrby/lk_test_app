@@ -288,7 +288,7 @@ class RoomPageLocator:
     #==================================================================
     
     #不同礼物类型的tap按钮
-    gift_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='礼物']") #金币按钮
+    gift_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='礼物']") #礼物tap
     Halloween_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='1']") #万圣节按钮
     lover_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='2']") #七夕按钮
     # lover_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='2']") #七夕按钮
@@ -303,7 +303,8 @@ class RoomPageLocator:
     goldCoins_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='金币']") #金币按钮
     goldCoins_list = (Mb.XPATH,"//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/layout_msg_panel_red_outer']") #金币礼物列表
     goldCoins_balance = (Mb.ID,"com.ourydc.yuebaobao:id/tv_balance") #金币余额
-    knapsack_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='11']") #背包按钮
+    # knapsack_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='11']") #背包按钮
+    knapsack_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='背包']") #背包tap
 
     gift_list = [
         gift_button,Halloween_button,lover_button,year_button,
