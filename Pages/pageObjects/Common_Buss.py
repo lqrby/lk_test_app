@@ -172,8 +172,9 @@ class CommonBus(BasePage):
     
     '''切换tap'''
     def find_tap(self,find_element,location_element,find_model,location_model,t=500,loop=1):
-        print(find_element,location_element)
-        if self.is_element_exist(find_element) == False:
+        if self.is_element_exist(find_element):
+            self.wait_click_element(find_element,find_model) 
+        else:
             self.wait_element_presence(location_element,model="{}".format(location_model))
             gift_button = self.get_element(location_element,model="获取{}对象".format(location_model)).get_attribute("bounds")
             e = self.get_coordinate(gift_button)
@@ -184,6 +185,3 @@ class CommonBus(BasePage):
             self.driver.swipe(x1, y1, x2, y1, t)
             if loop > 0:
                 self.find_tap(find_element,location_element,find_model,location_model,t=t,loop=loop-1)
-        else:
-            self.wait_click_element(find_element,find_model)    
-

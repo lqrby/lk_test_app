@@ -303,7 +303,7 @@ class RoomPageLocator:
     suit_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='8']") #套装按钮
     special_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='9']") #特殊按钮
     
-    goldCoins_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='金币']") #金币按钮
+    goldCoins_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='金币']") #金币tap按钮
     goldCoins_list = (Mb.XPATH,"//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/layout_msg_panel_red_outer']") #金币礼物列表
     goldCoins_balance = (Mb.ID,"com.ourydc.yuebaobao:id/tv_balance") #金币余额
     # knapsack_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='11']") #背包按钮
