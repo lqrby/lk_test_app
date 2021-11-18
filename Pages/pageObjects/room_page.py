@@ -109,17 +109,17 @@ class RoomPage(CommonBus):
         
     #退出聊天室
     def close_room(self):
-        if self.is_element_exist(roomloc.close_room,timeout=3,model="关闭房间元素"):
-            self.click_element(roomloc.close_room,model="点击关闭房间")
-            if self.is_element_exist(roomloc.close_ok):
-                return self.click_element(roomloc.close_ok,model="点击确定")
-            else:
-                return True
-        elif self.wait_element_presence(roomloc.exit_room,timeout=3,model="退出房间"):
+        if self.wait_element_presence(roomloc.exit_room,timeout=3,model="退出房间"):
             self.click_element(roomloc.exit_room,model="点击退出房间")
             res = self.is_element_exist(roomloc.give_up_reward,timeout=3,model="放弃奖励元素")
             if res:
                 return self.click_element(roomloc.give_up_reward,model="点击放弃奖励")
+            else:
+                return True
+        elif self.is_element_exist(roomloc.close_room,timeout=3,model="关闭房间元素"):
+            self.click_element(roomloc.close_room,model="点击关闭房间")
+            if self.is_element_exist(roomloc.close_ok):
+                return self.click_element(roomloc.close_ok,model="点击确定")
             else:
                 return True
             
@@ -168,11 +168,16 @@ class RoomPage(CommonBus):
     def recommend_liveRoom(self):
         self.find_room() #点击房间模块
         self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
-        if self.is_element_exist(roomloc.no_data):
-            log.info("推荐列表暂无数据")
-            self.save_webImgs(model="推荐列表无数据")
-            return {"result":False,"message":"推荐列表暂无数据"}
+        # self.swipeUp(n=3)
+        res = self.is_element_exist(roomloc.chat_room_list)
+        log.info("123=========={}".format(res))
+        if res == False:
+            log.info("推荐列表暂无房间可进入")
+            self.save_webImgs(model="推荐列表暂无房间可进入")
+            return {"result":False,"message":"推荐列表暂无房间可进入"}
+        
         liveRoomList = self.live_room_list(roomloc.chat_room_list) #聊天室列表
+        # print("liveRoomList=====",liveRoomList)
         self.enter_live_room(liveRoomList) #随机进入聊天室
         self.liveRoom() #聊天室内操作
         return {"result":True}
@@ -603,7 +608,7 @@ class RoomPage(CommonBus):
         self.popPage.check_MinorSettings() #检测未成年弹框
         self.swipeDown()
         log.info("刷新列表")
-        room_list =self.get_list(roomloc.room_list_kaiHei,model="开黑聊天室列表") #房间列表
+        room_list =self.get_list(roomloc.chat_room_list,model="开黑聊天室列表") #房间列表
         number = random.randint(0, (len(room_list)-1))
         room_list[number].click()
         self.live_room() #聊天室内操作
@@ -621,18 +626,20 @@ class RoomPage(CommonBus):
         self.find_room() #点击房间模块
         self.room_tap(roomloc.party_tap,model="派对聊天室") #点击派对tap
         self.swipeDown()
-        if self.is_element_exist(roomloc.no_data):
-            log.info("派对列表暂无数据")
-            self.save_webImgs(model="派对列表无数据")
-            return {"result":False,"message":"派对列表暂无数据"}
-        room_list =self.get_list(roomloc.room_list_kaiHei,model="派对聊天室列表") #房间列表
-        number = random.randint(0,(len(room_list)-1))
-        room_list[number].click()
-        self.live_room() #聊天室内公共操作方法
-        self.click_receive() #领取按钮
-        time.sleep(1)
-        exit_res = self.exit_chat_room() #退出聊天室
-        return {"result":exit_res}
+        res = self.is_element_exist(roomloc.chat_room_list)
+        if res:
+            room_list =self.get_list(roomloc.chat_room_list,model="派对聊天室列表") #房间列表
+            number = random.randint(0,(len(room_list)-1))
+            room_list[number].click()
+            self.live_room() #聊天室内公共操作方法
+            self.click_receive() #领取按钮
+            time.sleep(1)
+            exit_res = self.exit_chat_room() #退出聊天室
+            return {"result":exit_res}
+        else:
+            log.info("派对列表暂无可进入的房间")
+            self.save_webImgs(model="派对列表暂无可进入的房间")
+            return {"result":False,"message":"派对列表暂无可进入的房间"}
         
 
 
@@ -641,7 +648,11 @@ class RoomPage(CommonBus):
     '''
     def open_Expansion_room(self):
         self.swipeDown()
-        room_list =self.get_list(roomloc.room_list_kaiHei,model="扩列聊天室列表") #房间列表
+        if self.is_element_exist(roomloc.chat_room_list) == False:
+            log.info("扩列列表暂无可进入的房间")
+            self.save_webImgs(model="扩列列表暂无可进入的房间")
+            return False
+        room_list =self.get_list(roomloc.chat_room_list,model="扩列聊天室列表") #房间列表
         if room_list and len(room_list) > 0:
             number = random.randint(0, (len(room_list)-1))
             room_list[number].click()
@@ -753,6 +764,7 @@ class RoomPage(CommonBus):
         if masterAvatarView:
             self.click_element(roomloc.masterAvatarView,model="点击顶部送礼物入口")#点击礼物入口
             self.gold_reward() #选中金币礼物，赠送金币礼物
+            self.backpack_gift_reward() #背包礼物打赏
             self.look_homeowner_data() #查看房主资料
             return True
         else:
@@ -767,12 +779,21 @@ class RoomPage(CommonBus):
         # self.get_gift_tap() #切换礼物tap，选中礼物，赠送礼物,返回
         # self.click_heat_value() # 房间用户及贵宾席
 
-
+    #背包礼物打赏
+    def backpack_gift_reward(self):
+        self.find_tap(roomloc.knapsack_button, roomloc.gift_button,"背包tap","礼物tap")
+        backpack_gift = self.public_list(roomloc.backpack_gift,model="背包礼物列表")
+        if backpack_gift:
+            backpack_gift[len(backpack_gift)-1].click()
+            self.wait_click_element(roomloc.btn_send_gift,model="赠送") #点击赠送
+        else:
+            log.info("背包列表暂无礼物")
+            self.save_webImgs("背包列表暂无礼物")
+        # self.driver.press_keycode(4)
 
     #金币打赏
     def gold_reward(self):
         self.find_tap(roomloc.goldCoins_button,roomloc.gift_button,"金币tap","礼物tap")
-        # self.wait_click_element(roomloc.goldCoins_button,model="金币tap")
         #先判断金币是否大于等于2
         self.wait_element_presence(roomloc.goldCoins_balance,timeout=4,model="等待金币余额")
         ele = self.get_element(roomloc.goldCoins_balance,model="获取金币余额元素")

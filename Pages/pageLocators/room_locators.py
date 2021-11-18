@@ -49,12 +49,21 @@ class RoomPageLocator:
     # 房间模块
     room_module = (Mb.ID, 'com.ourydc.yuebaobao:id/iv_tab_live') 
     #房间列表元素（聊天室通用元素）
-    chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round']")
+    '''list列表面类型元素'''
+    # 房间list
+    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
+    # chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round'][not(.//@resource-id='com.ourydc.yuebaobao:id/iv_lock')]") 
+    chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round'][not(.//@resource-id='com.ourydc.yuebaobao:id/iv_lock')]") 
     
+    
+    def get_goddess_type(number):
+        goddessType = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label' and @index='{}']".format(number)) 
+        return goddessType
     
     # 密码房间输入框
     room_text = (Mb.ID, 'com.ourydc.yuebaobao:id/container_et') 
     closeRoomText = (Mb.ID, 'com.ourydc.yuebaobao:id/iv_close') 
+    iv_lock = (Mb.ID, 'com.ourydc.yuebaobao:id/iv_lock') 
     
 
 
@@ -101,13 +110,7 @@ class RoomPageLocator:
     speed_dating_tap = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='速配']") 
     
 
-    '''list列表面类型元素'''
-    # 房间list
-    room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
-    room_list_kaiHei = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/iv_room_cover']") 
-    def get_goddess_type(number):
-        goddessType = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label' and @index='{}']".format(number)) 
-        return goddessType
+    
     
     #女神天团标识
     goddess_logo = (Mb.ID, "com.ourydc.yuebaobao:id/svg_chat_room_top") 
@@ -305,6 +308,7 @@ class RoomPageLocator:
     goldCoins_balance = (Mb.ID,"com.ourydc.yuebaobao:id/tv_balance") #金币余额
     # knapsack_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='11']") #背包按钮
     knapsack_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='背包']") #背包tap
+    backpack_gift = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_panel_red_outer') #背包中的礼物列表
 
     gift_list = [
         gift_button,Halloween_button,lover_button,year_button,

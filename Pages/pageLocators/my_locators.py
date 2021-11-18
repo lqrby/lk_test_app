@@ -118,7 +118,7 @@ class MyLocators:
     gifts_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='礼物']")
     prop_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='道具']")
     decorate_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='装饰']")
-    backpack_gift = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_panel_red_outer') #背包中的礼物列表
+    
 
     # 奖励中心
     receive_an_award = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_action' and @text='领奖']") #领奖按钮
@@ -159,6 +159,8 @@ class MyLocators:
     protection_of_minors = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式
     turn_on_protection = (Mb.ID,'com.ourydc.yuebaobao:id/btn_open') #开启保护模式
     password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_1') #密码输入框
+    confirm_password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_2') #确认密码输入框
+    
     confirm_button = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #确定按钮
     # confirm_button = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='确定']") #确定按钮
     turn_off_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='关闭未成年人保护模式']") #关闭保护模式

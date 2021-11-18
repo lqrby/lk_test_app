@@ -175,14 +175,7 @@ class MyPage(CommonBus):
         if giftsList:
             self.wait_click_element(myloc.use_now, model="立即使用")
             self.wait_click_element(roomloc.masterAvatarView,model="顶部礼物入口")
-            self.find_tap(roomloc.knapsack_button, roomloc.gift_button,"背包tap","礼物tap")
-            backpack_gift = self.public_list(myloc.backpack_gift,model="背包礼物列表")
-            if backpack_gift:
-                backpack_gift[len(backpack_gift)-1].click()
-                self.wait_click_element(roomloc.btn_send_gift,model="赠送") #点击赠送
-            else:
-                log.info("背包列表暂无礼物")
-                self.save_webImgs("背包列表暂无礼物")
+            self.RoomPage.backpack_gift_reward() #背包礼物打赏
             self.driver.press_keycode(4)
             return self.RoomPage.exit_chat_room() #退出聊天室
         else:
@@ -296,6 +289,15 @@ class MyPage(CommonBus):
             self.save_webImgs("黑名单页面异常")
             self.RoomPage.go_back() #返回
 
+    # 输入密码
+    def input_password(self):
+        for i in range(1,5):
+            self.driver.press_keycode(int(i)+7)
+        if self.is_element_exist(myloc.confirm_password_input,timeout=1):
+            self.wait_click_element(myloc.confirm_password_input, model="确认密码输入框")
+            for i in range(1,5):
+                self.driver.press_keycode(int(i)+7)
+        self.wait_click_element(myloc.confirm_button, model="确定按钮")
 
     '''未成年保护模式'''
     def protection_of_minors(self):
@@ -303,9 +305,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.setUpBtn, model="设置")
         self.wait_click_element(myloc.protection_of_minors, model="未成年保护")
         self.wait_click_element(myloc.turn_on_protection, model="开启保护模式")
-        for i in range(1,5):
-            self.driver.press_keycode(int(i)+7)
-        self.wait_click_element(myloc.confirm_button, model="确定按钮")
+        self.input_password() # 输入密码
         self.wait_click_element(myloc.turn_off_protection, model="关闭未成年保护模式")
         for i in range(1,5):
             self.driver.press_keycode(int(i)+7)
