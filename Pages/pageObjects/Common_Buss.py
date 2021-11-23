@@ -40,18 +40,15 @@ class CommonBus(BasePage):
 
     
     def get_userStatus(self):
-        try:
             log.info("===========检查用户登录状态========")
-            # self.driver.implicitly_wait(5)
             self.close_page_popUp()
-            self.find_element(loc.dating_module)
-        except NoSuchElementException:
-            log.info("用户未登录")
-            return False
-        else:
-            self.close_page_popUp()
-            return True
-
+            if self.is_element_exist(loc.dating_module):
+                self.close_page_popUp()
+                return True
+            else:
+                log.info("用户未登录")
+                return False    
+        
     # 退出登录
     def login_Out(self):
         self.click_element(my.meBtn, model="点击我的") 
