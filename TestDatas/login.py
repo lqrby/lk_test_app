@@ -9,14 +9,18 @@ FilePath: /lk_test_app/TestDatas/login.py
 ''''''
 '''登录的测试用例'''
 ''' 成功登陆、账号密码正确'''
+import random
+
 login_success = [
     # {"username": "13100000052", "password": "k123456", "expected" : "ok", "check" : True},
     {"username" : "18810798467", "password" : "Ren123456", "expected" : "ok", "check" : True}
 ]
 
 '''错误的密码'''
+phones = ["18810798467","15001200238"]
+phone = random.choice(phones)
 login_error = [
-    {"username" : "18810798467", "password" : "123456gn", "expected" : "账号与密码不匹配", "check" : True},
+    {"username" : phone, "password" : "123456gn", "expected" : "账号与密码不匹配", "check" : True},
     {"username" : "12331054777", "password" : "k121212", "expected" : "账号不存在", "check" : True}
 ]
 

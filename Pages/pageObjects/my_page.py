@@ -201,7 +201,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.reward_center, model="点击奖励中心")
         if self.is_element_exist(myloc.receive_an_award):
-            self.receive_rewards(myloc.receive_an_award,"领奖")
+            self.receive_rewards(myloc.receive_an_award,"领奖","领取奖励")
         else:
             log.info("暂无奖励")
             self.save_webImgs("暂无奖励")

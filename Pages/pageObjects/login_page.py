@@ -1,3 +1,4 @@
+from logging import fatal
 import time, random
 from Common.log import get_logger
 from Pages.pageLocators.login_locators import LoginPageLocator as loc
@@ -105,17 +106,18 @@ class LoginPage(CommonBus):
         self.input_text(loc.username_type, user, model="输入手机号")
         self.input_text(loc.password_type, passwd, model="输入密码")
         checked = self.get_element(loc.cb_agreement,model="获取用户协议勾选状态").get_attribute("checked")
-        print("checked===",checked,type(checked))
         if checked == "false":
             self.click_element(loc.cb_agreement,model="用户协议勾选框")
         self.click_element(loc.loginBtn, model="点击确定")
         toast = self.get_toast_exist(expected)
-        if expected in toast:
+        if toast and expected in toast:
             log.info("XXXXX账号密码登录失败XXXXX")
             self.save_webImgs(model="账号密码登录失败")
             return True
         else:
             return False
+        
+
         
 
     '''正确的手机号密码登录'''

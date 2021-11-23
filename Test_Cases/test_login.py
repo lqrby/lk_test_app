@@ -25,7 +25,7 @@ class Test_Login:
             4.输入错误的手机号密码点击“登录”按钮
         '''
         login_page = LoginPage(start_app)
-        actual = login_page.login_mobile_passWord(errorData["username"], errorData["password"],errorData["expected"])
+        actual = login_page.error_mobile_passWord(errorData["username"], errorData["password"],errorData["expected"])
         with allure.step("手机号密码登录测试用例"):
             try:
                 assert actual == errorData["check"]
@@ -147,3 +147,6 @@ class Test_Login:
 
 if __name__ == '__main__':
     pytest.main()
+
+
+ 
