@@ -69,7 +69,7 @@ class TestRoomMakeFriends:
         liveRoomMum = room_page.found_minNest_room()
         with allure.step("@创建小窝类型的聊天室@"):
             try:
-                assert liveRoomMum != False
+                assert liveRoomMum == True
                 log.info("创建小窝类型的聊天室断言成功")
             except AssertionError as a:
                 log.error("创建小窝类型的聊天室断言失败")

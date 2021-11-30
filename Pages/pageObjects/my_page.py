@@ -49,18 +49,10 @@ class MyPage(CommonBus):
         self.RoomPage.my_information() #我的资料 
         return True
 
-    def audit_status(self,loc,model):
-        mark = self.is_clickable(loc)
-        if mark == False:
-            log.info(model)
-            self.save_webImgs(model)
-            return False
-        else:
-            return True
 
     '''修改昵称'''
     def updeta_nickname(self,nicknames):
-        if self.audit_status(myloc.v_nick,"昵称审核中"):
+        if self.is_clickable(myloc.v_nick,model="昵称"):
             #修改昵称
             self.wait_click_element(myloc.v_nick,model="昵称") #点击昵称
             nickname = random.choice(nicknames)
@@ -70,36 +62,46 @@ class MyPage(CommonBus):
             nickname_toast = self.get_toast_msg(part_text,model="保存昵称toast")
             if nickname_toast:
                 log.info("toast===={}".format(nickname_toast))
-                time.sleep(5)
-                if self.audit_status(myloc.v_nick,"昵称审核中"):
+                time.sleep(8)
+                if self.is_clickable(myloc.v_nick,model="昵称"):
                     self.click_element(myloc.v_nick,model="点击昵称")
                     self.wait_element_presence(myloc.et_nick,model="等待昵称输入框")
                     nicknameText = self.get_text(myloc.et_nick,model="获取昵称文本")
                     if nicknameText == nickname:
                         log.info("修改昵称断言成功")
+                        return True
                     else:
                         log.info("修改昵称断言失败")
                         self.save_webImgs("修改昵称断言失败")
-                    self.wait_click_element(myloc.tv_cancel,model="取消按钮")
+                        return False
+                else:
+                    log.info("昵称审核中!")
+                    self.save_webImgs("昵称审核中")
+                    return False
+                # self.wait_click_element(myloc.tv_cancel,model="取消按钮")
             else:
                 log.info("toast===={}".format(nickname_toast))
                 self.save_webImgs("保存昵称失败")
+        else:
+            self.save_webImgs("昵称审核中")
+            return False
+
 
     '''修改签名'''
     def updeta_autograph(self,autographs):
-        if self.audit_status(myloc.v_describe,"签名审核中"):
+        if self.is_clickable(myloc.v_describe,model="签名"):
             #修改签名
-            self.wait_click_element(myloc.v_describe,"我的签名")
+            self.wait_click_element(myloc.v_describe,model="我的签名")
             autograph = random.choice(autographs)
-            self.wait_input_text(myloc.et_nick, autograph, "我的签名")
-            self.click_element(myloc.tv_save,"点击保存按钮")
+            self.wait_input_text(myloc.et_nick, autograph, model="我的签名")
+            self.click_element(myloc.tv_save,model="点击保存按钮")
             part_text = "保存成功"
             autograph_toast = self.get_toast_msg(part_text,model="保存签名toast")
             if autograph_toast:
                 log.info("toast===={}".format(autograph_toast))
                 time.sleep(5)
-                if self.audit_status(myloc.v_describe,"签名审核中"):
-                    self.click_element(myloc.v_describe,"点击签名")
+                if self.is_clickable(myloc.v_describe,model="签名"):
+                    self.click_element(myloc.v_describe,model="点击签名")
                     self.wait_element_presence(myloc.et_nick,model="等待签名输入框")
                     autographText = self.get_text(myloc.et_nick,model="获取签名文本")
                     if autographText == autograph:
@@ -121,7 +123,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="点击我的")
         self.wait_click_element(myloc.iv_edit,model="编辑资料入口")
         self.updeta_nickname(myProfileData["nickname"]) #修改昵称
-        self.updeta_autograph(myProfileData["autograph"]) #修改签名
+        # self.updeta_autograph(myProfileData["autograph"]) #修改签名
             # # self.RoomPage.go_back() #返回
         return True
  
@@ -131,17 +133,17 @@ class MyPage(CommonBus):
     """
     def myFriend_whoLookMe_partyFootprints(self):
         self.wait_click_element(myloc.meBtn, model="点击我的")
-        self.wait_click_element(myloc.v_user_friends,"我的好友") 
-        self.wait_click_element(myloc.tv_title_one,"关注") 
+        self.wait_click_element(myloc.v_user_friends,model="我的好友") 
+        self.wait_click_element(myloc.tv_title_one,model="关注") 
         self.public_list(myloc.avatar,"关注",dyj=1)
-        self.wait_click_element(myloc.tv_title_two,"粉丝") 
+        self.wait_click_element(myloc.tv_title_two,model="粉丝") 
         self.public_list(myloc.avatar,"粉丝",dyj=1)
-        self.wait_click_element(myloc.tv_title_three,"好友") 
+        self.wait_click_element(myloc.tv_title_three,model="好友") 
         self.public_list(myloc.avatar,"好友",dyj=1)
         self.RoomPage.go_back()
-        self.public_list(myloc.v_look_me,myloc.iv_head,"谁看过我")
+        self.public_list(myloc.v_look_me,myloc.iv_head,model="谁看过我")
         self.RoomPage.go_back()
-        self.public_list(myloc.v_footprint,myloc.iv_room_head,"派对足迹")
+        self.public_list(myloc.v_footprint,myloc.iv_room_head,model="派对足迹")
         return True   
 
 
@@ -205,29 +207,26 @@ class MyPage(CommonBus):
         else:
             log.info("暂无奖励")
             self.save_webImgs("暂无奖励")
-
         if self.is_element_exist(myloc.receive):
-            self.wait_click_element(myloc.receive)
-            self.wait_click_element(myloc.confirm_to_receive)
-            self.wait_click_element(myloc.confirm_to_receive)
+            self.wait_click_element(myloc.receive, model='领取按钮')
+            self.wait_click_element(myloc.receive_ok,model="点击确定")
             return True
         else:
             self.swipeUp()
             if self.is_element_exist(myloc.receive):
-                self.wait_click_element(myloc.receive)
-                self.wait_click_element(myloc.confirm_to_receive)
-                self.wait_click_element(myloc.confirm_to_receive)
+                self.wait_click_element(myloc.receive, model='领取按钮')
+                self.wait_click_element(myloc.receive_ok,model="点击确定")
                 return True
             else:
                 log.info("暂无可领取")
-                self.save_webImgs("暂无可领取")
+                self.save_webImgs(model="暂无可领取")
                 return False
 
     '''活动中心'''    
     def activity_center(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.activity_center,"活动中心")
-        if self.public_list(myloc.imageView7,"游戏列表",dyj=4):
+        if self.public_list(myloc.imageView7,model="游戏列表",dyj=4):
             return True
         else:
             return False
@@ -236,7 +235,7 @@ class MyPage(CommonBus):
     def application_family(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.apply_family, model="申请家族")
-        if self.public_list(myloc.my_dynamic_list,"申请家族",dyj=2):
+        if self.public_list(myloc.my_dynamic_list,model="申请家族",dyj=2):
             return True
         else:
             return False
@@ -267,7 +266,7 @@ class MyPage(CommonBus):
         # self.wait_element_presence(myloc.rl_root,"绑定公众号页面title")
         page_source = self.driver.page_source
         text = "关注公众号"
-        self.assert_in(text, page_source, model="{}".format("绑定公众号页面断言"))
+        self.assert_in(text, page_source, model="绑定公众号页面断言")
         self.RoomPage.go_back() #返回
         
 
@@ -282,11 +281,11 @@ class MyPage(CommonBus):
             self.save_webImgs("暂无黑名单人员")
             self.RoomPage.go_back() #返回
         elif self.is_element_exist(myloc.blacklist_data):
-            self.public_list(myloc.blacklist_data,"黑名单列表")
+            self.public_list(myloc.blacklist_data,model="黑名单列表")
             self.RoomPage.go_back() #返回
         else:
             log.error("黑名单页面异常")
-            self.save_webImgs("黑名单页面异常")
+            self.save_webImgs(model="黑名单页面异常")
             self.RoomPage.go_back() #返回
 
     # 输入密码
@@ -303,11 +302,26 @@ class MyPage(CommonBus):
     def protection_of_minors(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.setUpBtn, model="设置")
+        text = ""
+        state = self.is_element_exist(myloc.on_state)
+        if state:
+            text = self.get_text(myloc.on_state,model="开启状态")
         self.wait_click_element(myloc.protection_of_minors, model="未成年保护")
-        self.wait_click_element(myloc.turn_on_protection, model="开启保护模式")
-        self.input_password() # 输入密码
-        self.wait_click_element(myloc.turn_off_protection, model="关闭未成年保护模式")
-        for i in range(1,5):
-            self.driver.press_keycode(int(i)+7)
-        self.wait_click_element(myloc.confirm_button, model="确定按钮")
-        return True
+        if text == "未开启":
+            self.wait_click_element(myloc.turn_on_protection, model="开启保护模式")
+            self.input_password() # 输入密码
+            self.wait_click_element(myloc.turn_off_protection, model="关闭保护模式")
+            for i in range(1,5):
+                self.driver.press_keycode(int(i)+7)
+            self.wait_click_element(myloc.confirm_button, model="确定按钮")
+            return True
+        elif text == "已开启":
+            self.wait_click_element(myloc.turn_off_protection, model="关闭保护模式")
+            for i in range(1,5):
+                self.driver.press_keycode(int(i)+7)
+            self.wait_click_element(myloc.confirm_button, model="确定按钮")
+            return True
+        else:
+            log.info("出问题啦！也不知道什么状态")
+            self.save_webImgs("未成年保护不知道什么状态")
+            return False

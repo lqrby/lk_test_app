@@ -202,7 +202,7 @@ class BasePage:
     # 点击操作
     def click_element(self, loc, model=None):
         time.sleep(1)
-        if EC.element_to_be_clickable(loc) and self.is_enabled(loc,model="是否可点击"):
+        if EC.element_to_be_clickable(loc) and self.isEnabled(loc,model="是否可点击"):
             # 找到元素
             ele = self.get_element(loc, model=model)
             try:
@@ -230,19 +230,21 @@ class BasePage:
                 self.save_webImgs(model)
                 return False
             
-    def is_enabled(self,loc,model=None):
-        ele = self.get_element(loc,model=model)
-        if ele:
+    def isEnabled(self,loc,model=None):
+        if self.is_element_exist(loc):
+            ele = self.get_element(loc,model=model)
             return ele.is_enabled()
         else:
             return False
     
     # 判断元素是否可点击
-    def is_clickable(self, loc):
-        if EC.element_to_be_clickable(loc) and self.is_enabled(loc):
-            return True
-        else:
+    def is_clickable(self, loc, model):
+        try:
+            if EC.element_to_be_clickable(loc) and self.isEnabled(loc,model=model):
+                return True
+        except:
             return False
+                
 
     # 点击操作
     def click_element_byEle(self, ele, model=None):
@@ -499,7 +501,7 @@ class BasePage:
             WebDriverWait(self.driver, t, s).until(EC.presence_of_element_located((MobileBy.XPATH, xpath_loc)))
             return self.get_element((MobileBy.XPATH, xpath_loc),model=model).text
         except:
-            return False #"获取toast失败"
+            return "" #"获取toast失败"
 
     # 列表滑动操作-翻页找其他页面的内容
     def scrollListView(self, text):

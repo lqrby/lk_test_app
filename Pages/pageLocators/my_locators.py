@@ -70,7 +70,8 @@ class MyLocators:
     # 设置
     protector_head = (Mb.ID,'com.ourydc.yuebaobao:id/iv_protector_head') 
     # 编辑资料页我的昵称
-    v_nick = (Mb.ID,'com.ourydc.yuebaobao:id/v_nick') 
+    v_nick = (Mb.ID,'com.ourydc.yuebaobao:id/v_nick')  
+    nick_name_text = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/v_nick']/child::com.ourydc.yuebaobao:id/tv_content")
     # 我的昵称,签名输入框
     et_nick = (Mb.ID,'com.ourydc.yuebaobao:id/et_nick') 
     # 审核中
@@ -123,6 +124,8 @@ class MyLocators:
     # 奖励中心
     receive_an_award = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_action' and @text='领奖']") #领奖按钮
     receive = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") #领取按钮
+    receive_ok = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='确定']") #领取按钮
+
 
     #活动中心
     imageView7 = (Mb.ID,'com.ourydc.yuebaobao:id/imageView7') #活动中心游戏列表
@@ -157,13 +160,15 @@ class MyLocators:
 
 
     protection_of_minors = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式
+    # on_state = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_child_model']/child::com.ourydc.yuebaobao:id/tv_content")
+    on_state = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_child_model']//node()[contains(@resource-id,'com.ourydc.yuebaobao:id/tv_content')]")
     turn_on_protection = (Mb.ID,'com.ourydc.yuebaobao:id/btn_open') #开启保护模式
     password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_1') #密码输入框
     confirm_password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_2') #确认密码输入框
     
     confirm_button = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #确定按钮
     # confirm_button = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='确定']") #确定按钮
-    turn_off_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='关闭未成年人保护模式']") #关闭保护模式
+    turn_off_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_open' and @text='关闭保护模式']") #关闭保护模式
 
     message_settings = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_setting') #消息设置
     currency = (Mb.ID,'com.ourydc.yuebaobao:id/layout_common_use') #通用

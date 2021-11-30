@@ -47,7 +47,7 @@ class RoomPage(CommonBus):
         self.room_label() #房间标签
         self.room_name() #输入房间话题
         if self.entry_room(): #点击确认创建房间按钮
-            self.assert_true(roomloc.ignore1,model="创建萌新接待聊天室")
+            self.assert_true(roomloc.ignore1,model="创建房间id")
             self.exit_chat_room() #退出聊天室
             return True
         else:
@@ -109,7 +109,7 @@ class RoomPage(CommonBus):
         
     #退出聊天室
     def close_room(self):
-        if self.wait_element_presence(roomloc.exit_room,timeout=3,model="退出房间"):
+        if self.is_element_exist(roomloc.exit_room,timeout=3,model="退出房间"):
             self.click_element(roomloc.exit_room,model="点击退出房间")
             res = self.is_element_exist(roomloc.give_up_reward,timeout=3,model="放弃奖励元素")
             if res:
@@ -167,7 +167,9 @@ class RoomPage(CommonBus):
     '''
     def recommend_liveRoom(self):
         self.find_room() #点击房间模块
-        self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
+        blackTap = self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
+        if blackTap == False:
+            return {"result":True,"message":"暂无推荐tap"}
         # self.swipeUp(n=3)
         res = self.is_element_exist(roomloc.chat_room_list)
         log.info("123=========={}".format(res))
@@ -604,7 +606,7 @@ class RoomPage(CommonBus):
         self.find_room() #点击房间模块
         blackTap = self.room_tap(roomloc.open_black_tap,model="开黑tap") #点击开黑tap
         if blackTap == False:
-            return {"result":False,"message":"暂无开黑tap"}
+            return {"result":True,"message":"暂无开黑tap"}
         self.popPage.check_MinorSettings() #检测未成年弹框
         self.swipeDown()
         log.info("刷新列表")
@@ -624,7 +626,9 @@ class RoomPage(CommonBus):
     '''
     def open_party_room(self):
         self.find_room() #点击房间模块
-        self.room_tap(roomloc.party_tap,model="派对聊天室") #点击派对tap
+        blackTap = self.room_tap(roomloc.party_tap,model="派对聊天室") #点击派对tap
+        if blackTap == False:
+            return {"result":True,"message":"暂无开黑tap"}
         self.swipeDown()
         res = self.is_element_exist(roomloc.chat_room_list)
         if res:
