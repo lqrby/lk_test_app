@@ -182,3 +182,8 @@ class CommonBus(BasePage):
             self.driver.swipe(x1, y1, x2, y1, t)
             if loop > 0:
                 self.find_tap(find_element,location_element,find_model,location_model,t=t,loop=loop-1)
+
+    #退出app，结束程序运行
+    def exit_and_overRun(self):
+        self.driver.close_app()
+        self.driver.quit()

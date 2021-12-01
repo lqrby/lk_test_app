@@ -10,6 +10,7 @@ import allure
 import pytest
 from Common.log import get_logger
 from Pages.pageObjects.room_page import RoomPage
+from Pages.pageObjects.square_page import SquarePage
 from Pages.pageObjects.Common_Buss import CommonBus as  Cb
  
 
@@ -90,21 +91,7 @@ class TestHomeMakeFriends:
                 raise
 
     
-    '''附近动态'''  
-    @pytest.mark.success
-    @allure.story('首页-附近动态')
-    @allure.title('首页-附近动态')           
-    def test_nearbyDynamics(self, startApp_keepUserData):
-        log.info("************首页---附近动态---*************")
-        room_page = RoomPage(startApp_keepUserData)
-        nearby_dynamics = room_page.nearby_dynamics()
-        with allure.step("查看附近动态"):
-            try:
-                assert len(nearby_dynamics) > 0
-                log.info("查看附近动态断言成功")
-            except AssertionError as a:
-                log.error("查看附近动态断言失败")
-                raise
+    
 
     
 
