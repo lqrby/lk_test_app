@@ -60,8 +60,6 @@ class Test_my:
             raise
 
 
-
-            
     @pytest.mark.success
     @allure.story('我的')
     @allure.title('我的背包用例')

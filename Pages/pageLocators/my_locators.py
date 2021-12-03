@@ -60,8 +60,6 @@ class MyLocators:
     activity_center = (Mb.ID, "com.ourydc.yuebaobao:id/v_activity") 
     # 申请家族
     apply_family = (Mb.ID, "com.ourydc.yuebaobao:id/v_family") 
-    # 申请家族
-    apply_family = (Mb.ID, "com.ourydc.yuebaobao:id/v_family") 
     # 设置
     setUpBtn=(Mb.ID,'com.ourydc.yuebaobao:id/v_setting') 
     
@@ -101,7 +99,7 @@ class MyLocators:
 
     # 谁看过我列表元素
     iv_head = (Mb.ID,'com.ourydc.yuebaobao:id/iv_head') 
-    # 派对足迹
+    # 派对足迹列表
     iv_room_head = (Mb.ID,'com.ourydc.yuebaobao:id/iv_room_head') 
 
 

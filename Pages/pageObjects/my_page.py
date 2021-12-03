@@ -141,9 +141,11 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.tv_title_three,model="好友") 
         self.public_list(myloc.avatar,"好友",dyj=1)
         self.RoomPage.go_back()
-        self.public_list(myloc.v_look_me,myloc.iv_head,model="谁看过我")
+        self.wait_click_element(myloc.v_look_me,model="谁看过我")
+        self.public_list(myloc.iv_head,model="谁看过我列表")
         self.RoomPage.go_back()
-        self.public_list(myloc.v_footprint,myloc.iv_room_head,model="派对足迹")
+        self.wait_click_element(myloc.v_footprint,model="派对足迹")
+        self.public_list(myloc.iv_room_head,model="派对足迹")
         return True   
 
 
@@ -205,8 +207,8 @@ class MyPage(CommonBus):
         if self.is_element_exist(myloc.receive_an_award):
             self.receive_rewards(myloc.receive_an_award,"领奖","领取奖励")
         else:
-            log.info("暂无奖励")
-            self.save_webImgs("暂无奖励")
+            log.info("暂无可领奖")
+            self.save_webImgs("暂无可领奖")
         if self.is_element_exist(myloc.receive):
             self.wait_click_element(myloc.receive, model='领取按钮')
             self.wait_click_element(myloc.receive_ok,model="点击确定")
@@ -245,6 +247,8 @@ class MyPage(CommonBus):
     '''设置》账号安全'''
     def account_security(self):
         self.wait_click_element(myloc.meBtn, model="我的")
+        if self.is_element_exist(myloc.setUpBtn) == False:
+           self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
         self.wait_click_element(myloc.account_and_security, model="账号与安全")
         self.update_phone() # 修改手机号
@@ -301,6 +305,8 @@ class MyPage(CommonBus):
     '''未成年保护模式'''
     def protection_of_minors(self):
         self.wait_click_element(myloc.meBtn, model="我的")
+        if self.is_element_exist(myloc.setUpBtn) == False:
+           self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
         text = ""
         state = self.is_element_exist(myloc.on_state)

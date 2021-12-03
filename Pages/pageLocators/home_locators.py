@@ -24,6 +24,7 @@ class HomePageLocator:
     
     
     
+    
     # ###########################哩咔首页交友模块元素定位结束##########################
     # tv_play = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_play']") # 发现》点击开播用户
     # tv_close = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/des']") # 发现》点击未播用户

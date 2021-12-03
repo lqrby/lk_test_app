@@ -53,7 +53,6 @@ class RoomPage(CommonBus):
         else:
             return False
 
-        # self.driver.press_keycode(4)
 
     #===================================开小窝/萌新接待房间子方法======================================     
     #创建聊天室入口
@@ -172,7 +171,6 @@ class RoomPage(CommonBus):
             return {"result":True,"message":"暂无推荐tap"}
         # self.swipeUp(n=3)
         res = self.is_element_exist(roomloc.chat_room_list)
-        log.info("123=========={}".format(res))
         if res == False:
             log.info("推荐列表暂无房间可进入")
             self.save_webImgs(model="推荐列表暂无房间可进入")
@@ -209,39 +207,6 @@ class RoomPage(CommonBus):
         return self.exit_chat_room() #退出聊天室
         
 
-    # def liveRoom(self):
-    #     if self.is_element_exist(roomloc.tv_queue,timeout=3): #队列
-    #         log.info("进入了开黑聊天室")
-    #         self.live_room()
-    #         self.click_rankingList(roomloc.ranking_list) #排行榜
-    #         self.createRanks_and_dissolution() #创建队伍并解散队伍
-    #         return self.exit_chat_room() #退出聊天室
-    #     elif self.is_element_exist(roomloc.ranking_kuoLie,timeout=1): #扩列排行榜入口
-    #         log.info("进入了扩列聊天室")
-    #         self.live_room()
-    #         self.click_rankingList(roomloc.ranking_list) #扩列排行榜
-    #         # self.diamond_cash_back() #钻石返现-断言-返回
-    #         return self.exit_chat_room() #退出聊天室
-    #     elif self.is_element_exist(roomloc.head_picture,timeout=1): #头像
-    #         log.info("进入了萌新接待聊天室")
-    #         self.live_room()
-    #         return self.exit_chat_room() #退出聊天室
-    #     elif self.is_element_exist(roomloc.receive_identifying,timeout=1): #领取
-    #         log.info("进入了派对聊天室")
-    #         self.live_room()
-    #         self.click_rankingList(roomloc.ranking_list) #排行榜
-    #         self.click_receive() #领取按钮
-    #         #幸运福袋
-    #         self.click_introduce() #点击玩法介绍，关闭玩法介绍（包括断言）
-    #         return self.exit_chat_room() #退出聊天室
-    #     else:
-    #         log.info("进入了其它类型聊天室")
-    #         # self.save_webImgs(model="其它类型聊天室")
-    #         self.live_room()
-    #         return self.exit_chat_room() #退出聊天室
-        
-
-    
     '''
     点击未开播的用户
     功能:发现列表-查看用户资料用例
@@ -292,22 +257,6 @@ class RoomPage(CommonBus):
         self.click_exhibition_wall() #展墙tap
         self.login_Out() #退出登录
         return True
-    
-    # 我的资料（我的模块）
-    def my_information(self):
-        # self.wait_element_presence(roomloc.tv_nick,model="我的昵称")
-        # self.assert_true(roomloc.tv_nick, model="断言我的昵称") #资料tap-断言昵称
-        # self.follow() #关注
-        # self.click_more() #点击更多
-        # self.more_share() #断言分享更多
-        # self.cancel_follow() #取消关注
-        self.guardian() #守护者
-        self.swipeUp() #向上滑动
-        time.sleep(1)
-        self.click_material() #资料tap
-        self.click_dynamic() #动态tap
-        self.click_exclusive_guard() #守护tap
-        self.click_exhibition_wall() #展墙tap
     
     
     '''
@@ -553,7 +502,7 @@ class RoomPage(CommonBus):
             toastMsg = self.get_toast_msg(cancelToast, model="取消关注成功的toast")  
             self.assert_in(cancelToast, toastMsg, model="取消关注") #取消关注断言
         else:
-            pass
+            self.driver.keyevent(4)
 
     
     #更多"..."
@@ -598,7 +547,6 @@ class RoomPage(CommonBus):
         self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
 
 
-
     '''
     功能:进入开黑聊天室
     '''
@@ -619,7 +567,6 @@ class RoomPage(CommonBus):
         exit_res = self.exit_chat_room() #退出聊天室
         return {"result":exit_res}
         
-
 
     '''
     功能:进入派对聊天室
@@ -645,7 +592,6 @@ class RoomPage(CommonBus):
             self.save_webImgs(model="派对列表暂无可进入的房间")
             return {"result":False,"message":"派对列表暂无可进入的房间"}
         
-
 
     '''
     功能:进入扩列聊天室
@@ -866,7 +812,7 @@ class RoomPage(CommonBus):
 
     #资料内点击关注
     def follow_ta(self):
-        if self.is_clickable(roomloc.attentionBtn):
+        if self.is_clickable(roomloc.attentionBtn,model="关注"):
             self.click_element(roomloc.attentionBtn,model="点击关注") # 点击关注
         else:
             pass
@@ -987,18 +933,15 @@ class RoomPage(CommonBus):
 
     # #点击麦下
     def click_wheat_lower(self):
-        # time.sleep(1)
-        # self.click_wheatList()
         self.click_element(roomloc.layout_people,model="点击麦下") #点击麦下
         time.sleep(1)
         self.click_element(roomloc.layout_people,model="点击麦下") #点击麦下
         time.sleep(1)
-        # self.click_wheatList()
     
 
     # 点击麦下用户列表
     def click_wheatList(self):
-        if self.is_clickable(roomloc.iv_head_view):
+        if self.is_clickable(roomloc.iv_head_view,model="麦下列表"):
             self.click_element(roomloc.iv_head_view,model="点击麦下收缩列表") #点击麦下收缩列表
             time.sleep(3)
             self.driver.keyevent(4)
@@ -1072,91 +1015,8 @@ class RoomPage(CommonBus):
             pass
     
 
-    '''
-    附近动态流程
-    '''
-    def nearby_dynamics(self):
-        self.nearby_dynamics_tap() #点击附近动态tap进入列表页
-        time.sleep(2)
-        self.swipeDown() #刷新
-        time.sleep(2)
-        nearby_dynamicsList = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
-        self.spot_fabulous() #点赞
-        self.click_follow() #关注
-        self.click_more() #点击更多
-        self.reportBtn() #举报
-        self.assert_true(roomloc.commitBtn,model="举报断言") #举报断言
-        self.go_back() #返回详情页
-        self.go_back_list() #返回列表页
-        return nearby_dynamicsList
-        
-
-
-
-    #附近动态tap
-    def nearby_dynamics_tap(self):
-        self.wait_element_clickable(roomloc.tv_content,model="附近动态按钮是否可点击")
-        self.click_element(roomloc.tv_content,model="点击附近动态tap")
-
-
-    #附近动态列表-进入动态详情
-    def nearby_dynamics_list(self):
-        nearbyDynamicsList = self.is_element_exist(roomloc.nearby_dynamics_list)
-        if nearbyDynamicsList == True:
-            nearby_dynamicsList = self.get_elements(roomloc.nearby_dynamics_list,model="获取动态列表") 
-            log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
-            dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
-            log.info("点击第{}个动态查看详情".format(dt_num))
-            nearby_dynamicsList[dt_num].click()
-            self.wait_element_presence(roomloc.iv_prise,model="动态详情页的点赞")
-            self.assert_true(roomloc.iv_prise,model="动态详情")
-            return nearby_dynamicsList
-        else:
-            nearbyDynamicsList2 = self.is_element_exist(roomloc.nearby_dynamics_list2) 
-            if nearbyDynamicsList2 == True:
-                nearby_dynamicsList = self.get_elements(roomloc.nearby_dynamics_list2,model="获取动态列表") 
-                log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
-                dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
-                log.info("点击第{}个动态查看详情".format(dt_num))
-                nearby_dynamicsList[dt_num].click()
-                self.wait_element_presence(roomloc.iv_prise,model="动态详情页的点赞")
-                self.assert_true(roomloc.iv_prise,model="动态详情")
-                return nearby_dynamicsList
-            else:
-                log.info("动态列表暂无数据")
-                self.save_webImgs("动态列表暂无数据")
-                return False
-
-
-
-    #点赞
-    def spot_fabulous(self):
-        if self.is_clickable(roomloc.iv_prise):
-            time.sleep(1)
-            self.click_element(roomloc.iv_prise,model="点击点赞")
-        else:
-            log.info("已点过赞了")
 
     
-    #关注
-    def click_follow(self):
-        if self.is_clickable(roomloc.follow):
-            time.sleep(1)
-            self.click_element(roomloc.follow,model="点击关注")
-            gz_toast = "已关注"
-            followSuccess = self.get_toast_msg(gz_toast, model="关注成功的toast")
-            self.assert_in(gz_toast, followSuccess, model="关注用户") #断言关注
-        else:
-            pass
-
-    #举报
-    def reportBtn(self):
-        self.wait_element_clickable(roomloc.reportBtn,model="举报按钮是否可点击")
-        self.click_element(roomloc.reportBtn,model="点击举报按钮")
-        time.sleep(1)
 
 
-    #退出app，结束程序运行
-    def exit_and_overRun(self):
-        self.driver.close_app()
-        self.driver.quit()
+    
