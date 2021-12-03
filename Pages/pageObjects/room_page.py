@@ -257,6 +257,20 @@ class RoomPage(CommonBus):
         self.click_exhibition_wall() #展墙tap
         self.login_Out() #退出登录
         return True
+
+        
+    def my_information(self): #查看我的资料
+        self.wait_element_presence(roomloc.tv_nick_name,model="我的昵称")
+        self.assert_true(roomloc.tv_nick_name, model="断言我的昵称") #资料tap-断言昵称
+        self.guardian() #守护者
+        self.swipeUp() #向上滑动
+        time.sleep(1)
+        self.click_material() #资料tap
+        self.click_dynamic() #动态tap
+        self.click_exclusive_guard() #守护tap
+        self.click_exhibition_wall() #展墙tap
+        # self.login_Out() #退出登录
+        return True
     
     
     '''

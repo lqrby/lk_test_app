@@ -239,6 +239,7 @@ class RoomPageLocator:
     nearby_people = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='附近的人']") # 附近的人按钮
     cc_layout = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/cc_layout']") # 附近的人列表元素
     tv_nick = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick') #昵称
+    tv_nick_name = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick_name') #我的昵称
     say_hello = (Mb.ID, "com.ourydc.yuebaobao:id/btn_chat") # 打招呼元素
     more_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/view_share']") #更多列表
     cancel_follow = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='取消关注']") #取消关注

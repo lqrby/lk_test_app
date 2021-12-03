@@ -173,4 +173,8 @@ class MyLocators:
     cash_capacity_management = (Mb.ID,'com.ourydc.yuebaobao:id/layout_money_setting') #钞能力管理
     speed_chat_room = (Mb.ID,'com.ourydc.yuebaobao:id/conciseLayout') #聊天室极速模式
     about_lika = (Mb.ID,'com.ourydc.yuebaobao:id/layout_about_lika') #关于哩咔
+
+    tv_nick_name = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick_name') #我的昵称
+
+
     
