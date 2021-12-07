@@ -21,8 +21,12 @@ class SquareLocators:
     iv_prise = (Mb.ID, "com.ourydc.yuebaobao:id/tv_praise") #点赞
     follow = (Mb.ID, "com.ourydc.yuebaobao:id/btn_attention") # 关注用户元素
     tvnick = (Mb.ID, "com.ourydc.yuebaobao:id/tv_nick") # 昵称
-    tv_content = (Mb.ID, "com.ourydc.yuebaobao:id/tv_content") # 昵称
-    nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_nickname']") # 附近动态列表元素
+    tv_content = (Mb.ID, "com.ourydc.yuebaobao:id/tv_content") #动态列表
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/viewpager']/descendant::com.ourydc.yuebaobao:id/tv_content") # 附近动态列表元素
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content']/parent::com.ourydc.yuebaobao:id/rcv") # 附近动态列表元素
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/descendant::com.ourydc.yuebaobao:id/tv_content") # 附近动态列表元素
+
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_nickname']") # 附近动态列表元素
     nearby_dynamics_list2 = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tag_name']") # 附近动态*人参与
     all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/mvp") #全部模式（聊天室的一个蒙层）
     reportBtn = (Mb.ID,"com.ourydc.yuebaobao:id/tv") #举报

@@ -21,16 +21,13 @@ class SquarePage(CommonBus):
     '''
     def nearby_dynamics(self):
         self.wait_click_element(squareloc.square_module,model="广场模块")
-        # self.nearby_dynamics_tap() #点击附近动态tap进入列表页
-        # time.sleep(2)
-        # self.swipeDown() #刷新
         time.sleep(2)
         nearby_dynamicsList = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
         self.spot_fabulous() #点赞
         self.click_follow() #关注
         self.roomPage.click_more() #点击更多
-        self.roomPage.reportBtn() #举报
-        self.assert_true(roomloc.commitBtn,model="举报断言") #举报断言
+        self.reportBtn() #举报
+        self.assert_true(squareloc.commitBtn,model="举报断言") #举报断言
         self.roomPage.go_back() #返回详情页
         self.roomPage.go_back_list() #返回列表页
         return nearby_dynamicsList
@@ -40,18 +37,23 @@ class SquarePage(CommonBus):
 
     #附近动态tap
     def nearby_dynamics_tap(self):
-        self.wait_element_clickable(roomloc.tv_content,model="附近动态按钮是否可点击")
-        self.click_element(roomloc.tv_content,model="点击附近动态tap")
+        self.wait_element_clickable(roomloc.tv_content,model="关注按钮是否可点击")
+        self.click_element(roomloc.tv_content,model="点击关注tap")
 
 
     #附近动态列表-进入动态详情
     def nearby_dynamics_list(self):
-        nearbyDynamicsList = self.is_element_exist(squareloc.tv_content)
+        nearbyDynamicsList = self.is_element_exist(squareloc.nearby_dynamics_list)
+        print(nearbyDynamicsList)
         if nearbyDynamicsList == True:
-            nearby_dynamicsList = self.get_elements(squareloc.tv_content,model="获取动态列表") 
+            nearby_dynamicsList = self.get_elements(squareloc.nearby_dynamics_list,model="获取动态列表") 
             log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
             dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
             log.info("点击第{}个动态查看详情".format(dt_num))
+            # print(66666)
+            # dynamicsList = nearby_dynamicsList[dt_num]
+            time.sleep(3)
+            # dynamicsList.click()
             nearby_dynamicsList[dt_num].click()
             time.sleep(3)
             self.wait_element_presence(squareloc.tvnick,model="动态详情页的昵称")

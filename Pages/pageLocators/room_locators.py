@@ -120,6 +120,7 @@ class RoomPageLocator:
     '''房间内部元素'''
     goddess_type = (Mb.ID, "com.ourydc.yuebaobao:id/iv_check_all") # 全麦
     masterAvatarView = (Mb.ID,'com.ourydc.yuebaobao:id/masterAvatarView') #礼物入口弹框1
+    v_empty_avatar = (Mb.ID,'com.ourydc.yuebaobao:id/v_empty_avatar') #礼物入口弹框(不同)
     tv_heat = (Mb.ID,'com.ourydc.yuebaobao:id/tv_heat') # 房间热度值2
     follow = (Mb.ID,'com.ourydc.yuebaobao:id/attentionIv') # 关注
     ranking_kuoLie = (Mb.ID,'com.ourydc.yuebaobao:id/layout_chat_room_income') #扩列-排行榜

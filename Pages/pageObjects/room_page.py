@@ -724,7 +724,11 @@ class RoomPage(CommonBus):
         '''
     #礼物顶部入口
     def gift_entrance_top(self):
-        masterAvatarView = self.wait_element_presence(roomloc.masterAvatarView,timeout=5,model="顶部送礼物入口")
+        masterAvatarView = ""
+        if self.is_element_exist(roomloc.masterAvatarView):
+            masterAvatarView = self.wait_element_presence(roomloc.masterAvatarView,timeout=5,model="顶部送礼物入口")
+        else:
+            masterAvatarView = self.wait_element_presence(roomloc.v_empty_avatar,timeout=5,model="顶部送礼物入口")
         if masterAvatarView:
             self.click_element(roomloc.masterAvatarView,model="点击顶部送礼物入口")#点击礼物入口
             self.gold_reward() #选中金币礼物，赠送金币礼物
