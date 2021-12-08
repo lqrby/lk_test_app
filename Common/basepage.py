@@ -539,11 +539,11 @@ class BasePage:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.presence_of_element_located(loc))
             return True
         except:
-            if self.get_getWebState() == 6:
-                self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
-            if self.check_page_popUp():
-                return self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
-            else:
+            # if self.get_getWebState() == 6:
+            #     self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
+            # if self.check_page_popUp():
+            #     return self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
+            # else:
                 return False
         
 
