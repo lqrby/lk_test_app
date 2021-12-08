@@ -1,21 +1,3 @@
-'''
-Author: your name
-Date: 2021-09-06 15:59:48
-LastEditTime: 2021-11-02 14:12:23
-LastEditors: Please set LastEditors
-Description: In User Settings Edit
-FilePath: /lk_test_app/Pages/pageLocators/my_locators.py
-'''
-'''
-@File    :  my_locators.py    
-@Contact :  fangfang.song@asiainnovations.com
-
-@Modify Time    2021/4/1 9:29 下午    
-@Author  :  songfang  
-@Version :  1.0
-@Desciption : 
-'''
-
 from appium.webdriver.common.mobileby import MobileBy as Mb
 
 
@@ -81,8 +63,6 @@ class MyLocators:
     # 点击我的签名
     v_describe = (Mb.ID,'com.ourydc.yuebaobao:id/v_describe') 
 
-
-    
     # 我的好友
     # 关注
     tv_title_one = (Mb.ID,'com.ourydc.yuebaobao:id/tv_title_one') 
