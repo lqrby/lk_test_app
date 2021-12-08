@@ -201,20 +201,20 @@ class BasePage:
 
     # 点击操作
     def click_element(self, loc, model=None):
-        time.sleep(1)
-        if EC.element_to_be_clickable(loc) and self.isEnabled(loc,model="是否可点击"):
-            # 找到元素
-            ele = self.get_element(loc, model=model)
-            try:
+        
+        try:
+            if EC.element_to_be_clickable(loc) and self.isEnabled(loc,model="是否可点击"):
+                # 找到元素
+                ele = self.get_element(loc, model=model)
+                time.sleep(1)
                 ele.click()
                 return True
-            except:
-                # 捕获异常到日志中；
-                log.exception("点击事件异常:{0}".format(loc))
+            else:
+                log.exception("点击元素:{0} 点击失败".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
-                self.exit_and_overRun()
-        else:
+                return False
+        except:
             if self.get_getWebState() == 6:
                 return self.click_element(loc, model=model)
             item = self.check_page_popUp()

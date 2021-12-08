@@ -437,7 +437,7 @@ class RoomPage(CommonBus):
         self.wait_click_element(roomloc.gift_wall, model="礼物展墙")
         if self.is_element_exist(roomloc.giftWallList):
             giftWallList = self.get_elements(roomloc.giftWallList,model="获取礼物展墙列表")
-            self.assert_len(giftWallList, dyj=1, model="礼物墙展墙列表断言")
+            self.assert_len(giftWallList, dyj=1, model="礼物展墙列表断言")
             # self.light_up() #点亮墙展礼物
             self.go_back()
         else:
@@ -752,6 +752,7 @@ class RoomPage(CommonBus):
         self.find_tap(roomloc.knapsack_button, roomloc.gift_button,"背包tap","礼物tap")
         backpack_gift = self.public_list(roomloc.backpack_gift,model="背包礼物列表")
         if backpack_gift:
+            time.sleep(5)
             backpack_gift[len(backpack_gift)-1].click()
             self.wait_click_element(roomloc.btn_send_gift,model="赠送") #点击赠送
         else:

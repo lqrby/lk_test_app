@@ -272,7 +272,8 @@ class RoomPageLocator:
     masonry_list = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/avatar']") #展墙》贡献榜》钻石榜列表、魅力榜列表、守护榜列表通用
     #---礼物展墙---
     gift_wall = (Mb.ID,'com.ourydc.yuebaobao:id/click_gift') #礼物展墙
-    giftWallList = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout']") #礼物列表
+    # giftWallList = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout']") #礼物展墙列表
+    giftWallList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_profile_red_envelope']") #礼物展墙列表
     giftWallNameList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_name']") #礼物名字列表
     giftWallNumberList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_num']") #礼物列表
     Diamond_number_text = (Mb.ID,'com.ourydc.yuebaobao:id/tv_content') #确定弹窗中text
@@ -357,8 +358,8 @@ class RoomPageLocator:
     tv_content = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='附近动态']") # 附近动态按钮
     
     
-    nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_nickname']") # 附近动态列表元素
-    nearby_dynamics_list2 = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tag_name']") # 附近动态*人参与
+    # nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_nickname']") # 附近动态列表元素
+    # nearby_dynamics_list2 = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tag_name']") # 附近动态*人参与
     # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']") # 附近动态列表元素
     # nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/layout_dynamic']/child::com.ourydc.yuebaobao:id/tv_content") # 装扮展墙礼物列表
     iv_prise = (Mb.ID, "com.ourydc.yuebaobao:id/iv_prise") #点赞

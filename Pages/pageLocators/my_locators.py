@@ -113,6 +113,7 @@ class MyLocators:
 
     #我的背包
     all_gifts_list = (Mb.ID,'com.ourydc.yuebaobao:id/cl') #全部礼物列表
+    all_gifts = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_panel_red_outer') #背包tap下礼物列表
     use_now = (Mb.ID,'com.ourydc.yuebaobao:id/tv_btn4') #立即使用
     gifts_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='礼物']")
     prop_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='道具']")
