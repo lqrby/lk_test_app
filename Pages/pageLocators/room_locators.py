@@ -273,7 +273,8 @@ class RoomPageLocator:
     #---礼物展墙---
     gift_wall = (Mb.ID,'com.ourydc.yuebaobao:id/click_gift') #礼物展墙
     # giftWallList = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout']") #礼物展墙列表
-    giftWallList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_profile_red_envelope']") #礼物展墙列表
+    # giftWallList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_profile_red_envelope']") #礼物展墙列表 com.ourydc.yuebaobao:id/layout_gift
+    giftWallList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.widget.RelativeLayout") #礼物展墙列表 
     giftWallNameList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_name']") #礼物名字列表
     giftWallNumberList = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_num']") #礼物列表
     Diamond_number_text = (Mb.ID,'com.ourydc.yuebaobao:id/tv_content') #确定弹窗中text
