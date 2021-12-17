@@ -767,8 +767,7 @@ class RoomPage(CommonBus):
         self.find_tap(roomloc.goldCoins_button,roomloc.gift_button,"金币tap","礼物tap")
         #先判断金币是否大于等于2
         self.wait_element_presence(roomloc.goldCoins_balance,timeout=4,model="等待金币余额")
-        ele = self.get_element(roomloc.goldCoins_balance,model="获取金币余额元素")
-        text = ele.text
+        text = self.get_element_attribute(roomloc.goldCoins_balance,"text",model="获取金币余额元素")
         number = int(text[3:])
         if number >= 2:
             self.wait_element_presence(roomloc.goldCoins_list,model="金币礼物列表加载")
@@ -882,28 +881,28 @@ class RoomPage(CommonBus):
             log.info("点击排行榜======{}".format(result))
             self.click_element(roomloc.ranking_list,model="点击排行榜") #点击排行榜
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-日榜") #断言
-            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
             time.sleep(2)
+            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
             self.click_element(roomloc.tv_title_week, model="点击周榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-周榜") #断言
-            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
             time.sleep(2)
+            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
             self.click_element(roomloc.tv_title_yue, model="点击月榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-月榜") #断言
-            self.wait_element_clickable(roomloc.popularity_list, model="等待人气榜可点击")
             time.sleep(2)
+            self.wait_element_clickable(roomloc.popularity_list, model="等待人气榜可点击")
             self.click_element(roomloc.popularity_list,model="点击人气榜") #点击人气榜
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-日榜") #断言
-            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
             time.sleep(2)
+            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
             self.click_element(roomloc.tv_title_week, model="点击周榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-周榜") #断言
-            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
             time.sleep(2)
+            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
             self.click_element(roomloc.tv_title_yue, model="点击月榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-月榜") #断言
-            self.wait_element_clickable(roomloc.guardian_list, model="等待守护榜可点击")
             time.sleep(2)
+            self.wait_element_clickable(roomloc.guardian_list, model="等待守护榜可点击")
             self.click_element(roomloc.guardian_list,model="点击守护榜") #点击守护榜
             self.rankingList_assert(roomloc.day_week_month_assert2,model="守护榜") #断言
             self.go_back() #返回

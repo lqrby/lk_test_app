@@ -617,7 +617,7 @@ class BasePage:
         self.driver.quit()
 
 
-    def wait_click_element(self,loc,model,timeout=5):
+    def wait_click_element(self,loc,model,timeout=8):
         if self.wait_element_clickable(loc,timeout=timeout,model="等待{}".format(model)):
             self.click_element(loc,model="点击{}".format(model))
         

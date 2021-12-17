@@ -179,6 +179,7 @@ class MyPage(CommonBus):
         if giftsList:
             self.wait_click_element(myloc.use_now, model="立即使用")
             self.wait_click_element(roomloc.masterAvatarView,model="顶部礼物入口")
+            time.sleep(5)
             self.RoomPage.backpack_gift_reward() #背包礼物打赏
             self.driver.press_keycode(4)
             return self.RoomPage.exit_chat_room() #退出聊天室
@@ -236,7 +237,7 @@ class MyPage(CommonBus):
     '''申请家族'''
     def application_family(self):
         self.wait_click_element(myloc.meBtn, model="我的")
-        self.wait_click_element(myloc.apply_family, model="申请家族")
+        self.wait_click_element(myloc.apply_family, model="申请家族",timeout=10)
         if self.public_list(myloc.my_dynamic_list,model="申请家族",dyj=2):
             return True
         else:

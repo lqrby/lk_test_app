@@ -32,14 +32,10 @@ class SquarePage(CommonBus):
         self.roomPage.go_back_list() #返回列表页
         return nearby_dynamicsList
         
-
-
-
     #附近动态tap
     def nearby_dynamics_tap(self):
         self.wait_element_clickable(roomloc.tv_content,model="关注按钮是否可点击")
         self.click_element(roomloc.tv_content,model="点击关注tap")
-
 
     #附近动态列表-进入动态详情
     def nearby_dynamics_list(self):
@@ -86,10 +82,6 @@ class SquarePage(CommonBus):
             self.click_element(squareloc.iv_prise,model="点击点赞")
         else:
             log.info("已点过赞了")
-        # else:
-        #     self.save_webImgs("无法点赞")
-        #     log.error("无法点赞，请查找问题")
-
 
     
     #关注
