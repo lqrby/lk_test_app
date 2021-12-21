@@ -198,7 +198,7 @@ class RoomPage(CommonBus):
 
     def liveRoom(self):
         self.live_room()
-        if self.is_element_exist(roomloc.ranking_list,timeout=1): #是否有排行榜
+        if self.is_element_exist(roomloc.ranking_list,timeout=5): #是否有排行榜
             self.click_rankingList(roomloc.ranking_list) #排行榜
         self.createRanks_and_dissolution() #创建队伍并解散队伍
         self.click_receive() #领取按钮
@@ -435,16 +435,32 @@ class RoomPage(CommonBus):
     #====================礼物展墙================
     def gift_wall(self):
         self.wait_click_element(roomloc.gift_wall, model="礼物展墙")
-        if self.is_element_exist(roomloc.giftWallList):
+        giftwaill = self.is_element_exist(roomloc.giftWallList)
+        log.info("是否存在==={}".format(giftwaill))
+        if giftwaill:
+            log.info(666666666666666666666666)
             giftWallList = self.get_elements(roomloc.giftWallList,model="获取礼物展墙列表")
-            self.assert_len(giftWallList, dyj=0, model="礼物展墙列表断言")
-            # self.light_up() #点亮墙展礼物
-            self.go_back()
+            bool = self.assert_len(giftWallList, dyj=0, model="礼物展墙列表断言")
+            if bool:
+                # self.light_up() #点亮墙展礼物
+                log.info("展墙列表有点亮的礼物")
+                self.go_back()
+            else:
+                log.info("展墙列表没有点亮的礼物")
+                self.driver.press_keycode(4)
+                self.go_back()
         else:
-            log.info("礼物展墙暂无点亮的礼物")
+            log.info("礼物展墙暂无点亮的礼物999999999999999999999999")
             self.save_webImgs(model="礼物展墙暂无点亮的礼物")
             self.driver.press_keycode(4)
+            time.sleep(2)
             self.go_back()
+            if self.is_element_exist(roomloc.War_wall_list):
+                log.info("终于出来了")
+                pass
+            else:
+                log.info("又出不去唠")
+                self.go_back()
 
     #====================装扮展墙================
     def Dress_wall(self):
@@ -555,7 +571,7 @@ class RoomPage(CommonBus):
         if self.is_element_exist(roomloc.all_mode,timeout=3):
             self.driver.press_keycode(4)
         self.exist_be_click(roomloc.follow,model="关注")#点击关注
-        self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天等
+        self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天，金币打赏，背包小花打赏等
         # self.gift_entrance_bottom() # 底部礼物入口》切换礼物tap，选中礼物，赠送礼物,返回，房间用户及贵宾席
         self.click_game() #点击游戏并断言
         self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
@@ -765,10 +781,11 @@ class RoomPage(CommonBus):
     #金币打赏
     def gold_reward(self):
         self.find_tap(roomloc.goldCoins_button,roomloc.gift_button,"金币tap","礼物tap")
+        # self.wait_click_element(roomloc.closeRoomText,model="关闭绘制图案")
         #先判断金币是否大于等于2
         self.wait_element_presence(roomloc.goldCoins_balance,timeout=4,model="等待金币余额")
         text = self.get_element_attribute(roomloc.goldCoins_balance,"text",model="获取金币余额元素")
-        number = int(text[3:])
+        number = float(text[4:-1])
         if number >= 2:
             self.wait_element_presence(roomloc.goldCoins_list,model="金币礼物列表加载")
             goldCoinsList = self.get_elements(roomloc.goldCoins_list,model="获取金币礼物列表元素")
