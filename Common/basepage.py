@@ -542,9 +542,8 @@ class BasePage:
             if self.get_getWebState() == 6:
                 log.info("断网重连ok")
                 self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
-            pagepop = self.check_page_popUp()
-            if pagepop:
-                log.info("关闭了{}弹窗".format(pagepop))
+            elif self.check_page_popUp():
+                log.info("关闭了弹窗")
                 return self.is_element_exist(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
                 return False
@@ -592,7 +591,6 @@ class BasePage:
                 except:
                     os.popen("adb shell input keyevent 4")
 
-    
     def check_page_popUp(self):
         time.sleep(2)
         source = self.driver.page_source

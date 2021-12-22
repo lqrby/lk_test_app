@@ -434,11 +434,9 @@ class RoomPage(CommonBus):
     
     #====================礼物展墙================
     def gift_wall(self):
-        self.wait_click_element(roomloc.gift_wall, model="礼物展墙")
-        giftwaill = self.is_element_exist(roomloc.giftWallList)
-        log.info("是否存在==={}".format(giftwaill))
+        self.wait_click_element(roomloc.gift_wall, model="礼物展墙") #点击礼物展墙
+        giftwaill = self.is_element_exist(roomloc.giftWallList) #礼物展墙列表是否存在
         if giftwaill:
-            log.info(666666666666666666666666)
             giftWallList = self.get_elements(roomloc.giftWallList,model="获取礼物展墙列表")
             bool = self.assert_len(giftWallList, dyj=0, model="礼物展墙列表断言")
             if bool:
@@ -450,16 +448,15 @@ class RoomPage(CommonBus):
                 self.driver.press_keycode(4)
                 self.go_back()
         else:
-            log.info("礼物展墙暂无点亮的礼物999999999999999999999999")
+            log.info("礼物展墙暂无点亮的礼物")
             self.save_webImgs(model="礼物展墙暂无点亮的礼物")
             self.driver.press_keycode(4)
             time.sleep(2)
             self.go_back()
             if self.is_element_exist(roomloc.War_wall_list):
-                log.info("终于出来了")
                 pass
             else:
-                log.info("又出不去唠")
+                log.info("见鬼了")
                 self.go_back()
 
     #====================装扮展墙================

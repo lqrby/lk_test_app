@@ -104,7 +104,8 @@ class MyLocators:
     receive_an_award = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_action' and @text='领奖']") #领奖按钮
     receive = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") #领取按钮
     receive_ok = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='确定']") #领取按钮
-
+    # #立即签到
+    sign_in = (Mb.ID, "com.ourydc.yuebaobao:id/button")
 
     #活动中心
     imageView7 = (Mb.ID,'com.ourydc.yuebaobao:id/imageView7') #活动中心游戏列表

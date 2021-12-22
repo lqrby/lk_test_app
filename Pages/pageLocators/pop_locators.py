@@ -78,8 +78,8 @@ class PopUpLocator:
     #全部模式(聊天室弹出加入队伍弹窗)
     close_all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/scroll_view")
 
-    #立即签到
-    sign_in = (Mb.ID, "com.ourydc.yuebaobao:id/button")
+    # #立即签到
+    # sign_in = (Mb.ID, "com.ourydc.yuebaobao:id/button")
 
     #奖励中心-确定领取按钮
     confirm_to_receive = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='确定']")
@@ -93,7 +93,7 @@ class PopUpLocator:
     popList = [
         close_back, iv_cancel, setting_minors, order_now,close_broadcast,skip,
         give_up_reward,say_hello,call_permission,iv_close,cancel_close,agree,
-        close_microphone,take_pat,sign_in
+        close_microphone,take_pat
         ]
 
     # popList = [closeInvitInRoom[1], closeGameInvit[1], skipAD[1], allowpop1[1], allowpop2[1], onlyappallow[1],
