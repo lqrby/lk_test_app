@@ -98,6 +98,7 @@ class MyLocators:
     gifts_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='礼物']")
     prop_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='道具']")
     decorate_list = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='装饰']")
+    sweet_flower = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gift_name' and @text='甜蜜小花']")
     
 
     # 奖励中心

@@ -132,15 +132,21 @@ class RoomPage(CommonBus):
 
     #聊天室列表
     def live_room_list(self,room_list_elements):
-        self.wait_element_presence(room_list_elements,model="等待聊天室列表")
-        room_list_elements = self.get_elements(room_list_elements,model="获取聊天室列表")
-        if len(room_list_elements) > 0:
-            log.info("聊天室列表数据有{}条".format(len(room_list_elements)))
+        roomList = False
+        if self.is_element_exist(room_list_elements,model="聊天室列表元素是否存在"):
+            # self.wait_element_presence(room_list_elements,model="等待聊天室列表")
+            roomList = self.get_elements(room_list_elements,model="获取聊天室列表")
+            # if len(roomList) > 0:
+            #     log.info("聊天室列表数据有{}条".format(len(roomList)))
+            #     mark = True
+            # else:
+            #     log.info("暂无聊天室")
+            #     self.save_webImgs(model="暂无聊天室")
         else:
             log.info("暂无聊天室")
             self.save_webImgs(model="暂无聊天室")
         self.popPage.check_goddess_Popup() #关闭女神引导弹窗
-        return room_list_elements
+        return roomList
     
 
     #进入聊天室内
@@ -191,10 +197,13 @@ class RoomPage(CommonBus):
         self.close_page_popUp()
         self.swipeDown()
         time.sleep(3)
-        playList = self.live_room_list(roomloc.tv_play)  
-        self.enter_live_room(playList) #随机进入聊天室
-        self.liveRoom()
-        return True
+        playList = self.live_room_list(roomloc.tv_play) 
+        if playList:
+            self.enter_live_room(playList) #随机进入聊天室
+            self.liveRoom()
+            return True
+        else:
+            return False
 
     def liveRoom(self):
         self.live_room()

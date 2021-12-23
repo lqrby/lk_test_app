@@ -158,6 +158,7 @@ class CommonBus(BasePage):
     
     # 列表长度及断言
     def public_list(self,list_loc,model=None,dyj=0):
+        log.info("元素是======={}".format(list_loc))
         if self.is_element_exist(list_loc,timeout=8):
             avatars = self.get_elements(list_loc,model="获取{}".format(model))  
             time.sleep(1)
