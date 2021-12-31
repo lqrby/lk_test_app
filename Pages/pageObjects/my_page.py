@@ -3,6 +3,8 @@ from Pages.pageObjects.Common_Buss import CommonBus
 from Pages.pageLocators.my_locators import MyLocators as myloc
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
 from Pages.pageObjects.room_page import RoomPage
+from Pages.pageObjects.square_page import SquarePage
+from TestDatas.my import commentData,dynamicData
 from Common.log import get_logger
 log = get_logger(logger_name="首页操作日志")
 
@@ -11,7 +13,7 @@ class MyPage(CommonBus):
     def __init__(self,driver):
         self.driver = driver
         self.RoomPage = RoomPage(self.driver)
-
+        self.SquarePage = SquarePage(self.driver)
     
     '''点击我的头像'''
     def click_head_portrait(self):
@@ -153,16 +155,58 @@ class MyPage(CommonBus):
     '''我的动态'''
     def my_dynamic(self):
         self.wait_click_element(myloc.meBtn, model="点击我的")
-        self.wait_click_element(myloc.my_dynamic,model="点击我的动态")
+        self.wait_click_element(myloc.my_dynamic,model="我的动态")
+        self.wait_click_element(myloc.btn_submit,model="发布动态")
+        self.input_text(myloc.et_content,random.choice(dynamicData),model="输入发布动态内容")
+        self.wait_click_element(myloc.iv_extra,model="发布")
+        expected_text = "发送动态成功"
+        Prompttext = self.get_toast_msg(expected_text,model="获取发布动态提示语")
+        if expected_text in Prompttext:
+            log.info("动态成功")
+        else:
+            log.exception("获取发布动态toast失败")
+            self.save_webImgs("发布动态失败")
+        self.swipeDown()
+        time.sleep(2)
         dynamicList = self.public_list(myloc.my_dynamic_list,model="我的动态列表")
         if dynamicList:
             dt_num = random.randint(0,len(dynamicList)-1) 
             log.info("点击第{}个动态查看详情".format(dt_num + 1))
             dynamicList[dt_num].click()
-            if self.is_element_exist(myloc.tv_read_count):
-                return True
+            time.sleep(2)
+            self.SquarePage.spot_fabulous() #点赞
+            self.input_text(myloc.comment_input,text=random.choice(commentData),model="评论输入框")
+            time.sleep(1)
+            self.wait_click_element(myloc.sendButton,model="点击发送按钮")
+            mark = "评论成功"
+            msg = self.get_toast_msg(mark,model="获取发送消息后的toast消息")
+            if mark in msg:
+                log.info("评论动态成功")
+                # self.RoomPage.go_back()
             else:
-                return False
+                log.exception("获取发送消息toast失败")
+                self.save_webImgs("发送消息失败")
+                # self.RoomPage.go_back()
+            return self.delete_dynamic() #删除动态
+        else:
+            log.info("动态列表赞无数据")
+            self.save_webImgs("动态列表赞无数据")
+            return False
+            
+    def delete_dynamic(self):
+        self.RoomPage.click_more() #点击更多
+        self.wait_click_element(myloc.deleteButton,model="删除")
+        deletemark = "删除成功"
+        deletemsg = self.get_toast_msg(deletemark,model="获取删除动态后的toast消息")
+        if deletemark in deletemsg:
+            log.info("删除动态成功")
+            # self.RoomPage.go_back()
+            return True
+        else:
+            log.exception("获取删除动态toast失败")
+            self.save_webImgs("删除动态失败")
+            return False
+
 
 
     '''我的背包'''
@@ -177,16 +221,23 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.gifts_list, model="礼物")
         giftsList = self.public_list(myloc.all_gifts_list,model="礼物列表")
         if giftsList:
-            self.wait_click_element(myloc.use_now, model="立即使用")
-            self.wait_click_element(roomloc.masterAvatarView,model="顶部礼物入口")
-            time.sleep(5)
-            self.RoomPage.backpack_gift_reward() #背包礼物打赏
-            self.driver.press_keycode(4)
-            return self.RoomPage.exit_chat_room() #退出聊天室
+            return True
         else:
-            log.info("礼物列表暂无礼物")
-            self.save_webImgs("礼物列表暂无礼物")
             return False
+        # sweetflower = self.public_list(myloc.sweet_flower,model="甜蜜小花列表")
+        # if sweetflower:
+        #     i = len(sweetflower)-1
+        #     sweetflower[i].click() 
+        #     self.wait_click_element(myloc.use_now, model="立即使用")
+        #     self.wait_click_element(roomloc.masterAvatarView,model="顶部礼物入口")
+        #     time.sleep(5)
+        #     self.RoomPage.backpack_gift_reward() #背包礼物打赏
+        #     self.driver.press_keycode(4)
+        #     return self.RoomPage.exit_chat_room() #退出聊天室
+        # else:
+        #     log.info("礼物列表暂无甜蜜小花礼物")
+        #     self.save_webImgs("礼物列表暂无甜蜜小花礼物")
+        #     return False
 
 
     '''领奖、领取的方法'''
@@ -205,8 +256,13 @@ class MyPage(CommonBus):
     def reward_center(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.reward_center, model="点击奖励中心")
+        time.sleep(2)
         if self.is_element_exist(myloc.sign_in,timeout=8):
             self.click_element(myloc.sign_in)
+        time.sleep(3)
+        if self.is_element_exist(myloc.sign_in,timeout=8):
+            self.click_element(myloc.sign_in)
+        time.sleep(2)
         if self.is_element_exist(myloc.receive_an_award):
             self.receive_rewards(myloc.receive_an_award,"领奖","领取奖励")
         else:
@@ -231,7 +287,8 @@ class MyPage(CommonBus):
     def activity_center(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.activity_center,"活动中心")
-        if self.public_list(myloc.imageView7,model="游戏列表",dyj=4):
+        giftarr = self.public_list(myloc.onlineRecycle,model="已上线游戏列表",dyj=0)
+        if giftarr:
             return True
         else:
             return False
@@ -240,7 +297,7 @@ class MyPage(CommonBus):
     def application_family(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.apply_family, model="申请家族",timeout=10)
-        if self.public_list(myloc.my_dynamic_list,model="申请家族",dyj=2):
+        if self.public_list(myloc.application_family,model="申请家族列表",dyj=2):
             return True
         else:
             return False
@@ -282,9 +339,6 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.layout_black_list, model="黑名单")
         if self.is_element_exist(myloc.blacklist_no_data):
             log.info("黑名单暂无数据")
-
-
-
             self.save_webImgs("暂无黑名单人员")
             self.RoomPage.go_back() #返回
         elif self.is_element_exist(myloc.blacklist_data):
@@ -334,3 +388,82 @@ class MyPage(CommonBus):
             log.info("出问题啦！也不知道什么状态")
             self.save_webImgs("未成年保护不知道什么状态")
             return False
+
+    # '''我的等级流程'''
+    # def my_level(self):
+    #     self.wait_click_element(myloc.meBtn, model="我的")
+    #     self.wait_click_element(myloc.my_level,model="我的等级")
+    #     '''H5页面'''
+
+
+
+    '''设置-关于哩咔'''
+    def about_lika(self):
+        self.wait_click_element(myloc.meBtn, model="我的")
+        if self.is_element_exist(myloc.setUpBtn) == False:
+           self.swipeUp()
+        self.wait_click_element(myloc.setUpBtn, model="设置")
+        self.wait_click_element(myloc.about_lika,model="关于哩咔")
+        # self.check_version() #检查最新版本
+        # self.page_assertion(myloc.layout_about,"客服邮箱",model="关于我们") #关于我们
+        # self.page_assertion(myloc.layout_privacy,"平台经营者",model="隐私政策") #隐私政策
+        self.help_center() 
+        return True
+        
+    #检查更新
+    def check_version(self):
+        self.wait_click_element(myloc.checkVersion,model="检查更新")
+        version = "当前已是最新版本"
+        checkVersion = self.get_toast_msg(version,model="检查版本")
+        if version in checkVersion:
+            pass
+        else:
+            self.wait_click_element(myloc.update_later,model="稍后更新")
+            log.info("点击稍后更新")
+
+
+    #页面断言公共通用
+    def page_assertion(self,pageloc,assertText,model=None):
+        self.wait_click_element(pageloc,model=model)
+        time.sleep(5)
+        # log.info(self.driver.page_source)
+        if assertText in self.driver.page_source:
+            log.info("{}断言通过".format(model))
+            self.RoomPage.go_back()
+        else:
+            log.info("{}断言错误".format(model))
+            self.save_webImgs("{}断言失败".format(model))
+            time.sleep(1)
+            self.RoomPage.go_back()
+    
+    #帮助中心
+    def help_center(self):
+        self.wait_click_element(myloc.layout_helper,model="帮助中心")
+        for itemLoc in myloc.problem_classification:
+            self.wait_click_element(itemLoc[0],model=itemLoc[1])
+            time.sleep(2)
+            classification_list = self.get_elements(myloc.classification_list,model=itemLoc[1])
+            number = random.randint(0,len(classification_list)-1)
+            classification_list[number].click()
+            time.sleep(2)
+            if "未解决你的问题" in self.driver.page_source:
+                # log.info("{}断言通过".format(model))
+                self.RoomPage.go_back()
+            else:
+                log.info("{}断言错误".format(itemLoc[1]))
+                self.save_webImgs("{}断言失败".format(itemLoc[1]))
+                time.sleep(1)
+                self.RoomPage.go_back()
+            time.sleep(1)
+            self.RoomPage.go_back()
+            # contexts = self.driver.contexts
+            # log.info("contexts========{}".format(contexts))
+            # self.RoomPage.go_back()
+        # contexts = self.driver.contexts
+        # log.info("contexts========{}".format(contexts))
+        # webview_name = ""
+        # self.switch_webview()
+        '''web页面'''
+
+    
+        

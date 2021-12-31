@@ -32,3 +32,6 @@ class SquareLocators:
     all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/mvp") #全部模式（聊天室的一个蒙层）
     reportBtn = (Mb.ID,"com.ourydc.yuebaobao:id/tv") #举报
     commitBtn = (Mb.ID,"com.ourydc.yuebaobao:id/btn_commit") #提交按钮
+
+    square_attention = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='关注']") # 附近动态*人参与
+    

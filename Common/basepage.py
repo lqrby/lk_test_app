@@ -9,7 +9,7 @@ from Common.log import get_logger
 from Pages.pageLocators.pop_locators import PopUpLocator
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from appium.webdriver.connectiontype import ConnectionType
-log = get_logger(logger_name="基础类")
+log = get_logger(logger_name="基础类操作日志")
 from Common import splicing
 
 
@@ -200,8 +200,7 @@ class BasePage:
                 self.exit_and_overRun()
 
     # 点击操作
-    def click_element(self, loc, model=None):
-        
+    def click_element(self, loc, model=None, loop = 1):
         try:
             if EC.element_to_be_clickable(loc) and self.isEnabled(loc,model="是否可点击"):
                 # 找到元素
@@ -226,9 +225,12 @@ class BasePage:
             else:
                 # 捕获异常到日志中；
                 log.exception("点击元素:{0} 点击事件失败".format(loc))
+                if loop > 0:
+                    self.click_element(loc, model=model,loop = loop-1)
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model)
-                return False
+                else:
+                    self.save_webImgs(model)
+                    return False
             
     def isEnabled(self,loc,model=None):
         if self.is_element_exist(loc):
@@ -325,7 +327,7 @@ class BasePage:
             log.info("截屏成功。图片路径为{0}".format(img_path))
 
     # webview切换
-    def switch_webview(self, webview_name, timeout=30, poll_frequency=0.5, model=None):
+    def switch_webview(self, webview_name, timeout=20, poll_frequency=0.5, model=None):
         # 等待webview元素出现
         loc = (MobileBy.CLASS_NAME, "android..webview")
         WebDriverWait(self.driver, 20).until(EC.visibility_of_element_located((loc)))

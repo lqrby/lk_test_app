@@ -62,7 +62,9 @@ class PopUpLocator:
     cancel_close = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel") #取消/稍后更新
 
     #立即更新
-    btn_confirm = (Mb.ID, "com.ourydc.yuebaobao:id/btn_confirm")
+    # btn_confirm = (Mb.ID, "com.ourydc.yuebaobao:id/btn_confirm")
+    #稍后更新
+    update_later = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel")
 
 
     #关闭邀请连麦弹窗
@@ -93,7 +95,7 @@ class PopUpLocator:
     popList = [
         close_back, iv_cancel, setting_minors, order_now,close_broadcast,skip,
         give_up_reward,say_hello,call_permission,iv_close,cancel_close,agree,
-        close_microphone,take_pat
+        close_microphone,take_pat,update_later
         ]
 
     # popList = [closeInvitInRoom[1], closeGameInvit[1], skipAD[1], allowpop1[1], allowpop2[1], onlyappallow[1],

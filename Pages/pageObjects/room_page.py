@@ -627,6 +627,30 @@ class RoomPage(CommonBus):
             log.info("派对列表暂无可进入的房间")
             self.save_webImgs(model="派对列表暂无可进入的房间")
             return {"result":False,"message":"派对列表暂无可进入的房间"}
+
+    '''
+    功能:关注-进入聊天室
+    '''
+    def follow_room(self):
+        self.find_room() #点击房间模块
+        blackTap = self.room_tap(roomloc.follow_tap,model="关注聊天室") #点击关注tap
+        if blackTap == False:
+            return {"result":True,"message":"暂无关注tap"}
+        self.swipeDown()
+        res = self.is_element_exist(roomloc.chat_room_list)
+        if res:
+            room_list =self.get_list(roomloc.chat_room_list,model="关注聊天室列表") #房间列表
+            number = random.randint(0,(len(room_list)-1))
+            room_list[number].click()
+            self.live_room() #聊天室内公共操作方法
+            self.click_receive() #领取按钮
+            time.sleep(1)
+            exit_res = self.exit_chat_room() #退出聊天室
+            return {"result":exit_res}
+        else:
+            log.info("关注列表暂无可进入的房间")
+            self.save_webImgs(model="关注列表暂无可进入的房间")
+            return {"result":False,"message":"关注列表暂无可进入的房间"}
         
 
     '''

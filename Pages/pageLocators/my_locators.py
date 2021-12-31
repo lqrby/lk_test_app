@@ -38,6 +38,8 @@ class MyLocators:
     reward_center = (Mb.ID, "com.ourydc.yuebaobao:id/v_rewards") 
     # 游戏大厅
     game_hall = (Mb.ID, "com.ourydc.yuebaobao:id/v_game_layout")
+    # 我的等级
+    my_level = (Mb.ID, "com.ourydc.yuebaobao:id/v_vip_level")
     # 活动中心
     activity_center = (Mb.ID, "com.ourydc.yuebaobao:id/v_activity") 
     # 申请家族
@@ -49,6 +51,7 @@ class MyLocators:
     ############################二级元素#############################
     # 设置
     protector_head = (Mb.ID,'com.ourydc.yuebaobao:id/iv_protector_head') 
+    
     # 编辑资料页我的昵称
     v_nick = (Mb.ID,'com.ourydc.yuebaobao:id/v_nick')  
     nick_name_text = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/v_nick']/child::com.ourydc.yuebaobao:id/tv_content")
@@ -89,6 +92,9 @@ class MyLocators:
     # my_dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/child::android.view.ViewGroup")
     my_dynamic_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_msg']")
     tv_read_count = (Mb.ID,'com.ourydc.yuebaobao:id/tv_read_count') #阅读数量
+    comment_input = (Mb.ID,'com.ourydc.yuebaobao:id/et_comment') #评论输入框
+    sendButton = (Mb.ID,'com.ourydc.yuebaobao:id/btn_comment') #发送按钮
+
 
 
     #我的背包
@@ -105,6 +111,8 @@ class MyLocators:
     receive_an_award = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_action' and @text='领奖']") #领奖按钮
     receive = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") #领取按钮
     receive_ok = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='确定']") #领取按钮
+    onlineRecycle = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/onlineRecycle']/child::android.view.ViewGroup") #已上线
+
     # #立即签到
     sign_in = (Mb.ID, "com.ourydc.yuebaobao:id/button")
 
@@ -112,7 +120,7 @@ class MyLocators:
     imageView7 = (Mb.ID,'com.ourydc.yuebaobao:id/imageView7') #活动中心游戏列表
 
     #申请家族
-    my_dynamic_list = (Mb.XPATH, "//*[@class='android.widget.ListView']/child::android.view.View")
+    application_family = (Mb.XPATH, "//*[@class='android.widget.ListView']/child::android.view.View")
     
     # 设置
     account_and_security = (Mb.ID,'com.ourydc.yuebaobao:id/layout_account_security') #账号与安全
@@ -120,44 +128,73 @@ class MyLocators:
     layout_bind_phone = (Mb.ID,'com.ourydc.yuebaobao:id/layout_bind_phone') #修改绑定手机
     changePhoneBtn = (Mb.ID,'com.ourydc.yuebaobao:id/changePhoneBtn') #更换绑定手机号
     get_verification_code = (Mb.ID,'com.ourydc.yuebaobao:id/tv_get_validate') #获取验证码
-
-
     bound_wechat = (Mb.ID,'com.ourydc.yuebaobao:id/layout_reset_third_login') #已绑定微信
     set_password = (Mb.ID,'com.ourydc.yuebaobao:id/layout_reset_password') #设置密码
     identity_authentication = (Mb.ID,'com.ourydc.yuebaobao:id/layout_identity_attestation') #身份认证
     bind_official_account = (Mb.ID,'com.ourydc.yuebaobao:id/layout_bind_wechat') #绑定公众号
     rl_root = (Mb.ID,'com.ourydc.yuebaobao:id/rl_root') #绑定公众号title
     # official_account_text = (Mb.XPATH,"//*[@class='android.view.View' and @text='第一步：关注公众号']") #绑定公众号断言
-
     set_payment_password = (Mb.ID,'com.ourydc.yuebaobao:id/layout_pay_pwd') #设置支付密码
-
     layout_black_list = (Mb.ID,'com.ourydc.yuebaobao:id/layout_black_list') #黑名单
     blacklist_no_data = (Mb.ID,'com.ourydc.yuebaobao:id/tv_empty_text') #黑名单页面无数据
     blacklist_data = (Mb.ID,'com.ourydc.yuebaobao:id/iv_head_view') #黑名单页面有数据
-
     cancel_account = (Mb.ID,'com.ourydc.yuebaobao:id/layout_account_unregister') #注销账号
-
-
-
-
     protection_of_minors = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式
     # on_state = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_child_model']/child::com.ourydc.yuebaobao:id/tv_content")
     on_state = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_child_model']//node()[contains(@resource-id,'com.ourydc.yuebaobao:id/tv_content')]")
     turn_on_protection = (Mb.ID,'com.ourydc.yuebaobao:id/btn_open') #开启保护模式
     password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_1') #密码输入框
     confirm_password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_2') #确认密码输入框
-    
     confirm_button = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #确定按钮
     # confirm_button = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_sure' and @text='确定']") #确定按钮
     turn_off_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_open' and @text='关闭保护模式']") #关闭保护模式
-
     message_settings = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_setting') #消息设置
     currency = (Mb.ID,'com.ourydc.yuebaobao:id/layout_common_use') #通用
     cash_capacity_management = (Mb.ID,'com.ourydc.yuebaobao:id/layout_money_setting') #钞能力管理
     speed_chat_room = (Mb.ID,'com.ourydc.yuebaobao:id/conciseLayout') #聊天室极速模式
     about_lika = (Mb.ID,'com.ourydc.yuebaobao:id/layout_about_lika') #关于哩咔
+    #检查更新
+    checkVersion= (Mb.ID,'com.ourydc.yuebaobao:id/layout_checkVersion') 
+    #立即更新
+    btn_confirm = (Mb.ID, "com.ourydc.yuebaobao:id/btn_confirm")
+    #稍后更新
+    update_later = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel")
+    #隐私政策
+    layout_privacy = (Mb.ID,'com.ourydc.yuebaobao:id/layout_privacy') 
+    #帮助中心
+    layout_helper = (Mb.ID,'com.ourydc.yuebaobao:id/layout_helper') 
+    #充值&消费
+    recharge_consumption = (Mb.XPATH, "//*[@class='android.view.View' and @text='充值&消费']") 
+    #提现
+    withdrawal = (Mb.XPATH, "//*[@class='android.view.View' and @text='提现']") 
+    #聊天室
+    chat_room = (Mb.XPATH, "//*[@class='android.view.View' and @text='聊天室']") 
+    #订单
+    order = (Mb.XPATH, "//*[@class='android.view.View' and @text='订单']") 
+    #家族问题
+    family_problems = (Mb.XPATH, "//*[@class='android.view.View' and @text='家族问题']") 
+    #账号
+    account_number = (Mb.XPATH, "//*[@class='android.view.View' and @text='账号']") 
+    #会员/爵位/守护
+    membership_title = (Mb.XPATH, "//*[@class='android.view.View' and @text='会员/爵位/守护']") 
+    #违规、封号、举报
+    reporting_seal = (Mb.XPATH, "//*[@class='android.view.View' and @text='违规、封号、举报']") 
+    #其他
+    other = (Mb.XPATH, "//*[@class='android.view.View' and @text='其他']") 
 
+    problem_classification = [(recharge_consumption,"充值&消费"),(withdrawal,"提现"),(chat_room,"聊天室"),(order,"订单"),(family_problems,"家族问题"),
+        (account_number,"账号"),(membership_title,"会员/爵位/守护"),(reporting_seal,"违规、封号、举报"),(other,"其他")]
+
+    #分类列表
+    classification_list = (Mb.XPATH, "//*[@class='android.view.View' and @index='1']") 
+    #意见反馈
+    layout_feedback = (Mb.ID,'com.ourydc.yuebaobao:id/layout_feedback') 
+    #关于我们
+    layout_about = (Mb.ID,'com.ourydc.yuebaobao:id/layout_about') 
+    
     tv_nick_name = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick_name') #我的昵称
-
-
+    btn_submit = (Mb.ID,'com.ourydc.yuebaobao:id/btn_submit') #去发布动态按钮
+    et_content = (Mb.ID,'com.ourydc.yuebaobao:id/et_content') #动态输入框
+    iv_extra = (Mb.ID,'com.ourydc.yuebaobao:id/iv_extra') #发布按钮
+    deleteButton = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv' and @text='删除']") #删除按钮
     

@@ -1,22 +1,14 @@
-from os import truncate
 import time, random
-
-from appium.webdriver.extensions.search_context import mobile
 from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
-from selenium.common.exceptions import NoSuchElementException 
 from Common.log import get_logger
 from Pages.pageLocators.login_locators import LoginPageLocator
 from Pages.pageLocators.home_locators import HomePageLocator as loc
 from Pages.pageLocators.my_locators import MyLocators as my
-from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
 from appium.webdriver.common.touch_action import TouchAction 
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from Pages.pageObjects.sign_pop_page import SignPopPage
-from Pages.pageLocators.pop_locators import PopUpLocator
 
-log = get_logger(logger_name="注册操作日志")
+log = get_logger(logger_name="公共模块操作日志")
 
 
 '''App页面公共可使用的方法'''
@@ -189,3 +181,6 @@ class CommonBus(BasePage):
     def exit_and_overRun(self):
         self.driver.close_app()
         self.driver.quit()
+
+    
+    
