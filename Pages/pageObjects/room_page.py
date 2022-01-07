@@ -167,6 +167,28 @@ class RoomPage(CommonBus):
             log.info("暂无聊天室")
             return False
 
+    # '''
+    # 功能:临时测试聊天室
+    # '''
+    # def testrecommend_liveRoom(self):
+    #     self.find_room() #点击房间模块
+    #     blackTap = self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
+    #     if blackTap == False:
+    #         return {"result":True,"message":"暂无推荐tap"}
+    #     # self.swipeUp(n=3)
+    #     res = self.is_element_exist(roomloc.chat_room_list)
+    #     if res == False:
+    #         log.info("推荐列表暂无房间可进入")
+    #         self.save_webImgs(model="推荐列表暂无房间可进入")
+    #         return {"result":False,"message":"推荐列表暂无房间可进入"}
+        
+    #     liveRoomList = self.live_room_list(roomloc.chat_room_list) #聊天室列表
+    #     # print("liveRoomList=====",liveRoomList)
+    #     self.enter_live_room(liveRoomList) #随机进入聊天室
+    #     # self.liveRoom() #聊天室内操作
+    #     self.click_game() #点击游戏并断言
+    #     return {"result":True}
+
     '''
     功能:推荐聊天室
     '''
@@ -397,6 +419,7 @@ class RoomPage(CommonBus):
 
     #左上角返回
     def go_back(self):
+        time.sleep(1)
         if self.is_element_exist(roomloc.msg_backBtn):
             self.click_element(roomloc.msg_backBtn, model="返回")
         elif self.is_element_exist(roomloc.backBtn):
@@ -576,11 +599,11 @@ class RoomPage(CommonBus):
     def live_room(self):
         if self.is_element_exist(roomloc.all_mode,timeout=3):
             self.driver.press_keycode(4)
-        self.exist_be_click(roomloc.follow,model="关注")#点击关注
-        self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天，金币打赏，背包小花打赏等
+        # self.exist_be_click(roomloc.follow,model="关注")#点击关注
+        # self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天，金币打赏，背包小花打赏等
         # self.gift_entrance_bottom() # 底部礼物入口》切换礼物tap，选中礼物，赠送礼物,返回，房间用户及贵宾席
         self.click_game() #点击游戏并断言
-        self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
+        # self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
 
 
     '''
@@ -1024,6 +1047,13 @@ class RoomPage(CommonBus):
             self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
             game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")
             self.assert_len(game_assert,dyj=4, model="游戏列表断言")
+            self.wait_click_element(roomloc.jbtq,model="金币套圈")
+            search_field = self.driver.find_element_by_class_name("playBtn")
+            log.info(search_field)
+            # self.assert_true(roomloc.playLottie,model="断言套圈按钮")
+            # webview = self.driver.contexts
+            # webview
+            # log.info("webview====={}".format(webview))
             self.driver.keyevent(4)
         else:
             log.info("无游戏入口")

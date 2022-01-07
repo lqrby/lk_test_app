@@ -311,8 +311,7 @@ class RoomPageLocator:
     goldCoins_balance = (Mb.ID,"com.ourydc.yuebaobao:id/tv_balance") #金币余额
     # knapsack_button = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @index='11']") #背包按钮
     knapsack_button = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/tv_tab_title' and @text='背包']") #背包tap
-    backpack_gift = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_panel_red_outer') #背包中的礼物列表
-
+    backpack_gift = (Mb.XPATH,"//*[@class='android.widget.RelativeLayout' and @resource-id='com.ourydc.yuebaobao:id/layout_msg_panel_red_outer']") #背包中的礼物列表
     gift_list = [
         gift_button,Halloween_button,lover_button,year_button,
         anniversary_button,magic_button,teacher_button,guard_button,
@@ -365,6 +364,12 @@ class RoomPageLocator:
     # nearby_dynamics_list = (Mb.XPATH, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/layout_dynamic']/child::com.ourydc.yuebaobao:id/tv_content") # 装扮展墙礼物列表
     iv_prise = (Mb.ID, "com.ourydc.yuebaobao:id/iv_prise") #点赞
     all_mode = (Mb.ID, "com.ourydc.yuebaobao:id/mvp") #全部模式（聊天室的一个蒙层）
+    playLottie = (Mb.ID, "playLottie") #全部模式（聊天室的一个蒙层）
+
+
+
+    jbtq = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='金币套圈']") #全部模式（聊天室的一个蒙层）
+
 
     
     

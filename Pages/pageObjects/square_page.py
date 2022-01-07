@@ -100,3 +100,18 @@ class SquarePage(CommonBus):
         self.wait_element_clickable(squareloc.reportBtn,model="举报按钮是否可点击")
         self.click_element(squareloc.reportBtn,model="点击举报按钮")
         time.sleep(1)
+
+    # 我的动态
+    def square_attention(self):
+        self.wait_click_element(squareloc.square_module,model="广场模块")
+        time.sleep(2)
+        self.wait_click_element(squareloc.square_attention,model="关注")
+        nearby_dynamicsList = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
+        self.spot_fabulous() #点赞
+        self.click_follow() #关注
+        self.roomPage.click_more() #点击更多
+        self.reportBtn() #举报
+        self.assert_true(squareloc.commitBtn,model="举报断言") #举报断言
+        self.roomPage.go_back() #返回详情页
+        self.roomPage.go_back_list() #返回列表页
+        return nearby_dynamicsList

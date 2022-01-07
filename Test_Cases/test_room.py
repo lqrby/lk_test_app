@@ -29,6 +29,22 @@ class TestRoomMakeFriends:
 
 
     @pytest.mark.success
+    @allure.story('进入推荐聊天室')
+    @allure.title('进入推荐聊天室')
+    def test_recommend_Room(self, startApp_keepUserData):
+        room_page = RoomPage(startApp_keepUserData)
+        log.info("**************房间模块-推荐tap-进退聊天室****************")
+        liveRoomMum = room_page.recommend_liveRoom() #进入推荐聊天室
+        with allure.step("进入推荐聊天室"):
+            try:
+                assert liveRoomMum["result"] == True
+                log.info("进入推荐聊天室断言成功")
+            except AssertionError as a:
+                log.error("进入推荐聊天室断言失败--{}".format(liveRoomMum["message"]))
+                raise
+
+
+    @pytest.mark.success
     @allure.story('进入派对聊天室')
     @allure.title('进入派对聊天室')
     def test_party_Room(self, startApp_keepUserData):
@@ -57,6 +73,22 @@ class TestRoomMakeFriends:
                 log.info("进入开黑聊天室断言成功")
             except AssertionError as a:
                 log.error("进入开黑聊天室断言失败,失败原因:{}".format(liveRoomMum["message"]))
+                raise
+
+
+    @pytest.mark.success
+    @allure.story('关注-进入聊天室')
+    @allure.title('关注-进入聊天室')
+    def test_follow_Room(self, startApp_keepUserData):
+        room_page = RoomPage(startApp_keepUserData)
+        log.info("**************房间模块-关注tap-进退房间****************")
+        liveRoomMum = room_page.follow_room() #进入聊天室
+        with allure.step("关注-进入聊天室"):
+            try:
+                assert liveRoomMum["result"] == True
+                log.info("关注-进入聊天室断言成功")
+            except AssertionError as a:
+                log.error("关注进入聊天室断言失败,失败原因:{}".format(liveRoomMum["message"]))
                 raise
 
 
