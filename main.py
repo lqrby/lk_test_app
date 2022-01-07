@@ -16,8 +16,25 @@ ts = datetime.datetime.now().strftime("%Y-%m-%d-%H%M%S")
 
 if __name__ == '__main__':
     pytest.main(['-s', './Test_Cases/test_square.py', '--alluredir', "./allure_result/allure_temp"])
-    # os.system("allure generate ./allure_result/allure_temp -o ./allure_result/{} --clean".format(ts))
-    # os.system("7z a ./allure_result/{}.zip ./allure_result/{}".format(ts,ts))
+    os.system("allure generate ./allure_result/allure_temp -o ./allure_result/{} --clean".format(ts))
+    os.system("7z a ./allure_result/{}.zip ./allure_result/{}".format(ts,ts))
+    #======================================================================================================
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     
     # pytest.main(['-s', './Test_Cases/test_login.py', '--alluredir', "./allure_result/allure_temp"])
     # pytest.main(['-s', './Test_Cases/test_room.py', '--alluredir', "./allure_result/allure_temp"])
