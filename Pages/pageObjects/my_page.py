@@ -466,4 +466,37 @@ class MyPage(CommonBus):
         '''web页面'''
 
     
+    #我的》商城
+    def view_members(self):
+        self.wait_click_element(myloc.meBtn, model="我的") 
+        self.wait_click_element(myloc.iv_dress_store, model="商城") 
+        time.sleep(3)
+        self.assert_true(myloc.zuojia,model="座驾")
+        time.sleep(1)
+        self.assert_true(myloc.qipao,model="气泡")
+        time.sleep(1)
+        self.wait_click_element(myloc.vipzs, model="VIP专属")
+        time.sleep(3)
+        self.wait_click_element(myloc.dhjl, model="兑换记录")
+        time.sleep(2)
+        self.assert_true(myloc.xhjf, model="消耗积分")
+        self.tap_by_coordinate([0.5,0.2])
+        self.wait_click_element(myloc.shuoming, model="说明")
+        source = self.driver.page_source
+        text = "解释权归本平台所有"
+        self.assert_in(text, source, model="说明断言")
+        time.sleep(2)
+        self.tap_by_coordinate([0.5,0.2])
+        return True
+        # self.driver.press_keycode(4)
+        '''
+        暂时生日墙有问题，金刚在处理，处理完即可完善用例
+        '''
+        # self.wait_click_element(myloc.jrsx, model="今日寿星")
+
+
+
+
+
+
         

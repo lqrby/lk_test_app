@@ -197,4 +197,12 @@ class MyLocators:
     et_content = (Mb.ID,'com.ourydc.yuebaobao:id/et_content') #动态输入框
     iv_extra = (Mb.ID,'com.ourydc.yuebaobao:id/iv_extra') #发布按钮
     deleteButton = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv' and @text='删除']") #删除按钮
+    zuojia = (Mb.XPATH, "//*[@class='android.view.View' and @text='座驾']") #商城》装扮》座驾
+    qipao = (Mb.XPATH, "//*[@class='android.view.View' and @text='气泡']") #商城》装扮》气泡
+    vipzs = (Mb.XPATH, "//*[@class='android.view.View' and @text='VIP专属']") #商城》VIP专属
+    jifen = (Mb.XPATH, "//*[@class='android.view.View' and @text=contains(text(),'积分')]") #商城》VIP专属》积分
+    dhjl = (Mb.XPATH, "//*[@class='android.view.View' and @text='兑换记录']") #商城》VIP专属》兑换记录
+    xhjf = (Mb.XPATH, "//*[@class='android.view.View' and @text='消耗积分']") #商城》VIP专属》兑换记录》消耗积分
+    shuoming = (Mb.XPATH, "//*[@class='android.view.View' and @text='说明']") #商城》VIP专属》说明
+    jrsx = (Mb.XPATH, "//*[@class='android.view.View' and @text='说明']") #商城》VIP专属》今日寿星
     
