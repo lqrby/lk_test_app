@@ -1047,9 +1047,9 @@ class RoomPage(CommonBus):
             self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
             game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")
             self.assert_len(game_assert,dyj=4, model="游戏列表断言")
-            self.wait_click_element(roomloc.jbtq,model="金币套圈")
-            search_field = self.driver.find_element_by_class_name("playBtn")
-            log.info(search_field)
+            # self.wait_click_element(roomloc.jbtq,model="金币套圈")
+            # search_field = self.driver.find_element_by_class_name("playBtn")
+            # log.info(search_field)
             # self.assert_true(roomloc.playLottie,model="断言套圈按钮")
             # webview = self.driver.contexts
             # webview

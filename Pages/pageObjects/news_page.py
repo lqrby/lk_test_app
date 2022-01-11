@@ -29,6 +29,7 @@ class NewsPage(CommonBus):
             followlist = self.get_elements(newsloc.tv_position,model="关注列表元素")
             num = random.randint(0,len(followlist) - 1)
             followlist[num].click()
+            time.sleep(5)
             self.assert_true(newsloc.buttonSendMessage,model="关注聊天页断言")
             self.roomPage.go_back()
         self.wait_click_element(newsloc.tv_title_two,model="粉饰tap")

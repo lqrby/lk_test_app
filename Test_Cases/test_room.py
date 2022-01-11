@@ -11,7 +11,7 @@ log = get_logger(logger_name="首页操作日志")
 
 @pytest.mark.run(order=1)
 @allure.feature('房间模块') #模块名
-class TestRoomMakeFriends:
+class TestRoom:
     @pytest.mark.success
     @allure.story('进入推荐聊天室')
     @allure.title('进入推荐聊天室')

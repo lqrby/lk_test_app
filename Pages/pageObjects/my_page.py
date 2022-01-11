@@ -482,7 +482,9 @@ class MyPage(CommonBus):
         self.assert_true(myloc.xhjf, model="消耗积分")
         self.tap_by_coordinate([0.5,0.2])
         self.wait_click_element(myloc.shuoming, model="说明")
+        time.sleep(2)
         source = self.driver.page_source
+        time.sleep(1)
         text = "解释权归本平台所有"
         self.assert_in(text, source, model="说明断言")
         time.sleep(2)

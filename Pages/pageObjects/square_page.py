@@ -47,7 +47,7 @@ class SquarePage(CommonBus):
             log.info("点击第{}个动态查看详情".format(dt_num))
             time.sleep(3)
             nearby_dynamicsList[dt_num].click()
-            time.sleep(3)
+            time.sleep(5)
             self.wait_element_presence(squareloc.tvnick,model="动态详情页的昵称")
             self.assert_true(squareloc.tvnick,model="昵称")
             return nearby_dynamicsList
@@ -61,6 +61,7 @@ class SquarePage(CommonBus):
                 nearby_dynamicsList[dt_num].click()
                 time.sleep(3)
                 self.wait_element_presence(squareloc.tvnick,model="动态详情页的点赞")
+                time.sleep(2)
                 self.assert_true(squareloc.tvnick,model="动态详情")
                 return nearby_dynamicsList
             else:

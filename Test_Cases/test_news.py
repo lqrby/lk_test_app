@@ -27,23 +27,7 @@ class TestNews:
                 raise
 
 
-    '''广场---关注'''  
-    @pytest.mark.success
-    @allure.story('广场-关注')
-    @allure.title('广场关注测试用例')           
-    def test_squareAttention(self, startApp_keepUserData):
-        log.info("*********************广场模块-关注-测试用例*********************")
-        square_page = NewsPage(startApp_keepUserData)
-        nearby_dynamics = square_page.square_attention()
-        with allure.step("查看我已关注用户的动态"):
-            try:
-                assert len(nearby_dynamics) > 0
-                log.info("查看我已关注用户的动态断言成功")
-            except AssertionError as a:
-                log.error("查看我已关注用户的动态断言失败")
-                raise
-        
-
+    
 
 if __name__ == '__main__':
     pytest.main()
