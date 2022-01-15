@@ -22,15 +22,7 @@ class SquarePage(CommonBus):
     def nearby_dynamics(self):
         self.wait_click_element(squareloc.square_module,model="广场模块")
         time.sleep(2)
-        nearby_dynamicsList = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
-        self.spot_fabulous() #点赞
-        self.click_follow() #关注
-        self.roomPage.click_more() #点击更多
-        self.reportBtn() #举报
-        self.assert_true(squareloc.commitBtn,model="举报断言") #举报断言
-        self.roomPage.go_back() #返回详情页
-        self.roomPage.go_back_list() #返回列表页
-        return nearby_dynamicsList
+        return self.dynamicDetailPageAssertion()
         
     #附近动态tap
     def nearby_dynamics_tap(self):
@@ -39,7 +31,7 @@ class SquarePage(CommonBus):
 
     #附近动态列表-进入动态详情
     def nearby_dynamics_list(self):
-        nearbyDynamicsList = self.is_element_exist(squareloc.nearby_dynamics_list)
+        nearbyDynamicsList = self.is_element_exist(squareloc.nearby_dynamics_list,model="附近动态列表")
         if nearbyDynamicsList == True:
             nearby_dynamicsList = self.get_elements(squareloc.nearby_dynamics_list,model="获取动态列表") 
             log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
@@ -48,30 +40,45 @@ class SquarePage(CommonBus):
             time.sleep(3)
             nearby_dynamicsList[dt_num].click()
             time.sleep(5)
-            self.wait_element_presence(squareloc.tvnick,model="动态详情页的昵称")
-            self.assert_true(squareloc.tvnick,model="昵称")
-            return nearby_dynamicsList
+            if self.is_element_exist(squareloc.tvnick,model="昵称"):
+                self.assert_true(squareloc.tvnick,model="昵称")
+                return "1"
+            elif self.is_element_exist(squareloc.masterAvatarView,model="打赏礼物入口"):
+                self.assert_true(squareloc.masterAvatarView,model="断言打赏礼物入口")
+                self.roomPage.exit_chat_room()
+                return "2"
+            else:
+                log.info("断言失败！请及时处理！！！")
+                self.save_webImgs("查看用户主页断言失败")
+                return "3"
         else:
-            nearbyDynamicsList2 = self.is_element_exist(squareloc.nearby_dynamics_list2) 
+            nearbyDynamicsList2 = self.is_element_exist(squareloc.nearby_dynamics_list2,model="附近动态列表2") 
             if nearbyDynamicsList2 == True:
-                nearby_dynamicsList = self.get_elements(squareloc.nearby_dynamics_list2,model="获取动态列表") 
+                nearby_dynamicsList = self.get_elements(squareloc.nearby_dynamics_list2,model="获取动态列表2") 
                 log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
                 dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
                 log.info("点击第{}个动态查看详情".format(dt_num))
                 nearby_dynamicsList[dt_num].click()
-                time.sleep(3)
-                self.wait_element_presence(squareloc.tvnick,model="动态详情页的点赞")
-                time.sleep(2)
-                self.assert_true(squareloc.tvnick,model="动态详情")
-                return nearby_dynamicsList
+                time.sleep(5)
+                if self.is_element_exist(squareloc.tvnick,model="昵称"):
+                    self.assert_true(squareloc.tvnick,model="昵称")
+                    return "1"
+                elif self.is_element_exist(squareloc.masterAvatarView,model="礼物入口1"):
+                    self.assert_true(squareloc.masterAvatarView,model="断言打赏礼物入口")
+                    self.roomPage.exit_chat_room()
+                    return "2"
+                else:
+                    log.info("断言失败！请及时处理！！！")
+                    self.save_webImgs("查看用户主页断言失败")
+                    return "3"
             else:
                 log.info("动态列表暂无数据")
                 self.save_webImgs("动态列表暂无数据")
-                return False
+                return "4"
 
     #点赞
     def spot_fabulous(self,repeat=9):
-        bool = self.is_element_exist(squareloc.iv_prise)
+        bool = self.is_element_exist(squareloc.iv_prise,model="点赞元素")
         if bool == False and repeat > 0:
             repeat = repeat - 1
             self.swipeUp()
@@ -102,17 +109,29 @@ class SquarePage(CommonBus):
         self.click_element(squareloc.reportBtn,model="点击举报按钮")
         time.sleep(1)
 
-    # 我的动态
+    ''' 广场-关注-动态'''
     def square_attention(self):
         self.wait_click_element(squareloc.square_module,model="广场模块")
         time.sleep(2)
         self.wait_click_element(squareloc.square_attention,model="关注")
-        nearby_dynamicsList = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
-        self.spot_fabulous() #点赞
-        self.click_follow() #关注
-        self.roomPage.click_more() #点击更多
-        self.reportBtn() #举报
-        self.assert_true(squareloc.commitBtn,model="举报断言") #举报断言
-        self.roomPage.go_back() #返回详情页
-        self.roomPage.go_back_list() #返回列表页
-        return nearby_dynamicsList
+        return self.dynamicDetailPageAssertion()
+
+    #动态详情页断言
+    def dynamicDetailPageAssertion(self):
+        dt_detail = self.nearby_dynamics_list() #动态列表随机-进入动态详情，并断言
+        if dt_detail == "1":
+            self.spot_fabulous() #点赞
+            self.click_follow() #关注
+            self.roomPage.click_more() #点击更多
+            self.reportBtn() #举报
+            self.assert_true(squareloc.commitBtn,model="举报断言") #举报断言
+            self.roomPage.go_back() #返回详情页
+            self.roomPage.go_back_list() #返回列表页
+            return True
+        elif dt_detail == "2":
+            log.info("该用户正在聊天室嗨皮呢，所以未进入ta的主页，进入了ta所在的聊天室")
+            return True
+        elif dt_detail == "4":
+            return True
+        else:
+            return False

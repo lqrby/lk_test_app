@@ -34,7 +34,7 @@ class CommonBus(BasePage):
     def get_userStatus(self):
             log.info("===========检查用户登录状态========")
             self.close_page_popUp()
-            if self.is_element_exist(loc.dating_module):
+            if self.is_element_exist(loc.dating_module,model="交友tap"):
                 self.close_page_popUp()
                 return True
             else:
@@ -46,7 +46,7 @@ class CommonBus(BasePage):
         self.click_element(my.meBtn, model="点击我的") 
         time.sleep(2)
         self.popPage.check_goddess_Popup() #关闭女神引导弹窗
-        if self.is_element_exist(my.setUpBtn) == False:
+        if self.is_element_exist(my.setUpBtn,model="设置按钮元素") == False:
            self.swipeUp() 
         self.wait_element_clickable(my.setUpBtn, model="点击设置")
         self.click_element(my.setUpBtn, model="点击设置") 
@@ -62,7 +62,7 @@ class CommonBus(BasePage):
 
     # 是否登录状态，已登录则退出登录
     def check_loggedIn_signOut(self):
-        if self.is_element_exist(LoginPageLocator.agree):
+        if self.is_element_exist(LoginPageLocator.agree,model="同意按钮元素"):
             pass
         elif self.get_userStatus():
             log.info("===========用户是登录状态，开始退出========")
@@ -71,17 +71,17 @@ class CommonBus(BasePage):
             pass
     
     # 断言是否为真
-    def assert_true(self, assert_element, model=None):
+    def assert_true(self, assert_loc, model=None):
         try:
-            result = self.is_element_exist(assert_element)
+            result = self.is_element_exist(assert_loc,model=model)
             # log.info("result======={}".format(result))
             assert result == True
             log.info("{}===断言通过,{} == {}".format(model,result,True))
-            return False
+            return True
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model=model)
-            return True
+            return False
 
 
     # 断言是否包含
@@ -100,6 +100,19 @@ class CommonBus(BasePage):
         try:
             assert len(elements) > dyj
             log.info("{}===断言通过,{} > {}".format(model,len(elements),dyj))
+            return True
+        except Exception as e:
+            log.info("{}断言错误".format(model))
+            self.save_webImgs(model=model)
+            return False
+            
+    # 断言元素长度
+    def assert_equal(self, dy_loc, dyj=0, model=None):
+        try:
+            self.wait_element_presence(dy_loc)
+            yslist = self.get_elements(dy_loc,model=model)
+            assert len(yslist) == dyj
+            log.info("{}===断言通过,{} == {}".format(model,len(yslist),dyj))
             return True
         except Exception as e:
             log.info("{}断言错误".format(model))
@@ -151,7 +164,7 @@ class CommonBus(BasePage):
     # 列表长度及断言
     def public_list(self,list_loc,model=None,dyj=0):
         log.info("元素是======={}".format(list_loc))
-        if self.is_element_exist(list_loc,timeout=8):
+        if self.is_element_exist(list_loc,timeout=8,model=model):
             avatars = self.get_elements(list_loc,model="获取{}".format(model))  
             time.sleep(1)
             self.assert_len(avatars,dyj=dyj,model="{}断言".format(model)) 
@@ -163,7 +176,7 @@ class CommonBus(BasePage):
     
     '''切换tap'''
     def find_tap(self,find_element,location_element,find_model,location_model,t=500,loop=1):
-        if self.is_element_exist(find_element):
+        if self.is_element_exist(find_element,model=find_model):
             self.wait_click_element(find_element,find_model) 
         else:
             self.wait_element_presence(location_element,model="{}".format(location_model))

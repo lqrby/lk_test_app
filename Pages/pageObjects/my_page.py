@@ -1,4 +1,6 @@
 import time,random
+
+from appium.webdriver.extensions.search_context import mobile
 from Pages.pageObjects.Common_Buss import CommonBus
 from Pages.pageLocators.my_locators import MyLocators as myloc
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
@@ -25,7 +27,7 @@ class MyPage(CommonBus):
     def my_guard(self):
         self.wait_eleVisible(myloc.protector_head, model="等待我的守护")
         self.click_element(myloc.protector_head, model="点击我的守护")
-        if self.is_element_exist(roomloc.guardian_nickname):
+        if self.is_element_exist(roomloc.guardian_nickname,model="守护者昵称"):
             log.info("用户有守护者")
         else:
             log.info("该用户暂无守护者")
@@ -257,24 +259,24 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.reward_center, model="点击奖励中心")
         time.sleep(2)
-        if self.is_element_exist(myloc.sign_in,timeout=8):
-            self.click_element(myloc.sign_in)
+        if self.is_element_exist(myloc.sign_in,timeout=8,model="立即签到"):
+            self.click_element(myloc.sign_in,model="立即签到")
         time.sleep(3)
-        if self.is_element_exist(myloc.sign_in,timeout=8):
-            self.click_element(myloc.sign_in)
+        if self.is_element_exist(myloc.sign_in,timeout=8,model="放入背包"):
+            self.click_element(myloc.sign_in,model="放入背包")
         time.sleep(2)
-        if self.is_element_exist(myloc.receive_an_award):
+        if self.is_element_exist(myloc.receive_an_award,model="领奖按钮"):
             self.receive_rewards(myloc.receive_an_award,"领奖","领取奖励")
         else:
             log.info("暂无可领奖")
             self.save_webImgs("暂无可领奖")
-        if self.is_element_exist(myloc.receive):
+        if self.is_element_exist(myloc.receive,model="领取"):
             self.wait_click_element(myloc.receive, model='领取按钮')
             self.wait_click_element(myloc.receive_ok,model="点击确定")
             return True
         else:
             self.swipeUp()
-            if self.is_element_exist(myloc.receive):
+            if self.is_element_exist(myloc.receive,model="领取"):
                 self.wait_click_element(myloc.receive, model='领取按钮')
                 self.wait_click_element(myloc.receive_ok,model="点击确定")
                 return True
@@ -296,7 +298,8 @@ class MyPage(CommonBus):
     '''申请家族'''
     def application_family(self):
         self.wait_click_element(myloc.meBtn, model="我的")
-        self.wait_click_element(myloc.apply_family, model="申请家族",timeout=10)
+        self.wait_click_element(myloc.apply_family, model="申请家族")
+        time.sleep(8)
         if self.public_list(myloc.application_family,model="申请家族列表",dyj=2):
             return True
         else:
@@ -307,7 +310,7 @@ class MyPage(CommonBus):
     '''设置》账号安全'''
     def account_security(self):
         self.wait_click_element(myloc.meBtn, model="我的")
-        if self.is_element_exist(myloc.setUpBtn) == False:
+        if self.is_element_exist(myloc.setUpBtn,model="设置") == False:
            self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
         self.wait_click_element(myloc.account_and_security, model="账号与安全")
@@ -326,8 +329,7 @@ class MyPage(CommonBus):
     # 绑定公众号
     def bind_official_account(self):
         self.wait_click_element(myloc.bind_official_account, model="绑定公众号")
-        time.sleep(3)
-        # self.wait_element_presence(myloc.rl_root,"绑定公众号页面title")
+        time.sleep(8)
         page_source = self.driver.page_source
         text = "关注公众号"
         self.assert_in(text, page_source, model="绑定公众号页面断言")
@@ -341,7 +343,7 @@ class MyPage(CommonBus):
             log.info("黑名单暂无数据")
             self.save_webImgs("暂无黑名单人员")
             self.RoomPage.go_back() #返回
-        elif self.is_element_exist(myloc.blacklist_data):
+        elif self.is_element_exist(myloc.blacklist_data,model="黑名单页面元素"):
             self.public_list(myloc.blacklist_data,model="黑名单列表")
             self.RoomPage.go_back() #返回
         else:
@@ -353,7 +355,7 @@ class MyPage(CommonBus):
     def input_password(self):
         for i in range(1,5):
             self.driver.press_keycode(int(i)+7)
-        if self.is_element_exist(myloc.confirm_password_input,timeout=1):
+        if self.is_element_exist(myloc.confirm_password_input,timeout=1,model="确认密码输入框"):
             self.wait_click_element(myloc.confirm_password_input, model="确认密码输入框")
             for i in range(1,5):
                 self.driver.press_keycode(int(i)+7)
@@ -362,11 +364,11 @@ class MyPage(CommonBus):
     '''未成年保护模式'''
     def protection_of_minors(self):
         self.wait_click_element(myloc.meBtn, model="我的")
-        if self.is_element_exist(myloc.setUpBtn) == False:
+        if self.is_element_exist(myloc.setUpBtn,model="设置按钮") == False:
            self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
         text = ""
-        state = self.is_element_exist(myloc.on_state)
+        state = self.is_element_exist(myloc.on_state,model="开启状态")
         if state:
             text = self.get_text(myloc.on_state,model="开启状态")
         self.wait_click_element(myloc.protection_of_minors, model="未成年保护")
@@ -400,7 +402,7 @@ class MyPage(CommonBus):
     '''设置-关于哩咔'''
     def about_lika(self):
         self.wait_click_element(myloc.meBtn, model="我的")
-        if self.is_element_exist(myloc.setUpBtn) == False:
+        if self.is_element_exist(myloc.setUpBtn,model="设置按钮") == False:
            self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
         self.wait_click_element(myloc.about_lika,model="关于哩咔")
@@ -497,8 +499,329 @@ class MyPage(CommonBus):
         # self.wait_click_element(myloc.jrsx, model="今日寿星")
 
 
-
-
-
-
+    '''
+    我的》收入流程
+    '''
+    def income(self):
+        self.wait_click_element(myloc.meBtn, model="我的") 
+        self.wait_click_element(myloc.my_income, model="收入") 
+        self.baby_currency_exchange() #宝宝币兑换
+        self.withdrawal() #提现相关
+        if self.game_currency(myloc.yxbtap,model="游戏币"):
+           self.baby_currency_exchange() 
+        if self.game_currency(myloc.mlztap,model="魅力值"):
+           self.baby_currency_exchange() 
+        return True 
         
+        
+    #宝宝币、游戏币、魅力值兑换
+    def baby_currency_exchange(self):
+        num = self.wait_getTextValue(myloc.bbbNumber,model="宝宝币数量")
+        if num and len(num) > 0:
+            self.wait_click_element(myloc.exchange_diamonds, model="兑换按钮") 
+            time.sleep(3)
+            self.input_text(myloc.et_input, 1, model="输入宝宝币兑换数量")
+            time.sleep(1)
+            self.assert_true(myloc.all_exchange,model="全部兑换")
+            self.wait_click_element(myloc.tv_shift_to, model="确认兑换")
+            if self.is_element_exist(myloc.tv_confirm,model="再次确认按钮"):
+               self.wait_click_element(myloc.tv_confirm, model="确定")  
+            text = "成功兑换"
+            bbbstr = self.get_toast_msg(text,model="宝宝币兑换toast")
+            if bbbstr and text in bbbstr:
+                log.info("宝宝币兑换成功===={}".format(bbbstr))
+            else:
+                log.info("宝宝币兑换异常===={}".format(bbbstr))
+        else:
+            log.info("宝宝币数量为空")
+            self.save_webImgs("宝宝币钱包空荡荡")
+        time.sleep(2)
+        self.wait_click_element(myloc.exchange_instructions, model="兑换说明") 
+        time.sleep(8)
+        sourceText = self.driver.page_source
+        text1 = "什么是宝宝币"
+        text2 = "钻石是用来购买礼物的"
+        self.assert_in(text1, sourceText, model="兑换说明断言1")
+        time.sleep(1)
+        self.assert_in(text2, sourceText, model="兑换说明断言2")
+        self.driver.press_keycode(4)
+        time.sleep(2)
+        assertres = self.assert_true(myloc.btn_withdraw, model="断言提现按钮")
+        return assertres
+        
+    
+    #提现
+    def withdrawal(self):
+        self.wait_click_element(myloc.btn_withdraw, model="提现") 
+        time.sleep(8)
+        self.wait_click_element(myloc.withdrawal, model="提现") 
+        time.sleep(5)
+        self.assert_true(myloc.card_no,model="身份证号码")
+        time.sleep(1)
+        self.assert_true(myloc.deposit_bank,model="开户银行")
+        time.sleep(1)
+        self.assert_true(myloc.nex_setp,model="下一步")
+        time.sleep(1)
+        self.wait_click_element(myloc.service_agreement, model="服务协议") 
+        self.wait_click_element(myloc.jsxy, model="费用结算协议") 
+        time.sleep(4)
+        resText = self.driver.page_source
+        text = "哈尔滨米娱信息"
+        self.assert_in(text, resText, model="费用结算协议断言")
+        self.RoomPage.go_back()
+        time.sleep(2)
+        self.assert_true(myloc.zyxy,model="自由协议")
+        self.wait_click_element(myloc.zyxy, model="自由协议")
+        time.sleep(4)
+        zyzyText = self.driver.page_source
+        restext = "为维护您的自身权益"
+        self.assert_in(restext, zyzyText, model="自由协议断言")
+        self.RoomPage.go_back()
+        time.sleep(2)
+        self.assert_true(myloc.zyxy,model="自由协议")
+        self.RoomPage.go_back()
+        time.sleep(2)
+        self.assert_true(myloc.card_no,model="提现信息完善页面-身份证号断言")
+        self.driver.press_keycode(4)
+        time.sleep(2)
+        self.driver.press_keycode(4)
+        time.sleep(1)
+        self.driver.press_keycode(4)
+        self.wait_click_element(myloc.Withdrawal_record, model="提现记录")
+        time.sleep(3)
+        if self.is_element_exist(myloc.record_list,model="提现记录列表"):
+            txList = self.get_elements(myloc.record_list,model="提现记录列表元素")
+            sznum = random.randint(0,len(txList)-1)
+            time.sleep(3)
+            txList[sznum].click()
+            time.sleep(3)
+            result = self.get_text(myloc.tv_withdraw_status,model="获取兑换状态")
+            self.assert_in("兑换钻石成功",result,model="兑换断言")
+            time.sleep(2)
+            self.assert_true(myloc.layout_withdraw_actual,model="断言兑换钻石数量")
+            time.sleep(2)
+            self.driver.press_keycode(4)
+            time.sleep(3)
+            self.driver.press_keycode(4)
+
+        else:
+            log.info("提现记录列表数据为空")
+            self.save_webImgs("提现记录列表暂无数据")
+
+    #游戏币相关操作
+    def game_currency(self,loc_ele,model=None):
+        if self.is_element_exist(loc_ele,model=model):
+            self.wait_click_element(loc_ele, model="{}tap按钮".format(model))
+            time.sleep(3)
+            yxbres = self.assert_true(myloc.bbbNumber,model="{}余额".format(model))
+            return yxbres
+        else:
+            log.info("未显示{}tap按钮".format(model))
+            self.save_webImgs("无{}tap按钮".format(model))
+            return False
+
+
+
+    '''
+    会员页面操作流程
+    '''
+    def member(self):
+        self.wait_click_element(myloc.meBtn, model="我的") 
+        self.wait_click_element(myloc.iv_vip, model="会员") 
+        time.sleep(4)
+        self.assert_true(myloc.hybs,model="断言会员专属")
+        time.sleep(1)
+        self.assert_true(myloc.zszb,model="断言专属装扮")
+        time.sleep(1)
+        return self.renew_now()#立即续费方法
+
+
+
+    #立即续费方法
+    def renew_now(self):
+        self.wait_click_element(myloc.ndzsbs, model="立即续费") 
+        self.wait_element_presence(myloc.gear,model="等待充值档位列表元素")
+        gearList = self.get_elements(myloc.gear,model="充值档位列表")
+        self.assert_equal(gearList,dyj=4,model="充值档位断言")
+        time.sleep(1)
+        self.wait_click_element(myloc.morePayWayLay, model="更多支付") 
+        time.sleep(1)
+        self.assert_true(myloc.payWayLay,model="支付宝选项断言")
+        time.sleep(2)
+        self.wait_click_element(myloc.give, model="赠送") 
+        time.sleep(1)
+        self.wait_click_element(myloc.gift_friends, model="赠送好友") 
+        time.sleep(3)
+        friends = self.get_elements(myloc.select_friends,model="获取好友列表")
+        number = random.randint(0,len(friends)-1)
+        friends[number].click()
+        self.wait_click_element(myloc.confirmOK, model="确定")
+        time.sleep(1)
+        senduid = self.get_text(myloc.sendIdTv,model="用户id号码")
+        if senduid and len(senduid) > 3:
+            log.info("选择的用户哩咔ID是:{}".format(senduid))
+            self.wait_click_element(myloc.payment, model="支付")
+            self.wait_click_element(myloc.tv_cancel, model="再考虑下")
+            time.sleep(2)
+        else:
+            log.info("选择赠送好友失败==={}".format(senduid))
+            self.save_webImgs("赠送好友失败")
+            self.driver.press_keycode(4)
+        self.wait_click_element(myloc.membership_agreement, model="哩咔会员协议")
+        time.sleep(4)
+        lkhyxy = self.driver.page_source
+        part_text = "会员资格以月为单位计算"
+        if part_text in lkhyxy:
+            log.info("哩咔会员断言成功===包含:{}".format(part_text))
+        else:
+            log.info("哩咔会员断言失败===未包含:{}".format(part_text))
+            self.save_webImgs("哩咔会员协议")
+        self.RoomPage.go_back()
+        self.assert_true(myloc.weixin,model="断言微信支付选项")
+        self.RoomPage.go_back()
+        self.assert_true(myloc.hybs,model="断言会员专属")
+        time.sleep(1)
+        self.wait_click_element(myloc.xnf, model="续年费,更优惠")
+        time.sleep(4)
+        gearList2 = self.get_elements(myloc.gear,model="充值档位列表")
+        self.assert_equal(gearList2,dyj=4,model="充值档位断言2")
+        self.RoomPage.go_back()
+        time.sleep(3)
+        return self.assert_true(myloc.zszb,model="断言专属装扮")
+        
+
+
+    '''我的-充值流程'''
+    def recharge(self):
+        self.wait_click_element(myloc.meBtn, model="我的") 
+        self.wait_click_element(myloc.iv_recharge, model="充值") 
+        time.sleep(4)
+        if self.is_element_exist(myloc.scth_title,model="首充特惠"):
+            self.RoomPage.go_back()
+        #默认钻石tap
+        time.sleep(4)
+        self.balance_quantity(myloc.diamond_quantity,model="钻石数量")
+        time.sleep(2)
+        self.assert_true(myloc.layout_pay_wechat,model="微信支付选项")
+        time.sleep(2)
+        self.assert_true(myloc.layout_pay_alipay,model="支付宝选项")
+        time.sleep(2)
+        self.assert_equal(myloc.recharge_gear,dyj=12,model="断言充值档位列表")
+        #开具发票
+        self.wait_click_element(myloc.invoice, model="开具发票")
+        time.sleep(3)
+        self.assert_true(myloc.duty_paragraph,model="断言公司税号")
+        # #开票记录
+        # self.wait_click_element(myloc.invoicing_record, model="开票记录")
+        #点击开票说明
+        self.wait_click_element(myloc.billing_description, model="开票说明")
+        time.sleep(5)
+        kpsmText = self.driver.page_source
+        kpsm_ext = "将电子发票推送至您的邮箱"
+        self.assert_in(kpsm_ext, kpsmText, model="断言开票说明")
+        #开票说明-在线客服
+        self.wait_click_element(myloc.online_service2,model="在线客服")
+        if self.is_element_exist(myloc.kefu_nick,model="客服昵称"):
+            kf_list = self.get_elements(myloc.kefu_nick,model="客服列表")
+            kf_num = random.randint(0,len(kf_list)-1)
+            kf_list[kf_num].click()
+            time.sleep(3)
+            if self.is_element_exist(myloc.tv_desc,model="聊天页-心动"):
+                self.driver.press_keycode(4)
+            time.sleep(1)
+            self.assert_true(myloc.editTextMessage,model="断言聊天输入框")
+            self.RoomPage.go_back() #返回客服列表
+            time.sleep(2)
+            self.RoomPage.go_back() #返回开具说明
+            time.sleep(2)
+            self.driver.press_keycode(4) #返回开具发票
+            time.sleep(4)
+            self.driver.press_keycode(4) #返回钻石tap页
+        else:
+            log.info("暂无客服")
+            self.save_webImgs("暂无客服")
+
+        self.wait_click_element(myloc.Withdrawal_record, model="查看明细")
+        self.details_view(myloc.tv_money,model="充值记录") #查看明细-充值记录列表相关操作
+        self.screen(7)
+        self.wait_click_element(myloc.tv_title_two, model="消费tap") 
+        self.details_view(myloc.tv_money,model="消费记录") #查看明细-消费记录列表相关操作
+        self.screen(5)
+        self.RoomPage.go_back()
+        #宝石tap操作
+        self.wait_click_element(myloc.gemstone, model="点击宝石tap") 
+        self.balance_quantity(myloc.diamond_quantity,model="宝石数量")
+        self.assert_equal(myloc.recharge_gear,dyj=9,model="断言充值档位列表")
+        #宝石-在线客服
+        self.contact_customer_service(myloc.online_service,model="在线客服")
+        #宝石-查看明细
+        self.wait_click_element(myloc.Withdrawal_record, model="查看明细")
+        #默认收入tap
+        self.details_view(myloc.tv_money,model="收入记录") #宝石tap-查看明细-收入记录列表相关操作
+        self.screen(6)
+        self.wait_click_element(myloc.tv_title_two, model="消费tap") 
+        self.details_view(myloc.tv_money,model="消费记录") #宝石tap-查看明细-消费记录列表相关操作
+        self.screen(5)
+        self.RoomPage.go_back()
+        #金币tap操作
+        self.wait_click_element(myloc.gold_coins, model="点击金币tap")
+        self.balance_quantity(myloc.itv_gold,model="金币数量")
+        if self.assert_len(myloc.tv_count,dyj=0,model="金币收入支出记录列表"):
+            self.wait_click_element(myloc.tv_see_all,model="查看全部")
+            self.details_view(myloc.tv_count,model="获取金币记录")
+            self.wait_click_element(myloc.use_gold_coins, model="使用金币tap")
+            self.details_view(myloc.tv_count,model="使用金币记录")
+            self.RoomPage.go_back()
+        else:
+            log.info("金币收入支出暂无记录")
+            self.save_webImgs("金币收入支出暂无记录")
+        self.wait_click_element(myloc.Withdrawal_record, model="兑换记录")
+        self.details_view(myloc.tv_count,model="获取金币记录")
+        self.wait_click_element(myloc.use_gold_coins, model="使用金币tap")
+        self.details_view(myloc.tv_count,model="使用金币记录")
+        self.RoomPage.go_back()
+        #赚取金币按钮
+        self.click_element(myloc.btn_get_gold,model="赚取金币按钮")
+        text = "每日签到"
+        if self.is_element_exist(myloc.sign_in,model="签到"):
+            self.click_element(myloc.sign_in,model="点击立即签到按钮")
+            self.click_element(myloc.sign_in,model="点击放入背包按钮")
+        text_res = self.get_text(myloc.mrqd_title,model="每日签到")
+        return self.assert_in(text,text_res,model="断言每日签到是否存在")
+        
+
+
+    #钻石tap-查看明细相关操作
+    def details_view(self,loc,model=None):
+        if self.is_element_exist(loc,model=model):
+            tvtimes = self.find_elements(loc)
+            self.assert_len(tvtimes,model="断言{}列表".format(model))
+        else:
+            log.info("暂无{}".format(model))
+            self.save_webImgs("暂无{}".format(model))
+        
+    #余额数量
+    def balance_quantity(self,loc,model=None):
+        if self.assert_true(loc,model="等待{}元素".format(model)) == False:
+            return False
+        diamondNum = self.get_text(loc,model="获取{}".format(model))
+        if int(diamondNum) > 0:
+            pass
+        else:
+            log.info("没有{}，穷的叮当响".format(model))
+            self.save_webImgs("暂无{}".format(model))    
+
+
+    #进入聊天页通用方法
+    def contact_customer_service(self,loc,model=None):
+        self.wait_click_element(loc, model="点击{}".format(model))
+        # self.assert_equal(myloc.tvxzs_title,dyj=11,model="小助手问题列表")
+        self.assert_true(myloc.editTextMessage,model="断言聊天输入框")
+        self.RoomPage.go_back()
+        
+
+
+    def screen(self,num):
+        self.wait_click_element(myloc.iv_extra, model="筛选按钮") 
+        self.assert_equal(myloc.tv_content,dyj=num,model="筛选选项断言")
+        self.wait_click_element(myloc.tv_cancel, model="取消按钮") 

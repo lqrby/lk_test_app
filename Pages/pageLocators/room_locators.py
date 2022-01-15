@@ -52,7 +52,7 @@ class RoomPageLocator:
     '''list列表面类型元素'''
     # 房间list
     room_list = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/tv_charroom_label']") 
-    # chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round'][not(.//@resource-id='com.ourydc.yuebaobao:id/iv_lock')]") 
+    #聊天室列表
     chat_room_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_chat_room_enter_round'][not(.//@resource-id='com.ourydc.yuebaobao:id/iv_lock')]") 
     
     

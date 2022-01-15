@@ -27,7 +27,7 @@ class LoginPage(CommonBus):
         self.click_element(loc.wdChatBtn, model="点击微信按钮")
         # if self.is_element_exist(loc.microblog_authorizeBtn):
         #     self.exist_be_click(loc.microblog_authorizeBtn) #点击微信授权按钮（假如微博已登录）
-        if self.is_element_exist(loc.wx_name):
+        if self.is_element_exist(loc.wx_name,model="微信名称"):
             self.wait_element_presence(loc.wx_name, model="微信账号输入框")
             self.clear_input_text(loc.wx_name, model="清除微信账号输入框")
             self.input_text(loc.wx_name,wxName,model="输入微信账号")
@@ -49,9 +49,9 @@ class LoginPage(CommonBus):
         self.wait_element_clickable(loc.microblogBtn, model="等待微博按钮元素可被点击")
         self.click_element(loc.microblogBtn, model="点击微博按钮")
         self.driver.implicitly_wait(8)
-        if self.is_element_exist(loc.microblog_authorizeBtn):
+        if self.is_element_exist(loc.microblog_authorizeBtn,model="微博授权"):
             self.exist_be_click(loc.microblog_authorizeBtn) #点击微博授权按钮（假如微博已登录）
-        elif self.is_element_exist(loc.wb_name):
+        elif self.is_element_exist(loc.wb_name,model="微博名称"):
             self.wait_element_presence(loc.wb_name, model="微博账号输入框")
             self.clear_input_text(loc.wb_name, model="清除微博账号输入框")
             self.input_text(loc.wb_name,wbName,model="输入微博账号")
@@ -77,10 +77,10 @@ class LoginPage(CommonBus):
         self.wait_element_clickable(loc.qqBtn, model="等待qq元素可被点击")
         self.click_element(loc.qqBtn, model="点击qq按钮")
         self.driver.implicitly_wait(5)
-        if self.is_element_exist(loc.fdsBtn):
+        if self.is_element_exist(loc.fdsBtn,model="qq授权按钮"):
             self.exist_be_click(loc.fdsBtn) #点击qq授权按钮（假如qq已登录）
             # self.exist_be_click(loc.otherqqLoginBtn) #点击其它qq登录
-        elif self.is_element_exist(loc.scan_authorization):
+        elif self.is_element_exist(loc.scan_authorization,model="扫描授权"):
             self.wait_element_presence(loc.qqInputNane, model="qq账号输入框")
             self.clear_input_text(loc.qqInputNane, model="清除qq账号输入框")
             self.input_text(loc.qqInputNane,qqName,model="输入qq账号")
@@ -111,8 +111,8 @@ class LoginPage(CommonBus):
         self.click_element(loc.loginBtn, model="点击确定")
         toast = self.get_toast_exist(expected)
         if toast and expected in toast:
-            log.info("XXXXX账号密码登录失败XXXXX")
             self.save_webImgs(model="账号密码登录失败")
+            log.info("XXXXX账号密码登录失败XXXXX")
             return True
         else:
             return False

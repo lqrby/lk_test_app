@@ -34,4 +34,4 @@ class SquareLocators:
     commitBtn = (Mb.ID,"com.ourydc.yuebaobao:id/btn_commit") #提交按钮
 
     square_attention = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='关注']") # 附近动态*人参与
-    
+    masterAvatarView = (Mb.ID,'com.ourydc.yuebaobao:id/masterAvatarView') #礼物入口弹框1

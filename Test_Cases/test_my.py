@@ -180,6 +180,20 @@ class Test_my:
 
     @pytest.mark.success
     @allure.story('我的')
+    @allure.title('会员')
+    def test_viewMembers(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>查看会员测试用例***************")
+        view_members = my_page.view_members()
+        try:
+            assert view_members == True
+            log.error("查看会员测试用例通过")
+        except AssertionError as a:
+            log.error("查看会员测试用例断言失败")
+            raise
+            
+    @pytest.mark.success
+    @allure.story('我的')
     @allure.title('查看会员测试用例')
     def test_viewMembers(self, startApp_keepUserData):
         my_page = MyPage(startApp_keepUserData)
@@ -190,6 +204,50 @@ class Test_my:
             log.error("查看会员测试用例通过")
         except AssertionError as a:
             log.error("查看会员测试用例断言失败")
+            raise
+
+
+    @pytest.mark.success
+    @allure.story('我的')
+    @allure.title('会员')
+    def test_income(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>收入测试用例***************")
+        income = my_page.income()
+        try:
+            assert income == True
+            log.error("收入测试用例通过")
+        except AssertionError as a:
+            log.error("收入测试用例断言失败")
+            raise
+
+
+    @pytest.mark.success
+    @allure.story('我的')
+    @allure.title('会员')
+    def test_member(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>会员测试用例***************")
+        member = my_page.member()
+        try:
+            assert member == True
+            log.error("会员测试用例通过")
+        except AssertionError as a:
+            log.error("会员测试用例断言失败")
+            raise
+            
+    @pytest.mark.success
+    @allure.story('我的')
+    @allure.title('充值')
+    def test_recharge(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>充值测试用例***************")
+        recharge = my_page.recharge()
+        try:
+            assert recharge == True
+            log.error("充值测试用例通过")
+        except AssertionError as a:
+            log.error("充值测试用例断言失败")
             raise
             
 

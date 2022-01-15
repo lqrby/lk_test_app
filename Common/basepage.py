@@ -72,7 +72,7 @@ class BasePage:
             return el
         except:
             if self.get_getWebState() == 6:
-                self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
+                return self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             if self.check_page_popUp():
                 return self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
@@ -212,6 +212,11 @@ class BasePage:
                 log.exception("点击元素:{0} 点击失败".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
+                time.sleep(1)
+                if loop > 0:
+                    res = self.click_element(loc, model=model, loop = loop-1)
+                    if res:
+                        return True
                 return False
         except:
             if self.get_getWebState() == 6:
@@ -233,7 +238,7 @@ class BasePage:
                     return False
             
     def isEnabled(self,loc,model=None):
-        if self.is_element_exist(loc):
+        if self.is_element_exist(loc,model=model):
             ele = self.get_element(loc,model=model)
             return ele.is_enabled()
         else:
@@ -537,6 +542,7 @@ class BasePage:
 
     # 判断元素是否存在
     def is_element_exist(self, loc, timeout=5, poll_frequency=0.5, model=None):
+        log.info("{0},是否存在: {1}".format(model, loc))
         try:
             el = WebDriverWait(self.driver, timeout, poll_frequency).until(EC.presence_of_element_located(loc))
             return True
@@ -620,6 +626,11 @@ class BasePage:
     def wait_click_element(self,loc,model,timeout=8):
         if self.wait_element_clickable(loc,timeout=timeout,model="等待{}".format(model)):
             self.click_element(loc,model="点击{}".format(model))
+
+    def wait_getTextValue(self,loc,model,timeout=8):
+        if self.wait_element_presence(loc,timeout=timeout,model="等待{}".format(model)):
+            text = self.get_text(loc)
+            return text
         
     def wait_input_text(self,loc,text,model):
         self.wait_element_presence(loc,model="等待{}输入框".format(model))

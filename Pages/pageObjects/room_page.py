@@ -154,7 +154,7 @@ class RoomPage(CommonBus):
         if len(liveRoomList) > 0:
             room_number = random.randint(0,len(liveRoomList)-1)
             liveRoomList[room_number].click()
-            if self.is_element_exist(roomloc.room_text,timeout=3,poll_frequency=0.3):
+            if self.is_element_exist(roomloc.room_text,timeout=3,poll_frequency=0.3,model="房间密码"):
                 self.click_element(roomloc.closeRoomText,model="关闭聊天室输入密码框")
                 log.info("该聊天室有密码，无法进入")
                 self.save_webImgs("聊天室有密码")
@@ -198,7 +198,7 @@ class RoomPage(CommonBus):
         if blackTap == False:
             return {"result":True,"message":"暂无推荐tap"}
         # self.swipeUp(n=3)
-        res = self.is_element_exist(roomloc.chat_room_list)
+        res = self.is_element_exist(roomloc.chat_room_list,model="房间列表")
         if res == False:
             log.info("推荐列表暂无房间可进入")
             self.save_webImgs(model="推荐列表暂无房间可进入")
@@ -229,7 +229,7 @@ class RoomPage(CommonBus):
 
     def liveRoom(self):
         self.live_room()
-        if self.is_element_exist(roomloc.ranking_list,timeout=5): #是否有排行榜
+        if self.is_element_exist(roomloc.ranking_list,timeout=5,model="排行榜"): #是否有排行榜
             self.click_rankingList(roomloc.ranking_list) #排行榜
         self.createRanks_and_dissolution() #创建队伍并解散队伍
         self.click_receive() #领取按钮
@@ -259,7 +259,7 @@ class RoomPage(CommonBus):
             layout_info_arr = self.get_list(element_arr,model="获取用户列表元素2")
             if layout_info_arr and len(layout_info_arr) > 0:
                 return self.view_user_profile(layout_info_arr)
-        elif self.is_element_exist(roomloc.no_more) == False or self.is_element_exist(roomloc.no_data) == False:
+        elif self.is_element_exist(roomloc.no_more,model="更多") == False or self.is_element_exist(roomloc.no_data,model="更多数据") == False:
             log.info("当前页暂无用户，上拉加载")
             self.swipeUp()
             return self.user_homePage(element_list)
@@ -327,7 +327,7 @@ class RoomPage(CommonBus):
         self.wait_element_clickable(roomloc.nearby_people,model="附近的人tap是否可点击")
         self.click_element(roomloc.nearby_people,model="点击附近的人tap")
         # self.wait_element_presence(roomloc.rv) 
-        if self.is_element_exist(roomloc.tv_close):
+        if self.is_element_exist(roomloc.tv_close,model="用户未进入聊天室元素"):
             log.info("附近的人列表断言通过")
         else:
             log.info("附近的人列表暂无数据")
@@ -349,10 +349,10 @@ class RoomPage(CommonBus):
     def click_dynamic(self):
         self.wait_element_presence(roomloc.user_dynamic,model="动态tap")
         self.click_element(roomloc.user_dynamic,model="点击动态tap")
-        if self.is_element_exist(roomloc.dynamic_list,timeout=3):
+        if self.is_element_exist(roomloc.dynamic_list,timeout=3,model="动态列表"):
             dynamic_list = self.get_elements(roomloc.dynamic_list, model="动态tap列表")
             self.assert_len(dynamic_list, model="动态tap页暂无动态")
-        elif self.is_element_exist(roomloc.no_data,timeout=3):
+        elif self.is_element_exist(roomloc.no_data,timeout=3,model="是否暂无动态元素"):
             log.info("该用户暂无动态")
             self.save_webImgs(model="暂无动态")
         
@@ -362,7 +362,7 @@ class RoomPage(CommonBus):
     def click_exclusive_guard(self):
         self.wait_element_presence(roomloc.user_guard, model="检查守护tap")
         self.click_element(roomloc.user_guard, model="点击守护tap")
-        if self.is_element_exist(roomloc.guard_list):
+        if self.is_element_exist(roomloc.guard_list,model="用户守护"):
             self.assert_len(self.get_elements(roomloc.guard_list,model="获取守护列表"), model="守护tap")
         else:
             log.info("暂无守护tap")
@@ -374,12 +374,12 @@ class RoomPage(CommonBus):
         self.wait_element_presence(roomloc.War_wall,model="检查展墙tap")
         self.click_element(roomloc.War_wall,model="点击展墙tap")
         self.assert_true(roomloc.War_wall_list,model="展墙tap页断言")
-        if self.is_element_exist(roomloc.contribution):
+        if self.is_element_exist(roomloc.contribution,model="贡献榜"):
             self.contribution() #贡献榜
         else:
             log.info("用户隐藏了贡献榜")
             self.save_webImgs(model="用户隐藏了贡献榜")
-        if self.is_element_exist(roomloc.gift_wall):
+        if self.is_element_exist(roomloc.gift_wall,model="礼物展墙"):
             self.gift_wall() #礼物展墙
         else:
             log.info("用户隐藏了礼物展墙")
@@ -390,9 +390,9 @@ class RoomPage(CommonBus):
 
     #守护者按钮
     def guardian(self):
-        if self.is_element_exist(roomloc.guardian):
+        if self.is_element_exist(roomloc.guardian,model="守护者"):
             self.click_element(roomloc.guardian, model="点击守护者")
-            if self.is_element_exist(roomloc.guardian_nickname):
+            if self.is_element_exist(roomloc.guardian_nickname,model="守护者昵称"):
                 log.info("用户有守护者")
             else:
                 log.info("该用户暂无守护者")
@@ -420,9 +420,9 @@ class RoomPage(CommonBus):
     #左上角返回
     def go_back(self):
         time.sleep(1)
-        if self.is_element_exist(roomloc.msg_backBtn):
+        if self.is_element_exist(roomloc.msg_backBtn,model="聊天返回"):
             self.click_element(roomloc.msg_backBtn, model="返回")
-        elif self.is_element_exist(roomloc.backBtn):
+        elif self.is_element_exist(roomloc.backBtn,model="详情页返回"):
             self.click_element(roomloc.backBtn, model="返回")
         else:
             log.info("没有查找到返回元素")
@@ -438,7 +438,7 @@ class RoomPage(CommonBus):
 
     #展墙-钻石榜
     def diamond_list(self):
-        if self.is_element_exist(roomloc.masonry_list):
+        if self.is_element_exist(roomloc.masonry_list,model="钻石榜列表"):
             zs_list = self.get_elements(roomloc.masonry_list,model="获取钻石榜列表")
             self.assert_len(zs_list, dyj=0, model="钻石榜列表断言")
         else:
@@ -447,7 +447,7 @@ class RoomPage(CommonBus):
     
     #展墙-魅力榜
     def Charm_list(self):
-        if self.is_element_exist(roomloc.masonry_list):
+        if self.is_element_exist(roomloc.masonry_list,model="魅力榜列表"):
             ml_list = self.get_elements(roomloc.masonry_list,model="获取魅力榜列表")
             self.assert_len(ml_list, dyj=0, model="魅力榜列表断言")
         else:
@@ -456,7 +456,7 @@ class RoomPage(CommonBus):
 
     #展墙-守护榜
     def guard_list(self):
-        if self.is_element_exist(roomloc.no_data):
+        if self.is_element_exist(roomloc.no_data,model="有无数据"):
             log.info("守护榜暂无数据")
             self.save_webImgs(model="守护榜暂无数据")
         else:
@@ -467,7 +467,7 @@ class RoomPage(CommonBus):
     #====================礼物展墙================
     def gift_wall(self):
         self.wait_click_element(roomloc.gift_wall, model="礼物展墙") #点击礼物展墙
-        giftwaill = self.is_element_exist(roomloc.giftWallList) #礼物展墙列表是否存在
+        giftwaill = self.is_element_exist(roomloc.giftWallList,model="礼物展墙") #礼物展墙列表是否存在
         if giftwaill:
             giftWallList = self.get_elements(roomloc.giftWallList,model="获取礼物展墙列表")
             bool = self.assert_len(giftWallList, dyj=0, model="礼物展墙列表断言")
@@ -485,7 +485,7 @@ class RoomPage(CommonBus):
             self.driver.press_keycode(4)
             time.sleep(2)
             self.go_back()
-            if self.is_element_exist(roomloc.War_wall_list):
+            if self.is_element_exist(roomloc.War_wall_list,model="展墙断言"):
                 pass
             else:
                 log.info("见鬼了")
@@ -542,7 +542,7 @@ class RoomPage(CommonBus):
     
     #关注
     def follow(self):
-        if self.is_element_exist(roomloc.follow):
+        if self.is_element_exist(roomloc.follow,model="关注"):
             self.click_element(roomloc.follow,model="点击关注")
             gz_toast = "关注成功"
             followSuccess = self.get_toast_msg(gz_toast, model="关注成功的toast")
@@ -552,7 +552,7 @@ class RoomPage(CommonBus):
 
     #取消关注    
     def cancel_follow(self):
-        if self.is_element_exist(roomloc.cancel_follow):
+        if self.is_element_exist(roomloc.cancel_follow,model="取消关注"):
             time.sleep(1)
             self.click_element(roomloc.cancel_follow, model="点击取消关注")
             self.wait_element_presence(roomloc.Confirm_cancellation, model="确认按钮显示")
@@ -572,7 +572,7 @@ class RoomPage(CommonBus):
     
     #断言更多分享长度
     def more_share(self):
-        if self.is_element_exist(roomloc.more_list):
+        if self.is_element_exist(roomloc.more_list,model="更多列表"):
             moreList = self.find_elements(roomloc.more_list) #更多list
             self.assert_len(moreList, dyj=5, model="更多列表")
         else:
@@ -597,13 +597,13 @@ class RoomPage(CommonBus):
 
     #房间模块--->聊天室内操作（聊天室通用）
     def live_room(self):
-        if self.is_element_exist(roomloc.all_mode,timeout=3):
+        if self.is_element_exist(roomloc.all_mode,timeout=3,model="全部模式"):
             self.driver.press_keycode(4)
-        # self.exist_be_click(roomloc.follow,model="关注")#点击关注
-        # self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天，金币打赏，背包小花打赏等
-        # self.gift_entrance_bottom() # 底部礼物入口》切换礼物tap，选中礼物，赠送礼物,返回，房间用户及贵宾席
+        self.exist_be_click(roomloc.follow,model="关注")#点击关注
+        self.gift_entrance_top() #顶部礼物入口》查看房主资料》关注，@她，聊天，金币打赏，背包小花打赏等
+        self.gift_entrance_bottom() # 底部礼物入口》切换礼物tap，选中礼物，赠送礼物,返回，房间用户及贵宾席
         self.click_game() #点击游戏并断言
-        # self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
+        self.send_message(roomloc.iv_send_text,random.choice(chatMessage)) #发送消息并断言
 
 
     '''
@@ -636,7 +636,7 @@ class RoomPage(CommonBus):
         if blackTap == False:
             return {"result":True,"message":"暂无开黑tap"}
         self.swipeDown()
-        res = self.is_element_exist(roomloc.chat_room_list)
+        res = self.is_element_exist(roomloc.chat_room_list,model="")
         if res:
             room_list =self.get_list(roomloc.chat_room_list,model="派对聊天室列表") #房间列表
             number = random.randint(0,(len(room_list)-1))
@@ -949,31 +949,26 @@ class RoomPage(CommonBus):
         result = self.is_element_exist(ranking_list,model="暂无排行榜")
         if result:
             log.info("点击排行榜======{}".format(result))
-            self.click_element(roomloc.ranking_list,model="点击排行榜") #点击排行榜
+            self.wait_click_element(roomloc.ranking_list,model="点击排行榜")
+            time.sleep(3)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-日榜") #断言
+            self.wait_click_element(roomloc.tv_title_week, model="周榜")
             time.sleep(2)
-            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
-            self.click_element(roomloc.tv_title_week, model="点击周榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-周榜") #断言
+            self.wait_click_element(roomloc.tv_title_yue, model="月榜")
             time.sleep(2)
-            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
-            self.click_element(roomloc.tv_title_yue, model="点击月榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-月榜") #断言
+            self.wait_click_element(roomloc.popularity_list, model="人气榜")
             time.sleep(2)
-            self.wait_element_clickable(roomloc.popularity_list, model="等待人气榜可点击")
-            self.click_element(roomloc.popularity_list,model="点击人气榜") #点击人气榜
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-日榜") #断言
+            self.wait_click_element(roomloc.tv_title_week, model="人气榜-周榜")
             time.sleep(2)
-            self.wait_eleVisible(roomloc.tv_title_week, model="等待周榜显示")
-            self.click_element(roomloc.tv_title_week, model="点击周榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-周榜") #断言
+            self.wait_click_element(roomloc.tv_title_yue, model="人气榜-月榜")
             time.sleep(2)
-            self.wait_eleVisible(roomloc.tv_title_yue, model="等待月榜显示")
-            self.click_element(roomloc.tv_title_yue, model="点击月榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-月榜") #断言
+            self.wait_click_element(roomloc.guardian_list, model="守护榜")
             time.sleep(2)
-            self.wait_element_clickable(roomloc.guardian_list, model="等待守护榜可点击")
-            self.click_element(roomloc.guardian_list,model="点击守护榜") #点击守护榜
             self.rankingList_assert(roomloc.day_week_month_assert2,model="守护榜") #断言
             self.go_back() #返回
         else:
@@ -996,7 +991,7 @@ class RoomPage(CommonBus):
             self.save_webImgs(model)
     #点击玩法介绍
     def click_introduce(self):
-        if self.is_element_exist(roomloc.tv_introduce):
+        if self.is_element_exist(roomloc.tv_introduce,model="玩法介绍"):
             self.click_element(roomloc.tv_introduce,model="点击玩法介绍")#点击玩法介绍  
             self.wait_element_presence(roomloc.tv_introduce_assert,model="玩法介绍内容")
             tv_introduce_assert = self.get_element(roomloc.tv_introduce_assert,model="获取玩法介绍文本对象").text
@@ -1041,7 +1036,7 @@ class RoomPage(CommonBus):
 
     # 点击游戏
     def click_game(self):
-        if self.is_element_exist(roomloc.iv_game,timeout=1):
+        if self.is_element_exist(roomloc.iv_game,timeout=5,model="游戏"):
             self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
             time.sleep(2)
             self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
@@ -1070,9 +1065,9 @@ class RoomPage(CommonBus):
 
     # 开黑tay-聊天室-创建队伍
     def click_create_ranks(self):
-        if self.is_element_exist(roomloc.tv_disband,timeout=1):
+        if self.is_element_exist(roomloc.tv_disband,timeout=1,model="解散"):
             self.click_dissolution()
-        if self.is_element_exist(roomloc.tv_create,timeout=1):
+        if self.is_element_exist(roomloc.tv_create,timeout=1,model="创建队伍按钮"):
             self.click_element(roomloc.tv_create,model="点击创建队伍") #点击创建队伍
             self.wait_element_clickable(roomloc.spinner_mode, model="检查模式下拉选择框")
             # self.click_element(roomloc.spinner_mode,model="点击下拉选择框") #点击模式下拉选择框
@@ -1106,7 +1101,7 @@ class RoomPage(CommonBus):
     
     #关闭女神开播引导弹窗
     def close_back(self):
-        if self.is_element_exist(roomloc.close_back):
+        if self.is_element_exist(roomloc.close_back,model="聊天室关闭按钮"):
             self.click_element(roomloc.close_back,model="关闭女神开播引导弹窗") 
         else:
             pass

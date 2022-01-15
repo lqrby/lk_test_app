@@ -62,7 +62,7 @@ class SignPopPage(BasePage):
 
     #充值弹窗取消充值       
     def check_recharge_Popup(self):
-        if self.is_element_exist(poploc.recharge):
+        if self.is_element_exist(poploc.recharge,model="充值弹窗"):
             self.exist_be_click(poploc.cancel_close)
         else:
             pass
@@ -70,7 +70,7 @@ class SignPopPage(BasePage):
 
     #检查关闭提升魅力弹的方法       
     def check_close_EnhanceCharm(self):
-        if self.is_element_exist(poploc.tv_to_profile):
+        if self.is_element_exist(poploc.tv_to_profile,model="提升魅力弹窗"):
             self.click_element(poploc.iv_close, model="关闭提升魅力弹窗")
         else:
             pass

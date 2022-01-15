@@ -20,7 +20,7 @@ class TestSquare:
         nearby_dynamics = square_page.nearby_dynamics()
         with allure.step("查看推荐动态"):
             try:
-                assert len(nearby_dynamics) > 0
+                assert nearby_dynamics == True
                 log.info("查看推荐动态断言成功")
             except AssertionError as a:
                 log.error("查看推荐动态断言失败")
@@ -37,7 +37,7 @@ class TestSquare:
         nearby_dynamics = square_page.square_attention()
         with allure.step("查看我已关注用户的动态"):
             try:
-                assert len(nearby_dynamics) > 0
+                assert nearby_dynamics == True
                 log.info("查看我已关注用户的动态断言成功")
             except AssertionError as a:
                 log.error("查看我已关注用户的动态断言失败")

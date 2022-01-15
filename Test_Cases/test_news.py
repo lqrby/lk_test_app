@@ -13,17 +13,17 @@ class TestNews:
     '''消息---通讯录'''  
     @pytest.mark.success
     @allure.story('消息-通讯录')
-    @allure.title('推荐动态测试用例')           
+    @allure.title('消息-通讯录测试用例')           
     def test_news(self, startApp_keepUserData):
-        log.info("*********************广场模块-推荐动态-测试用例*********************")
+        log.info("*********************消息-通讯录-测试用例*********************")
         news_page = NewsPage(startApp_keepUserData)
         mail_list = news_page.mail_list()
-        with allure.step("查看推荐动态"):
+        with allure.step("查看用户主页"):
             try:
                 assert mail_list == True
-                log.info("查看推荐动态断言成功")
+                log.info("查看用户主页资料断言成功")
             except AssertionError as a:
-                log.error("查看推荐动态断言失败")
+                log.error("查看用户主页资料断言失败")
                 raise
 
 
