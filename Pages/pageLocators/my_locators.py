@@ -189,6 +189,17 @@ class MyLocators:
     game_hall = (Mb.ID, "com.ourydc.yuebaobao:id/v_game_layout")
     # 我的等级
     my_level = (Mb.ID, "com.ourydc.yuebaobao:id/v_vip_level")
+    free_barrage = (Mb.XPATH, "//*[@class='android.view.View' and @text='免费弹幕']")
+    list_stealth = (Mb.XPATH, "//*[@class='android.view.View' and @text='榜单隐身']")
+    anchor_level = (Mb.XPATH, "//*[@class='android.view.View' and @text='主播等级']")
+    begin_to_show = (Mb.XPATH, "//*[@class='android.view.View' and @text='开播']")
+    wish = (Mb.XPATH, "//*[@class='android.view.View' and @text='心愿']")
+    zhujianPK = (Mb.XPATH, "//*[@class='android.view.View' and @text='PK']")
+    rank = (Mb.XPATH, "//*[@class='android.view.View' and @text='爵位等级']")
+    count = (Mb.XPATH, "//*[@class='android.view.View' and @text='含充值金额240元']")
+    explain = (Mb.XPATH, "//*[@class='android.view.View' and @text='说明']")
+
+
     # 活动中心
     activity_center = (Mb.ID, "com.ourydc.yuebaobao:id/v_activity") 
     # 申请家族

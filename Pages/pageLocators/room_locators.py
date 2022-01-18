@@ -204,12 +204,52 @@ class RoomPageLocator:
     
     layout_input_msg = (Mb.ID,'com.ourydc.yuebaobao:id/layout_input_msg') #表情
     iv_send_text = (Mb.ID,'com.ourydc.yuebaobao:id/iv_send_text') #input,聊天入口（来聊天啊）
+
     iv_more = (Mb.ID,'com.ourydc.yuebaobao:id/iv_more') #更多
+    gd_game = (Mb.ID,'com.ourydc.yuebaobao:id/layout_game') #游戏
+    game_ymbb = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv' and text='一毛不拔']") # 断言一毛不拔	
+    game_ybzj = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv' and text='一本正经']") # 断言一本正经
+
+    gig_adventure = (Mb.XPATH, "//*[@class='android.widget.TextView' and text='大冒险']") # 大冒险tap
+    wash_and_sing = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and text='边刷牙边唱歌']") # 断言边刷牙边唱歌
+    water_reading = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and text='含一口水读绕口令']") # 断言含一口水读绕口令
+
+    mask_message = (Mb.ID,'com.ourydc.yuebaobao:id/layout_shielding_msg') #屏蔽消息
+    privilege_card = (Mb.ID,'com.ourydc.yuebaobao:id/layout_privilegecard') #特权卡管理
+    red_envelope = (Mb.ID,'com.ourydc.yuebaobao:id/redPackLay') #红包
+    total_amount = (Mb.ID, "com.ourydc.yuebaobao:id/tv_monty_desc") # 断言总金额
+    count_down = (Mb.ID, "com.ourydc.yuebaobao:id/tv_countdown") # 断言倒计时
+
+    diamond_red_envelope = (Mb.ID, "com.ourydc.yuebaobao:id/tv_redpacket") # 钻石红包tap
+    btn_send = (Mb.ID, "com.ourydc.yuebaobao:id/btn_send") # 发送红包按钮
+    
+    
+
+    task = (Mb.ID,'com.ourydc.yuebaobao:id/taskLay') #任务
+    # daily_login = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/title' and text='日常任务']") # 日常任务
+    daily_login = (Mb.ID, "com.ourydc.yuebaobao:id/title") # 日常任务
+    gold_coin_lucky_draw = (Mb.ID, "com.ourydc.yuebaobao:id/luckyDrawTv") # 金币抽奖
+    claim_button = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") # 领取按钮
+    # not_claimed = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and text='未领取']") # 未领取按钮
+    task_description = (Mb.ID, "com.ourydc.yuebaobao:id/taskInstructions") # 任务说明
+    collectable = (Mb.ID, "@resource-id='com.ourydc.yuebaobao:id/lightIv") # 可领取奖品
+    claim_button = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/lightIv']") # 领奖按钮
+
+
+
+
+
+    invitation = (Mb.ID,'com.ourydc.yuebaobao:id/invitefriends') #邀请
+    mixer = (Mb.ID,'com.ourydc.yuebaobao:id/layout_ear_return') #调音台
+
+
+
+
     iv_msg = (Mb.ID,'com.ourydc.yuebaobao:id/iv_msg') #消息
     msg_input = (Mb.ID,'com.ourydc.yuebaobao:id/editTextMessage') #消息输入框
     send_message = (Mb.ID,'com.ourydc.yuebaobao:id/tv_send_msg') #点击发送按钮
     
-    iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/iv_game') #游戏
+    # iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/layout_game') #游戏
     game_assert = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") # 游戏列表断言	
 
     
@@ -367,8 +407,22 @@ class RoomPageLocator:
     playLottie = (Mb.ID, "playLottie") #全部模式（聊天室的一个蒙层）
 
 
+    
+    
+    jbtq = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='金币套圈']") #金币套圈游戏
+    trap = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='套圈圈']") #套圈圈游戏
+    taoquan_btn = (Mb.XPATH, "//*[@class='android.view.View' and @index='4']") #套圈按钮
 
-    jbtq = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='金币套圈']") #全部模式（聊天室的一个蒙层）
+
+    slingshot = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='进击的弹弓手']") #进击的弹弓手游戏
+    Koi_blind_box = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='锦鲤盲盒']") #锦鲤盲盒游戏
+    purchase_btn = (Mb.XPATH, "//*[@class='android.view.View' and @index='5' and @text='购买']") #断言锦鲤盲盒购买按钮
+
+
+    gold_coin_car = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='金币造车']") #金币造车游戏
+    
+    jungle_hunt = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='丛林狩猎']") #丛林狩猎游戏
+    hemp_rope = (Mb.XPATH, "//*[@class='android.view.View' and @text='麻绳' and @index='3']") #丛林狩猎麻绳元素
 
 
     

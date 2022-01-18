@@ -18,7 +18,7 @@ class TestRoom:
     # def test_recommend_Room(self, startApp_keepUserData):
     #     room_page = RoomPage(startApp_keepUserData)
     #     log.info("**************房间模块-推荐tap-进退聊天室****************")
-    #     liveRoomMum = room_page.recommend_liveRoom() #进入推荐聊天室
+    #     liveRoomMum = room_page.testrecommend_liveRoom() #进入推荐聊天室
     #     with allure.step("进入推荐聊天室"):
     #         try:
     #             assert liveRoomMum["result"] == True

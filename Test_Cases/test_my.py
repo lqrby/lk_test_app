@@ -250,6 +250,20 @@ class Test_my:
             log.error("充值测试用例断言失败")
             raise
             
+    @pytest.mark.success
+    @allure.story('我的')
+    @allure.title('等级')
+    def test_mylevel(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>充值测试用例***************")
+        my_level = my_page.my_level()
+        try:
+            assert my_level == True
+            log.error("充值测试用例通过")
+        except AssertionError as a:
+            log.error("充值测试用例断言失败")
+            raise
+            
 
     
 

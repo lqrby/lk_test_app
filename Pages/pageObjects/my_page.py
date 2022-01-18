@@ -825,3 +825,51 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.iv_extra, model="筛选按钮") 
         self.assert_equal(myloc.tv_content,dyj=num,model="筛选选项断言")
         self.wait_click_element(myloc.tv_cancel, model="取消按钮") 
+
+
+
+    '''我的等级测试流程'''
+    def my_level(self):
+        self.wait_click_element(myloc.meBtn, model="点击我的")
+        time.sleep(2)
+        if self.is_element_exist(myloc.my_level, model="我的等级"):
+            self.wait_click_element(myloc.my_level, model="点击我的等级") 
+            time.sleep(5)
+            self.assert_true(myloc.free_barrage,model="断言免费弹幕")
+            time.sleep(3)
+            self.assert_true(myloc.free_barrage,model="断言榜单隐身")
+            self.wait_click_element(myloc.anchor_level, model="点击主播等级tap") 
+            time.sleep(2)
+            self.assert_true(myloc.begin_to_show,model="开播")
+            time.sleep(2)
+            self.assert_true(myloc.wish,model="心愿")
+            time.sleep(2)
+            self.assert_true(myloc.zhujianPK,model="PK")
+            self.wait_click_element(myloc.rank, model="点击爵位等级tap") 
+            time.sleep(2)
+            self.assert_true(myloc.count,model="伯爵")
+            time.sleep(2)
+            self.wait_click_element(myloc.explain,model="点击说明tap")
+            time.sleep(3)
+            sm_Text = self.driver.page_source
+            vip_ext = "VIP等级是根据用户在应用内的消费金额计算"
+            self.assert_in(vip_ext, sm_Text, model="断言vip等级说明")
+            time.sleep(2)
+            self.wait_click_element(myloc.anchor_level, model="点击主播等级tap")
+            time.sleep(3)
+            zhubo_Text = self.driver.page_source
+            zb_ext = "主播等级是根据主播经验计算的"
+            self.assert_in(zb_ext, zhubo_Text, model="断言等级说明")
+            time.sleep(2)
+            self.wait_click_element(myloc.rank, model="点击爵位等级tap")
+            time.sleep(3)
+            juewei_Text = self.driver.page_source
+            jw_ext = "购买爵位自动返还一定金额的钻石"
+            self.assert_in(jw_ext, juewei_Text, model="断言vip等级说明")
+            time.sleep(1)
+            return True
+            
+        else:
+            log.info("暂未显示我的等级")
+            self.save_webImgs("暂未显示我的等级")
+            return True

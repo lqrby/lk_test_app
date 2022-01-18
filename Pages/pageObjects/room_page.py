@@ -167,27 +167,36 @@ class RoomPage(CommonBus):
             log.info("暂无聊天室")
             return False
 
-    # '''
-    # 功能:临时测试聊天室
-    # '''
-    # def testrecommend_liveRoom(self):
-    #     self.find_room() #点击房间模块
-    #     blackTap = self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
-    #     if blackTap == False:
-    #         return {"result":True,"message":"暂无推荐tap"}
-    #     # self.swipeUp(n=3)
-    #     res = self.is_element_exist(roomloc.chat_room_list)
-    #     if res == False:
-    #         log.info("推荐列表暂无房间可进入")
-    #         self.save_webImgs(model="推荐列表暂无房间可进入")
-    #         return {"result":False,"message":"推荐列表暂无房间可进入"}
+    '''
+    功能:临时测试聊天室
+    '''
+    def testrecommend_liveRoom(self):
+        self.find_room() #点击房间模块
+        blackTap = self.room_tap(roomloc.recommend_tap,model="推荐tap") #点击推荐tap
+        if blackTap == False:
+            return {"result":True,"message":"暂无推荐tap"}
+        # self.swipeUp(n=3)
+        res = self.is_element_exist(roomloc.chat_room_list)
+        if res == False:
+            log.info("推荐列表暂无房间可进入")
+            self.save_webImgs(model="推荐列表暂无房间可进入")
+            return {"result":False,"message":"推荐列表暂无房间可进入"}
         
-    #     liveRoomList = self.live_room_list(roomloc.chat_room_list) #聊天室列表
-    #     # print("liveRoomList=====",liveRoomList)
-    #     self.enter_live_room(liveRoomList) #随机进入聊天室
-    #     # self.liveRoom() #聊天室内操作
-    #     self.click_game() #点击游戏并断言
-    #     return {"result":True}
+        liveRoomList = self.live_room_list(roomloc.chat_room_list) #聊天室列表
+        # print("liveRoomList=====",liveRoomList)
+        self.enter_live_room(liveRoomList) #随机进入聊天室
+        self.bottom_more()
+        # self.liveRoom() #聊天室内操作
+        # self.click_game() #点击游戏并断言
+        # self.enter_the_game(roomloc.jbtq,roomloc.taoquan_btn,model="金币套圈") #进入金币套圈游戏并断言
+        # time.sleep(2)
+        # self.enter_the_game(roomloc.trap,roomloc.taoquan_btn,model="套圈圈") #进入套圈圈游戏并断言
+        # time.sleep(2)
+        # self.enter_the_game(roomloc.Koi_blind_box,roomloc.purchase_btn,model="锦鲤盲盒") #进入锦鲤盲盒游戏并断言
+        # time.sleep(2)
+        # self.enter_the_game(roomloc.jungle_hunt,roomloc.hemp_rope,click_num=1,model="丛林狩猎") #进入丛林狩猎游戏并断言
+
+        return {"result":True}
 
     '''
     功能:推荐聊天室
@@ -235,6 +244,7 @@ class RoomPage(CommonBus):
         self.click_receive() #领取按钮
         #幸运福袋
         self.click_introduce() #点击玩法介绍，关闭玩法介绍（包括断言）
+        self.bottom_more() #聊天室内更多相关操作流程
         return self.exit_chat_room() #退出聊天室
         
 
@@ -1033,35 +1043,41 @@ class RoomPage(CommonBus):
         else:
             pass
 
-
+    #进入游戏并断言
+    def enter_the_game(self,click_loc,assert_loc,click_num=0,model=None):
+        self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
+        self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
+        time.sleep(2)
+        self.wait_click_element(click_loc,model=model) 
+        time.sleep(8)
+        while click_num > 0:
+            self.tap_by_coordinate([0.5,0.6],model="点击蒙层")
+            time.sleep(1)
+            click_num = click_num - 1
+        self.is_element_exist(assert_loc)
+        self.assert_true(assert_loc,model="{}游戏断言".format(model))
+        self.driver.keyevent(4)
     # 点击游戏
     def click_game(self):
         if self.is_element_exist(roomloc.iv_game,timeout=5,model="游戏"):
             self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
-            time.sleep(2)
             self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
+            time.sleep(2)
             game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")
+            time.sleep(4)
             self.assert_len(game_assert,dyj=4, model="游戏列表断言")
-            # self.wait_click_element(roomloc.jbtq,model="金币套圈")
-            # search_field = self.driver.find_element_by_class_name("playBtn")
-            # log.info(search_field)
-            # self.assert_true(roomloc.playLottie,model="断言套圈按钮")
-            # webview = self.driver.contexts
-            # webview
-            # log.info("webview====={}".format(webview))
             self.driver.keyevent(4)
+            self.enter_the_game(roomloc.jbtq,roomloc.taoquan_btn,model="金币套圈") #进入金币套圈游戏并断言
+            time.sleep(2)
+            self.enter_the_game(roomloc.trap,roomloc.taoquan_btn,model="套圈圈") #进入套圈圈游戏并断言
+            time.sleep(2)
+            self.enter_the_game(roomloc.Koi_blind_box,roomloc.purchase_btn,model="锦鲤盲盒") #进入锦鲤盲盒游戏并断言
+            time.sleep(2)
+            self.enter_the_game(roomloc.jungle_hunt,roomloc.hemp_rope,click_num=1,model="丛林狩猎") #进入丛林狩猎游戏并断言
         else:
             log.info("无游戏入口")
             self.save_webImgs("无游戏入口")
         
-
-    # 打开游戏
-    def open_game(self,element,text,model=None):
-        self.wait_element_presence(element,model="{}元素".format(model))
-        self.click_element(element,model="点击{}".format(model))
-        tqq = self.driver.page_source
-        print("tqq=====",tqq)
-        self.assert_in(text, tqq, model="{}断言".format(model))
 
     # 开黑tay-聊天室-创建队伍
     def click_create_ranks(self):
@@ -1108,7 +1124,98 @@ class RoomPage(CommonBus):
     
 
 
-    
+    #聊天室底部更多中的游戏、红包、任务等相关操作流程
+    def bottom_more(self):
+        self.more_geme() #游戏
+        self.more_red_envelope() #红包
+        self.click_task() #任务
+    #游戏规则
+    def more_geme(self):
+        self.wait_click_element(roomloc.iv_more,model="更多")
+        if self.is_element_exist(roomloc.gd_game,model="游戏"):
+            self.wait_click_element(roomloc.gd_game,model="游戏")
+            time.sleep(2)
+            self.assert_true(roomloc.game_ymbb,model="断言一毛不拔")
+            time.sleep(2)
+            self.assert_true(roomloc.game_ybzj,model="断言一本正经")
+            self.wait_click_element(roomloc.gig_adventure,model="大冒险tap")
+            self.assert_true(roomloc.wash_and_sing,model="断言边刷牙边唱歌")
+            time.sleep(2)
+            self.assert_true(roomloc.water_reading,model="断言含一口水读绕口令")
+            time.sleep(1)
+            self.go_back()
+        else:
+            log.info("女神厅更多中暂无游戏真心话大冒险")
+            self.save_webImgs("无真心话大冒险")
+            time.sleep(1)
+            self.driver.press_keycode(4)
+
+
+    #红包
+    def more_red_envelope(self):
+        self.wait_click_element(roomloc.iv_more,model="更多")
+        self.wait_click_element(roomloc.red_envelope,model="红包")
+        time.sleep(2)
+        self.assert_true(roomloc.total_amount,model="断言总金额")
+        time.sleep(2)
+        self.assert_true(roomloc.count_down,model="断言倒计时")
+        time.sleep(2)
+        self.wait_click_element(roomloc.diamond_red_envelope,model="钻石红包")
+        time.sleep(2)
+        self.assert_true(roomloc.total_amount,model="断言总金额")
+        time.sleep(2)
+        self.assert_true(roomloc.btn_send,model="断言发送按钮")
+        time.sleep(2)
+        self.driver.press_keycode(4)
+
+
+    #任务
+    def click_task(self):
+        self.wait_click_element(roomloc.iv_more,model="更多")
+        self.wait_click_element(roomloc.task,model="任务")
+        time.sleep(2) 
+        self.assert_true(roomloc.daily_login,model="日常任务")
+        time.sleep(2) 
+        self.assert_true(roomloc.gold_coin_lucky_draw,model="金币抽奖")
+        time.sleep(2) 
+        if self.is_element_exist(roomloc.claim_button,model="领取按钮是否存在"):
+            claim_list = self.get_elements(roomloc.claim_button,model="存在，获取可领取数量")
+            log.info("点击领取按钮")
+            claim_list[0].click()
+            lj_text = "领取成功"
+            lqjl = self.get_toast_msg(lj_text,model="获取奖励领取toast")
+            if lj_text in lqjl:
+                log.info("领取任务奖励成功===={}".format(lqjl))
+            else:
+                log.info("领取任务奖励失败===={}".format(lqjl))
+                self.save_webImgs("领取任务奖励失败")
+        else:
+            log.info("暂无可领取奖励")
+            self.save_webImgs("暂无可领取奖励按钮")
+        self.wait_click_element(roomloc.task_description,model="点击任务说明")
+        time.sleep(2)
+        rwsm = self.driver.page_source
+        textsrt = "完成每日任务可获得活跃度"
+        if textsrt in rwsm:
+            log.info("任务说明断言成功")
+        else:
+            log.info("任务说明断言失败")
+            self.save_webImgs("任务说明错误")
+        if self.is_element_exist(roomloc.closeRoomText,model="关闭按钮"):
+            self.wait_click_element(roomloc.closeRoomText,model="点击关闭按钮")
+        if self.is_element_exist(roomloc.collectable,model="可领取奖励"):
+            klqjlsl = self.get_elements(roomloc.collectable,model="可领取奖励数量")
+            klqjlsl[0].click()
+            lqjl_text = "已领取"
+            ljtoast = self.get_toast_msg(lj_text,model="获取领奖toast")
+            if lqjl_text in ljtoast:
+                log.info("领奖成功======{}".format(ljtoast))
+            else:
+                log.info("领奖失败==={}".format(ljtoast))
+                self.save_webImgs("领奖失败")
+        time.sleep(2)        
+        self.driver.press_keycode(4)
+        time.sleep(2) 
 
 
     
