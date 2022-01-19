@@ -109,7 +109,7 @@ class CommonBus(BasePage):
     # 断言元素长度
     def assert_equal(self, dy_loc, dyj=0, model=None):
         try:
-            self.wait_element_presence(dy_loc)
+            self.wait_element_presence(dy_loc,model=model)
             yslist = self.get_elements(dy_loc,model=model)
             assert len(yslist) == dyj
             log.info("{}===断言通过,{} == {}".format(model,len(yslist),dyj))
@@ -132,8 +132,6 @@ class CommonBus(BasePage):
             return False
 
     
-
-
     #返回元素坐标
     def get_coordinate(self,bounds):
         b= bounds.replace("][",",")

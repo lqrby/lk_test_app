@@ -97,31 +97,33 @@ class MyLocators:
     # 宝宝币、游戏币、魅力值数量
     bbbNumber = (Mb.ID, "com.ourydc.yuebaobao:id/tv_count")
     # 宝宝币兑换钻石按钮
-    exchange_diamonds = (Mb.ID, "com.ourydc.yuebaobao:id/iv_exchange_money")
+    exchange_diamonds = (Mb.ID,"com.ourydc.yuebaobao:id/iv_exchange_money")
+    # 魅力值兑换按钮
+    charm_value_exchange = (Mb.ID,"com.ourydc.yuebaobao:id/tv_exchange_money")
     # 宝宝币兑换说明按钮
-    exchange_instructions = (Mb.ID, "com.ourydc.yuebaobao:id/iv_income_problem")
+    exchange_instructions = (Mb.ID,"com.ourydc.yuebaobao:id/iv_income_problem")
     #全部兑换按钮
-    all_exchange = (Mb.ID, "com.ourydc.yuebaobao:id/tv_take_all")
+    all_exchange = (Mb.ID,"com.ourydc.yuebaobao:id/tv_take_all")
     #兑换数量输入框
-    et_input = (Mb.ID, "com.ourydc.yuebaobao:id/et_input")
+    et_input = (Mb.ID,"com.ourydc.yuebaobao:id/et_input")
     #兑换按钮
-    tv_shift_to = (Mb.ID, "com.ourydc.yuebaobao:id/tv_shift_to")
+    tv_shift_to = (Mb.ID,"com.ourydc.yuebaobao:id/tv_shift_to")
     #再次确认按钮
-    tv_confirm = (Mb.ID, "com.ourydc.yuebaobao:id/tv_confirm")
+    tv_confirm = (Mb.ID,"com.ourydc.yuebaobao:id/tv_confirm")
     #提现按钮
-    btn_withdraw = (Mb.ID, "com.ourydc.yuebaobao:id/btn_withdraw")
+    btn_withdraw = (Mb.ID,"com.ourydc.yuebaobao:id/btn_withdraw")
     #身份证号码
-    card_no = (Mb.XPATH, "//*[@class='android.view.View' and @text='身份证号码']") 
+    card_no = (Mb.XPATH,"//*[@class='android.view.View' and @text='身份证号码']") 
     #开户银行
     deposit_bank = (Mb.XPATH, "//*[@class='android.view.View' and @text='开户银行']") 
     #下一步
-    nex_setp = (Mb.XPATH, "//*[@class='android.view.View' and @text='下一步']") 
+    nex_setp = (Mb.XPATH,"//*[@class='android.view.View' and @text='下一步']") 
     # 服务协议
     service_agreement = (Mb.XPATH, "//*[@class='android.view.View' and @text='《服务协议》']") 
     # 费用结算协议
-    jsxy = (Mb.XPATH, "//*[@class='android.view.View' and @text='\"云账户\"费用结算服务协议']") 
+    jsxy = (Mb.XPATH,"//*[@class='android.view.View' and @text='\"云账户\"费用结算服务协议']") 
     # 自由职业协议
-    zyxy = (Mb.XPATH, "//*[@class='android.view.View' and @text='自由职业者服务协议']") 
+    zyxy = (Mb.XPATH,"//*[@class='android.view.View' and @text='自由职业者服务协议']") 
     # 提现记录按钮/查看明细
     Withdrawal_record = (Mb.ID, "com.ourydc.yuebaobao:id/tv_right") 
     # 提现记录列表
@@ -143,7 +145,7 @@ class MyLocators:
     '''vip会员'''
     # 会员
     iv_vip = (Mb.ID, "com.ourydc.yuebaobao:id/iv_vip")
-    #立即续费
+    #立即续费/立享特权
     ndzsbs = (Mb.XPATH, "//*[@class='android.view.View' and @text='年费专属标识']") 
     #会员标识
     hybs = (Mb.XPATH, "//*[@class='android.view.View' and @text='会员标识']") 
@@ -178,6 +180,8 @@ class MyLocators:
     tv_sure = (Mb.ID, "com.ourydc.yuebaobao:id/tv_sure")
     #续年费
     xnf = (Mb.XPATH, "//*[@class='android.view.View' and @text='  续年费，更优惠!>  ']")
+    #开年费
+    knf = (Mb.XPATH, "//*[@class='android.view.View' and @text='   开年费，更优惠 ! >   ']")
     '''end'''
     # 我的动态
     my_dynamic = (Mb.ID, "com.ourydc.yuebaobao:id/v_dynamic") 

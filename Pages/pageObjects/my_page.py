@@ -469,7 +469,7 @@ class MyPage(CommonBus):
 
     
     #我的》商城
-    def view_members(self):
+    def shopping_mall(self):
         self.wait_click_element(myloc.meBtn, model="我的") 
         self.wait_click_element(myloc.iv_dress_store, model="商城") 
         time.sleep(3)
@@ -505,49 +505,60 @@ class MyPage(CommonBus):
     def income(self):
         self.wait_click_element(myloc.meBtn, model="我的") 
         self.wait_click_element(myloc.my_income, model="收入") 
-        self.baby_currency_exchange() #宝宝币兑换
+        time.sleep(5)
+        self.baby_currency_exchange(myloc.exchange_diamonds,model="宝宝币") #宝宝币兑换
         self.withdrawal() #提现相关
-        if self.game_currency(myloc.yxbtap,model="游戏币"):
-           self.baby_currency_exchange() 
-        if self.game_currency(myloc.mlztap,model="魅力值"):
-           self.baby_currency_exchange() 
+        self.wait_click_element(myloc.yxbtap, model="点击游戏币tap")
+        self.baby_currency_exchange(myloc.charm_value_exchange,model="游戏币") #游戏币兑换
+        self.wait_click_element(myloc.mlztap, model="点击魅力值tap")
+        self.baby_currency_exchange(myloc.charm_value_exchange,model="魅力值") #魅力值兑换
         return True 
         
         
     #宝宝币、游戏币、魅力值兑换
-    def baby_currency_exchange(self):
-        num = self.wait_getTextValue(myloc.bbbNumber,model="宝宝币数量")
-        if num and len(num) > 0:
-            self.wait_click_element(myloc.exchange_diamonds, model="兑换按钮") 
+    def baby_currency_exchange(self,loc,model=None):
+        num = self.wait_getTextValue(myloc.bbbNumber,"{}数量".format(model))
+        log.info("数量是==============================={}".format(num))
+        
+            
+        if int(num) > 1:
+            time.sleep(5)
+            self.wait_click_element(loc, model="兑换按钮")
             time.sleep(3)
-            self.input_text(myloc.et_input, 1, model="输入宝宝币兑换数量")
-            time.sleep(1)
+            if model=="魅力值":
+                self.input_text(myloc.et_input, 2, model="输入{}兑换数量".format(model))
+                time.sleep(1)
+            else:
+                self.input_text(myloc.et_input, 1, model="输入{}兑换数量".format(model))
+                time.sleep(1)
             self.assert_true(myloc.all_exchange,model="全部兑换")
             self.wait_click_element(myloc.tv_shift_to, model="确认兑换")
-            if self.is_element_exist(myloc.tv_confirm,model="再次确认按钮"):
-               self.wait_click_element(myloc.tv_confirm, model="确定")  
-            text = "成功兑换"
-            bbbstr = self.get_toast_msg(text,model="宝宝币兑换toast")
-            if bbbstr and text in bbbstr:
-                log.info("宝宝币兑换成功===={}".format(bbbstr))
+            if model=="宝宝币":
+                self.wait_click_element(myloc.tv_confirm, model="再次确定按钮")
             else:
-                log.info("宝宝币兑换异常===={}".format(bbbstr))
+                self.wait_click_element(myloc.tv_sure, model="点击确定按钮")
+            if model=="魅力值":
+                text = "兑换成功"
+            else:
+                text = "成功兑换"
+            bbbstr = self.get_toast_msg(text,model="{}兑换toast".format(model))
+            if bbbstr and text in bbbstr:
+                log.info("{}兑换成功===={}".format(model,bbbstr))
+            else:
+                log.info("{}兑换异常===={}".format(model,bbbstr))
         else:
-            log.info("宝宝币数量为空")
-            self.save_webImgs("宝宝币钱包空荡荡")
+            log.info("{}数量为空".format(model))
+            self.save_webImgs("{}钱包空荡荡".format(model))
         time.sleep(2)
         self.wait_click_element(myloc.exchange_instructions, model="兑换说明") 
         time.sleep(8)
         sourceText = self.driver.page_source
-        text1 = "什么是宝宝币"
-        text2 = "钻石是用来购买礼物的"
-        self.assert_in(text1, sourceText, model="兑换说明断言1")
+        text1 = "什么是{}".format(model)
+        self.assert_in(text1, sourceText, model="兑换说明断言")
         time.sleep(1)
-        self.assert_in(text2, sourceText, model="兑换说明断言2")
         self.driver.press_keycode(4)
         time.sleep(2)
-        assertres = self.assert_true(myloc.btn_withdraw, model="断言提现按钮")
-        return assertres
+        
         
     
     #提现
@@ -610,16 +621,11 @@ class MyPage(CommonBus):
 
     #游戏币相关操作
     def game_currency(self,loc_ele,model=None):
-        if self.is_element_exist(loc_ele,model=model):
-            self.wait_click_element(loc_ele, model="{}tap按钮".format(model))
-            time.sleep(3)
-            yxbres = self.assert_true(myloc.bbbNumber,model="{}余额".format(model))
-            return yxbres
-        else:
-            log.info("未显示{}tap按钮".format(model))
-            self.save_webImgs("无{}tap按钮".format(model))
-            return False
-
+        self.wait_click_element(loc_ele, model="{}tap按钮".format(model))
+        time.sleep(5)
+        yxbres = self.assert_true(myloc.bbbNumber,model="{}余额".format(model))
+        return yxbres
+        
 
 
     '''
@@ -640,9 +646,7 @@ class MyPage(CommonBus):
     #立即续费方法
     def renew_now(self):
         self.wait_click_element(myloc.ndzsbs, model="立即续费") 
-        self.wait_element_presence(myloc.gear,model="等待充值档位列表元素")
-        gearList = self.get_elements(myloc.gear,model="充值档位列表")
-        self.assert_equal(gearList,dyj=4,model="充值档位断言")
+        self.assert_equal(myloc.gear,dyj=4,model="断言充值档位")
         time.sleep(1)
         self.wait_click_element(myloc.morePayWayLay, model="更多支付") 
         time.sleep(1)
@@ -681,10 +685,11 @@ class MyPage(CommonBus):
         self.RoomPage.go_back()
         self.assert_true(myloc.hybs,model="断言会员专属")
         time.sleep(1)
-        self.wait_click_element(myloc.xnf, model="续年费,更优惠")
-        time.sleep(4)
-        gearList2 = self.get_elements(myloc.gear,model="充值档位列表")
-        self.assert_equal(gearList2,dyj=4,model="充值档位断言2")
+        if self.is_element_exist(myloc.xnf, model="续年费元素是否存在"):
+            self.wait_click_element(myloc.xnf, model="续年费,更优惠")
+        elif self.is_element_exist(myloc.knf, model="开年费元素是否存在"):
+            self.wait_click_element(myloc.knf, model="开年费,更优惠")
+        self.assert_equal(myloc.gear,dyj=4,model="充值档位断言2")
         self.RoomPage.go_back()
         time.sleep(3)
         return self.assert_true(myloc.zszb,model="断言专属装扮")
@@ -725,7 +730,7 @@ class MyPage(CommonBus):
             kf_list = self.get_elements(myloc.kefu_nick,model="客服列表")
             kf_num = random.randint(0,len(kf_list)-1)
             kf_list[kf_num].click()
-            time.sleep(3)
+            time.sleep(5)
             if self.is_element_exist(myloc.tv_desc,model="聊天页-心动"):
                 self.driver.press_keycode(4)
             time.sleep(1)

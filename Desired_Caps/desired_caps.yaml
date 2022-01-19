@@ -9,6 +9,7 @@
 #   platformVersion: 7.1.2
 #   resetKeyboard: true
 #   unicodeKeyboard: true
+
 # - appActivity: com.ourydc.yuebaobao.ui.activity.SplashActivity
 #   appPackage: com.ourydc.yuebaobao
 #   automationName: UiAutomator2

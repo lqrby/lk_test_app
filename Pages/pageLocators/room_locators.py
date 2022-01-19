@@ -234,25 +234,12 @@ class RoomPageLocator:
     task_description = (Mb.ID, "com.ourydc.yuebaobao:id/taskInstructions") # 任务说明
     collectable = (Mb.ID, "@resource-id='com.ourydc.yuebaobao:id/lightIv") # 可领取奖品
     claim_button = (Mb.XPATH, "//*[@class='android.widget.ImageView' and @resource-id='com.ourydc.yuebaobao:id/lightIv']") # 领奖按钮
-
-
-
-
-
     invitation = (Mb.ID,'com.ourydc.yuebaobao:id/invitefriends') #邀请
     mixer = (Mb.ID,'com.ourydc.yuebaobao:id/layout_ear_return') #调音台
-
-
-
-
     iv_msg = (Mb.ID,'com.ourydc.yuebaobao:id/iv_msg') #消息
     msg_input = (Mb.ID,'com.ourydc.yuebaobao:id/editTextMessage') #消息输入框
     send_message = (Mb.ID,'com.ourydc.yuebaobao:id/tv_send_msg') #点击发送按钮
-    
-    # iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/layout_game') #游戏
     game_assert = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") # 游戏列表断言	
-
-    
     lucky_bag_iv = (Mb.ID,'com.ourydc.yuebaobao:id/lucky_bag_iv') #福袋
     no_hair_message = (Mb.XPATH,"//*[@class='android.view.View' and @text='不发送消息给好友']") # 福袋断言
     

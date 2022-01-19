@@ -1045,7 +1045,7 @@ class RoomPage(CommonBus):
 
     #进入游戏并断言
     def enter_the_game(self,click_loc,assert_loc,click_num=0,model=None):
-        self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
+        self.click_element(roomloc.gd_game,model="点击游戏") #点击游戏
         self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
         time.sleep(2)
         self.wait_click_element(click_loc,model=model) 
@@ -1059,8 +1059,8 @@ class RoomPage(CommonBus):
         self.driver.keyevent(4)
     # 点击游戏
     def click_game(self):
-        if self.is_element_exist(roomloc.iv_game,timeout=5,model="游戏"):
-            self.click_element(roomloc.iv_game,model="点击游戏") #点击游戏
+        if self.is_element_exist(roomloc.gd_game,timeout=5,model="游戏"):
+            self.click_element(roomloc.gd_game,model="点击游戏") #点击游戏
             self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
             time.sleep(2)
             game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")

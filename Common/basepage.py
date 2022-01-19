@@ -487,7 +487,7 @@ class BasePage:
             return False
 
     # toast获取
-    def get_toast_msg(self, part_text, model=None,t=5,s=0.03):
+    def get_toast_msg(self, part_text, model=None, t=5, s=0.03):
         # xpath表达式
         xpath_loc = '//*[contains(@text,"{}")]'.format(part_text)
         log.info("{0}: 获取toast信息，表达式为：{1}".format(model, xpath_loc))
@@ -607,6 +607,7 @@ class BasePage:
             log.info("检测页面弹窗:{}".format(i))
             if i[1] in source:
                 self.click_element(i)
+                log.info("关闭了弹窗====={}".format(i))
                 element = i
                 break
         return element
@@ -623,16 +624,16 @@ class BasePage:
         self.driver.quit()
 
 
-    def wait_click_element(self,loc,model,timeout=8):
+    def wait_click_element(self,loc,model=None,timeout=8):
         if self.wait_element_clickable(loc,timeout=timeout,model="等待{}".format(model)):
             self.click_element(loc,model="点击{}".format(model))
 
-    def wait_getTextValue(self,loc,model,timeout=8):
+    def wait_getTextValue(self,loc,model=None,timeout=8):
         if self.wait_element_presence(loc,timeout=timeout,model="等待{}".format(model)):
-            text = self.get_text(loc)
+            text = self.get_text(loc,model=model)
             return text
         
-    def wait_input_text(self,loc,text,model):
+    def wait_input_text(self,loc,text,model=None):
         self.wait_element_presence(loc,model="等待{}输入框".format(model))
         self.clear_input_text(loc,model="清除旧{}".format(model))
         self.input_text(loc,text,model="输入新{}".format(model))
