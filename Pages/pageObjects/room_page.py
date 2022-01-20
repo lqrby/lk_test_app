@@ -117,7 +117,7 @@ class RoomPage(CommonBus):
                 return True
         elif self.is_element_exist(roomloc.close_room,timeout=3,model="关闭房间元素"):
             self.click_element(roomloc.close_room,model="点击关闭房间")
-            if self.is_element_exist(roomloc.close_ok):
+            if self.is_element_exist(roomloc.close_ok,model="确定按钮"):
                 return self.click_element(roomloc.close_ok,model="点击确定")
             else:
                 return True
@@ -134,14 +134,7 @@ class RoomPage(CommonBus):
     def live_room_list(self,room_list_elements):
         roomList = False
         if self.is_element_exist(room_list_elements,model="聊天室列表元素是否存在"):
-            # self.wait_element_presence(room_list_elements,model="等待聊天室列表")
             roomList = self.get_elements(room_list_elements,model="获取聊天室列表")
-            # if len(roomList) > 0:
-            #     log.info("聊天室列表数据有{}条".format(len(roomList)))
-            #     mark = True
-            # else:
-            #     log.info("暂无聊天室")
-            #     self.save_webImgs(model="暂无聊天室")
         else:
             log.info("暂无聊天室")
             self.save_webImgs(model="暂无聊天室")
@@ -237,7 +230,7 @@ class RoomPage(CommonBus):
             return False
 
     def liveRoom(self):
-        self.live_room()
+        self.live_room() #关注、游戏、发消息、礼物入口
         if self.is_element_exist(roomloc.ranking_list,timeout=5,model="排行榜"): #是否有排行榜
             self.click_rankingList(roomloc.ranking_list) #排行榜
         self.createRanks_and_dissolution() #创建队伍并解散队伍
@@ -571,7 +564,7 @@ class RoomPage(CommonBus):
             toastMsg = self.get_toast_msg(cancelToast, model="取消关注成功的toast")  
             self.assert_in(cancelToast, toastMsg, model="取消关注") #取消关注断言
         else:
-            self.driver.keyevent(4)
+            self.driver.press_keycode(4)
 
     
     #更多"..."
@@ -600,7 +593,7 @@ class RoomPage(CommonBus):
         time.sleep(1)
         page_source_result = self.driver.page_source
         self.assert_in(text_msg,page_source_result,model="发送消息断言")
-        self.driver.keyevent(4)
+        self.driver.press_keycode(4)
 
     
     #=======================================【房间】> 聊天室相关方法==============================================        
@@ -691,7 +684,7 @@ class RoomPage(CommonBus):
     '''
     def open_Expansion_room(self):
         self.swipeDown()
-        if self.is_element_exist(roomloc.chat_room_list) == False:
+        if self.is_element_exist(roomloc.chat_room_list,model="聊天室列表") == False:
             log.info("扩列列表暂无可进入的房间")
             self.save_webImgs(model="扩列列表暂无可进入的房间")
             return False
@@ -709,7 +702,7 @@ class RoomPage(CommonBus):
             return False
 
     def get_list(self, list_element,model=None):
-        if self.is_element_exist(list_element):
+        if self.is_element_exist(list_element,model=model):
             list_elements = self.get_elements(list_element,model="获取{}元素".format(model))
             return list_elements
         else:
@@ -749,7 +742,7 @@ class RoomPage(CommonBus):
         self.click_element(roomloc.lucky_bag_iv, model="点击福袋")#点击福袋
         self.wait_eleVisible(roomloc.no_hair_message, model="等待显示‘不发送消息给好友’")
         self.assert_true(roomloc.no_hair_message) #福袋断言
-        self.driver.keyevent(4)
+        self.driver.press_keycode(4)
 
 
     #点击扩列-钻石返现按钮   
@@ -761,34 +754,30 @@ class RoomPage(CommonBus):
 
     # 领取入口
     def click_receive(self):
-        if self.is_element_exist(roomloc.receive):
-            self.wait_eleVisible(roomloc.receive, model="领取按钮显示")
-            self.click_element(roomloc.receive, model="点击领取按钮")
+        if self.is_element_exist(roomloc.receive,model="签到领取"):
+            self.wait_click_element(roomloc.receive, model="领取按钮")
             self.wait_eleVisible(roomloc.for_her, model="等待显示为ta点亮tap")
             self.assert_true(roomloc.for_her,model="为ta点亮tap") #断言
-            self.wait_element_clickable(roomloc.sign_in, model="等待气泡的签到或领取可点击")
-            self.click_element(roomloc.sign_in, model="点击气泡的签到或领取")
-            self.wait_element_clickable(roomloc.receiveBtn, model="等待领取按钮可点击")
-            self.click_element(roomloc.receiveBtn,model="点击领取")
+            self.wait_click_element(roomloc.sign_in, model="气泡签到或领取")
+            self.wait_click_element(roomloc.receiveBtn, model="领取按钮")
             result = self.get_toast_exist(message='领取成功')
             self.assert_in("领取成功", result, model="领取奖励断言")
-            self.wait_element_presence(roomloc.play_instructions,model="玩法说明")
-            self.click_element(roomloc.play_instructions, model="玩法说明按钮-可领取")
+            self.wait_click_element(roomloc.play_instructions,model="玩法说明")
             time.sleep(2)
             self.driver.press_keycode(4)
             time.sleep(2)
             self.driver.press_keycode(4)
-        elif self.is_element_exist(roomloc.count_down_receive):
+        elif self.is_element_exist(roomloc.count_down_receive,model="倒计时"):
             self.click_element(roomloc.count_down_receive, model="点击领取倒计时按钮")
-            self.wait_element_presence(roomloc.play_instructions,model="玩法说明")
-            self.click_element(roomloc.play_instructions, model="点击玩法说明按钮-倒计时")
+            self.wait_click_element(roomloc.play_instructions,model="玩法说明")
+            time.sleep(2)
+            wfsm_source = self.driver.page_source
+            text_wfsm = "每日收取全部奖励连续3/5/7天时当天奖励翻倍"
+            self.assert_in(text_wfsm,wfsm_source,model="断言玩法说明")
             time.sleep(2)
             self.driver.press_keycode(4)
-            time.sleep(1)
+            time.sleep(2)
             self.driver.press_keycode(4)
-            '''
-            后续这里要写H5断言
-            '''
         else:
             log.info("该聊天室无领取按钮")
             self.save_webImgs("该聊天室无领取按钮")
@@ -804,7 +793,7 @@ class RoomPage(CommonBus):
     #礼物顶部入口
     def gift_entrance_top(self):
         masterAvatarView = ""
-        if self.is_element_exist(roomloc.masterAvatarView):
+        if self.is_element_exist(roomloc.masterAvatarView,model="打赏礼物入口"):
             masterAvatarView = self.wait_element_presence(roomloc.masterAvatarView,timeout=5,model="顶部送礼物入口")
         else:
             masterAvatarView = self.wait_element_presence(roomloc.v_empty_avatar,timeout=5,model="顶部送礼物入口")
@@ -960,25 +949,25 @@ class RoomPage(CommonBus):
         if result:
             log.info("点击排行榜======{}".format(result))
             self.wait_click_element(roomloc.ranking_list,model="点击排行榜")
-            time.sleep(3)
+            time.sleep(2)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-日榜") #断言
             self.wait_click_element(roomloc.tv_title_week, model="周榜")
-            time.sleep(2)
+            time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-周榜") #断言
             self.wait_click_element(roomloc.tv_title_yue, model="月榜")
-            time.sleep(2)
+            time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-月榜") #断言
             self.wait_click_element(roomloc.popularity_list, model="人气榜")
-            time.sleep(2)
+            time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-日榜") #断言
             self.wait_click_element(roomloc.tv_title_week, model="人气榜-周榜")
-            time.sleep(2)
+            time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-周榜") #断言
             self.wait_click_element(roomloc.tv_title_yue, model="人气榜-月榜")
-            time.sleep(2)
+            time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-月榜") #断言
             self.wait_click_element(roomloc.guardian_list, model="守护榜")
-            time.sleep(2)
+            time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert2,model="守护榜") #断言
             self.go_back() #返回
         else:
@@ -993,7 +982,7 @@ class RoomPage(CommonBus):
         if ranking_ele:
             sh_list = self.get_elements(element,model=model)
             self.assert_len(sh_list,model=model)
-        elif self.is_element_exist(roomloc.no_data):
+        elif self.is_element_exist(roomloc.no_data,model="暂无数据元素"):
             log.info("==========暂无{}========".format(model))
             self.save_webImgs(model)
         else:
@@ -1039,34 +1028,35 @@ class RoomPage(CommonBus):
         if self.is_clickable(roomloc.iv_head_view,model="麦下列表"):
             self.click_element(roomloc.iv_head_view,model="点击麦下收缩列表") #点击麦下收缩列表
             time.sleep(3)
-            self.driver.keyevent(4)
+            self.driver.press_keycode(4)
         else:
             pass
 
     #进入游戏并断言
     def enter_the_game(self,click_loc,assert_loc,click_num=0,model=None):
-        self.click_element(roomloc.gd_game,model="点击游戏") #点击游戏
+
+        self.click_element(roomloc.iv_game,model="点击游戏入口图标") #点击游戏
         self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
-        time.sleep(2)
-        self.wait_click_element(click_loc,model=model) 
+        self.wait_click_element(click_loc,model=model) #点击要进入的游戏元素
         time.sleep(8)
         while click_num > 0:
             self.tap_by_coordinate([0.5,0.6],model="点击蒙层")
             time.sleep(1)
             click_num = click_num - 1
-        self.is_element_exist(assert_loc)
+        self.is_element_exist(assert_loc,model="断言进入游戏")
         self.assert_true(assert_loc,model="{}游戏断言".format(model))
-        self.driver.keyevent(4)
+        self.driver.press_keycode(4)
     # 点击游戏
     def click_game(self):
-        if self.is_element_exist(roomloc.gd_game,timeout=5,model="游戏"):
-            self.click_element(roomloc.gd_game,model="点击游戏") #点击游戏
+        if self.is_element_exist(roomloc.iv_game,timeout=5,model="游戏入口图标"):
+            self.click_element(roomloc.iv_game,model="点击游戏入口图标") #点击游戏
             self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
             time.sleep(2)
             game_assert = self.get_elements(roomloc.game_assert,model="获取游戏列表")
             time.sleep(4)
             self.assert_len(game_assert,dyj=4, model="游戏列表断言")
-            self.driver.keyevent(4)
+            time.sleep(2)
+            self.driver.press_keycode(4)
             self.enter_the_game(roomloc.jbtq,roomloc.taoquan_btn,model="金币套圈") #进入金币套圈游戏并断言
             time.sleep(2)
             self.enter_the_game(roomloc.trap,roomloc.taoquan_btn,model="套圈圈") #进入套圈圈游戏并断言
@@ -1122,18 +1112,16 @@ class RoomPage(CommonBus):
         else:
             pass
     
-
-
     #聊天室底部更多中的游戏、红包、任务等相关操作流程
     def bottom_more(self):
-        self.more_geme() #游戏
+        self.more_geme() #游戏惩罚规则
         self.more_red_envelope() #红包
         self.click_task() #任务
     #游戏规则
     def more_geme(self):
         self.wait_click_element(roomloc.iv_more,model="更多")
         if self.is_element_exist(roomloc.gd_game,model="游戏"):
-            self.wait_click_element(roomloc.gd_game,model="游戏")
+            self.click_element(roomloc.gd_game,model="点击游戏")
             time.sleep(2)
             self.assert_true(roomloc.game_ymbb,model="断言一毛不拔")
             time.sleep(2)

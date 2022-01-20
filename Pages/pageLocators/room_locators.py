@@ -206,7 +206,9 @@ class RoomPageLocator:
     iv_send_text = (Mb.ID,'com.ourydc.yuebaobao:id/iv_send_text') #input,聊天入口（来聊天啊）
 
     iv_more = (Mb.ID,'com.ourydc.yuebaobao:id/iv_more') #更多
-    gd_game = (Mb.ID,'com.ourydc.yuebaobao:id/layout_game') #游戏
+    gd_game = (Mb.ID,'com.ourydc.yuebaobao:id/layout_game') #游戏冒险
+    iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/iv_game') #游戏入口
+    game_assert = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") # 游戏列表断言	
     game_ymbb = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv' and text='一毛不拔']") # 断言一毛不拔	
     game_ybzj = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv' and text='一本正经']") # 断言一本正经
 
@@ -239,7 +241,7 @@ class RoomPageLocator:
     iv_msg = (Mb.ID,'com.ourydc.yuebaobao:id/iv_msg') #消息
     msg_input = (Mb.ID,'com.ourydc.yuebaobao:id/editTextMessage') #消息输入框
     send_message = (Mb.ID,'com.ourydc.yuebaobao:id/tv_send_msg') #点击发送按钮
-    game_assert = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") # 游戏列表断言	
+    
     lucky_bag_iv = (Mb.ID,'com.ourydc.yuebaobao:id/lucky_bag_iv') #福袋
     no_hair_message = (Mb.XPATH,"//*[@class='android.view.View' and @text='不发送消息给好友']") # 福袋断言
     

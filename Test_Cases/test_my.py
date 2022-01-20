@@ -180,36 +180,23 @@ class Test_my:
 
     @pytest.mark.success
     @allure.story('我的')
-    @allure.title('会员')
-    def test_viewMembers(self, startApp_keepUserData):
+    @allure.title('商城')
+    def test_shopping_mall(self, startApp_keepUserData):
         my_page = MyPage(startApp_keepUserData)
         log.info("*************我的>查看会员测试用例***************")
-        view_members = my_page.view_members()
+        shopping_mall = my_page.shopping_mall()
         try:
-            assert view_members == True
+            assert shopping_mall == True
             log.error("查看会员测试用例通过")
         except AssertionError as a:
             log.error("查看会员测试用例断言失败")
             raise
             
-    @pytest.mark.success
-    @allure.story('我的')
-    @allure.title('查看会员测试用例')
-    def test_viewMembers(self, startApp_keepUserData):
-        my_page = MyPage(startApp_keepUserData)
-        log.info("*************我的>查看会员测试用例***************")
-        view_members = my_page.view_members()
-        try:
-            assert view_members == True
-            log.error("查看会员测试用例通过")
-        except AssertionError as a:
-            log.error("查看会员测试用例断言失败")
-            raise
-
+    
 
     @pytest.mark.success
     @allure.story('我的')
-    @allure.title('会员')
+    @allure.title('收入')
     def test_income(self, startApp_keepUserData):
         my_page = MyPage(startApp_keepUserData)
         log.info("*************我的>收入测试用例***************")
