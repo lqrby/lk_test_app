@@ -1034,8 +1034,7 @@ class RoomPage(CommonBus):
 
     #进入游戏并断言
     def enter_the_game(self,click_loc,assert_loc,click_num=0,model=None):
-
-        self.click_element(roomloc.iv_game,model="点击游戏入口图标") #点击游戏
+        self.wait_click_element(roomloc.iv_game,model="游戏入口图标") #点击游戏
         self.wait_element_presence(roomloc.game_assert,model="等待游戏列表")
         self.wait_click_element(click_loc,model=model) #点击要进入的游戏元素
         time.sleep(8)

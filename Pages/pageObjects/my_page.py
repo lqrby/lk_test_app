@@ -711,7 +711,7 @@ class MyPage(CommonBus):
         time.sleep(2)
         self.assert_true(myloc.layout_pay_alipay,model="支付宝选项")
         time.sleep(2)
-        self.assert_equal(myloc.recharge_gear,dyj=12,model="断言充值档位列表")
+        self.assert_equal(myloc.recharge_gear,dyj=6,model="断言充值档位列表")
         #开具发票
         self.wait_click_element(myloc.invoice, model="开具发票")
         time.sleep(3)
