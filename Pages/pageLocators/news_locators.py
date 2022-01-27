@@ -21,8 +21,10 @@ class NewsLocators:
     tv_title_two = (Mb.ID, "com.ourydc.yuebaobao:id/tv_title_two") #粉丝列表
     tv_title_three = (Mb.ID, "com.ourydc.yuebaobao:id/tv_title_three") #好友列表
     buttonSendMessage = (Mb.ID, "com.ourydc.yuebaobao:id/buttonSendMessage") #发送按钮
+    invite_him_to_play = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='点此处邀ta玩「互动游戏」']")
     editTextMessage = (Mb.ID, "com.ourydc.yuebaobao:id/editTextMessage") #聊天输入框
     iv_extra = (Mb.ID, "com.ourydc.yuebaobao:id/iv_extra") #添加好友按钮
     et_input = (Mb.ID, "com.ourydc.yuebaobao:id/et_input") #搜索输入框
+    War_wall = (Mb.XPATH,"//*[@class='android.widget.TextView' and @text='展墙']") #用户资料中的展墙
     
     

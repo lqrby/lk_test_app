@@ -150,7 +150,7 @@ class RoomPage(CommonBus):
             if self.is_element_exist(roomloc.room_text,timeout=3,poll_frequency=0.3,model="房间密码"):
                 self.click_element(roomloc.closeRoomText,model="关闭聊天室输入密码框")
                 log.info("该聊天室有密码，无法进入")
-                self.save_webImgs("聊天室有密码")
+                self.save_webImgs(model="聊天室有密码")
                 return False
             self.popPage.check_put_away() #收起聊天室邀请加入队伍的页面
             self.assert_true(roomloc.roomIdTv,model="聊天室id") #断言聊天室id
@@ -267,7 +267,7 @@ class RoomPage(CommonBus):
             self.swipeUp()
             return self.user_homePage(element_list)
         else:
-            self.save_webImgs("列表暂无用户截图")
+            self.save_webImgs(model="列表暂无用户截图")
             log.info("列表暂无用户")    
             return False
     
@@ -334,7 +334,7 @@ class RoomPage(CommonBus):
             log.info("附近的人列表断言通过")
         else:
             log.info("附近的人列表暂无数据")
-            self.save_webImgs("附近的人列表暂无数据")
+            self.save_webImgs(model="附近的人列表暂无数据")
 
 
     #资料tap
@@ -369,7 +369,7 @@ class RoomPage(CommonBus):
             self.assert_len(self.get_elements(roomloc.guard_list,model="获取守护列表"), model="守护tap")
         else:
             log.info("暂无守护tap")
-            self.save_webImgs("暂无守护tap")
+            self.save_webImgs(model="暂无守护tap")
         
     
     #展墙tap
@@ -429,7 +429,7 @@ class RoomPage(CommonBus):
             self.click_element(roomloc.backBtn, model="返回")
         else:
             log.info("没有查找到返回元素")
-            self.save_webImgs("没有查找到返回元素")
+            self.save_webImgs(model="没有查找到返回元素")
             self.driver.press_keycode(4)
 
 
@@ -780,7 +780,7 @@ class RoomPage(CommonBus):
             self.driver.press_keycode(4)
         else:
             log.info("该聊天室无领取按钮")
-            self.save_webImgs("该聊天室无领取按钮")
+            self.save_webImgs(model="该聊天室无领取按钮")
             
         
     #抽奖tap
@@ -827,7 +827,7 @@ class RoomPage(CommonBus):
             self.wait_click_element(roomloc.btn_send_gift,model="赠送") #点击赠送
         else:
             log.info("背包列表暂无礼物")
-            self.save_webImgs("背包列表暂无礼物")
+            self.save_webImgs(model="背包列表暂无礼物")
         # self.driver.press_keycode(4)
 
     #金币打赏
@@ -972,7 +972,7 @@ class RoomPage(CommonBus):
             self.go_back() #返回
         else:
             log.info("暂无排行榜")
-            self.save_webImgs("暂无排行榜")
+            self.save_webImgs(model="暂无排行榜")
 
 
     #排行榜断言    
@@ -984,10 +984,10 @@ class RoomPage(CommonBus):
             self.assert_len(sh_list,model=model)
         elif self.is_element_exist(roomloc.no_data,model="暂无数据元素"):
             log.info("==========暂无{}========".format(model))
-            self.save_webImgs(model)
+            self.save_webImgs(model=model)
         else:
             log.info("=========={}异常========".format(model))
-            self.save_webImgs(model)
+            self.save_webImgs(model=model)
     #点击玩法介绍
     def click_introduce(self):
         if self.is_element_exist(roomloc.tv_introduce,model="玩法介绍"):
@@ -998,7 +998,7 @@ class RoomPage(CommonBus):
             self.click_element(roomloc.closeIv,model="关闭玩法介绍")#关闭玩法介绍
         else:
             log.info("无玩法介绍")
-            self.save_webImgs("无玩法介绍")
+            self.save_webImgs(model="无玩法介绍")
     
 
     #玩法介绍断言
@@ -1013,7 +1013,7 @@ class RoomPage(CommonBus):
             log.info("玩法介绍===断言通过")
         except Exception as e:
             log.info("玩法介绍===断言错误")
-            self.save_webImgs("玩法介绍")
+            self.save_webImgs(model="玩法介绍")
 
     # #点击麦下
     def click_wheat_lower(self):
@@ -1065,7 +1065,7 @@ class RoomPage(CommonBus):
             self.enter_the_game(roomloc.jungle_hunt,roomloc.hemp_rope,click_num=1,model="丛林狩猎") #进入丛林狩猎游戏并断言
         else:
             log.info("无游戏入口")
-            self.save_webImgs("无游戏入口")
+            self.save_webImgs(model="无游戏入口")
         
 
     # 开黑tay-聊天室-创建队伍
@@ -1133,7 +1133,7 @@ class RoomPage(CommonBus):
             self.go_back()
         else:
             log.info("女神厅更多中暂无游戏真心话大冒险")
-            self.save_webImgs("无真心话大冒险")
+            self.save_webImgs(model="无真心话大冒险")
             time.sleep(1)
             self.driver.press_keycode(4)
 
@@ -1175,10 +1175,10 @@ class RoomPage(CommonBus):
                 log.info("领取任务奖励成功===={}".format(lqjl))
             else:
                 log.info("领取任务奖励失败===={}".format(lqjl))
-                self.save_webImgs("领取任务奖励失败")
+                self.save_webImgs(model="领取任务奖励失败")
         else:
             log.info("暂无可领取奖励")
-            self.save_webImgs("暂无可领取奖励按钮")
+            self.save_webImgs(model="暂无可领取奖励按钮")
         self.wait_click_element(roomloc.task_description,model="点击任务说明")
         time.sleep(2)
         rwsm = self.driver.page_source
@@ -1187,7 +1187,7 @@ class RoomPage(CommonBus):
             log.info("任务说明断言成功")
         else:
             log.info("任务说明断言失败")
-            self.save_webImgs("任务说明错误")
+            self.save_webImgs(model="任务说明错误")
         if self.is_element_exist(roomloc.closeRoomText,model="关闭按钮"):
             self.wait_click_element(roomloc.closeRoomText,model="点击关闭按钮")
         if self.is_element_exist(roomloc.collectable,model="可领取奖励"):
