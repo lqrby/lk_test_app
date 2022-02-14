@@ -47,7 +47,7 @@ def start_app_toast():
     driver.quit()
 
 
-'''前置条件-打开App时候判断是否登录，如果没登录先登录如果已登录打开App后关闭广告'''
+'''前置条件-打开App时候判断是否登录，如果没登录先登录'''
 @pytest.fixture(scope="function")
 def startApp_keepUserData():
     driver = base_driver()
@@ -66,7 +66,8 @@ def startApp_keepUserData():
 
 # 是否登录状态，未登录则登录
 def check_notLogin_SignIn(driver,user, password, expected):
-    if CommonBus(driver).get_userStatus():
+    userStatus = CommonBus(driver).get_userStatus()
+    if userStatus:
         log.info("===========当前已是登录状态，无需登录========")
         time.sleep(1)
         return True

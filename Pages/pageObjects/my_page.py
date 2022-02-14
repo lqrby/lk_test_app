@@ -17,16 +17,11 @@ class MyPage(CommonBus):
         self.RoomPage = RoomPage(self.driver)
         self.SquarePage = SquarePage(self.driver)
     
-    '''点击我的头像'''
-    def click_head_portrait(self):
-        self.wait_eleVisible(myloc.sdVipCover, model="等待我的头像")
-        self.click_element(myloc.sdVipCover, model="点击我的头像")
-        return self
+    
 
     '''我的守护'''
     def my_guard(self):
-        self.wait_eleVisible(myloc.protector_head, model="等待我的守护")
-        self.click_element(myloc.protector_head, model="点击我的守护")
+        self.wait_click_element(myloc.protector_head, model="点击我的守护")
         if self.is_element_exist(roomloc.guardian_nickname,model="守护者昵称"):
             log.info("用户有守护者")
         else:
@@ -36,8 +31,7 @@ class MyPage(CommonBus):
 
     # 开播（开厅）入口（我的模块）
     def broadcasting_entrance(self):
-        self.wait_element_presence(myloc.iv_open_room,model="等待开厅入口")
-        self.click_element(myloc.iv_open_room,model="点击开厅入口")
+        self.wait_click_element(myloc.iv_open_room,model="点击开厅入口")
         # self.assert_true(roomloc.entry_room,"开厅页面")
         self.RoomPage.go_back() #返回
 
@@ -49,7 +43,7 @@ class MyPage(CommonBus):
     def view_my_profile(self):
         self.wait_click_element(myloc.meBtn, model="点击我的")
         self.broadcasting_entrance() #开播入口及断言
-        self.click_head_portrait() #点击我的头像
+        self.wait_click_element(myloc.sdVipCover, model="点击我的头像")
         self.RoomPage.my_information() #我的资料 
         return True
 

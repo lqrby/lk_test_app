@@ -86,19 +86,18 @@ class PopUpLocator:
 
     #奖励中心-确定领取按钮
     confirm_to_receive = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and @text='确定']")
-    #奖励中心-确定领取按钮
+
     close_click = (Mb.ID, "com.ourydc.yuebaobao:id/other_information_close_click")  #或者点击这个元素都可以com.ourydc.yuebaobao:id/other_information_close
-
-
-
-
-
     
+    always_allow = (Mb.ID, "com.android.permissioncontroller:id/permission_allow_button")  #始终允许
 
+    allowed_in_use = (Mb.ID, "com.android.permissioncontroller:id/permission_allow_foreground_only_button")  #仅使用期间允许
+    
+    
     popList = [
         close_back,iv_cancel,setting_minors,order_now,close_broadcast,skip,
         give_up_reward,say_hello,call_permission,iv_close,cancel_close,agree,
-        close_microphone,take_pat,update_later,allow_button,close_click
+        close_microphone,take_pat,update_later,allow_button,close_click,always_allow
         ]
 
     # popList = [closeInvitInRoom[1], closeGameInvit[1], skipAD[1], allowpop1[1], allowpop2[1], onlyappallow[1],

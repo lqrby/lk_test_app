@@ -23,8 +23,7 @@ class LoginPage(CommonBus):
     '''微信登录成功操作'''
     def login_byWechat_success(self,wxName,wxPassword):
         self.popPage.check_agreement_one() #同意用户协议
-        self.wait_element_clickable(loc.wdChatBtn, model="等待微信按钮元素可被点击")
-        self.click_element(loc.wdChatBtn, model="点击微信按钮")
+        self.wait_click_element(loc.wdChatBtn, model="点击微信按钮")
         # if self.is_element_exist(loc.microblog_authorizeBtn):
         #     self.exist_be_click(loc.microblog_authorizeBtn) #点击微信授权按钮（假如微博已登录）
         if self.is_element_exist(loc.wx_name,model="微信名称"):
@@ -35,11 +34,8 @@ class LoginPage(CommonBus):
             self.wait_element_presence(loc.wx_password, model="微信密码输入框")
             self.clear_input_text(loc.wx_password, model="清除微信密码输入框")
             self.input_text(loc.wx_password,wxPassword,model="输入微信密码")
-
-            self.wait_element_clickable(loc.wxLoginBtn,"微信登录按钮")
-            self.click_element(loc.wxLoginBtn,model="点击微信登录按钮")
-            self.wait_element_clickable(loc.clickBtn,model="检查验证按钮")
-            self.click_element(loc.clickBtn,model="点击验证按钮")
+            self.wait_click_element(loc.wxLoginBtn,model="点击微信登录按钮")
+            self.wait_click_element(loc.clickBtn,model="点击验证按钮")
         return self.get_userStatus()
 
 
@@ -123,10 +119,8 @@ class LoginPage(CommonBus):
     '''正确的手机号密码登录'''
     def login_mobile_passWord(self, user, passwd,expected):
         self.popPage.check_agreement_one() #同意用户协议
-        self.wait_element_clickable(loc.phoneBtn, model="等待元素可被点击")
-        self.click_element(loc.phoneBtn, model="点击手机号登录")
-        self.wait_element_clickable(loc.nameAndPassBtn, model="等待元素可被点击")
-        self.click_element(loc.nameAndPassBtn, model="点击账号密码登录")
+        self.wait_click_element(loc.phoneBtn, model="点击手机号登录")
+        self.wait_click_element(loc.nameAndPassBtn, model="点击账号密码登录")
         self.wait_element_presence(loc.username_type, model="等待元素显示")
         self.input_text(loc.username_type, user, model="输入手机号")
         self.input_text(loc.password_type, passwd, model="输入密码")

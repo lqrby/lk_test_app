@@ -951,13 +951,13 @@ class RoomPage(CommonBus):
             self.wait_click_element(roomloc.ranking_list,model="点击排行榜")
             time.sleep(2)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-日榜") #断言
-            self.wait_click_element(roomloc.tv_title_week, model="周榜")
+            self.wait_click_element(roomloc.tv_title_week, model="贡献榜-周榜")
             time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-周榜") #断言
-            self.wait_click_element(roomloc.tv_title_yue, model="月榜")
+            self.wait_click_element(roomloc.tv_title_yue, model="贡献榜-月榜")
             time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-月榜") #断言
-            self.wait_click_element(roomloc.popularity_list, model="人气榜")
+            self.wait_click_element(roomloc.popularity_list, model="人气榜-日榜")
             time.sleep(1)
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-日榜") #断言
             self.wait_click_element(roomloc.tv_title_week, model="人气榜-周榜")
@@ -978,7 +978,7 @@ class RoomPage(CommonBus):
     #排行榜断言    
     def rankingList_assert(self,element,model):
         ranking_ele = self.is_element_exist(element,model="判断元素{}是否存在".format(element))
-        log.info("result====={}".format(ranking_ele))
+        # log.info("result====={}".format(ranking_ele))
         if ranking_ele:
             sh_list = self.get_elements(element,model=model)
             self.assert_len(sh_list,model=model)

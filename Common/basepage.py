@@ -1,4 +1,5 @@
 import re, allure, time, os
+from statistics import mode
 from subprocess import run, PIPE
 from appium.webdriver.common.touch_action import TouchAction
 from appium.webdriver.extensions.search_context import mobile
@@ -11,14 +12,15 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from appium.webdriver.connectiontype import ConnectionType
 log = get_logger(logger_name="基础类操作日志")
 from Common import splicing
+from Common.getCpuAndMemory import DevicePerformanceMonitoring
 
 
 
 class BasePage:
-    def __init__(self, driver):
+    def __init__(self, driver,):
 
         self.driver = driver
-        
+        self.dpm = DevicePerformanceMonitoring()
     
     # 等待元素可见
     def wait_eleVisible(self, loc, timeout=8, poll_frequency=0.5, model="basepage"):
@@ -194,7 +196,7 @@ class BasePage:
                 self.clear_input_text(loc, model=model)
             else:
                 # 捕获异常到日志中；
-                log.exception("元素：{0} 清除文本内容失败。：".format(loc))
+                log.exception("元素：{0} 清除文本内容失败.".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 self.save_webImgs(model)
                 self.exit_and_overRun()
@@ -606,15 +608,16 @@ class BasePage:
         for i in PopUpLocator.popList:
             log.info("检测页面弹窗:{}".format(i))
             if i[1] in source:
-                self.click_element(i)
+                self.click_element(i,model="监测到弹窗元素")
                 log.info("关闭了弹窗====={}".format(i))
                 element = i
                 break
         return element
     
     def close_page_popUp(self):
-        if self.check_page_popUp():
-           self.check_page_popUp() 
+        mark = self.check_page_popUp()
+        if mark:
+            self.check_page_popUp() 
         else:
             pass
 

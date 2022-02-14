@@ -48,14 +48,13 @@ class CommonBus(BasePage):
         self.popPage.check_goddess_Popup() #关闭女神引导弹窗
         if self.is_element_exist(my.setUpBtn,model="设置按钮元素") == False:
            self.swipeUp() 
-        self.wait_element_clickable(my.setUpBtn, model="点击设置")
-        self.click_element(my.setUpBtn, model="点击设置") 
 
-        self.wait_element_clickable(my.logoutBtn, model="点击退出登录按钮")
-        self.click_element(my.logoutBtn, model="点击退出登录按钮")
+        self.wait_click_element(my.setUpBtn, model="点击设置")
 
-        self.wait_element_clickable(my.logoutOkBtn, model="点击确认退出按钮")
-        self.click_element(my.logoutOkBtn, model="点击确认退出按钮")
+        self.wait_click_element(my.logoutBtn, model="点击退出登录按钮")
+
+        self.wait_click_element(my.logoutOkBtn, model="点击确认退出按钮")
+        
         log.info("===========退出登录========")
 
 
