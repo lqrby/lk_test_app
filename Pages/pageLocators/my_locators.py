@@ -86,6 +86,8 @@ class MyLocators:
     scth_title = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_title' and @text='首充特惠']")
     #聊天页-心动
     tv_desc = (Mb.ID, "com.ourydc.yuebaobao:id/tv_desc")
+    #点此处邀他玩-互动游戏
+    interactive_games = ("//*[@class='android.widget.TextView' and @text='点此处邀ta玩「互动游戏」']")
 
     '''end'''
     # 商城

@@ -277,7 +277,7 @@ class MyPage(CommonBus):
             else:
                 log.info("暂无可领取")
                 self.save_webImgs(model="暂无可领取")
-                return False
+                return True
 
     '''活动中心'''    
     def activity_center(self):
@@ -707,17 +707,17 @@ class MyPage(CommonBus):
         time.sleep(2)
         self.assert_equal(myloc.recharge_gear,dyj=6,model="断言充值档位列表")
         #开具发票
-        self.wait_click_element(myloc.invoice, model="开具发票")
-        time.sleep(3)
-        self.assert_true(myloc.duty_paragraph,model="断言公司税号")
+        # self.wait_click_element(myloc.invoice, model="开具发票")
+        # time.sleep(3)
+        # self.assert_true(myloc.duty_paragraph,model="断言公司税号")
         # #开票记录
         # self.wait_click_element(myloc.invoicing_record, model="开票记录")
         #点击开票说明
-        self.wait_click_element(myloc.billing_description, model="开票说明")
-        time.sleep(5)
-        kpsmText = self.driver.page_source
-        kpsm_ext = "将电子发票推送至您的邮箱"
-        self.assert_in(kpsm_ext, kpsmText, model="断言开票说明")
+        # self.wait_click_element(myloc.billing_description, model="开票说明")
+        # time.sleep(5)
+        # kpsmText = self.driver.page_source
+        # kpsm_ext = "将电子发票推送至您的邮箱"
+        # self.assert_in(kpsm_ext, kpsmText, model="断言开票说明")
         #开票说明-在线客服
         self.wait_click_element(myloc.online_service2,model="在线客服")
         if self.is_element_exist(myloc.kefu_nick,model="客服昵称"):
@@ -727,7 +727,10 @@ class MyPage(CommonBus):
             time.sleep(5)
             if self.is_element_exist(myloc.tv_desc,model="聊天页-心动"):
                 self.driver.press_keycode(4)
-            time.sleep(1)
+                time.sleep(1)
+            if self.is_element_exist(myloc.interactive_games,model="点此处邀她玩"):
+                self.driver.press_keycode(4)
+                time.sleep(1)
             self.assert_true(myloc.editTextMessage,model="断言聊天输入框")
             self.RoomPage.go_back() #返回客服列表
             time.sleep(2)

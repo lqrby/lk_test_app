@@ -45,7 +45,7 @@ class PopUpLocator:
     #放弃奖励弹窗
     give_up_reward = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancle") 
 
-    #允许哩咔语音拨打电话权限弹窗
+    #允许哩咔语音拨打电话权限弹窗、照片、媒体内容和文件
     call_permission = (Mb.ID, "com.android.packageinstaller:id/permission_allow_button") 	
     #不再询问选择框	
     not_ask = (Mb.ID, "com.android.packageinstaller:id/do_not_ask_checkbox") 		
