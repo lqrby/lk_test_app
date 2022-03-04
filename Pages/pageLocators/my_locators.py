@@ -181,11 +181,11 @@ class MyLocators:
     #确定支付
     tv_sure = (Mb.ID, "com.ourydc.yuebaobao:id/tv_sure")
     #续年费
-    xnf = (Mb.XPATH, "//*[@class='android.view.View' and @text='  续年费，更优惠!>  ']")
+    xnf = (Mb.XPATH, "//*[@class='android.view.View' and @text='   续费 >  ']")
     #开年费
-    knf = (Mb.XPATH, "//*[@class='android.view.View' and @text='   开年费，更优惠 ! >   ']")
+    knf = (Mb.XPATH, "//*[@class='android.view.View' and @text='开年费，更优惠 ! >']")
     #开年费
-    xnfhy = (Mb.XPATH, "//*[@class='android.view.View' and @text='续年费会员，每日仅需0.47元>   ']")
+    xnfhy = (Mb.XPATH, "//*[@class='android.view.View' and @text='续年费会员，每日仅需0.47元']")
     '''end'''
     # 我的动态
     my_dynamic = (Mb.ID, "com.ourydc.yuebaobao:id/v_dynamic") 

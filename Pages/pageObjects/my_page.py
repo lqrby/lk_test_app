@@ -679,13 +679,13 @@ class MyPage(CommonBus):
         self.RoomPage.go_back()
         self.assert_true(myloc.hybs,model="断言会员专属")
         time.sleep(1)
-        if self.is_element_exist(myloc.xnf, model="续年费元素是否存在"):
-            self.wait_click_element(myloc.xnf, model="续年费,更优惠")
-        elif self.is_element_exist(myloc.knf, model="开年费元素是否存在"):
-            self.wait_click_element(myloc.knf, model="开年费,更优惠")
-        elif self.is_element_exist(myloc.xnfhy, model="续年费会员，每日仅需0.47元"):
+        # if self.is_element_exist(myloc.xnf, model="续费元素是否存在"):
+        #     self.wait_click_element(myloc.xnf, model="续费")
+        # elif self.is_element_exist(myloc.knf, model="开年费元素是否存在"):
+        #     self.wait_click_element(myloc.knf, model="开年费,更优惠")
+        if self.is_element_exist(myloc.xnfhy, model="续年费会员，每日仅需0.47元"):
             self.wait_click_element(myloc.xnfhy, model="续年费会员，每日仅需0.47元")
-        self.assert_equal(myloc.gear,dyj=4,model="充值档位断言2")
+        self.assert_equal(myloc.gear,dyj=4,model="断言充值档位2")
         self.RoomPage.go_back()
         time.sleep(6)
         return self.assert_true(myloc.zszb,model="断言专属装扮")
