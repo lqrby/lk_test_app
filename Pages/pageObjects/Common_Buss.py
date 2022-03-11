@@ -95,11 +95,17 @@ class CommonBus(BasePage):
             return False
 
     # 断言元素长度
-    def assert_len(self, elements, dyj=0, model=None):
+    def assert_len(self, list_loc, dyj=0, model=None):
         try:
-            assert len(elements) > dyj
-            log.info("{}===断言通过,{} > {}".format(model,len(elements),dyj))
-            return True
+            if self.is_element_exist(list_loc,model=model):
+                avatars = self.get_elements(list_loc,model="获取{}元素".format(model))
+                assert len(avatars) > dyj
+                log.info("{}===断言通过,{} > {}".format(model,len(avatars),dyj))
+                return avatars
+            else:
+                log.info("元素不存在：{}".format(list_loc))
+                self.save_webImgs(model=model)
+                return False
         except Exception as e:
             log.info("{}断言错误".format(model))
             self.save_webImgs(model=model)
@@ -157,19 +163,6 @@ class CommonBus(BasePage):
             .move_to(x=start_X + 300, y=random.randint(e[1]+2,e[3]-2)).wait(500).release().perform()
         self.wait_element_presence(LoginPageLocator.codeInput,model="验证码输入框")
 
-    
-    # 列表长度及断言
-    def public_list(self,list_loc,model=None,dyj=0):
-        log.info("元素是======={}".format(list_loc))
-        if self.is_element_exist(list_loc,timeout=8,model=model):
-            avatars = self.get_elements(list_loc,model="获取{}".format(model))  
-            time.sleep(1)
-            self.assert_len(avatars,dyj=dyj,model="{}断言".format(model)) 
-            return avatars
-        else:
-            log.info("{}暂无数据".format(model))    
-            self.save_webImgs("{}暂无数据".format(model))
-            return False
     
     '''切换tap'''
     def find_tap(self,find_element,location_element,find_model,location_model,t=500,loop=1):

@@ -133,17 +133,17 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="点击我的")
         self.wait_click_element(myloc.v_user_friends,model="我的好友") 
         self.wait_click_element(myloc.tv_title_one,model="关注") 
-        self.public_list(myloc.avatar,"关注",dyj=1)
+        self.assert_len(myloc.avatar,dyj=1,model="关注") 
         self.wait_click_element(myloc.tv_title_two,model="粉丝") 
-        self.public_list(myloc.avatar,"粉丝",dyj=1)
+        self.assert_len(myloc.avatar,dyj=1,model="粉丝") 
         self.wait_click_element(myloc.tv_title_three,model="好友") 
-        self.public_list(myloc.avatar,"好友",dyj=1)
+        self.assert_len(myloc.avatar,dyj=1,model="好友")
         self.RoomPage.go_back()
         self.wait_click_element(myloc.v_look_me,model="谁看过我")
-        self.public_list(myloc.iv_head,model="谁看过我列表")
+        self.assert_len(myloc.iv_head,model="谁看过我列表")
         self.RoomPage.go_back()
         self.wait_click_element(myloc.v_footprint,model="派对足迹")
-        self.public_list(myloc.iv_room_head,model="派对足迹")
+        self.assert_len(myloc.iv_room_head,model="派对足迹")
         return True   
 
 
@@ -164,7 +164,7 @@ class MyPage(CommonBus):
             self.save_webImgs("发布动态失败")
         self.swipeDown()
         time.sleep(2)
-        dynamicList = self.public_list(myloc.my_dynamic_list,model="我的动态列表")
+        dynamicList = self.assert_len(myloc.my_dynamic_list,model="我的动态列表")
         if dynamicList:
             dt_num = random.randint(0,len(dynamicList)-1) 
             log.info("点击第{}个动态查看详情".format(dt_num + 1))
@@ -209,18 +209,18 @@ class MyPage(CommonBus):
     def my_knapsack(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.my_knapsack,model="我的背包")
-        self.public_list(myloc.all_gifts_list,model="我的全部礼物列表")
+        self.assert_len(myloc.all_gifts_list,model="我的全部礼物列表")
         self.wait_click_element(myloc.decorate_list, model="装饰")
-        self.public_list(myloc.all_gifts_list,model="装饰列表")
+        self.assert_len(myloc.all_gifts_list,model="装饰列表")
         self.wait_click_element(myloc.prop_list, model="道具")
-        self.public_list(myloc.all_gifts_list,model="道具列表")
+        self.assert_len(myloc.all_gifts_list,model="道具列表")
         self.wait_click_element(myloc.gifts_list, model="礼物")
-        giftsList = self.public_list(myloc.all_gifts_list,model="礼物列表")
+        giftsList = self.assert_len(myloc.all_gifts_list,model="礼物列表")
         if giftsList:
             return True
         else:
             return False
-        # sweetflower = self.public_list(myloc.sweet_flower,model="甜蜜小花列表")
+        # sweetflower = self.assert_len(myloc.sweet_flower,model="甜蜜小花列表")
         # if sweetflower:
         #     i = len(sweetflower)-1
         #     sweetflower[i].click() 
@@ -283,7 +283,7 @@ class MyPage(CommonBus):
     def activity_center(self):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.activity_center,"活动中心")
-        giftarr = self.public_list(myloc.onlineRecycle,model="已上线游戏列表",dyj=0)
+        giftarr = self.assert_len(myloc.onlineRecycle,dyj=0,model="已上线游戏列表")
         if giftarr:
             return True
         else:
@@ -294,7 +294,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.apply_family, model="申请家族")
         time.sleep(8)
-        if self.public_list(myloc.application_family,model="申请家族列表",dyj=2):
+        if self.assert_len(myloc.application_family,dyj=2,model="申请家族列表"):
             return True
         else:
             return False
@@ -338,7 +338,7 @@ class MyPage(CommonBus):
             self.save_webImgs("暂无黑名单人员")
             self.RoomPage.go_back() #返回
         elif self.is_element_exist(myloc.blacklist_data,model="黑名单页面元素"):
-            self.public_list(myloc.blacklist_data,model="黑名单列表")
+            self.assert_len(myloc.blacklist_data,model="黑名单列表")
             self.RoomPage.go_back() #返回
         else:
             log.error("黑名单页面异常")
@@ -798,8 +798,7 @@ class MyPage(CommonBus):
     #钻石tap-查看明细相关操作
     def details_view(self,loc,model=None):
         if self.is_element_exist(loc,model=model):
-            tvtimes = self.find_elements(loc)
-            self.assert_len(tvtimes,model="断言{}列表".format(model))
+            self.assert_len(loc,model="断言{}列表".format(model))
         else:
             log.info("暂无{}".format(model))
             self.save_webImgs("暂无{}".format(model))

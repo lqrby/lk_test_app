@@ -18,12 +18,12 @@ class TestNews:
         log.info("*********************消息-通讯录-测试用例*********************")
         news_page = NewsPage(startApp_keepUserData)
         mail_list = news_page.mail_list()
-        with allure.step("查看用户主页"):
+        with allure.step("消息-通讯录-测试用例"):
             try:
                 assert mail_list == True
-                log.info("查看用户主页资料断言成功")
+                log.info("消息-通讯录-测试用例断言成功")
             except AssertionError as a:
-                log.error("查看用户主页资料断言失败")
+                log.error("消息-通讯录-测试用例断言失败")
                 raise
 
 

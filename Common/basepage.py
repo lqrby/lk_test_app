@@ -1,4 +1,4 @@
-import re, allure, time, os
+import re, allure, time, os,sys
 from statistics import mode
 from subprocess import run, PIPE
 from appium.webdriver.common.touch_action import TouchAction
@@ -6,10 +6,14 @@ from appium.webdriver.extensions.search_context import mobile
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.mobileby import MobileBy
-from Common.log import get_logger
-from Pages.pageLocators.pop_locators import PopUpLocator
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from appium.webdriver.connectiontype import ConnectionType
+# file_path = os.path.join(os.path.abspath('.'))
+# file_path = file_path.replace('\\', '/')
+# sys.path.append(file_path)
+from Common.log import get_logger
+from Pages.pageLocators.pop_locators import PopUpLocator
+
 log = get_logger(logger_name="基础类操作日志")
 from Common import splicing
 from Common.getCpuAndMemory import DevicePerformanceMonitoring
@@ -627,11 +631,11 @@ class BasePage:
         self.driver.quit()
 
 
-    def wait_click_element(self,loc,model=None,timeout=8):
+    def wait_click_element(self,loc,timeout=8,model=None):
         if self.wait_element_clickable(loc,timeout=timeout,model="等待{}".format(model)):
             self.click_element(loc,model="点击{}".format(model))
 
-    def wait_getTextValue(self,loc,model=None,timeout=8):
+    def wait_getTextValue(self,loc,timeout=8,model=None):
         if self.wait_element_presence(loc,timeout=timeout,model="等待{}".format(model)):
             text = self.get_text(loc,model=model)
             return text

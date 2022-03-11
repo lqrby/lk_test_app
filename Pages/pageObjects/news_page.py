@@ -38,7 +38,7 @@ class NewsPage(CommonBus):
             self.roomPage.go_back()
         else:
             log.info("迷路了不知道进哪里了")
-            self.switch_navigate("迷路了不知道进哪里了")
+            # self.switch_navigate("迷路了不知道进哪里了")
             self.driver.press_keycode(4)
 
     
@@ -49,14 +49,14 @@ class NewsPage(CommonBus):
         self.wait_click_element(homeloc.message_moduke,model="消息模块")
         time.sleep(2)
         self.wait_click_element(newsloc.iv_msg_contact,model="通讯录按钮")
-        self.replace_click(newsloc.tv_position,model="关注列表") #关注列表
-        self.list_assert(newsloc.editTextMessage,model="关注聊天页断言")
-        self.wait_click_element(newsloc.tv_title_two,model="粉饰tap")
-        self.replace_click(newsloc.tv_position,model="粉丝列表") #粉丝列表
-        self.list_assert(newsloc.editTextMessage,model="粉丝聊天页断言")
+        self.view_user_homepage(newsloc.tv_position,model="关注列表") #关注列表
+        
+        self.wait_click_element(newsloc.tv_title_two,model="粉丝tap")
+        self.view_user_homepage(newsloc.tv_position,model="粉丝列表") #粉丝列表
+        
         self.wait_click_element(newsloc.tv_title_three,model="好友tap")
-        self.replace_click(newsloc.tv_position,model="好友列表") #好友列表
-        self.list_assert(newsloc.editTextMessage,model="好友聊天页断言")
+        self.view_user_homepage(newsloc.tv_position,model="好友列表") #好友列表
+
         self.wait_click_element(newsloc.iv_extra,model="添加好友按钮")
         self.assert_true(newsloc.et_input,model="搜索输入框断言") 
         page_source_result = self.driver.page_source
@@ -69,28 +69,25 @@ class NewsPage(CommonBus):
         return True
         
     #点击列表中的用户并检查用户状态
-    def list_user_status(self,news_loc,model=None):
-        followlist = self.public_list(news_loc,model=model) 
+    def view_user_homepage(self,news_loc,model=None):
+        followlist = self.assert_len(news_loc,model=model) 
+        mark = False
         if followlist and len(followlist) > 0:
-            num = random.randint(0,len(followlist) - 1)
-            log.info("{}中随机点击某一用户".format(model))
-            followlist[num].click()
-            part_text = "已被冻结"
-            yesnodj = self.get_toast_exist(part_text,model="用户状态")
-            if yesnodj and part_text in yesnodj:
-                log.info("该用户已被冻结")
-                return False
-            else:
-                return True
+            for i in range(3):
+                num = random.randint(0,len(followlist) - 1)
+                log.info("{}中随机点击某一用户".format(model))
+                followlist[num].click()
+                part_text = "已被冻结"
+                yesnodj = self.get_toast_exist(part_text,model="用户状态")
+                if yesnodj and part_text in yesnodj:
+                    log.info("该用户已被冻结")
+                    self.swipeDown()
+                    time.sleep(3)
+                else:
+                    self.list_assert(newsloc.editTextMessage,model="关注用户聊天页断言")
+                    mark = True
+                    break
+            return mark
+        else:
+            return False
                  
-
-
-    def replace_click(self, newsloc,model=None):
-        for i in range(3):
-            us = self.list_user_status(newsloc,model=model)
-            if us == False:
-                self.swipeDown()
-                time.sleep(3)
-            else:
-                break
-        time.sleep(5)

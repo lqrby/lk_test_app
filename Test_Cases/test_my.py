@@ -183,13 +183,13 @@ class Test_my:
     @allure.title('商城')
     def test_shopping_mall(self, startApp_keepUserData):
         my_page = MyPage(startApp_keepUserData)
-        log.info("*************我的>查看会员测试用例***************")
+        log.info("*************我的>商城测试用例***************")
         shopping_mall = my_page.shopping_mall()
         try:
             assert shopping_mall == True
-            log.error("查看会员测试用例通过")
+            log.error("商城测试用例通过")
         except AssertionError as a:
-            log.error("查看会员测试用例断言失败")
+            log.error("商城测试用例断言失败")
             raise
             
     
@@ -254,5 +254,5 @@ class Test_my:
 
     
 
-if __name__ == '__main__':
-    pytest.main()
+# if __name__ == '__main__':
+#     pytest.main()
