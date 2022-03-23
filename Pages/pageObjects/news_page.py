@@ -1,3 +1,4 @@
+from operator import mod
 from Pages.pageObjects.Common_Buss import CommonBus
 from Pages.pageLocators.square_locators import SquareLocators as squareloc
 from Common.log import get_logger
@@ -40,6 +41,10 @@ class NewsPage(CommonBus):
             log.info("迷路了不知道进哪里了")
             # self.switch_navigate("迷路了不知道进哪里了")
             self.driver.press_keycode(4)
+            time.sleep(2)
+            self.driver.press_keycode(4)
+            time.sleep(2)
+            self.roomPage.go_back()
 
     
     '''
@@ -58,6 +63,7 @@ class NewsPage(CommonBus):
         self.view_user_homepage(newsloc.tv_position,model="好友列表") #好友列表
 
         self.wait_click_element(newsloc.iv_extra,model="添加好友按钮")
+        time.sleep(2)
         self.assert_true(newsloc.et_input,model="搜索输入框断言") 
         page_source_result = self.driver.page_source
         self.assert_in("推荐聊天室",page_source_result,model="推荐聊天室标题")
@@ -73,20 +79,21 @@ class NewsPage(CommonBus):
         followlist = self.assert_len(news_loc,model=model) 
         mark = False
         if followlist and len(followlist) > 0:
-            for i in range(3):
-                num = random.randint(0,len(followlist) - 1)
-                log.info("{}中随机点击某一用户".format(model))
-                followlist[num].click()
-                part_text = "已被冻结"
-                yesnodj = self.get_toast_exist(part_text,model="用户状态")
-                if yesnodj and part_text in yesnodj:
-                    log.info("该用户已被冻结")
-                    self.swipeDown()
-                    time.sleep(3)
-                else:
-                    self.list_assert(newsloc.editTextMessage,model="关注用户聊天页断言")
-                    mark = True
-                    break
+            # for i in range(3):
+            num = random.randint(0,len(followlist) - 1)
+            log.info("{}中随机点击某一用户".format(model))
+            followlist[num].click()
+            part_text = "已被冻结"
+            yesnodj = self.get_toast_exist(part_text,model="用户状态")
+            if yesnodj and part_text in yesnodj:
+                log.info("该用户已被冻结")
+                self.swipeDown()
+                time.sleep(3)
+                self.view_user_homepage(news_loc,model = model)
+            else:
+                self.list_assert(newsloc.editTextMessage,model="关注用户聊天页断言")
+                mark = True
+                # break
             return mark
         else:
             return False

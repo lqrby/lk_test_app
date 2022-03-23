@@ -231,7 +231,7 @@ class RoomPageLocator:
     # daily_login = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/title' and text='日常任务']") # 日常任务
     daily_login = (Mb.ID, "com.ourydc.yuebaobao:id/title") # 日常任务
     gold_coin_lucky_draw = (Mb.ID, "com.ourydc.yuebaobao:id/luckyDrawTv") # 金币抽奖
-    claim_button = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") # 领取按钮
+    receive_button = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/btn' and @text='领取']") # 领取按钮
     # not_claimed = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn' and text='未领取']") # 未领取按钮
     task_description = (Mb.ID, "com.ourydc.yuebaobao:id/taskInstructions") # 任务说明
     collectable = (Mb.ID, "@resource-id='com.ourydc.yuebaobao:id/lightIv") # 可领取奖品

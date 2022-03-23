@@ -166,8 +166,9 @@ class CommonBus(BasePage):
     
     '''切换tap'''
     def find_tap(self,find_element,location_element,find_model,location_model,t=500,loop=1):
-        if self.is_element_exist(find_element,model=find_model):
-            self.wait_click_element(find_element,find_model) 
+        if self.is_element_exist(find_element,timeout = 8,model=find_model):
+            # self.wait_click_element(find_element,find_model) 
+            self.click_element(find_element,find_model)
         else:
             self.wait_element_presence(location_element,model="{}".format(location_model))
             gift_button = self.get_element(location_element,model="获取{}对象".format(location_model)).get_attribute("bounds")

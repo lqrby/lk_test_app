@@ -63,7 +63,7 @@ class BasePage:
                 return self.wait_element_clickable(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
                 log.error("未找到或元素不可点击{}".format(loc))
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
                 return False
             
@@ -82,7 +82,7 @@ class BasePage:
             if self.check_page_popUp():
                 return self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 log.error("元素不存在:{}".format(loc))
                 self.exit_and_overRun()
                 return False
@@ -140,7 +140,7 @@ class BasePage:
             else:
                 log.exception("获取元素失败:{}".format(loc))
                 # 截图
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 查找一个元素
@@ -163,7 +163,7 @@ class BasePage:
                 return self.get_elements(loc, model=model)
             else:
                 log.exception("定位元素失败")
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 输入操作
@@ -331,7 +331,7 @@ class BasePage:
         img_path = os.path.join(splicing.screenshot_dir, filePath)
         try:
             self.driver.save_screenshot(img_path)
-            allure.attach(self.driver.get_screenshot_as_png(), model, allure.attachment_type.PNG)
+            allure.attach(self.driver.get_screenshot_as_png(),model,allure.attachment_type.PNG)
         except:
             log.exception("截图失败")
         else:
@@ -631,11 +631,11 @@ class BasePage:
         self.driver.quit()
 
 
-    def wait_click_element(self,loc,timeout=8,model=None):
+    def wait_click_element(self,loc,timeout=5,model=None):
         if self.wait_element_clickable(loc,timeout=timeout,model="等待{}".format(model)):
             self.click_element(loc,model="点击{}".format(model))
 
-    def wait_getTextValue(self,loc,timeout=8,model=None):
+    def wait_getTextValue(self,loc,timeout=5,model=None):
         if self.wait_element_presence(loc,timeout=timeout,model="等待{}".format(model)):
             text = self.get_text(loc,model=model)
             return text

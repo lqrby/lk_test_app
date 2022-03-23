@@ -1,3 +1,5 @@
+import logging
+from statistics import mode
 import time,random
 
 from appium.webdriver.extensions.search_context import mobile
@@ -60,7 +62,7 @@ class MyPage(CommonBus):
             nickname_toast = self.get_toast_msg(part_text,model="保存昵称toast")
             if nickname_toast:
                 log.info("toast===={}".format(nickname_toast))
-                time.sleep(8)
+                time.sleep(16)
                 if self.is_clickable(myloc.v_nick,model="昵称"):
                     self.click_element(myloc.v_nick,model="点击昵称")
                     self.wait_element_presence(myloc.et_nick,model="等待昵称输入框")
@@ -120,10 +122,9 @@ class MyPage(CommonBus):
     def edit_my_profile(self,myProfileData):
         self.wait_click_element(myloc.meBtn, model="点击我的")
         self.wait_click_element(myloc.iv_edit,model="编辑资料入口")
-        self.updeta_nickname(myProfileData["nickname"]) #修改昵称
+        return self.updeta_nickname(myProfileData["nickname"]) #修改昵称
         # self.updeta_autograph(myProfileData["autograph"]) #修改签名
             # # self.RoomPage.go_back() #返回
-        return True
  
 
     """
@@ -282,7 +283,7 @@ class MyPage(CommonBus):
     '''活动中心'''    
     def activity_center(self):
         self.wait_click_element(myloc.meBtn, model="我的")
-        self.wait_click_element(myloc.activity_center,"活动中心")
+        self.wait_click_element(myloc.activity_center,model="活动中心")
         giftarr = self.assert_len(myloc.onlineRecycle,dyj=0,model="已上线游戏列表")
         if giftarr:
             return True
@@ -500,21 +501,23 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的") 
         self.wait_click_element(myloc.my_income, model="收入") 
         time.sleep(5)
-        self.baby_currency_exchange(myloc.exchange_diamonds,model="宝宝币") #宝宝币兑换
+        bbbNumber = self.get_text(myloc.bbbNumber,model="宝宝币")
+        self.baby_currency_exchange(myloc.exchange_diamonds,bbbNumber,model="宝宝币") #宝宝币兑换
         self.withdrawal() #提现相关
         self.wait_click_element(myloc.yxbtap, model="点击游戏币tap")
-        self.baby_currency_exchange(myloc.charm_value_exchange,model="游戏币") #游戏币兑换
+        yxbNumber = self.get_text(myloc.bbbNumber,model="游戏币")
+        self.baby_currency_exchange(myloc.charm_value_exchange,yxbNumber,model="游戏币") #游戏币兑换
         self.wait_click_element(myloc.mlztap, model="点击魅力值tap")
-        self.baby_currency_exchange(myloc.charm_value_exchange,model="魅力值") #魅力值兑换
+        mlzNumber = self.get_text(myloc.bbbNumber,model="魅力值")
+        self.baby_currency_exchange(myloc.charm_value_exchange,mlzNumber,model="魅力值") #魅力值兑换
         return True 
         
         
     #宝宝币、游戏币、魅力值兑换
-    def baby_currency_exchange(self,loc,model=None):
-        num = self.wait_getTextValue(myloc.bbbNumber,"{}数量".format(model))
-        log.info("数量是==============================={}".format(num))
+    def baby_currency_exchange(self,loc,num,model=None):
+        # num = self.wait_getTextValue(myloc.bbbNumber,"{}数量".format(model))
         
-            
+        log.info("数量是==============================={}".format(num))
         if int(num) > 1:
             time.sleep(5)
             self.wait_click_element(loc, model="兑换按钮")
@@ -527,7 +530,7 @@ class MyPage(CommonBus):
                 time.sleep(1)
             self.assert_true(myloc.all_exchange,model="全部兑换")
             self.wait_click_element(myloc.tv_shift_to, model="确认兑换")
-            if model=="宝宝币":
+            if model != "魅力值":
                 self.wait_click_element(myloc.tv_confirm, model="再次确定按钮")
             else:
                 self.wait_click_element(myloc.tv_sure, model="点击确定按钮")
@@ -629,7 +632,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的") 
         self.wait_click_element(myloc.iv_vip, model="会员") 
         time.sleep(4)
-        self.assert_true(myloc.hybs,model="断言会员专属")
+        self.assert_true(myloc.hybs,model="断言会员标识")
         time.sleep(1)
         self.assert_true(myloc.zszb,model="断言专属装扮")
         time.sleep(1)
@@ -639,8 +642,13 @@ class MyPage(CommonBus):
 
     #立即续费方法
     def renew_now(self):
-        self.wait_click_element(myloc.ndzsbs, model="立即续费") 
-        self.assert_equal(myloc.gear,dyj=4,model="断言充值档位")
+        # if self.is_element_exist(myloc.lxtq,model='立享特权'):
+        #     self.click_element(myloc.lxtq,model='立享特权')
+        # if self.is_element_exist(myloc.ndzsbs, model="立即续费/立享特权"):
+        self.wait_click_element(myloc.ndzsbs, model="立即续费/立享特权") 
+        if self.is_element_exist(myloc.zxx,model='再想想'):
+            self.click_element(myloc.zxx,model='再想想')
+        self.assert_equal(myloc.gear,dyj=3,model="断言充值档位")
         time.sleep(1)
         self.wait_click_element(myloc.morePayWayLay, model="更多支付") 
         time.sleep(1)
@@ -679,15 +687,19 @@ class MyPage(CommonBus):
         self.RoomPage.go_back()
         self.assert_true(myloc.hybs,model="断言会员专属")
         time.sleep(1)
-        # if self.is_element_exist(myloc.xnf, model="续费元素是否存在"):
-        #     self.wait_click_element(myloc.xnf, model="续费")
-        # elif self.is_element_exist(myloc.knf, model="开年费元素是否存在"):
-        #     self.wait_click_element(myloc.knf, model="开年费,更优惠")
-        if self.is_element_exist(myloc.xnfhy, model="续年费会员，每日仅需0.47元"):
-            self.wait_click_element(myloc.xnfhy, model="续年费会员，每日仅需0.47元")
-        self.assert_equal(myloc.gear,dyj=4,model="断言充值档位2")
-        self.RoomPage.go_back()
-        time.sleep(6)
+        # if self.is_element_exist(myloc.knf, model="开年费,更优惠"):
+        #     self.wait_click_element(myloc.knf, model="开年费，更优惠!")
+        # elif self.is_element_exist(myloc.xnfhy, model="续年费会员，每日仅需0.47元"):
+        #     self.wait_click_element(myloc.xnfhy, model="续年费会员，每日仅需0.47元")
+        # elif self.is_element_exist(myloc.xnfgyh, model="续年费，更优惠！"):
+        #     self.wait_click_element(myloc.xnfgyh, model="续年费，更优惠！")
+        # elif self.is_element_exist(myloc.xf, model="续费"):
+        #     self.wait_click_element(myloc.xf, model="续费")
+        # if self.is_element_exist(myloc.zxx,model='再想想'):
+        #     self.click_element(myloc.zxx,model='再想想')    
+        # self.assert_equal(myloc.gear,dyj=3,model="断言充值档位")
+        # self.RoomPage.go_back()
+        # time.sleep(6)
         return self.assert_true(myloc.zszb,model="断言专属装扮")
         
 
@@ -708,43 +720,6 @@ class MyPage(CommonBus):
         self.assert_true(myloc.layout_pay_alipay,model="支付宝选项")
         time.sleep(2)
         self.assert_equal(myloc.recharge_gear,dyj=6,model="断言充值档位列表")
-        #开具发票
-        # self.wait_click_element(myloc.invoice, model="开具发票")
-        # time.sleep(3)
-        # self.assert_true(myloc.duty_paragraph,model="断言公司税号")
-        # #开票记录
-        # self.wait_click_element(myloc.invoicing_record, model="开票记录")
-        #点击开票说明
-        # self.wait_click_element(myloc.billing_description, model="开票说明")
-        # time.sleep(5)
-        # kpsmText = self.driver.page_source
-        # kpsm_ext = "将电子发票推送至您的邮箱"
-        # self.assert_in(kpsm_ext, kpsmText, model="断言开票说明")
-        #开票说明-在线客服
-        self.wait_click_element(myloc.online_service2,model="在线客服")
-        if self.is_element_exist(myloc.kefu_nick,model="客服昵称"):
-            kf_list = self.get_elements(myloc.kefu_nick,model="客服列表")
-            kf_num = random.randint(0,len(kf_list)-1)
-            kf_list[kf_num].click()
-            time.sleep(5)
-            if self.is_element_exist(myloc.tv_desc,model="聊天页-心动"):
-                self.driver.press_keycode(4)
-                time.sleep(1)
-            if self.is_element_exist(myloc.interactive_games,model="点此处邀她玩"):
-                self.driver.press_keycode(4)
-                time.sleep(1)
-            self.assert_true(myloc.editTextMessage,model="断言聊天输入框")
-            self.RoomPage.go_back() #返回客服列表
-            time.sleep(2)
-            self.RoomPage.go_back() #返回开具说明
-            time.sleep(2)
-            self.driver.press_keycode(4) #返回开具发票
-            time.sleep(4)
-            self.driver.press_keycode(4) #返回钻石tap页
-        else:
-            log.info("暂无客服")
-            self.save_webImgs("暂无客服")
-
         self.wait_click_element(myloc.Withdrawal_record, model="查看明细")
         self.details_view(myloc.tv_money,model="充值记录") #查看明细-充值记录列表相关操作
         self.screen(7)
@@ -790,8 +765,9 @@ class MyPage(CommonBus):
         if self.is_element_exist(myloc.sign_in,model="签到"):
             self.click_element(myloc.sign_in,model="点击立即签到按钮")
             self.click_element(myloc.sign_in,model="点击放入背包按钮")
-        text_res = self.get_text(myloc.mrqd_title,model="每日签到")
-        return self.assert_in(text,text_res,model="断言每日签到是否存在")
+            # text_res = self.get_text(myloc.mrqd_title,model="每日签到")
+            # self.assert_in(text,text_res,model="断言每日签到是否存在")
+        return True
         
 
 
@@ -818,7 +794,6 @@ class MyPage(CommonBus):
     #进入聊天页通用方法
     def contact_customer_service(self,loc,model=None):
         self.wait_click_element(loc, model="点击{}".format(model))
-        # self.assert_equal(myloc.tvxzs_title,dyj=11,model="小助手问题列表")
         self.assert_true(myloc.editTextMessage,model="断言聊天输入框")
         self.RoomPage.go_back()
         

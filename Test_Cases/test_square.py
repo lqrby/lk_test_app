@@ -1,7 +1,8 @@
-import allure
+import allure,time
 import pytest
 from Common.log import get_logger
 from Pages.pageObjects.square_page import SquarePage
+from Pages.pageLocators.square_locators import SquareLocators as squareloc
 
 log = get_logger(logger_name="设置操作日志")
 
@@ -42,6 +43,10 @@ class TestSquare:
             except AssertionError as a:
                 log.error("查看我已关注用户的动态断言失败")
                 raise
+
+
+
+    
         
 
 

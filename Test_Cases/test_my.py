@@ -38,7 +38,7 @@ class Test_my:
         actual_edit = my_page.edit_my_profile(myProfileData)
         try:
             assert actual_edit == True
-            log.error("资料编辑页测试用例-测试用例通过")
+            log.info("资料编辑页测试用例-测试用例通过")
         except AssertionError as a:
             log.error("资料编辑页断言失败")
             raise
@@ -54,7 +54,7 @@ class Test_my:
         actual_edit = my_page.myFriend_whoLookMe_partyFootprints()
         try:
             assert actual_edit == True
-            log.error("我的好友、谁看过我和派对足迹测试用例-测试用例通过")
+            log.info("我的好友、谁看过我和派对足迹测试用例-测试用例通过")
         except AssertionError as a:
             log.error("我的好友、谁看过我和派对足迹测试用例断言失败")
             raise
@@ -69,7 +69,7 @@ class Test_my:
         actual_edit = my_page.my_knapsack()
         try:
             assert actual_edit == True
-            log.error("我的背包测试用例-测试用例通过")
+            log.info("我的背包测试用例-测试用例通过")
         except AssertionError as a:
             log.error("我的背包测试用例断言失败")
             raise
@@ -83,7 +83,7 @@ class Test_my:
         actual_edit = my_page.reward_center()
         try:
             assert actual_edit == True
-            log.error("我的奖励中心测试用例-测试用例通过")
+            log.info("我的奖励中心测试用例-测试用例通过")
         except AssertionError as a:
             log.error("我的奖励中心测试用例断言失败")
             raise
@@ -98,7 +98,7 @@ class Test_my:
         actual_edit = my_page.activity_center()
         try:
             assert actual_edit == True
-            log.error("活动中心测试用例-测试用例通过")
+            log.info("活动中心测试用例-测试用例通过")
         except AssertionError as a:
             log.error("活动中心测试用例断言失败")
             raise
@@ -113,7 +113,7 @@ class Test_my:
         actual_edit = my_page.application_family()
         try:
             assert actual_edit == True
-            log.error("申请家族测试用例-测试用例通过")
+            log.info("申请家族测试用例-测试用例通过")
         except AssertionError as a:
             log.error("申请家族测试用例断言失败")
             raise
@@ -128,7 +128,7 @@ class Test_my:
         actual_edit = my_page.account_security()
         try:
             assert actual_edit == True
-            log.error("设置-账号安全测试用例-测试用例通过")
+            log.info("设置-账号安全测试用例-测试用例通过")
         except AssertionError as a:
             log.error("设置-账号安全测试用例断言失败")
             raise
@@ -144,7 +144,7 @@ class Test_my:
         actual_edit = my_page.protection_of_minors()
         try:
             assert actual_edit == True
-            log.error("设置-未成年保护模式试用例-测试用例通过")
+            log.info("设置-未成年保护模式试用例-测试用例通过")
         except AssertionError as a:
             log.error("设置-未成年保护模式测试用例断言失败")
             raise
@@ -159,7 +159,7 @@ class Test_my:
         actual_edit = my_page.my_dynamic()
         try:
             assert actual_edit == True
-            log.error("设置-我的动态试用例-测试用例通过")
+            log.info("设置-我的动态试用例-测试用例通过")
         except AssertionError as a:
             log.error("设置-我的动态测试用例断言失败")
             raise
@@ -173,7 +173,7 @@ class Test_my:
         actual_edit = my_page.about_lika()
         try:
             assert actual_edit == True
-            log.error("设置-关于哩咔测试用例通过")
+            log.info("设置-关于哩咔测试用例通过")
         except AssertionError as a:
             log.error("设置-关于哩咔测试用例断言失败")
             raise
@@ -187,7 +187,7 @@ class Test_my:
         shopping_mall = my_page.shopping_mall()
         try:
             assert shopping_mall == True
-            log.error("商城测试用例通过")
+            log.info("商城测试用例通过")
         except AssertionError as a:
             log.error("商城测试用例断言失败")
             raise
@@ -203,7 +203,7 @@ class Test_my:
         income = my_page.income()
         try:
             assert income == True
-            log.error("收入测试用例通过")
+            log.info("收入测试用例通过")
         except AssertionError as a:
             log.error("收入测试用例断言失败")
             raise
@@ -218,7 +218,7 @@ class Test_my:
         member = my_page.member()
         try:
             assert member == True
-            log.error("会员测试用例通过")
+            log.info("会员测试用例通过")
         except AssertionError as a:
             log.error("会员测试用例断言失败")
             raise
@@ -232,7 +232,7 @@ class Test_my:
         recharge = my_page.recharge()
         try:
             assert recharge == True
-            log.error("充值测试用例通过")
+            log.info("充值测试用例通过")
         except AssertionError as a:
             log.error("充值测试用例断言失败")
             raise
@@ -242,13 +242,13 @@ class Test_my:
     @allure.title('等级')
     def test_mylevel(self, startApp_keepUserData):
         my_page = MyPage(startApp_keepUserData)
-        log.info("*************我的>充值测试用例***************")
+        log.info("*************我的>等级测试用例***************")
         my_level = my_page.my_level()
         try:
             assert my_level == True
-            log.error("充值测试用例通过")
+            log.info("等级测试用例通过")
         except AssertionError as a:
-            log.error("充值测试用例断言失败")
+            log.error("等级测试用例断言失败")
             raise
             
 

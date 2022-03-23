@@ -97,7 +97,8 @@ class MyLocators:
     '''# 收入'''
     my_income= (Mb.ID, "com.ourydc.yuebaobao:id/iv_mine_income")
     # 宝宝币、游戏币、魅力值数量
-    bbbNumber = (Mb.ID, "com.ourydc.yuebaobao:id/tv_count")
+    # bbbNumber = (Mb.ID, "com.ourydc.yuebaobao:id/tv_count")
+    bbbNumber = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_count']") 
     # 宝宝币兑换钻石按钮
     exchange_diamonds = (Mb.ID,"com.ourydc.yuebaobao:id/iv_exchange_money")
     # 魅力值兑换按钮
@@ -155,6 +156,8 @@ class MyLocators:
     zszb = (Mb.XPATH, "//*[@class='android.view.View' and @text='专属装扮']") 
     #充值档位1
     gear = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/priceTv']") 
+    #再想想
+    zxx = (Mb.XPATH, "//*[@class='android.view.View' and @text='再想想']") 
     #充值档位2
     gear_two = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/priceTv' and @text='12个月  ¥14.0/月']") 
     #更多支付
@@ -181,10 +184,12 @@ class MyLocators:
     #确定支付
     tv_sure = (Mb.ID, "com.ourydc.yuebaobao:id/tv_sure")
     #续年费
-    xnf = (Mb.XPATH, "//*[@class='android.view.View' and @text='   续费 >  ']")
+    xf = (Mb.XPATH, "//*[@class='android.view.View' and @text='   续费 >  ']")
     #开年费
     knf = (Mb.XPATH, "//*[@class='android.view.View' and @text='开年费，更优惠 ! >']")
-    #开年费
+    #续年费
+    xnfgyh = (Mb.XPATH, "//*[@class='android.view.View' and @text='	续年费，更优惠!>  ']")
+    #续年费
     xnfhy = (Mb.XPATH, "//*[@class='android.view.View' and @text='续年费会员，每日仅需0.47元']")
     '''end'''
     # 我的动态
@@ -210,6 +215,7 @@ class MyLocators:
 
     # 活动中心
     activity_center = (Mb.ID, "com.ourydc.yuebaobao:id/v_activity") 
+                        	
     # 申请家族
     apply_family = (Mb.ID, "com.ourydc.yuebaobao:id/v_family") 
     # 设置
