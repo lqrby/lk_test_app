@@ -39,7 +39,7 @@ class SquarePage(CommonBus):
             log.info("点击第{}个动态查看详情".format(dt_num))
             time.sleep(3)
             nearby_dynamicsList[dt_num].click()
-            time.sleep(5)
+            time.sleep(8)
             if self.is_element_exist(squareloc.tvnick,model="昵称"):
                 self.assert_true(squareloc.tvnick,model="昵称")
                 return "1"

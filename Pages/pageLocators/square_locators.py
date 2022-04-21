@@ -22,6 +22,9 @@ class SquareLocators:
     follow = (Mb.ID, "com.ourydc.yuebaobao:id/btn_attention") # 关注用户元素
     tvnick = (Mb.ID, "com.ourydc.yuebaobao:id/tv_nick") # 昵称
     tv_content = (Mb.ID, "com.ourydc.yuebaobao:id/tv_content") #动态列表
+
+    # tv_content = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/iv_praise']/parent::")#动态列表
+    
     # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/viewpager']/descendant::com.ourydc.yuebaobao:id/tv_content") # 附近动态列表元素
     # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content']/parent::com.ourydc.yuebaobao:id/rcv") # 附近动态列表元素
     # nearby_dynamics_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rcv']/descendant::com.ourydc.yuebaobao:id/tv_content") # 附近动态列表元素
