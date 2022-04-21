@@ -334,7 +334,7 @@ class MyPage(CommonBus):
     # 黑名单
     def blacklist(self):
         self.wait_click_element(myloc.layout_black_list, model="黑名单")
-        if self.is_element_exist(myloc.blacklist_no_data):
+        if self.is_element_exist(myloc.blacklist_no_data,model='无黑名单元素'):
             log.info("黑名单暂无数据")
             self.save_webImgs("暂无黑名单人员")
             self.RoomPage.go_back() #返回
@@ -503,13 +503,21 @@ class MyPage(CommonBus):
         time.sleep(5)
         bbbNumber = self.get_text(myloc.bbbNumber,model="宝宝币")
         self.baby_currency_exchange(myloc.exchange_diamonds,bbbNumber,model="宝宝币") #宝宝币兑换
-        self.withdrawal() #提现相关
-        self.wait_click_element(myloc.yxbtap, model="点击游戏币tap")
-        yxbNumber = self.get_text(myloc.bbbNumber,model="游戏币")
-        self.baby_currency_exchange(myloc.charm_value_exchange,yxbNumber,model="游戏币") #游戏币兑换
+        # self.withdrawal() #提现相关
+        self.wait_click_element(myloc.yxbtap, model="游戏币tap")
+        if self.is_element_exist(myloc.bbbNumber,model="游戏币"):
+            yxbNumber = self.get_text(myloc.bbbNumber,model="游戏币")
+            self.baby_currency_exchange(myloc.charm_value_exchange,yxbNumber,model="游戏币") #游戏币兑换
+        else:
+            log.info("无游戏币tap")
+            self.save_webImgs("无游戏币tap")
         self.wait_click_element(myloc.mlztap, model="点击魅力值tap")
-        mlzNumber = self.get_text(myloc.bbbNumber,model="魅力值")
-        self.baby_currency_exchange(myloc.charm_value_exchange,mlzNumber,model="魅力值") #魅力值兑换
+        if self.is_element_exist(myloc.bbbNumber,model="魅力值"):
+            mlzNumber = self.get_text(myloc.bbbNumber,model="魅力值")
+            self.baby_currency_exchange(myloc.charm_value_exchange,mlzNumber,model="魅力值") #魅力值兑换
+        else:
+            log.info("无魅力值tap")
+            self.save_webImgs("无魅力值tap")
         return True 
         
         
@@ -648,7 +656,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.ndzsbs, model="立即续费/立享特权") 
         if self.is_element_exist(myloc.zxx,model='再想想'):
             self.click_element(myloc.zxx,model='再想想')
-        self.assert_equal(myloc.gear,dyj=3,model="断言充值档位")
+        self.assert_len(myloc.gear,dyj=3,model="断言充值档位")
         time.sleep(1)
         self.wait_click_element(myloc.morePayWayLay, model="更多支付") 
         time.sleep(1)

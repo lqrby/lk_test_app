@@ -209,8 +209,8 @@ class RoomPageLocator:
     gd_game = (Mb.ID,'com.ourydc.yuebaobao:id/layout_game') #游戏冒险
     iv_game = (Mb.ID,'com.ourydc.yuebaobao:id/iv_game') #游戏入口
     game_assert = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv']/child::android.view.ViewGroup") # 游戏列表断言	
-    game_ymbb = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv' and text='一毛不拔']") # 断言一毛不拔	
-    game_ybzj = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/rv' and text='一本正经']") # 断言一本正经
+    game_ymbb = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and text='一毛不拔']") # 断言一毛不拔	
+    game_ybzj = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and text='一本正经']") # 断言一本正经
 
     gig_adventure = (Mb.XPATH, "//*[@class='android.widget.TextView' and text='大冒险']") # 大冒险tap
     wash_and_sing = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and text='边刷牙边唱歌']") # 断言边刷牙边唱歌

@@ -155,7 +155,7 @@ class MyLocators:
     #专属装扮
     zszb = (Mb.XPATH, "//*[@class='android.view.View' and @text='专属装扮']") 
     #充值档位1
-    gear = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/priceTv']") 
+    gear = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/root']") 
     #再想想
     zxx = (Mb.XPATH, "//*[@class='android.view.View' and @text='再想想']") 
     #充值档位2

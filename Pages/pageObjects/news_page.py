@@ -66,7 +66,7 @@ class NewsPage(CommonBus):
         time.sleep(2)
         self.assert_true(newsloc.et_input,model="搜索输入框断言") 
         page_source_result = self.driver.page_source
-        self.assert_in("推荐聊天室",page_source_result,model="推荐聊天室标题")
+        # self.assert_in("推荐聊天室",page_source_result,model="推荐聊天室标题")
         self.assert_in("附近在玩",page_source_result,model="附近在玩标题")
         self.roomPage.go_back()
         time.sleep(2)

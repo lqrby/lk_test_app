@@ -92,9 +92,9 @@ class RoomPage(CommonBus):
         self.wait_element_clickable(roomloc.entry_room,model="创建房间按钮")
         self.click_element(roomloc.entry_room, model="点击确认创建房间按钮")
         message = "需官方授权可开启"
-        message_toast = self.get_toast_exist(message)
+        message_toast = self.get_toast_exist(message,model='获取toast')
         if message in message_toast:
-            log.info("toast======={}".format(self.get_toast_exist(message)))
+            log.info("toast======={}".format(message_toast))
             self.save_webImgs(model="创建聊天室失败截图")
             return False
         else:
@@ -170,7 +170,7 @@ class RoomPage(CommonBus):
         if blackTap == False:
             return {"result":True,"message":"暂无推荐tap"}
         # self.swipeUp(n=3)
-        res = self.is_element_exist(roomloc.chat_room_list)
+        res = self.is_element_exist(roomloc.chat_room_list,model='聊天室列表')
         if res == False:
             log.info("推荐列表暂无房间可进入")
             self.save_webImgs(model="推荐列表暂无房间可进入")
@@ -618,7 +618,7 @@ class RoomPage(CommonBus):
         time.sleep(2)
         self.createRanks_and_dissolution() #创建队伍并解散队伍
         exit_res = self.exit_chat_room() #退出聊天室
-        return {"result":exit_res}
+        return {"result":exit_res,"message":exit_res}
         
 
     '''
@@ -630,7 +630,7 @@ class RoomPage(CommonBus):
         if blackTap == False:
             return {"result":True,"message":"暂无开黑tap"}
         self.swipeDown()
-        res = self.is_element_exist(roomloc.chat_room_list,model="")
+        res = self.is_element_exist(roomloc.chat_room_list,model="聊天室列表")
         if res:
             room_list =self.get_list(roomloc.chat_room_list,model="派对聊天室列表") #房间列表
             number = random.randint(0,(len(room_list)-1))
@@ -654,7 +654,7 @@ class RoomPage(CommonBus):
         if blackTap == False:
             return {"result":True,"message":"暂无关注tap"}
         self.swipeDown()
-        res = self.is_element_exist(roomloc.chat_room_list)
+        res = self.is_element_exist(roomloc.chat_room_list,model="聊天室列表")
         if res:
             room_list =self.get_list(roomloc.chat_room_list,model="关注聊天室列表") #房间列表
             number = random.randint(0,(len(room_list)-1))
@@ -718,8 +718,8 @@ class RoomPage(CommonBus):
 
     #点击房间模块的*tap
     def room_tap(self, tap_element,model=None):
-        if self.is_element_exist(tap_element, model="检查{}".format(model)):
-            self.click_element(tap_element, model="点击{}".format(model)) #点击tap
+        if self.is_element_exist(tap_element, model=model):
+            self.click_element(tap_element, model=model) #点击tap
             return True
         else:
             log.info("暂无{}".format(model))
@@ -876,7 +876,7 @@ class RoomPage(CommonBus):
         self.wait_element_clickable(roomloc.homeowner_data)
         self.click_element(roomloc.homeowner_data,model="点击房主资料") #点击房主资料
         self.wait_element_presence(roomloc.personIdView, model="查看房间资料")
-        self.assert_true(roomloc.personIdView) #用户资料断言（id）
+        self.assert_true(roomloc.personIdView,model='断言个人id') #用户资料断言（id）
         self.follow_ta() #关注
         self.chat() #聊天
         self.reward() #打赏，进入礼物页，点击资料再进入资料页
@@ -942,14 +942,12 @@ class RoomPage(CommonBus):
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-周榜") #断言
             self.wait_click_element(roomloc.tv_title_yue, model="贡献榜-月榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="贡献榜-月榜") #断言
-
             self.wait_click_element(roomloc.popularity_list, model="人气榜-日榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-日榜") #断言
             self.wait_click_element(roomloc.tv_title_week, model="人气榜-周榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-周榜") #断言
             self.wait_click_element(roomloc.tv_title_yue, model="人气榜-月榜")
             self.rankingList_assert(roomloc.day_week_month_assert,model="人气榜-月榜") #断言
-
             self.wait_click_element(roomloc.guardian_list, model="守护榜")
             self.rankingList_assert(roomloc.day_week_month_assert2,model="守护榜") #断言
             self.go_back() #返回
@@ -960,7 +958,7 @@ class RoomPage(CommonBus):
 
     #排行榜断言    
     def rankingList_assert(self,element,model):
-        ranking_ele = self.is_element_exist(element,model="判断元素{}是否存在".format(element))
+        ranking_ele = self.is_element_exist(element,model=model)
         # log.info("result====={}".format(ranking_ele))
         if ranking_ele:
             self.assert_len(element,model=model)
@@ -1060,7 +1058,7 @@ class RoomPage(CommonBus):
             xsList = self.get_elements(roomloc.rv_reward,model="获取悬赏列表元素") # 获取悬赏list元素
             xsList[0].click() # 点击某悬赏
             self.click_element(roomloc.btn_create, model="点击创建团队确定按钮")  #点击创建团队确定按钮
-            mark = self.assert_true(roomloc.create_assert) #断言创建团队是否成功
+            mark = self.assert_true(roomloc.create_assert,model='断言创建队伍') #断言创建团队是否成功
             self.exist_be_click(roomloc.mantle, model="蒙层元素，有则点击，无则pass")
             return mark
         else:
@@ -1073,7 +1071,7 @@ class RoomPage(CommonBus):
     def click_dissolution(self):
         self.wait_element_presence(roomloc.tv_disband, model="解散按钮")
         self.click_element(roomloc.tv_disband, model="点击解散按钮")
-        res = self.get_toast_exist("解散成功")
+        res = self.get_toast_exist("解散成功",model="获取toast值")
         self.assert_in("解散成功", res,model="解散队伍")
         
     def createRanks_and_dissolution(self):
@@ -1106,11 +1104,11 @@ class RoomPage(CommonBus):
             time.sleep(2)
             self.assert_true(roomloc.game_ybzj,model="断言一本正经")
             time.sleep(2)
-            self.wait_click_element(roomloc.gig_adventure,model="大冒险tap")
-            self.assert_true(roomloc.wash_and_sing,model="断言边刷牙边唱歌")
-            time.sleep(2)
-            self.assert_true(roomloc.water_reading,model="断言含一口水读绕口令")
-            time.sleep(1)
+            # self.wait_click_element(roomloc.gig_adventure,model="大冒险tap")
+            # self.assert_true(roomloc.wash_and_sing,model="断言边刷牙边唱歌")
+            # time.sleep(2)
+            # self.assert_true(roomloc.water_reading,model="断言含一口水读绕口令")
+            # time.sleep(1)
             self.go_back()
         else:
             log.info("女神厅更多中暂无游戏真心话大冒险")

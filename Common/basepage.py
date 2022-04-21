@@ -182,7 +182,7 @@ class BasePage:
             else:
                 log.exception("输入操作失败")
                 # 截图
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 清除操作
@@ -202,7 +202,7 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("元素：{0} 清除文本内容失败.".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 点击操作
@@ -217,7 +217,7 @@ class BasePage:
             else:
                 log.exception("点击元素:{0} 点击失败".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 time.sleep(1)
                 if loop > 0:
                     res = self.click_element(loc, model=model, loop = loop-1)
@@ -240,7 +240,7 @@ class BasePage:
                     self.click_element(loc, model=model,loop = loop-1)
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 else:
-                    self.save_webImgs(model)
+                    self.save_webImgs(model=model)
                     return False
             
     def isEnabled(self,loc,model=None):
@@ -275,7 +275,7 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("元素:{0} 点击事件失败:".format(ele))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 获取文本内容
@@ -296,7 +296,7 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("获取元素：{0} 的文本内容失败。报错信息如下：".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 获取元素的属性
@@ -318,7 +318,7 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("获取元素：{0} 的属性：{1} 失败，异常信息如下：".format(loc, attr_name))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 截图
@@ -375,7 +375,7 @@ class BasePage:
             else:
                 log.exception("等待元素可见失败。")
                 # 截图
-                self.save_webImgs(model)
+                self.save_webImgs(model=model)
                 self.exit_and_overRun()
 
     # 滑屏操作 - 向上滑屏
@@ -504,7 +504,7 @@ class BasePage:
         except:
             # 抛异常
             log.exception("获取toast失败")
-            self.save_webImgs(model)
+            self.save_webImgs(model=model)
             return False
 
 

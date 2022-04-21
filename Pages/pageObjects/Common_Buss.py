@@ -1,4 +1,5 @@
 import time, random
+from tkinter.messagebox import YES
 from Common.basepage import BasePage
 from appium.webdriver.common.mobileby import MobileBy
 from Common.log import get_logger
@@ -111,7 +112,7 @@ class CommonBus(BasePage):
             self.save_webImgs(model=model)
             return False
             
-    # 断言元素长度
+    # 断言元素长度相等
     def assert_equal(self, dy_loc, dyj=0, model=None):
         try:
             self.wait_element_presence(dy_loc,model=model)

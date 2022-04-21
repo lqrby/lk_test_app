@@ -31,9 +31,9 @@ class SquarePage(CommonBus):
 
     #附近动态列表-进入动态详情
     def nearby_dynamics_list(self):
-        nearbyDynamicsList = self.is_element_exist(squareloc.nearby_dynamics_list,model="附近动态列表")
+        nearbyDynamicsList = self.is_element_exist(squareloc.tv_content,model="附近动态列表")
         if nearbyDynamicsList == True:
-            nearby_dynamicsList = self.get_elements(squareloc.nearby_dynamics_list,model="获取动态列表") 
+            nearby_dynamicsList = self.get_elements(squareloc.tv_content,model="获取动态列表") 
             log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
             dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
             log.info("点击第{}个动态查看详情".format(dt_num))
