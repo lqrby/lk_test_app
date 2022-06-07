@@ -11,7 +11,6 @@ FilePath: /lk_test_app/Pages/pageLocators/social_locator.py
 
 from appium.webdriver.common.mobileby import MobileBy as Mb
 
-'''游戏的页面元素'''
 
 
 class SquareLocators:

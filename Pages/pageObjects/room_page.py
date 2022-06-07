@@ -613,12 +613,15 @@ class RoomPage(CommonBus):
         log.info("刷新列表")
         room_list =self.get_list(roomloc.chat_room_list,model="开黑聊天室列表") #房间列表
         number = random.randint(0, (len(room_list)-1))
-        room_list[number].click()
-        self.live_room() #聊天室内操作
-        time.sleep(2)
-        self.createRanks_and_dissolution() #创建队伍并解散队伍
-        exit_res = self.exit_chat_room() #退出聊天室
-        return {"result":exit_res,"message":exit_res}
+        if len(number) > 0:
+            room_list[number].click()
+            self.live_room() #聊天室内操作
+            time.sleep(2)
+            self.createRanks_and_dissolution() #创建队伍并解散队伍
+            exit_res = self.exit_chat_room() #退出聊天室
+            return {"result":exit_res,"message":exit_res}
+        else:
+            return {"result":False,"message":'开黑列表为空'}
         
 
     '''
@@ -1038,7 +1041,7 @@ class RoomPage(CommonBus):
             # time.sleep(2)
             # self.enter_the_game(roomloc.trap,roomloc.taoquan_btn,model="套圈圈") #进入套圈圈游戏并断言
             # time.sleep(2)
-            self.enter_the_game(roomloc.Koi_blind_box,roomloc.purchase_btn,model="锦鲤盲盒") #进入锦鲤盲盒游戏并断言
+            # self.enter_the_game(roomloc.Koi_blind_box,roomloc.purchase_btn,model="锦鲤盲盒") #进入锦鲤盲盒游戏并断言
             time.sleep(2)
             self.enter_the_game(roomloc.jungle_hunt,roomloc.hemp_rope,click_num=1,model="丛林狩猎") #进入丛林狩猎游戏并断言
         else:
