@@ -12,20 +12,20 @@ log = get_logger(logger_name="首页操作日志")
 @pytest.mark.run(order=1)
 @allure.feature('房间模块') #模块名
 class TestRoom:
-    @pytest.mark.success
-    @allure.story('进入推荐聊天室')
-    @allure.title('进入推荐聊天室')
-    def test_recommend_Room(self, startApp_keepUserData):
-        room_page = RoomPage(startApp_keepUserData)
-        log.info("**************房间模块-推荐tap-进退聊天室****************")
-        liveRoomMum = room_page.testrecommend_liveRoom() #进入推荐聊天室
-        with allure.step("进入推荐聊天室"):
-            try:
-                assert liveRoomMum["result"] == True
-                log.info("进入推荐聊天室断言成功")
-            except AssertionError as a:
-                log.error("进入推荐聊天室断言失败--{}".format(liveRoomMum["message"]))
-                raise
+    # @pytest.mark.success
+    # @allure.story('进入推荐聊天室')
+    # @allure.title('进入推荐聊天室')
+    # def test_recommend_Room(self, startApp_keepUserData):
+    #     room_page = RoomPage(startApp_keepUserData)
+    #     log.info("**************房间模块-推荐tap-进退聊天室****************")
+    #     liveRoomMum = room_page.testrecommend_liveRoom() #进入推荐聊天室
+    #     with allure.step("进入推荐聊天室"):
+    #         try:
+    #             assert liveRoomMum["result"] == True
+    #             log.info("进入推荐聊天室断言成功")
+    #         except AssertionError as a:
+    #             log.error("进入推荐聊天室断言失败--{}".format(liveRoomMum["message"]))
+    #             raise
 
 
     @pytest.mark.success

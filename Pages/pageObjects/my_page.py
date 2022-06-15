@@ -45,8 +45,8 @@ class MyPage(CommonBus):
     def view_my_profile(self):
         self.wait_click_element(myloc.meBtn, model="点击我的")
         self.broadcasting_entrance() #开播入口及断言
-        self.wait_click_element(myloc.sdVipCover, model="点击我的头像")
-        self.RoomPage.my_information() #我的资料 
+        self.wait_click_element(myloc.tv_identity, model="点击我的靓号ID")
+        # self.RoomPage.my_information() #我的资料 
         return True
 
 

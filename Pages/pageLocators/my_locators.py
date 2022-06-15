@@ -6,7 +6,8 @@ class MyLocators:
     #=================我的一级页面元素===========
     # 【我的】模块按钮元素
     meBtn=(Mb.ID,'com.ourydc.yuebaobao:id/iv_tab_mine') 
-    
+    #用户靓号id
+    tv_identity = (Mb.ID,"com.ourydc.yuebaobao:id/tv_identity")
     logoutBtn=(Mb.ID,'com.ourydc.yuebaobao:id/btn_logo_out') # 退出登录按钮
     logoutOkBtn=(Mb.ID,'com.ourydc.yuebaobao:id/tv_cancel') # 确认退出
 
