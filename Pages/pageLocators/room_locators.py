@@ -37,7 +37,7 @@ class RoomPageLocator:
     
     
     
-    no_more = (Mb.XPATH, "//*[@class='android.widget.TextView' and @text='没有更多']") # 主播列表底部的没有更多按钮元素
+    no_more = (Mb.ID, "com.ourydc.yuebaobao:id/load_more_load_end_view") # 主播列表底部的没有更多按钮元素
     roomIdTv = (Mb.XPATH, "//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/roomIdTv']") # 获取开播房间的id
     ignore1 = (Mb.ID, "//*[@class='android.view.ViewGroup' and @resource-id='com.ourydc.yuebaobao:id/ignore1']") # 获取开播房间的id
     # no_one_nearby = (Mb.ID, "com.ourydc.yuebaobao:id/tv_empty_text") # 获取附近的人列表、派对聊天室列表、守护榜列表为空元素
@@ -272,6 +272,8 @@ class RoomPageLocator:
     tv_nick_name = (Mb.ID,'com.ourydc.yuebaobao:id/tv_nick_name') #我的昵称
     say_hello = (Mb.ID, "com.ourydc.yuebaobao:id/btn_chat") # 打招呼元素
     more_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/view_share']") #更多列表
+    
+    gv_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::com.ourydc.yuebaobao:id/share_root") #动态列表
     cancel_follow = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='取消关注']") #取消关注
     Confirm_cancellation = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel") # 取消关注用户按钮
     #---资料---
@@ -411,7 +413,7 @@ class RoomPageLocator:
     gold_coin_car = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='金币造车']") #金币造车游戏
     
     jungle_hunt = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_gamename' and @text='丛林狩猎']") #丛林狩猎游戏
-    hemp_rope = (Mb.XPATH, "//*[@class='android.view.View' and @text='麻绳' and @index='3']") #丛林狩猎麻绳元素
+    hemp_rope = (Mb.XPATH, "//*[@class='android.view.View' and @text='尼龙绳']") #丛林狩猎麻绳元素
 
 
     

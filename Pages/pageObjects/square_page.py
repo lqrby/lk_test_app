@@ -36,9 +36,11 @@ class SquarePage(CommonBus):
             nearby_dynamicsList = self.get_elements(squareloc.tv_content,model="获取动态列表") 
             log.info("列表数据有{}条".format(len(nearby_dynamicsList)))
             dt_num = random.randint(0,len(nearby_dynamicsList)-1) 
+            dynamics = random.choice(nearby_dynamicsList)
             log.info("点击第{}个动态查看详情".format(dt_num))
             time.sleep(3)
-            nearby_dynamicsList[dt_num].click()
+            # nearby_dynamicsList[dt_num].click()
+            dynamics.click()
             time.sleep(8)
             if self.is_element_exist(squareloc.tvnick,model="昵称"):
                 self.assert_true(squareloc.tvnick,model="昵称")

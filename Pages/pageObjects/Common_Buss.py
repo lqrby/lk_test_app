@@ -74,7 +74,6 @@ class CommonBus(BasePage):
     def assert_true(self, assert_loc, model=None):
         try:
             result = self.is_element_exist(assert_loc,model=model)
-            # log.info("result======={}".format(result))
             assert result == True
             log.info("{}===断言通过,{} == {}".format(model,result,True))
             return True
@@ -187,5 +186,36 @@ class CommonBus(BasePage):
         self.driver.close_app()
         self.driver.quit()
 
+
+    #获取content-desc元素
+    def get_content(self,text,model=None):
+        content = self.driver.find_element_by_accessibility_id(text)
+        if content is not None:
+            log.info(model)
+            return True
+        else:
+            log.info(model+"，但该元素不存在")
+            self.save_webImgs(model=model)
+            return False
     
+    def getContent_and_assert(self,text,model=None):
+        time.sleep(5)
+        try:
+            content = False
+            for i in range(3):
+                content =  self.get_content(text,model=model)
+                log.info(content)
+                if content:
+                    break
+                else:
+                    log.info("等待5秒")
+                    time.sleep(5)
+            assert content == True
+            log.info("{}===断言通过".format(text))
+            return True
+        except Exception as e:
+            log.info("{}断言错误".format(model))
+            log.info("获取元素失败--{}".format(content))
+            self.save_webImgs(model=model)
+            return False
     

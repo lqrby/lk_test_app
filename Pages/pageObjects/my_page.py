@@ -211,15 +211,20 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的")
         self.wait_click_element(myloc.my_knapsack,model="我的背包")
         self.assert_len(myloc.all_gifts_list,model="我的全部礼物列表")
-        self.wait_click_element(myloc.decorate_list, model="装饰")
-        self.assert_len(myloc.all_gifts_list,model="装饰列表")
-        self.wait_click_element(myloc.prop_list, model="道具")
-        self.assert_len(myloc.all_gifts_list,model="道具列表")
-        self.wait_click_element(myloc.gifts_list, model="礼物")
-        giftsList = self.assert_len(myloc.all_gifts_list,model="礼物列表")
-        if giftsList:
-            return True
+        # self.wait_click_element(myloc.decorate_list, model="装饰")
+        # self.assert_len(myloc.all_gifts_list,model="装饰列表")
+        # self.wait_click_element(myloc.prop_list, model="道具")
+        # self.assert_len(myloc.all_gifts_list,model="道具列表")
+        if self.is_element_exist(myloc.gifts_list, model="礼物tap元素是否存在"):
+            self.wait_click_element(myloc.gifts_list, model="礼物")
+            giftsList = self.assert_len(myloc.all_gifts_list,model="礼物列表")
+            if giftsList:
+                return True
+            else:
+                return False
         else:
+            log.info("我的全部礼物列表不存在")
+            self.save_webImgs("全部礼物列表不存在")
             return False
         # sweetflower = self.assert_len(myloc.sweet_flower,model="甜蜜小花列表")
         # if sweetflower:
@@ -386,12 +391,7 @@ class MyPage(CommonBus):
             self.save_webImgs("未成年保护不知道什么状态")
             return False
 
-    # '''我的等级流程'''
-    # def my_level(self):
-    #     self.wait_click_element(myloc.meBtn, model="我的")
-    #     self.wait_click_element(myloc.my_level,model="我的等级")
-    #     '''H5页面'''
-
+    
 
 
     '''设置-关于哩咔'''
@@ -820,42 +820,61 @@ class MyPage(CommonBus):
         time.sleep(2)
         if self.is_element_exist(myloc.my_level, model="我的等级"):
             self.wait_click_element(myloc.my_level, model="点击我的等级") 
-            time.sleep(5)
-            self.assert_true(myloc.free_barrage,model="断言免费弹幕")
+            time.sleep(10)
+            self.getContent_and_assert("免费弹幕",model="免费弹幕")
             time.sleep(3)
-            self.assert_true(myloc.free_barrage,model="断言榜单隐身")
+            self.getContent_and_assert("榜单隐身",model="榜单隐身")
             self.wait_click_element(myloc.anchor_level, model="点击主播等级tap") 
-            time.sleep(2)
-            self.assert_true(myloc.begin_to_show,model="开播")
-            time.sleep(2)
-            self.assert_true(myloc.wish,model="心愿")
-            time.sleep(2)
-            self.assert_true(myloc.zhujianPK,model="PK")
+            time.sleep(10)
+            # self.getContent_and_assert("开播",model="开播")
+            
+            self.assert_true(myloc.begin_to_show,model="断言开播")
+            time.sleep(5)
+            # self.getContent_and_assert("心愿",model="心愿")
+            # time.sleep(3)
+            # self.getContent_and_assert("PK",model="PK")
+            # time.sleep(3)
             self.wait_click_element(myloc.rank, model="点击爵位等级tap") 
-            time.sleep(2)
-            self.assert_true(myloc.count,model="伯爵")
-            time.sleep(2)
+            time.sleep(8)
+            # self.assert_true(myloc.count,model="含充值金额50元")
+            # time.sleep(8)
             self.wait_click_element(myloc.explain,model="点击说明tap")
             time.sleep(3)
-            sm_Text = self.driver.page_source
-            vip_ext = "VIP等级是根据用户在应用内的消费金额计算"
-            self.assert_in(vip_ext, sm_Text, model="断言vip等级说明")
-            time.sleep(2)
-            self.wait_click_element(myloc.anchor_level, model="点击主播等级tap")
-            time.sleep(3)
-            zhubo_Text = self.driver.page_source
-            zb_ext = "主播等级是根据主播经验计算的"
-            self.assert_in(zb_ext, zhubo_Text, model="断言等级说明")
-            time.sleep(2)
-            self.wait_click_element(myloc.rank, model="点击爵位等级tap")
-            time.sleep(3)
-            juewei_Text = self.driver.page_source
-            jw_ext = "购买爵位自动返还一定金额的钻石"
-            self.assert_in(jw_ext, juewei_Text, model="断言vip等级说明")
-            time.sleep(1)
+            self.assert_true(myloc.VIP_dj,model="断言vip等级")
+            # self.getContent_and_assert("VIP等级",model="VIP等级")
+            
+            # sm_Text = self.driver.page_source
+            # vip_ext = "VIP等级是根据用户在应用内的消费金额计算"
+            # self.assert_in(vip_ext, sm_Text, model="断言vip等级说明")
+            # time.sleep(2)
+            # self.wait_click_element(myloc.anchor_level, model="点击主播等级tap")
+            # time.sleep(3)
+            # zhubo_Text = self.driver.page_source
+            # zb_ext = "主播等级是根据主播经验计算的"
+            # self.assert_in(zb_ext, zhubo_Text, model="断言等级说明")
+            # time.sleep(2)
+            # self.wait_click_element(myloc.rank, model="点击爵位等级tap")
+            # time.sleep(3)
+            # juewei_Text = self.driver.page_source
+            # jw_ext = "购买爵位自动返还一定金额的钻石"
+            # self.assert_in(jw_ext, juewei_Text, model="断言vip等级说明")
+            # time.sleep(1)
             return True
             
         else:
             log.info("暂未显示我的等级")
             self.save_webImgs("暂未显示我的等级")
             return True
+
+    # '''我的等级流程'''
+    # def my_level(self):
+    #     self.wait_click_element(myloc.meBtn, model="我的")
+    #     self.wait_click_element(myloc.my_level,model="我的等级")
+    #     self.assert_true(myloc.free_barrage,model="免费弹幕")
+    #     self.wait_click_element(myloc.anchor_level, model="主播等级tap")
+    #     self.assert_true(myloc.begin_to_show,model="开播")
+        
+
+    #     '''H5页面'''
+
+    #     return True

@@ -231,7 +231,7 @@ class RoomPage(CommonBus):
         if self.is_element_exist(roomloc.ranking_list,timeout=5,model="排行榜"): #是否有排行榜
             self.click_rankingList(roomloc.ranking_list) #排行榜
         self.createRanks_and_dissolution() #创建队伍并解散队伍
-        self.click_receive() #领取按钮
+        # self.click_receive() #领取按钮
         #幸运福袋
         self.click_introduce() #点击玩法介绍，关闭玩法介绍（包括断言）
         self.bottom_more() #聊天室内更多相关操作流程
@@ -259,13 +259,13 @@ class RoomPage(CommonBus):
             layout_info_arr = self.get_list(element_arr,model="获取用户列表元素2")
             if layout_info_arr and len(layout_info_arr) > 0:
                 return self.view_user_profile(layout_info_arr)
-        elif self.is_element_exist(roomloc.no_more,model="更多") == False or self.is_element_exist(roomloc.no_data,model="更多数据") == False:
-            log.info("当前页暂无用户，上拉加载")
+        elif self.is_element_exist(roomloc.no_more,model="更多") == True or self.is_element_exist(roomloc.no_data,model="更多数据") == True:
+            log.info("当前页暂无进入聊天室用户，上拉加载")
             self.swipeUp()
             return self.user_homePage(element_list)
         else:
-            self.save_webImgs(model="列表暂无用户截图")
-            log.info("列表暂无用户")    
+            self.save_webImgs(model="列表暂无用户进入聊天室截图")
+            log.info("列表暂无用户进入聊天室")    
             return False
     
     
@@ -567,8 +567,8 @@ class RoomPage(CommonBus):
     
     #断言更多分享长度
     def more_share(self):
-        if self.is_element_exist(roomloc.more_list,model="更多列表"):
-            self.assert_len(roomloc.more_list, dyj=5, model="断言更多列表")
+        if self.is_element_exist(roomloc.gv_list,model="更多列表"):
+            self.assert_len(roomloc.gv_list, dyj=5, model="断言更多列表")
         else:
             log.info("分享更多列表错误")
             self.save_webImgs(model="分享更多列表错误")
@@ -829,7 +829,7 @@ class RoomPage(CommonBus):
         #先判断金币是否大于等于2
         self.wait_element_presence(roomloc.goldCoins_balance,timeout=4,model="等待金币余额")
         text = self.get_element_attribute(roomloc.goldCoins_balance,"text",model="获取金币余额元素")
-        number = float(text[4:-1])
+        number = int(text)
         if number >= 2:
             self.wait_element_presence(roomloc.goldCoins_list,model="金币礼物列表加载")
             goldCoinsList = self.get_elements(roomloc.goldCoins_list,model="获取金币礼物列表元素")
@@ -1025,8 +1025,10 @@ class RoomPage(CommonBus):
             self.tap_by_coordinate([0.5,0.6],model="点击蒙层")
             time.sleep(1)
             click_num = click_num - 1
-        self.is_element_exist(assert_loc,model="断言进入游戏")
-        self.assert_true(assert_loc,model="{}游戏断言".format(model))
+        # self.is_element_exist(assert_loc,model="断言进入游戏")
+        time.sleep(8)
+        # self.assert_true(assert_loc,model="{}游戏断言".format(model))
+        self.getContent_and_assert("尼龙绳",model="断言尼龙绳")
         self.driver.press_keycode(4)
     # 点击游戏
     def click_game(self):
@@ -1037,13 +1039,14 @@ class RoomPage(CommonBus):
             self.assert_len(roomloc.game_assert,dyj=4, model="断言游戏列表")
             time.sleep(2)
             self.driver.press_keycode(4)
-            # self.enter_the_game(roomloc.jbtq,roomloc.taoquan_btn,model="金币套圈") #进入金币套圈游戏并断言
-            # time.sleep(2)
-            # self.enter_the_game(roomloc.trap,roomloc.taoquan_btn,model="套圈圈") #进入套圈圈游戏并断言
+            self.enter_the_game(roomloc.jbtq,roomloc.taoquan_btn,model="金币套圈") #进入金币套圈游戏并断言
+            time.sleep(2)
+            self.enter_the_game(roomloc.trap,roomloc.taoquan_btn,model="套圈圈") #进入套圈圈游戏并断言
             # time.sleep(2)
             # self.enter_the_game(roomloc.Koi_blind_box,roomloc.purchase_btn,model="锦鲤盲盒") #进入锦鲤盲盒游戏并断言
             time.sleep(2)
             self.enter_the_game(roomloc.jungle_hunt,roomloc.hemp_rope,click_num=1,model="丛林狩猎") #进入丛林狩猎游戏并断言
+
         else:
             log.info("无游戏入口")
             self.save_webImgs(model="无游戏入口")
