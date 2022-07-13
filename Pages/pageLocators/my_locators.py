@@ -39,9 +39,11 @@ class MyLocators:
     #金币数量
     itv_gold = (Mb.ID, "com.ourydc.yuebaobao:id/itv_gold")
     #微信支付选项
-    layout_pay_wechat = (Mb.ID, "com.ourydc.yuebaobao:id/layout_pay_wechat")
+    pay_wx = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/pay_tv' and @text='微信']")
     #支付宝选项
-    layout_pay_alipay = (Mb.ID, "com.ourydc.yuebaobao:id/layout_pay_alipay")
+    pay_zfb = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/pay_tv' and @text='支付宝']")
+    
+    # layout_pay_alipay = (Mb.ID, "com.ourydc.yuebaobao:id/layout_pay_alipay")
     #充值档位
     recharge_gear = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_recharge_item']") 
     #首充特惠
@@ -150,7 +152,7 @@ class MyLocators:
     # 会员
     iv_vip = (Mb.ID, "com.ourydc.yuebaobao:id/iv_vip")
     #立即续费/立享特权
-    ndzsbs = (Mb.XPATH, "//*[@class='android.view.View' and @text='年费专属标识']") 
+    ndzsbs = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='年费专属标识']") 
     #会员标识
     hybs = (Mb.XPATH, "//*[@class='android.view.View' and @text='会员标识']") 
     #专属装扮
@@ -316,9 +318,10 @@ class MyLocators:
     blacklist_no_data = (Mb.ID,'com.ourydc.yuebaobao:id/tv_empty_text') #黑名单页面无数据
     blacklist_data = (Mb.ID,'com.ourydc.yuebaobao:id/iv_head_view') #黑名单页面有数据
     cancel_account = (Mb.ID,'com.ourydc.yuebaobao:id/layout_account_unregister') #注销账号
-    protection_of_minors = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式
+    protection_of_no = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式开关
+    protection_of_minors = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_title_text' and @text='未成年人保护模式']") #未成年人保护模式
     on_state = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_child_model']//node()[contains(@resource-id,'com.ourydc.yuebaobao:id/tv_content')]")
-    turn_on_protection = (Mb.ID,'com.ourydc.yuebaobao:id/btn_open') #开启保护模式
+    turn_on_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_open' and @text='开启保护模式']") #开启保护模式
     password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_1') #密码输入框
     confirm_password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_2') #确认密码输入框
     confirm_button = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #确定按钮
@@ -339,23 +342,23 @@ class MyLocators:
     #帮助中心
     layout_helper = (Mb.ID,'com.ourydc.yuebaobao:id/layout_helper') 
     #充值&消费
-    recharge_consumption = (Mb.XPATH, "//*[@class='android.view.View' and @text='充值&消费']") 
+    recharge_consumption = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='充值&消费']") 
     #提现
-    withdrawal = (Mb.XPATH, "//*[@class='android.view.View' and @text='提现']") 
+    withdrawal = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='提现']") 
     #聊天室
-    chat_room = (Mb.XPATH, "//*[@class='android.view.View' and @text='聊天室']") 
+    chat_room = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='聊天室']") 
     #订单
-    order = (Mb.XPATH, "//*[@class='android.view.View' and @text='订单']") 
+    order = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='订单']") 
     #家族问题
-    family_problems = (Mb.XPATH, "//*[@class='android.view.View' and @text='家族问题']") 
+    family_problems = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='家族问题']") 
     #账号
-    account_number = (Mb.XPATH, "//*[@class='android.view.View' and @text='账号']") 
+    account_number = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='账号']") 
     #会员/爵位/守护
-    membership_title = (Mb.XPATH, "//*[@class='android.view.View' and @text='会员/爵位/守护']") 
+    membership_title = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='会员/爵位/守护']") 
     #违规、封号、举报
-    reporting_seal = (Mb.XPATH, "//*[@class='android.view.View' and @text='违规、封号、举报']") 
+    reporting_seal = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='违规、封号、举报']") 
     #其他
-    other = (Mb.XPATH, "//*[@class='android.view.View' and @text='其他']") 
+    other = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='其他']") 
 
     problem_classification = [(recharge_consumption,"充值&消费"),(withdrawal,"提现"),(chat_room,"聊天室"),(order,"订单"),(family_problems,"家族问题"),
         (account_number,"账号"),(membership_title,"会员/爵位/守护"),(reporting_seal,"违规、封号、举报"),(other,"其他")]
@@ -372,12 +375,12 @@ class MyLocators:
     et_content = (Mb.ID,'com.ourydc.yuebaobao:id/et_content') #动态输入框
     iv_extra = (Mb.ID,'com.ourydc.yuebaobao:id/iv_extra') #发布按钮/筛选按钮
     deleteButton = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv' and @text='删除']") #删除按钮
-    zuojia = (Mb.XPATH, "//*[@class='android.view.View' and @text='座驾']") #商城》装扮》座驾
-    qipao = (Mb.XPATH, "//*[@class='android.view.View' and @text='气泡']") #商城》装扮》气泡
-    vipzs = (Mb.XPATH, "//*[@class='android.view.View' and @text='VIP专属']") #商城》VIP专属
+    zuojia = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='座驾']") #商城》装扮》座驾
+    qipao = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='气泡']") #商城》装扮》气泡
+    vipzs = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='VIP专属']") #商城》VIP专属
     jifen = (Mb.XPATH, "//*[@class='android.view.View' and @text=contains(text(),'积分')]") #商城》VIP专属》积分
-    dhjl = (Mb.XPATH, "//*[@class='android.view.View' and @text='兑换记录']") #商城》VIP专属》兑换记录
-    xhjf = (Mb.XPATH, "//*[@class='android.view.View' and @text='消耗积分']") #商城》VIP专属》兑换记录》消耗积分
-    shuoming = (Mb.XPATH, "//*[@class='android.view.View' and @text='说明']") #商城》VIP专属》说明
-    jrsx = (Mb.XPATH, "//*[@class='android.view.View' and @text='说明']") #商城》VIP专属》今日寿星
+    dhjl = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='兑换记录']") #商城》VIP专属》兑换记录
+    xhjf = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='消耗积分']") #商城》VIP专属》兑换记录》消耗积分
+    shuoming = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='说明']") #商城》VIP专属》说明
+    jrsx = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='说明']") #商城》VIP专属》今日寿星
     

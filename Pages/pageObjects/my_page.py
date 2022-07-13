@@ -1,5 +1,6 @@
 import logging
-from statistics import mode
+# from operator import mod
+# from statistics import mode
 import time,random
 
 from appium.webdriver.extensions.search_context import mobile
@@ -354,11 +355,11 @@ class MyPage(CommonBus):
     # 输入密码
     def input_password(self):
         for i in range(1,5):
-            self.driver.press_keycode(int(i)+7)
+            self.driver.press_keycode(8)
         if self.is_element_exist(myloc.confirm_password_input,timeout=1,model="确认密码输入框"):
             self.wait_click_element(myloc.confirm_password_input, model="确认密码输入框")
             for i in range(1,5):
-                self.driver.press_keycode(int(i)+7)
+                self.driver.press_keycode(8)
         self.wait_click_element(myloc.confirm_button, model="确定按钮")
 
     '''未成年保护模式'''
@@ -367,29 +368,26 @@ class MyPage(CommonBus):
         if self.is_element_exist(myloc.setUpBtn,model="设置按钮") == False:
            self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
-        text = ""
-        state = self.is_element_exist(myloc.on_state,model="开启状态")
-        if state:
-            text = self.get_text(myloc.on_state,model="开启状态")
-        self.wait_click_element(myloc.protection_of_minors, model="未成年保护")
-        if text == "未开启":
-            self.wait_click_element(myloc.turn_on_protection, model="开启保护模式")
+        self.wait_click_element(myloc.protection_of_minors, model="未成年人保护模式")
+        if self.is_element_exist(myloc.turn_on_protection,model="开启保护模式"):
+            self.click_element(myloc.turn_on_protection,model="开启保护模式")
             self.input_password() # 输入密码
             self.wait_click_element(myloc.turn_off_protection, model="关闭保护模式")
             for i in range(1,5):
-                self.driver.press_keycode(int(i)+7)
+                # self.driver.press_keycode(int(i)+7)
+                self.driver.press_keycode(8)
             self.wait_click_element(myloc.confirm_button, model="确定按钮")
-            return True
-        elif text == "已开启":
+            # self.assert_true(myloc.turn_on_protection,model="断言是否存在开启未成年保护按钮")
+            return self.is_element_exist(myloc.turn_on_protection,model="开启保护模式")
+
+        else:
             self.wait_click_element(myloc.turn_off_protection, model="关闭保护模式")
             for i in range(1,5):
-                self.driver.press_keycode(int(i)+7)
+                self.driver.press_keycode(8)
             self.wait_click_element(myloc.confirm_button, model="确定按钮")
-            return True
-        else:
-            log.info("出问题啦！也不知道什么状态")
-            self.save_webImgs("未成年保护不知道什么状态")
-            return False
+            return self.is_element_exist(myloc.turn_on_protection,model="开启保护模式")
+
+        
 
     
 
@@ -526,7 +524,7 @@ class MyPage(CommonBus):
         # num = self.wait_getTextValue(myloc.bbbNumber,"{}数量".format(model))
         
         log.info("数量是==============================={}".format(num))
-        if int(num) > 1:
+        if int(num) > 0:
             time.sleep(5)
             self.wait_click_element(loc, model="兑换按钮")
             time.sleep(3)
@@ -640,9 +638,9 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="我的") 
         self.wait_click_element(myloc.iv_vip, model="会员") 
         time.sleep(4)
-        self.assert_true(myloc.hybs,model="断言会员标识")
+        self.getContent_and_assert("会员标识",model="断言会员标识")
         time.sleep(1)
-        self.assert_true(myloc.zszb,model="断言专属装扮")
+        self.getContent_and_assert("专属装扮",model="断言专属装扮")
         time.sleep(1)
         return self.renew_now()#立即续费方法
 
@@ -693,7 +691,7 @@ class MyPage(CommonBus):
         self.RoomPage.go_back()
         self.assert_true(myloc.weixin,model="断言微信支付选项")
         self.RoomPage.go_back()
-        self.assert_true(myloc.hybs,model="断言会员专属")
+        self.getContent_and_assert("会员标识",model="断言会员标识")
         time.sleep(1)
         # if self.is_element_exist(myloc.knf, model="开年费,更优惠"):
         #     self.wait_click_element(myloc.knf, model="开年费，更优惠!")
@@ -708,7 +706,7 @@ class MyPage(CommonBus):
         # self.assert_equal(myloc.gear,dyj=3,model="断言充值档位")
         # self.RoomPage.go_back()
         # time.sleep(6)
-        return self.assert_true(myloc.zszb,model="断言专属装扮")
+        return self.getContent_and_assert("专属装扮",model="断言专属装扮")
         
 
 
@@ -723,9 +721,9 @@ class MyPage(CommonBus):
         time.sleep(4)
         self.balance_quantity(myloc.diamond_quantity,model="钻石数量")
         time.sleep(2)
-        self.assert_true(myloc.layout_pay_wechat,model="微信支付选项")
+        self.assert_true(myloc.pay_wx,model="断言微信支付选项")
         time.sleep(2)
-        self.assert_true(myloc.layout_pay_alipay,model="支付宝选项")
+        self.assert_true(myloc.pay_zfb,model="断言支付宝选项")
         time.sleep(2)
         self.assert_equal(myloc.recharge_gear,dyj=6,model="断言充值档位列表")
         self.wait_click_element(myloc.Withdrawal_record, model="查看明细")

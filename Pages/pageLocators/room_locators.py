@@ -273,7 +273,8 @@ class RoomPageLocator:
     say_hello = (Mb.ID, "com.ourydc.yuebaobao:id/btn_chat") # 打招呼元素
     more_list = (Mb.XPATH,"//*[@class='android.widget.TextView' and @resource-id='com.ourydc.yuebaobao:id/view_share']") #更多列表
     
-    gv_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::com.ourydc.yuebaobao:id/share_root") #动态列表
+    # gv_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::com.ourydc.yuebaobao:id/share_root") #动态列表
+    gv_list = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/gv']/child::android.view.ViewGroup") #动态列表
     cancel_follow = (Mb.XPATH,"//*[@resource-id='com.ourydc.yuebaobao:id/view_share' and @text='取消关注']") #取消关注
     Confirm_cancellation = (Mb.ID, "com.ourydc.yuebaobao:id/tv_cancel") # 取消关注用户按钮
     #---资料---
