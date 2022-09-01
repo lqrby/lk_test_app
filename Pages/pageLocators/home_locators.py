@@ -13,11 +13,14 @@ from appium.webdriver.common.mobileby import MobileBy as Mb
 
 class HomePageLocator:
     ###########################哩咔首页交友模块元素定位开始##########################
-    # 隐私政策弹窗
     dating_module = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_home") # 交友模块
+    tv_content_fx = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='发现']") # 发现tap
+    tv_content_fjdr = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_content' and @text='附近的人']") # 附近的人tap
+
     
     message_moduke = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_message") # 消息模块
     my_module = (Mb.ID, "com.ourydc.yuebaobao:id/iv_tab_mine") # 我的模块
+
     
     
     

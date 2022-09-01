@@ -150,19 +150,19 @@ class Test_my:
             raise
 
 
-    # @pytest.mark.success
-    # @allure.story('我的')
-    # @allure.title('设置》我的动态测试用例')
-    # def test_myDynamic(self, startApp_keepUserData):
-    #     my_page = MyPage(startApp_keepUserData)
-    #     log.info("*************我的>设置-我的动态测试用例***************")
-    #     actual_edit = my_page.my_dynamic()
-    #     try:
-    #         assert actual_edit == True
-    #         log.info("设置-我的动态试用例-测试用例通过")
-    #     except AssertionError as a:
-    #         log.error("设置-我的动态测试用例断言失败")
-    #         raise
+    @pytest.mark.success
+    @allure.story('我的')
+    @allure.title('设置》我的动态测试用例')
+    def test_myDynamic(self, startApp_keepUserData):
+        my_page = MyPage(startApp_keepUserData)
+        log.info("*************我的>设置-我的动态测试用例***************")
+        actual_edit = my_page.my_dynamic()
+        try:
+            assert actual_edit == True
+            log.info("设置-我的动态试用例-测试用例通过")
+        except AssertionError as a:
+            log.error("设置-我的动态测试用例断言失败")
+            raise
             
     @pytest.mark.success
     @allure.story('我的')

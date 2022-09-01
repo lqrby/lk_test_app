@@ -47,7 +47,7 @@ class MyPage(CommonBus):
         self.wait_click_element(myloc.meBtn, model="点击我的")
         self.broadcasting_entrance() #开播入口及断言
         self.wait_click_element(myloc.tv_identity, model="点击我的靓号ID")
-        # self.RoomPage.my_information() #我的资料 
+        self.RoomPage.my_information() #我的资料 
         return True
 
 
@@ -369,8 +369,8 @@ class MyPage(CommonBus):
            self.swipeUp()
         self.wait_click_element(myloc.setUpBtn, model="设置")
         self.wait_click_element(myloc.protection_of_minors, model="未成年人保护模式")
-        if self.is_element_exist(myloc.turn_on_protection,model="开启保护模式"):
-            self.click_element(myloc.turn_on_protection,model="开启保护模式")
+        if self.is_element_exist(myloc.turn_on_protection,model="开启未成年模式"):
+            self.click_element(myloc.turn_on_protection,model="开启未成年模式")
             self.input_password() # 输入密码
             self.wait_click_element(myloc.turn_off_protection, model="关闭保护模式")
             for i in range(1,5):
@@ -378,14 +378,14 @@ class MyPage(CommonBus):
                 self.driver.press_keycode(8)
             self.wait_click_element(myloc.confirm_button, model="确定按钮")
             # self.assert_true(myloc.turn_on_protection,model="断言是否存在开启未成年保护按钮")
-            return self.is_element_exist(myloc.turn_on_protection,model="开启保护模式")
+            return self.is_element_exist(myloc.my_dynamic,model="断言是否显示我的动态")
 
         else:
             self.wait_click_element(myloc.turn_off_protection, model="关闭保护模式")
             for i in range(1,5):
                 self.driver.press_keycode(8)
             self.wait_click_element(myloc.confirm_button, model="确定按钮")
-            return self.is_element_exist(myloc.turn_on_protection,model="开启保护模式")
+            return self.is_element_exist(myloc.turn_on_protection,model="开启未成年模式")
 
         
 
@@ -819,9 +819,10 @@ class MyPage(CommonBus):
         if self.is_element_exist(myloc.my_level, model="我的等级"):
             self.wait_click_element(myloc.my_level, model="点击我的等级") 
             time.sleep(10)
-            self.getContent_and_assert("免费弹幕",model="免费弹幕")
-            time.sleep(3)
-            self.getContent_and_assert("榜单隐身",model="榜单隐身")
+            self.assert_true(myloc.free_barrage,model="断言免费弹幕")
+            # self.getContent_and_assert("免费弹幕",model="免费弹幕")
+            # time.sleep(3)
+            # self.getContent_and_assert("榜单隐身",model="榜单隐身")
             self.wait_click_element(myloc.anchor_level, model="点击主播等级tap") 
             time.sleep(10)
             # self.getContent_and_assert("开播",model="开播")

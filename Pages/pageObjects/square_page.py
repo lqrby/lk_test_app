@@ -4,6 +4,7 @@ from Common.log import get_logger
 import time, random
 from Pages.pageObjects.sign_pop_page import SignPopPage
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
+from Pages.pageLocators.my_locators import MyLocators as myloc
 from Pages.pageObjects.room_page import RoomPage
 
 '''设置-页面操作行为'''
@@ -21,6 +22,7 @@ class SquarePage(CommonBus):
     '''
     def nearby_dynamics(self):
         self.wait_click_element(squareloc.square_module,model="广场模块")
+        self.wait_click_element(squareloc.square_attention,model="点击关注tap")
         time.sleep(2)
         return self.dynamicDetailPageAssertion()
         
@@ -42,16 +44,16 @@ class SquarePage(CommonBus):
             # nearby_dynamicsList[dt_num].click()
             dynamics.click()
             time.sleep(8)
-            if self.is_element_exist(squareloc.tvnick,model="昵称"):
-                self.assert_true(squareloc.tvnick,model="昵称")
+            if self.is_element_exist(myloc.sendButton,model="发送按钮"):
+                self.assert_true(myloc.sendButton,model="发送按钮")
                 return "1"
             elif self.is_element_exist(squareloc.masterAvatarView,model="打赏礼物入口"):
                 self.assert_true(squareloc.masterAvatarView,model="断言打赏礼物入口")
                 self.roomPage.exit_chat_room()
                 return "2"
             else:
-                log.info("断言失败！请及时处理！！！")
-                self.save_webImgs("查看用户主页断言失败")
+                log.info("聊天室已关闭！！！")
+                self.save_webImgs("未进动态详情-聊天室也已关闭")
                 return "3"
         else:
             nearbyDynamicsList2 = self.is_element_exist(squareloc.nearby_dynamics_list2,model="附近动态列表2") 
@@ -70,8 +72,8 @@ class SquarePage(CommonBus):
                     self.roomPage.exit_chat_room()
                     return "2"
                 else:
-                    log.info("断言失败！请及时处理！！！")
-                    self.save_webImgs("查看用户主页断言失败")
+                    log.info("未进入动态详情！！！")
+                    self.save_webImgs("未进入动态详情")
                     return "3"
             else:
                 log.info("动态列表暂无数据")
@@ -131,7 +133,9 @@ class SquarePage(CommonBus):
             self.roomPage.go_back_list() #返回列表页
             return True
         elif dt_detail == "2":
-            log.info("该用户正在聊天室嗨皮呢，所以未进入ta的主页，进入了ta所在的聊天室")
+            # log.info("该用户正在聊天室嗨皮呢，所以未进入ta的主页，进入了ta所在的聊天室")
+            return True
+        elif dt_detail == "3":
             return True
         elif dt_detail == "4":
             return True

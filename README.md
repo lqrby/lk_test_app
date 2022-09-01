@@ -16,4 +16,7 @@ netstat -ano | findstr 4725
 杀死进程
 taskkill -PID 53776 -F
 
-
+pip导出依赖包
+pip freeze > requirements.txt
+pip 在线安装依赖
+pip install -r requirement.txt

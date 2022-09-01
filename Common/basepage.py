@@ -8,6 +8,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from appium.webdriver.common.mobileby import MobileBy
 from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from appium.webdriver.connectiontype import ConnectionType
+from PIL import Image, ImageDraw2
 # file_path = os.path.join(os.path.abspath('.'))
 # file_path = file_path.replace('\\', '/')
 # sys.path.append(file_path)
@@ -44,7 +45,8 @@ class BasePage:
             if self.check_page_popUp():
                 self.wait_eleVisible(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
-                self.save_webImgs(model)
+                
+                self.save_webImgs(model=model)
                 # log.exception("等待元素可见失败")
                 # log.info(e)
                 self.exit_and_overRun()
@@ -63,7 +65,7 @@ class BasePage:
                 return self.wait_element_clickable(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
                 log.error("未找到或元素不可点击{}".format(loc))
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
                 return False
             
@@ -82,7 +84,7 @@ class BasePage:
             if self.check_page_popUp():
                 return self.wait_element_presence(loc,timeout=timeout, poll_frequency=poll_frequency, model=model)
             else:
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 log.error("元素不存在:{}".format(loc))
                 self.exit_and_overRun()
                 return False
@@ -116,7 +118,7 @@ class BasePage:
             return True
         else:
             log.info("无网络连接")
-            self.save_webImgs(model="无网络连接")
+            self.save_webImgs(coordinate=None,model="无网络连接")
             if loop > 0:
                 time.sleep(30)
                 if self.get_getWebState(loop-1):
@@ -140,7 +142,7 @@ class BasePage:
             else:
                 log.exception("获取元素失败:{}".format(loc))
                 # 截图
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
 
     # 查找一个元素
@@ -163,7 +165,7 @@ class BasePage:
                 return self.get_elements(loc, model=model)
             else:
                 log.exception("定位元素失败")
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
 
     # 输入操作
@@ -182,7 +184,7 @@ class BasePage:
             else:
                 log.exception("输入操作失败")
                 # 截图
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
 
     # 清除操作
@@ -202,7 +204,7 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("元素：{0} 清除文本内容失败.".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
 
     # 点击操作
@@ -217,7 +219,8 @@ class BasePage:
             else:
                 log.exception("点击元素:{0} 点击失败".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model=model)
+                bounds = self.get_element_attribute(loc,"bounds")
+                self.save_webImgs(coordinate=bounds,model=model)
                 time.sleep(1)
                 if loop > 0:
                     res = self.click_element(loc, model=model, loop = loop-1)
@@ -240,7 +243,8 @@ class BasePage:
                     self.click_element(loc, model=model,loop = loop-1)
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
                 else:
-                    self.save_webImgs(model=model)
+                    bounds = self.get_element_attribute(loc,"bounds")
+                    self.save_webImgs(coordinate=bounds,model=model)
                     return False
             
     def isEnabled(self,loc,model=None):
@@ -275,7 +279,8 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("元素:{0} 点击事件失败:".format(ele))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model=model)
+                bounds = self.get_element_attribute(ele,"bounds")
+                self.save_webImgs(coordinate=bounds,model=model)
                 self.exit_and_overRun()
 
     # 获取文本内容
@@ -296,7 +301,8 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("获取元素：{0} 的文本内容失败。报错信息如下：".format(loc))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model=model)
+                bounds = self.get_element_attribute(loc,"bounds")
+                self.save_webImgs(coordinate=bounds,model=model)
                 self.exit_and_overRun()
 
     # 获取元素的属性
@@ -318,11 +324,11 @@ class BasePage:
                 # 捕获异常到日志中；
                 log.exception("获取元素：{0} 的属性：{1} 失败，异常信息如下：".format(loc, attr_name))
                 # 截图 - 保存到的指定的目录。名字要想好怎么取？
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
 
     # 截图
-    def save_webImgs(self, model=None):
+    def save_webImgs(self,coordinate=None, model=None):
         # 写的实时时间戳
         now = time.strftime("%Y-%m-%d-%H-%M-%S")
         # 图片的名称和时间戳
@@ -331,6 +337,14 @@ class BasePage:
         img_path = os.path.join(splicing.screenshot_dir, filePath)
         try:
             self.driver.save_screenshot(img_path)
+            image = Image.open(img_path)    # 原始图片文件地址
+            draw = ImageDraw2.Draw(image)
+            pen = ImageDraw2.Pen("red", width=3)    # 线条宽度和颜色
+            draw.line(coordinate, pen)     # 画线
+            # draw.line([(2,2), (100,2), (100, 202), (2,202), (2,2)], pen)     # 画线
+            if os.path.exists(img_path):
+                os.remove(img_path)
+            image.save(img_path)            # 保存新的文件
             allure.attach(self.driver.get_screenshot_as_png(),model,allure.attachment_type.PNG)
         except:
             log.exception("截图失败")
@@ -375,7 +389,7 @@ class BasePage:
             else:
                 log.exception("等待元素可见失败。")
                 # 截图
-                self.save_webImgs(model=model)
+                self.save_webImgs(coordinate=None,model=model)
                 self.exit_and_overRun()
 
     # 滑屏操作 - 向上滑屏
@@ -492,6 +506,11 @@ class BasePage:
             log.error("未查找到toast----%s" % message)
             return False
 
+    # 获取toast提示
+        # toast_text = driver.find_element(AppiumBy.XPATH, "//*[@class=\"android.widget.Toast\"]").text
+        # print(toast_text)
+
+
     # toast获取
     def get_toast_msg(self, part_text, model=None, t=5, s=0.03):
         # xpath表达式
@@ -504,7 +523,7 @@ class BasePage:
         except:
             # 抛异常
             log.exception("获取toast失败")
-            self.save_webImgs(model=model)
+            self.save_webImgs(coordinate=None,model=model)
             return False
 
 
@@ -582,6 +601,9 @@ class BasePage:
             return True
         else:
             return False
+
+
+    
 
     def page(self, name):
         '''

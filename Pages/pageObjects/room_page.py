@@ -4,6 +4,7 @@ import time, random
 from TestDatas.IM import chatMessage
 from Pages.pageObjects.sign_pop_page import SignPopPage
 from Pages.pageLocators.room_locators import RoomPageLocator as roomloc
+from Pages.pageLocators.home_locators import HomePageLocator as homeloc
 
 
 log = get_logger(logger_name="首页操作日志")
@@ -214,6 +215,8 @@ class RoomPage(CommonBus):
     '''
     def enter_liveRoom(self):
         # 在聊天室的用户
+        self.wait_click_element(homeloc.dating_module)#点击交友模块
+        self.wait_click_element(homeloc.tv_content_fx)#点击发现tap
         time.sleep(2)
         self.close_page_popUp()
         self.swipeDown()
@@ -243,6 +246,7 @@ class RoomPage(CommonBus):
     功能:发现列表-查看用户资料用例
     '''
     def enter_notLiveRoom(self):
+        self.wait_click_element(homeloc.dating_module,model="点击交友模块")
         time.sleep(2)
         self.close_page_popUp()
         self.swipeDown()
@@ -259,12 +263,16 @@ class RoomPage(CommonBus):
             layout_info_arr = self.get_list(element_arr,model="获取用户列表元素2")
             if layout_info_arr and len(layout_info_arr) > 0:
                 return self.view_user_profile(layout_info_arr)
-        elif self.is_element_exist(roomloc.no_more,model="没有更多") == False or self.is_element_exist(roomloc.no_data,model="暂无数据") == False:
+        elif self.is_element_exist(roomloc.no_more,model="没有更多") == False:
             log.info("当前页暂无进入聊天室用户，上拉加载")
             self.swipeUp()
             return self.user_homePage(element_list)
+        elif self.is_element_exist(roomloc.no_data,model="暂无数据"):
+            self.save_webImgs(model="列表暂无数据截图")
+            log.info("列表暂无数据")    
+            return False
         else:
-            self.save_webImgs(model="列表暂无用户进入聊天室截图")
+            self.save_webImgs(model="列表暂无用户进入聊天室")
             log.info("列表暂无用户进入聊天室")    
             return False
     
@@ -308,6 +316,7 @@ class RoomPage(CommonBus):
     附近的人--资料页用例
     '''
     def nearby_people_dataPage(self):
+        self.wait_click_element(homeloc.dating_module,model="点击交友模块")
         self.nearby_people() #附近的人tap
         self.close_page_popUp()
         self.swipeDown()
@@ -318,6 +327,7 @@ class RoomPage(CommonBus):
     附近的人---用户进入的聊天室用例
     '''
     def nearby_people_chatRoom(self):
+        self.wait_click_element(homeloc.dating_module,model="点击交友模块")
         self.nearby_people() #附近的人tap
         return self.enter_liveRoom()
 
@@ -831,6 +841,8 @@ class RoomPage(CommonBus):
         #先判断金币是否大于等于2
         self.wait_element_presence(roomloc.goldCoins_balance,timeout=4,model="等待金币余额")
         text = self.get_element_attribute(roomloc.goldCoins_balance,"text",model="获取金币余额元素")
+        text = text.replace("W","")
+        log.info("金币余额是：{}".format(text))
         number = int(text)
         if number >= 2:
             self.wait_element_presence(roomloc.goldCoins_list,model="金币礼物列表加载")

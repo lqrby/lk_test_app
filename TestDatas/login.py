@@ -13,7 +13,8 @@ import random
 
 login_success = [
     # {"username": "13100000052", "password": "k123456", "expected" : "ok", "check" : True},
-    {"username" : "18810798467", "password" : "Ren123456", "expected" : "ok", "check" : True}
+    # {"username" : "18810798467", "password" : "Ren123456", "expected" : "ok", "check" : True},
+    {"username" : "18810798508", "password" : "Ren123456", "expected" : "ok", "check" : True},
 ]
 
 '''错误的密码'''

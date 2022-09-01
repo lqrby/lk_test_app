@@ -206,16 +206,16 @@ class MyLocators:
     # 我的等级
     my_level = (Mb.ID, "com.ourydc.yuebaobao:id/v_vip_level")
     
-    free_barrage = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='免费弹幕']")
-    list_stealth = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='榜单隐身']")
-    anchor_level = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='主播等级']")
-    begin_to_show = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='开播']")
+    free_barrage = (Mb.XPATH, "//*[@class='android.view.View' and @text='免费弹幕']")
+    list_stealth = (Mb.XPATH, "//*[@class='android.view.View' and @text='榜单隐身']")
+    anchor_level = (Mb.XPATH, "//*[@class='android.view.View' and @text='主播等级']")
+    begin_to_show = (Mb.XPATH, "//*[@class='android.view.View' and @text='开播']")
     wish = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='心愿']")
     zhujianPK = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='PK']")
-    rank = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='爵位等级']")
-    count = (Mb.XPATH,"//*[@class='android.view.View' and @content-desc='含充值金额50元']")
-    explain = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='说明']")
-    VIP_dj = (Mb.XPATH, "//*[@class='android.view.View' and @content-desc='VIP等级']")
+    rank = (Mb.XPATH, "//*[@class='android.view.View' and @text='爵位等级']")
+    count = (Mb.XPATH,"//*[@class='android.view.View' and @text='含充值金额50元']")
+    explain = (Mb.XPATH, "//*[@class='android.view.View' and @text='说明']")
+    VIP_dj = (Mb.XPATH, "//*[@class='android.view.View' and @text='VIP等级']")
 
 
 
@@ -321,11 +321,12 @@ class MyLocators:
     protection_of_no = (Mb.ID,'com.ourydc.yuebaobao:id/layout_child_model') #未成年人保护模式开关
     protection_of_minors = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/tv_title_text' and @text='未成年人保护模式']") #未成年人保护模式
     on_state = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/layout_child_model']//node()[contains(@resource-id,'com.ourydc.yuebaobao:id/tv_content')]")
-    turn_on_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_open' and @text='开启保护模式']") #开启保护模式
+    # turn_on_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_open' and @text='开启保护模式']") #开启保护模式
+    turn_on_protection = (Mb.ID, "com.ourydc.yuebaobao:id/btn_open") #开启保护模式
     password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_1') #密码输入框
     confirm_password_input = (Mb.ID,'com.ourydc.yuebaobao:id/password_2') #确认密码输入框
     confirm_button = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #确定按钮
-    turn_off_protection = (Mb.XPATH, "//*[@resource-id='com.ourydc.yuebaobao:id/btn_open' and @text='关闭保护模式']") #关闭保护模式
+    turn_off_protection = (Mb.ID, "com.ourydc.yuebaobao:id/btn_sure") #关闭保护模式
     message_settings = (Mb.ID,'com.ourydc.yuebaobao:id/layout_msg_setting') #消息设置
     currency = (Mb.ID,'com.ourydc.yuebaobao:id/layout_common_use') #通用
     cash_capacity_management = (Mb.ID,'com.ourydc.yuebaobao:id/layout_money_setting') #钞能力管理
